@@ -1,19 +1,4 @@
-import {
-  LucideProps,
-  Cloudy,
-  Info,
-  Instagram,
-  Loader2,
-  LogOut,
-  Moon,
-  SendHorizontal,
-  SmilePlus,
-  Sun,
-  Twitter,
-  User,
-  Video,
-  AlertTriangle,
-} from "lucide-react";
+import { LucideProps, Loader2, Wallet } from "lucide-react";
 
 export const Icons = {
   gitHub: (props: LucideProps) => (
@@ -32,6 +17,6 @@ export const Icons = {
       />
     </svg>
   ),
-  logo: Cloudy,
+  logo: Wallet,
   spinner: Loader2,
 };

@@ -6,7 +6,7 @@ const Dashboard = async () => {
   return (
     <div>
       <p>Dashboard page</p>
-      <pre>{JSON.stringify(session)}</pre>
+      <p>{session?.user.name}</p>
     </div>
   );
 };

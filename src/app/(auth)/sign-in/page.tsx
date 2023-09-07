@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Link as NextUILink } from "@nextui-org/link";
 
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config";
@@ -12,7 +13,8 @@ const SignIn = () => {
       <div className="relative hidden h-full flex-col bg-muted p-10 text-white border-r lg:flex">
         <div className="absolute inset-0 bg-zinc-900" />
         <div className="relative z-20 flex items-center">
-          <Link
+          <NextUILink
+            as={Link}
             href="/"
             className={cn(
               buttonVariants({ variant: "link" }),
@@ -21,7 +23,7 @@ const SignIn = () => {
           >
             <Icons.logo className="mr-2 h-6 w-6" />
             {siteConfig.name}
-          </Link>
+          </NextUILink>
         </div>
       </div>
       <div className="lg:p-8">

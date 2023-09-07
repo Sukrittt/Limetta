@@ -1,4 +1,4 @@
 export const siteConfig = {
-  name: "BalanceWise",
+  name: "Balancewise",
   description: "Monthly expense tracker",
 };

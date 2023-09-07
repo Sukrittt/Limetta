@@ -2,9 +2,10 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 
-import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
 import { toast } from "@/hooks/use-toast";
+import { Button } from "@nextui-org/button";
+import { buttonVariants } from "@/components/ui/button";
 
 type LoadingState = "google" | "github";
 
@@ -47,8 +48,7 @@ const AuthForm = () => {
     <div className="grid gap-y-4 w-full h-full">
       <Button
         onClick={handleGoogleLogin}
-        variant="outline"
-        type="button"
+        className={buttonVariants({ variant: "outline" })}
         disabled={isLoading === "google"}
       >
         {isLoading === "google" ? (
@@ -60,8 +60,7 @@ const AuthForm = () => {
       </Button>
       <Button
         onClick={handleGithubLogin}
-        variant="outline"
-        type="button"
+        className={buttonVariants({ variant: "outline" })}
         disabled={isLoading === "github"}
       >
         {isLoading === "github" ? (

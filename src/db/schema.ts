@@ -19,6 +19,7 @@ export const users = mysqlTable("user", {
     fsp: 3,
   }).defaultNow(),
   image: varchar("image", { length: 255 }),
+  monthlyIncome: int("monthlyIncome"),
 });
 
 export type User = typeof users.$inferSelect;
@@ -76,3 +77,66 @@ export const verificationTokens = mysqlTable(
     compoundKey: primaryKey(vt.identifier, vt.token),
   })
 );
+
+// Needs
+export const needs = mysqlTable("needs", {
+  id: serial("id").primaryKey(),
+  amount: int("amount").notNull(),
+  userId: varchar("userId", { length: 255 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow(),
+});
+
+export type Needs = typeof needs.$inferSelect;
+
+export const needsReleation = relations(needs, ({ one }) => ({
+  author: one(users, {
+    fields: [needs.userId],
+    references: [users.id],
+  }),
+}));
+
+export const UserNeedsRelations = relations(users, ({ many }) => ({
+  needs: many(needs),
+}));
+
+// Wants
+export const wants = mysqlTable("wants", {
+  id: serial("id").primaryKey(),
+  amount: int("amount").notNull(),
+  userId: varchar("userId", { length: 255 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow(),
+});
+
+export type Wants = typeof wants.$inferSelect;
+
+export const wantsRelation = relations(wants, ({ one }) => ({
+  author: one(users, {
+    fields: [wants.userId],
+    references: [users.id],
+  }),
+}));
+
+export const UserWantsRelations = relations(users, ({ many }) => ({
+  wants: many(wants),
+}));
+
+// Investments
+export const investments = mysqlTable("investments", {
+  id: serial("id").primaryKey(),
+  amount: int("amount").notNull(),
+  userId: varchar("userId", { length: 255 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow(),
+});
+
+export type Investments = typeof investments.$inferSelect;
+
+export const investmentsRelation = relations(investments, ({ one }) => ({
+  author: one(users, {
+    fields: [investments.userId],
+    references: [users.id],
+  }),
+}));
+
+export const UserInvestmentsRelations = relations(users, ({ many }) => ({
+  investments: many(investments),
+}));

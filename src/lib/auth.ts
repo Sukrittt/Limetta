@@ -44,7 +44,7 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: "/",
+    signIn: "/sign-in",
   },
   providers: [
     GithubProvider({
@@ -89,7 +89,7 @@ export const authOptions: NextAuthOptions = {
       };
     },
     redirect() {
-      return "/";
+      return "/dashboard";
     },
   },
 };

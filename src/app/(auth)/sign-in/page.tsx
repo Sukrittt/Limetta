@@ -18,7 +18,7 @@ const SignIn = () => {
             href="/"
             className={cn(
               buttonVariants({ variant: "link" }),
-              "text-lg font-medium"
+              "text-lg font-medium text-white"
             )}
           >
             <Icons.logo className="mr-2 h-6 w-6" />

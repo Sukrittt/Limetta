@@ -19,7 +19,11 @@ export const users = mysqlTable("user", {
     fsp: 3,
   }).defaultNow(),
   image: varchar("image", { length: 255 }),
+
   monthlyIncome: int("monthlyIncome"),
+  needsPercentage: int("needsPercentage").notNull().default(50),
+  wantsPercentage: int("wantsPercentage").notNull().default(30),
+  investmentsPercentage: int("investmentsPercentage").notNull().default(20),
 });
 
 export type User = typeof users.$inferSelect;
@@ -82,8 +86,9 @@ export const verificationTokens = mysqlTable(
 export const needs = mysqlTable("needs", {
   id: serial("id").primaryKey(),
   amount: int("amount").notNull(),
+  description: varchar("description", { length: 50 }).notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
-  createdAt: timestamp("createdAt").defaultNow(),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
 });
 
 export type Needs = typeof needs.$inferSelect;
@@ -103,8 +108,9 @@ export const UserNeedsRelations = relations(users, ({ many }) => ({
 export const wants = mysqlTable("wants", {
   id: serial("id").primaryKey(),
   amount: int("amount").notNull(),
+  description: varchar("description", { length: 50 }).notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
-  createdAt: timestamp("createdAt").defaultNow(),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
 });
 
 export type Wants = typeof wants.$inferSelect;
@@ -124,8 +130,9 @@ export const UserWantsRelations = relations(users, ({ many }) => ({
 export const investments = mysqlTable("investments", {
   id: serial("id").primaryKey(),
   amount: int("amount").notNull(),
+  description: varchar("description", { length: 50 }).notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
-  createdAt: timestamp("createdAt").defaultNow(),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
 });
 
 export type Investments = typeof investments.$inferSelect;

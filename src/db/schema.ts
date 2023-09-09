@@ -82,25 +82,53 @@ export const verificationTokens = mysqlTable(
   })
 );
 
+//monthly books
+export const books = mysqlTable("books", {
+  id: serial("id").primaryKey(),
+  userId: varchar("userId", { length: 255 }).notNull(),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+});
+
+export type Books = typeof books.$inferSelect;
+
+export const booksRelation = relations(books, ({ one }) => ({
+  author: one(users, {
+    fields: [books.userId],
+    references: [users.id],
+  }),
+}));
+
+export const UserBooksRelations = relations(users, ({ many }) => ({
+  books: many(books),
+}));
+
 // Needs
 export const needs = mysqlTable("needs", {
   id: serial("id").primaryKey(),
   amount: int("amount").notNull(),
   description: varchar("description", { length: 50 }).notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
+  bookId: int("bookId").notNull(),
   createdAt: timestamp("createdAt").notNull().defaultNow(),
 });
 
 export type Needs = typeof needs.$inferSelect;
 
-export const needsReleation = relations(needs, ({ one }) => ({
+export const needsReleationWithBooks = relations(needs, ({ one }) => ({
+  book: one(books, {
+    fields: [needs.bookId],
+    references: [books.id],
+  }),
+}));
+
+export const needsReleationWithUsers = relations(needs, ({ one }) => ({
   author: one(users, {
     fields: [needs.userId],
     references: [users.id],
   }),
 }));
 
-export const UserNeedsRelations = relations(users, ({ many }) => ({
+export const bookNeedsRelations = relations(books, ({ many }) => ({
   needs: many(needs),
 }));
 
@@ -110,40 +138,26 @@ export const wants = mysqlTable("wants", {
   amount: int("amount").notNull(),
   description: varchar("description", { length: 50 }).notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
+  bookId: int("bookId").notNull(),
   createdAt: timestamp("createdAt").notNull().defaultNow(),
 });
 
 export type Wants = typeof wants.$inferSelect;
 
-export const wantsRelation = relations(wants, ({ one }) => ({
+export const wantsRelationWithBooks = relations(wants, ({ one }) => ({
+  book: one(books, {
+    fields: [wants.bookId],
+    references: [books.id],
+  }),
+}));
+
+export const wantsRelationWithUsers = relations(wants, ({ one }) => ({
   author: one(users, {
     fields: [wants.userId],
     references: [users.id],
   }),
 }));
 
-export const UserWantsRelations = relations(users, ({ many }) => ({
+export const bookWantsRelations = relations(books, ({ many }) => ({
   wants: many(wants),
-}));
-
-// Investments
-export const investments = mysqlTable("investments", {
-  id: serial("id").primaryKey(),
-  amount: int("amount").notNull(),
-  description: varchar("description", { length: 50 }).notNull(),
-  userId: varchar("userId", { length: 255 }).notNull(),
-  createdAt: timestamp("createdAt").notNull().defaultNow(),
-});
-
-export type Investments = typeof investments.$inferSelect;
-
-export const investmentsRelation = relations(investments, ({ one }) => ({
-  author: one(users, {
-    fields: [investments.userId],
-    references: [users.id],
-  }),
-}));
-
-export const UserInvestmentsRelations = relations(users, ({ many }) => ({
-  investments: many(investments),
 }));

@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1694093083020,
-      "tag": "0000_daffy_earthquake",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1694095640146,
-      "tag": "0001_flat_marauders",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1694176343006,
-      "tag": "0002_bent_dorian_gray",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1694177830368,
-      "tag": "0003_dear_quasimodo",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1694178255602,
-      "tag": "0004_glorious_trauma",
+      "when": 1694280442328,
+      "tag": "0000_windy_supreme_intelligence",
       "breakpoints": true
     }
   ]

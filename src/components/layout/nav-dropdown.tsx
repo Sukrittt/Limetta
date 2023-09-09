@@ -33,7 +33,7 @@ const NavDropdown: FC<NavDropdownProps> = ({ session }) => {
     },
     {
       href: "customize",
-      label: "Customize Expense",
+      label: "Customize",
     },
   ];
 
@@ -64,7 +64,7 @@ const NavDropdown: FC<NavDropdownProps> = ({ session }) => {
         <DropdownMenuSeparator />
 
         {navItems.map((item, index) => (
-          <DropdownMenuItem key={index}>
+          <DropdownMenuItem key={index} asChild className="cursor-pointer">
             <Link href={item.href}>{item.label}</Link>
           </DropdownMenuItem>
         ))}

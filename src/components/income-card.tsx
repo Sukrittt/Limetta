@@ -123,6 +123,11 @@ export const IncomeCard = ({ title }: { title: string }) => {
             value={monthlyIncome?.toString() ?? ""}
             onChange={(e) => setMonthlyIncome(parseInt(e.target.value))}
             validationState={inputValidationState}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleUpdateMonthlyIncome();
+              }
+            }}
             errorMessage={
               inputValidationState === "invalid" &&
               "Monthly income must be greater than 0."

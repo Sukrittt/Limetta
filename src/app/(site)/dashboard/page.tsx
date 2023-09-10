@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { getAuthSession } from "@/lib/auth";
 import { serverClient } from "@/trpc/server-client";
 
+export const dynamic = "force-dynamic";
+
 const Dashboard = async () => {
   const session = await getAuthSession();
   const currentUser = await serverClient.getCurrentUser();

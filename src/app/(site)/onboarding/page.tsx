@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { serverClient } from "@/trpc/server-client";
 import { IncomeCard } from "@/components/income-card";
 
+export const dynamic = "force-dynamic";
+
 const Onboarding = async () => {
   const currentUser = await serverClient.getCurrentUser();
 

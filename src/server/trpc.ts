@@ -6,20 +6,6 @@ export const createTRPCContext = () => {
   return {};
 };
 
-// const t = initTRPC.context<typeof createTRPCContext>().create({
-//   transformer: superjson,
-//   errorFormatter({ shape, error }) {
-//     return {
-//       ...shape,
-//       data: {
-//         ...shape.data,
-//         zodError:
-//           error.cause instanceof ZodError ? error.cause.flatten() : null,
-//       },
-//     };
-//   },
-// });
-
 const t = initTRPC.create();
 
 export const router = t.router;

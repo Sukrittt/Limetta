@@ -1,25 +1,26 @@
 import { TRPCError, initTRPC } from "@trpc/server";
-import { ZodError } from "zod";
-import superjson from "superjson";
+
 import { getAuthSession } from "@/lib/auth";
 
 export const createTRPCContext = () => {
   return {};
 };
 
-const t = initTRPC.context<typeof createTRPCContext>().create({
-  transformer: superjson,
-  errorFormatter({ shape, error }) {
-    return {
-      ...shape,
-      data: {
-        ...shape.data,
-        zodError:
-          error.cause instanceof ZodError ? error.cause.flatten() : null,
-      },
-    };
-  },
-});
+// const t = initTRPC.context<typeof createTRPCContext>().create({
+//   transformer: superjson,
+//   errorFormatter({ shape, error }) {
+//     return {
+//       ...shape,
+//       data: {
+//         ...shape.data,
+//         zodError:
+//           error.cause instanceof ZodError ? error.cause.flatten() : null,
+//       },
+//     };
+//   },
+// });
+
+const t = initTRPC.create();
 
 export const router = t.router;
 export const publicProcedure = t.procedure;

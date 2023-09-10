@@ -1,4 +1,5 @@
 import { Button } from "@nextui-org/button";
+import Link from "next/link";
 import { Link as NextUILink } from "@nextui-org/link";
 
 import { cn } from "@/lib/utils";
@@ -17,6 +18,7 @@ export const Navbar = async () => {
         <div className="relative z-20 flex items-center">
           <NextUILink
             href="/"
+            as={Link}
             className={cn(
               buttonVariants({ variant: "link" }),
               "text-md tracking-tighter text-white"
@@ -31,7 +33,11 @@ export const Navbar = async () => {
         {session ? (
           <NavDropdown session={session} />
         ) : (
-          <Button className={buttonVariants({ variant: "secondary" })}>
+          <Button
+            className={buttonVariants({ variant: "secondary" })}
+            as={Link}
+            href="/sign-in"
+          >
             Sign In
           </Button>
         )}

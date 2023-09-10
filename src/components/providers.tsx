@@ -6,6 +6,7 @@ import { httpBatchLink } from "@trpc/react-query";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { trpc } from "@/trpc/client";
+import superjson from "superjson";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient({}));
@@ -16,6 +17,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/trpc`,
         }),
       ],
+      transformer: superjson,
     })
   );
 

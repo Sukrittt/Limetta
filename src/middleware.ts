@@ -2,6 +2,7 @@ import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(req: NextRequest) {
+  console.log("running");
   const isAuthenticated = await getToken({ req });
 
   const pathname = req.nextUrl.pathname;

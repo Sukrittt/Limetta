@@ -9,6 +9,8 @@ const Dashboard = async () => {
   const session = await getAuthSession();
   const currentUser = await serverClient.getCurrentUser();
 
+  if (!currentUser || !session) redirect("/sign-in");
+
   if (!currentUser.monthlyIncome) redirect("/onboarding");
 
   return (

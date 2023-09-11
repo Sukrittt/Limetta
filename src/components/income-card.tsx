@@ -14,12 +14,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { Icons } from "@/components/icons";
-import ToolTip from "@/components/ui/tool-tip";
-import { buttonVariants } from "@/components/ui/button";
-import { Label } from "./ui/label";
 import { trpc } from "@/trpc/client";
 import { toast } from "@/hooks/use-toast";
+import { Icons } from "@/components/icons";
+import { Label } from "@/components/ui/label";
+import ToolTip from "@/components/ui/tool-tip";
+import { buttonVariants } from "@/components/ui/button";
 
 export const IncomeCard = ({ title }: { title: string }) => {
   const router = useRouter();

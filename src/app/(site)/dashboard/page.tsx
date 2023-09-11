@@ -1,13 +1,11 @@
 import { redirect } from "next/navigation";
-import { Button } from "@nextui-org/button";
 
 import { Shell } from "@/components/shell";
 import { getAuthSession } from "@/lib/auth";
 import { serverClient } from "@/trpc/server-client";
-import { ExpenseCard } from "@/components/expense-card";
+import { AddExpense } from "@/components/expense/add-expense";
+import { ExpenseCard } from "@/components/expense/expense-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -17,8 +15,14 @@ const Dashboard = async () => {
   const currentMonthEntries = await serverClient.getCurrentMonthBooks();
 
   const expenses = [
-    ...currentMonthEntries.needs.map((item) => ({ ...item, type: "needs" })),
-    ...currentMonthEntries.wants.map((item) => ({ ...item, type: "wants" })),
+    ...currentMonthEntries.needs.map((item) => ({
+      ...item,
+      type: "need" as const,
+    })),
+    ...currentMonthEntries.wants.map((item) => ({
+      ...item,
+      type: "want" as const,
+    })),
   ];
   expenses.sort((a: any, b: any) => b.createdAt - a.createdAt);
 
@@ -54,11 +58,7 @@ const Dashboard = async () => {
           </CardTitle>
           <CardContent className="space-y-2 text-sm tracking-tight">
             <div className="flex justify-end">
-              <Button
-                className={cn(buttonVariants({ size: "sm" }), "tracking-tight")}
-              >
-                Add Entry
-              </Button>
+              <AddExpense bookId={currentMonthEntries.books.id} />
             </div>
             <div className="grid grid-cols-7 px-6">
               <span>Date & Time</span>

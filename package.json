@@ -31,6 +31,7 @@
     "autoprefixer": "10.4.15",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.28.6",
     "eslint": "8.48.0",

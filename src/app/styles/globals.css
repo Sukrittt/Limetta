@@ -60,3 +60,7 @@
     @apply bg-background text-foreground dark min-h-screen;
   }
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

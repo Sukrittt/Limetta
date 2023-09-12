@@ -6,6 +6,7 @@ import { serverClient } from "@/trpc/server-client";
 import { AddExpense } from "@/components/expense/add-expense";
 import { ExpenseCard } from "@/components/expense/expense-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -97,6 +98,7 @@ const Dashboard = async () => {
                 <span>Needs: {`₹ ${needShare}`}</span>
                 <span>Wants: {`₹ ${wantShare}`}</span>
                 <span>Investments: {`₹ ${investmentShare}`}</span>
+                <span>Monthly Income: {`₹ ${currentUser.monthlyIncome}`}</span>
               </div>
             </div>
             <div className="flex flex-col gap-y-2">
@@ -114,8 +116,26 @@ const Dashboard = async () => {
                 Money Left
               </span>
               <div className="font-mono flex flex-col gap-y-1">
-                <span>Needs: {`₹ ${needShare - needsTotal}`}</span>
-                <span>Wants: {`₹ ${wantShare - wantsTotal}`}</span>
+                <span>
+                  Needs:{" "}
+                  <span
+                    className={cn({
+                      "text-rose-500": needShare - needsTotal < 0,
+                    })}
+                  >
+                    {`₹ ${needShare - needsTotal}`}
+                  </span>
+                </span>
+                <span>
+                  Wants:{" "}
+                  <span
+                    className={cn({
+                      "text-rose-500": wantShare - wantsTotal < 0,
+                    })}
+                  >
+                    {`₹ ${wantShare - wantsTotal}`}
+                  </span>
+                </span>
               </div>
             </div>
             <div className="flex flex-col gap-y-2">
@@ -125,11 +145,28 @@ const Dashboard = async () => {
               <div className="font-mono flex flex-col gap-y-1">
                 <span>
                   Left for Spending:{" "}
-                  {`₹ ${needShare + wantShare - (needsTotal + wantsTotal)}`}
+                  <span
+                    className={cn({
+                      "text-rose-500":
+                        needShare + wantShare - (needsTotal + wantsTotal) < 0,
+                    })}
+                  >
+                    {`₹ ${needShare + wantShare - (needsTotal + wantsTotal)}`}
+                  </span>
                 </span>
                 <span>
                   Total Savings:{" "}
-                  {`₹ ${currentUser.monthlyIncome - (needsTotal + wantsTotal)}`}
+                  <span
+                    className={cn({
+                      "text-rose-500":
+                        currentUser.monthlyIncome - (needsTotal + wantsTotal) <
+                        0,
+                    })}
+                  >
+                    {`₹ ${
+                      currentUser.monthlyIncome - (needsTotal + wantsTotal)
+                    }`}
+                  </span>
                 </span>
               </div>
             </div>

@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Icons } from "@/components/icons";
 import { signOut } from "next-auth/react";
+import { sidebarItems } from "@/config";
 
 interface NavDropdownProps {
   session: Session;
@@ -21,21 +22,6 @@ interface NavDropdownProps {
 
 const NavDropdown: FC<NavDropdownProps> = ({ session }) => {
   const { user } = session;
-
-  const navItems = [
-    {
-      href: "about",
-      label: "About",
-    },
-    {
-      href: "overview",
-      label: "Overview",
-    },
-    {
-      href: "customize",
-      label: "Customize",
-    },
-  ];
 
   return (
     <DropdownMenu>
@@ -63,9 +49,14 @@ const NavDropdown: FC<NavDropdownProps> = ({ session }) => {
 
         <DropdownMenuSeparator />
 
-        {navItems.map((item, index) => (
+        {sidebarItems.map((item, index) => (
           <DropdownMenuItem key={index} asChild className="cursor-pointer">
-            <Link href={item.href}>{item.label}</Link>
+            <Link href={item.href}>
+              <div className="flex items-center gap-x-2">
+                <item.Icon className="h-4 w-4" />
+                {item.label}
+              </div>
+            </Link>
           </DropdownMenuItem>
         ))}
 

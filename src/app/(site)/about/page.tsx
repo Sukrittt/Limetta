@@ -1,5 +1,7 @@
+import { Shell } from "@/components/shell";
+
 const About = () => {
-  return <div>About</div>;
+  return <Shell>About</Shell>;
 };
 
 export default About;

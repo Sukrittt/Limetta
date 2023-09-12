@@ -10,7 +10,11 @@ const Onboarding = async () => {
 
   if (currentUser.monthlyIncome) redirect("/dashboard");
 
-  return <IncomeCard title="Financial Setup: Let&rsquo;s Get Started" />;
+  return (
+    <div className="min-h-[calc(100vh-80px)] max-w-md m-auto flex items-center justify-center">
+      <IncomeCard title="Financial Setup: Let&rsquo;s Get Started" />
+    </div>
+  );
 };
 
 export default Onboarding;

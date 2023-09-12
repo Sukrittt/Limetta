@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+
 import { ExpenseType } from "@/types";
 import { EditExpense } from "./edit-expense";
 import { DeleteExpense } from "./delete-expense";
@@ -8,15 +9,17 @@ export const ExpenseCard = ({ expense }: { expense: ExpenseType }) => {
   return (
     <Card>
       <CardContent className="grid grid-cols-7 py-3">
-        <span>{format(expense.createdAt, "dd MMM yyyy")}</span>
+        <span className="text-xs tracking-tighter">
+          {format(expense.createdAt, "dd MMM '·' h:mm a")}
+        </span>
         <span className="col-span-3">{expense.description}</span>
         {expense.type === "need" ? (
-          <span className="text-center font-mono">{`₹ ${expense.amount}`}</span>
+          <span className="text-center font-mono">{`₹${expense.amount}`}</span>
         ) : (
           <span className="text-center">-</span>
         )}
         {expense.type === "want" ? (
-          <span className="text-center font-mono">{`₹ ${expense.amount}`}</span>
+          <span className="text-center font-mono">{`₹${expense.amount}`}</span>
         ) : (
           <span className="text-center">-</span>
         )}

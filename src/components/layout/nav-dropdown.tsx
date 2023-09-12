@@ -1,6 +1,5 @@
 "use client";
 import { FC } from "react";
-import Link from "next/link";
 import { Session } from "next-auth";
 import { Avatar } from "@nextui-org/avatar";
 
@@ -8,7 +7,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -51,12 +49,12 @@ const NavDropdown: FC<NavDropdownProps> = ({ session }) => {
 
         {sidebarItems.map((item, index) => (
           <DropdownMenuItem key={index} asChild className="cursor-pointer">
-            <Link href={item.href}>
+            <a href={item.href}>
               <div className="flex items-center gap-x-2">
                 <item.Icon className="h-4 w-4" />
                 {item.label}
               </div>
-            </Link>
+            </a>
           </DropdownMenuItem>
         ))}
 

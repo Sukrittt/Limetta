@@ -54,10 +54,10 @@ export const IncomeCard = ({ title }: { title: string }) => {
     onSuccess: () => {
       router.push("/dashboard");
     },
-    onError: (error) => {
+    onError: () => {
       toast({
-        title: "Something went wrong",
-        description: error.message,
+        title: "Something went wrong.",
+        description: "Please try again.",
         variant: "destructive",
       });
     },

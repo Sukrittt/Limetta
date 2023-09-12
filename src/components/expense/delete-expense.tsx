@@ -36,10 +36,10 @@ export const DeleteExpense = ({
         description: "The entry has been deleted successfully.",
       });
     },
-    onError: (error) => {
+    onError: () => {
       toast({
-        title: "Something went wrong",
-        description: error.message,
+        title: "Something went wrong.",
+        description: "Please try again.",
         variant: "destructive",
       });
     },

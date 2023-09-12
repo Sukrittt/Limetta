@@ -30,6 +30,13 @@ export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
         description: "Your expense has been added successfully.",
       });
     },
+    onError: () => {
+      toast({
+        title: "Something went wrong.",
+        description: "Please try again.",
+        variant: "destructive",
+      });
+    },
   });
 
   const handleSubmit = () => {
@@ -37,6 +44,14 @@ export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
       return toast({
         title: "Amount is required",
         description: "Please enter a valid amount.",
+        variant: "destructive",
+      });
+    }
+
+    if (description.length === 0 || description.length > 50) {
+      return toast({
+        title: "Description is too long/short",
+        description: "Please enter a valid description.",
         variant: "destructive",
       });
     }

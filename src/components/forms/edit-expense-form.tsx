@@ -35,16 +35,24 @@ export const EditExpenseForm = ({
       });
       router.refresh();
     },
-    onError: (error) => {
+    onError: () => {
       toast({
-        title: "Something went wrong",
-        description: error.message,
+        title: "Something went wrong.",
+        description: "Please try again.",
         variant: "destructive",
       });
     },
   });
 
   const handleSubmit = () => {
+    if (description.length === 0 || description.length > 50) {
+      return toast({
+        title: "Description is too long/short",
+        description: "Please enter a valid description.",
+        variant: "destructive",
+      });
+    }
+
     editEntry.mutate({
       bookId: expense.bookId,
       expenseId: expense.id,

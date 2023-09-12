@@ -58,19 +58,28 @@ const Dashboard = async () => {
           </CardTitle>
           <CardContent className="space-y-2 text-sm tracking-tight">
             <div className="flex justify-end">
-              <AddExpense bookId={currentMonthEntries.books.id} />
+              <AddExpense />
             </div>
-            <div className="grid grid-cols-7 px-6">
-              <span>Date & Time</span>
-              <span className="col-span-3">Details</span>
-              <span className="text-center">Needs</span>
-              <span className="text-center">Wants</span>
-            </div>
-            <div className="flex flex-col gap-y-4">
-              {expenses.map((expense) => (
-                <ExpenseCard key={expense.id} expense={expense} />
-              ))}
-            </div>
+            {expenses.length === 0 ? (
+              <div className="flex flex-col items-center gap-y-1 pt-4 font-mono text-muted-foreground tracking-tight">
+                <p>No entries added Yet!</p>
+                <p>Add your first entry of the month.</p>
+              </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-7 px-6">
+                  <span>Date & Time</span>
+                  <span className="col-span-3">Details</span>
+                  <span className="text-center">Needs</span>
+                  <span className="text-center">Wants</span>
+                </div>
+                <div className="flex flex-col gap-y-4">
+                  {expenses.map((expense) => (
+                    <ExpenseCard key={expense.id} expense={expense} />
+                  ))}
+                </div>
+              </>
+            )}
           </CardContent>
         </Card>
       </div>

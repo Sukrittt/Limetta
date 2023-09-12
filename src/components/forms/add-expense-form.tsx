@@ -13,13 +13,7 @@ import { Button } from "@nextui-org/button";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
 
-export const AddExpenseForm = ({
-  bookId,
-  onClose,
-}: {
-  bookId: number;
-  onClose: () => void;
-}) => {
+export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
   const router = useRouter();
   const [amount, setAmount] = useState<number | null>(null);
   const [description, setDescription] = useState("");
@@ -48,7 +42,6 @@ export const AddExpenseForm = ({
     }
 
     addEntry.mutate({
-      bookId,
       amount,
       description,
       expenseType: expenseTypeSelected,

@@ -1,14 +1,17 @@
 "use client";
 import { Button } from "@nextui-org/button";
 import {
-    Modal,
-    ModalContent,
-    ModalHeader, useDisclosure
+  Modal,
+  ModalContent,
+  ModalHeader,
+  useDisclosure,
 } from "@nextui-org/modal";
 
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 import { AddExpenseForm } from "@/components/forms/add-expense-form";
 
-export const AddExpense = ({ bookId }: { bookId: number }) => {
+export const AddExpense = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
@@ -16,6 +19,7 @@ export const AddExpense = ({ bookId }: { bookId: number }) => {
       <Button
         onPress={onOpen}
         color="primary"
+        className={cn(buttonVariants({ size: "sm" }), "rounded-lg")}
       >
         Add Entry
       </Button>
@@ -26,7 +30,7 @@ export const AddExpense = ({ bookId }: { bookId: number }) => {
               <ModalHeader className="flex flex-col gap-1">
                 Add expense
               </ModalHeader>
-                <AddExpenseForm bookId={bookId} onClose={onClose} />
+              <AddExpenseForm onClose={onClose} />
             </>
           )}
         </ModalContent>

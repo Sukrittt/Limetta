@@ -1,4 +1,4 @@
-import { LucideProps, Loader2, Wallet, LogOut, Info } from "lucide-react";
+import { LucideProps, Wallet, LogOut, Info } from "lucide-react";
 
 export const Icons = {
   gitHub: (props: LucideProps) => (
@@ -18,7 +18,6 @@ export const Icons = {
     </svg>
   ),
   logo: Wallet,
-  spinner: Loader2,
   logout: LogOut,
   info: Info,
 };

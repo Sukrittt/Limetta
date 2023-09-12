@@ -31,6 +31,14 @@ export const bookRouter = createTRPCRouter({
       .leftJoin(needs, eq(books.id, needs.bookId))
       .leftJoin(wants, eq(books.id, wants.bookId));
 
+    if (currentMonthBooks.length === 0) {
+      return {
+        books: [],
+        needs: [],
+        wants: [],
+      };
+    }
+
     const bookMap = new Map();
 
     currentMonthBooks.forEach((row) => {
@@ -38,7 +46,7 @@ export const bookRouter = createTRPCRouter({
 
       if (!bookMap.has(bookId)) {
         bookMap.set(bookId, {
-          books: row.books,
+          books: [row.books],
           needs: [],
           wants: [],
         });
@@ -53,7 +61,7 @@ export const bookRouter = createTRPCRouter({
       }
     });
 
-    const structuredData: { books: Books; needs: Needs[]; wants: Wants[] }[] =
+    const structuredData: { books: Books[]; needs: Needs[]; wants: Wants[] }[] =
       Array.from(bookMap.values());
 
     const firstBook = structuredData[0];

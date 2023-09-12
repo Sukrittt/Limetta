@@ -1,23 +1,59 @@
 import { z } from "zod";
-import { eq } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
+import { and, eq, sql } from "drizzle-orm";
 
 import { db } from "@/db";
-import { needs, wants } from "@/db/schema";
+import { books, needs, wants } from "@/db/schema";
 import { createTRPCRouter, privateProcedure } from "@/server/trpc";
 
 export const entryRouter = createTRPCRouter({
   addEntry: privateProcedure
     .input(
       z.object({
-        bookId: z.number(),
         expenseType: z.enum(["need", "want"]),
         amount: z.number().positive(),
         description: z.string().min(1).max(50),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      // add entry
+      const currentMonthBooks = await db
+        .select()
+        .from(books)
+        .where(
+          and(
+            eq(books.userId, ctx.userId),
+            sql`MONTH(books.createdAt) = MONTH(NOW())`,
+            sql`YEAR(books.createdAt) = YEAR(NOW())`
+          )
+        );
+
+      let bookId;
+
+      if (currentMonthBooks.length === 0) {
+        const newlyCreatedBook = await db.insert(books).values({
+          userId: ctx.userId,
+        });
+
+        bookId = parseInt(newlyCreatedBook.insertId);
+      } else {
+        bookId = currentMonthBooks[0].id;
+      }
+
+      if (input.expenseType === "need") {
+        await db.insert(needs).values({
+          amount: input.amount,
+          description: input.description,
+          bookId,
+          userId: ctx.userId,
+        });
+      } else if (input.expenseType === "want") {
+        await db.insert(wants).values({
+          amount: input.amount,
+          description: input.description,
+          bookId,
+          userId: ctx.userId,
+        });
+      }
     }),
   deleteEntry: privateProcedure
     .input(

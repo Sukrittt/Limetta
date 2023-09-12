@@ -12,6 +12,9 @@ import { format } from "date-fns";
 import { MonthlyExpenseSheet } from "@/components/expense/mothly-expense-sheet";
 import { Icons } from "@/components/icons";
 
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 const Overview = async () => {
   const userBooks = await serverClient.books.getUserBooks();
 

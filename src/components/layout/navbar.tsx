@@ -1,6 +1,5 @@
-import { Button } from "@nextui-org/button";
 import Link from "next/link";
-import { Link as NextUILink } from "@nextui-org/link";
+import { Button } from "@nextui-org/button";
 
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config";
@@ -16,9 +15,8 @@ export const Navbar = async () => {
     <div className="sticky top-0 z-40 w-full bg-background flex justify-between lg:space-around items-center py-3 border-b px-8 lg:px-16">
       <div className="w-full lg:flex hidden gap-x-8 items-center">
         <div className="relative z-20 flex items-center">
-          <NextUILink
+          <Link
             href="/"
-            as={Link}
             className={cn(
               buttonVariants({ variant: "link" }),
               "text-md tracking-tighter text-white"
@@ -26,7 +24,7 @@ export const Navbar = async () => {
           >
             <Icons.logo className="mr-2 h-6 w-6  fill-black dark:fill-white" />
             {siteConfig.name}
-          </NextUILink>
+          </Link>
         </div>
       </div>
       <div className="flex gap-x-4 items-center">
@@ -34,7 +32,7 @@ export const Navbar = async () => {
           <NavDropdown session={session} />
         ) : (
           <Button
-            className={buttonVariants({ variant: "secondary" })}
+            className={buttonVariants({ size: "sm" })}
             as={Link}
             href="/sign-in"
           >

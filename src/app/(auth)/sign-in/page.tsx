@@ -1,11 +1,10 @@
 import Link from "next/link";
-import { Link as NextUILink } from "@nextui-org/link";
 
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config";
 import { Icons } from "@/components/icons";
-import { buttonVariants } from "@/components/ui/button";
 import AuthForm from "@/components/forms/auth-form";
+import { buttonVariants } from "@/components/ui/button";
 
 const SignIn = () => {
   return (
@@ -13,17 +12,16 @@ const SignIn = () => {
       <div className="relative hidden h-full flex-col bg-muted p-10 text-white border-r lg:flex">
         <div className="absolute inset-0 bg-zinc-900" />
         <div className="relative z-20 flex items-center">
-          <NextUILink
-            as={Link}
+          <Link
             href="/"
             className={cn(
               buttonVariants({ variant: "link" }),
-              "text-lg font-medium text-white"
+              "text-lg font-medium text-white focus-visible:ring-muted"
             )}
           >
             <Icons.logo className="mr-2 h-6 w-6" />
             {siteConfig.name}
-          </NextUILink>
+          </Link>
         </div>
       </div>
       <div className="lg:p-8">

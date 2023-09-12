@@ -46,6 +46,7 @@
     "postcss": "8.4.29",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-wrap-balancer": "^1.1.0",
     "recharts": "^2.8.0",
     "superjson": "^1.13.1",
     "tailwind-merge": "^1.14.0",

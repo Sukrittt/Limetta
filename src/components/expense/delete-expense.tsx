@@ -23,10 +23,10 @@ export const DeleteExpense = ({
   expenseId: number;
   expenseType: "want" | "need";
 }) => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const deleteEntry = trpc.deleteEntry.useMutation({
+  const deleteEntry = trpc.entries.deleteEntry.useMutation({
     onSuccess: () => {
       onOpenChange();
       router.refresh();

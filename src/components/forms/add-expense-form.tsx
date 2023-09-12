@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Input } from "@nextui-org/input";
+import { RadioGroup, Radio } from "@nextui-org/radio";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 
 import { Label } from "@/components/ui/label";
@@ -15,6 +16,9 @@ export const AddExpenseForm = ({
 }) => {
   const [amount, setAmount] = useState<number | null>(null);
   const [description, setDescription] = useState("");
+  const [expenseTypeSelected, setExpenseTypeSelected] = useState<
+    "want" | "need"
+  >("need");
 
   const handleSubmit = () => {};
 
@@ -30,7 +34,6 @@ export const AddExpenseForm = ({
               type="number"
               value={amount?.toString() ?? ""}
               onChange={(e) => setAmount(parseInt(e.target.value))}
-              // validationState={inputValidationState}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   handleSubmit();
@@ -50,13 +53,29 @@ export const AddExpenseForm = ({
               placeholder="Eg: Coffee"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              // validationState={inputValidationState}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   handleSubmit();
                 }
               }}
             />
+          </div>
+          <div>
+            <RadioGroup
+              orientation="horizontal"
+              value={expenseTypeSelected}
+              onValueChange={(value) => {
+                if (value !== "want" && value !== "need") return;
+                setExpenseTypeSelected(value);
+              }}
+            >
+              <Radio value="need" description="It's a necessity.">
+                Needs
+              </Radio>
+              <Radio value="want" description="It's a luxury.">
+                Wants
+              </Radio>
+            </RadioGroup>
           </div>
         </form>
       </ModalBody>

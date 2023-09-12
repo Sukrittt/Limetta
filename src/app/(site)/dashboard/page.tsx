@@ -11,8 +11,8 @@ export const dynamic = "force-dynamic";
 
 const Dashboard = async () => {
   const session = await getAuthSession();
-  const currentUser = await serverClient.getCurrentUser();
-  const currentMonthEntries = await serverClient.getCurrentMonthBooks();
+  const currentUser = await serverClient.user.getCurrentUser();
+  const currentMonthEntries = await serverClient.books.getCurrentMonthBooks();
 
   const expenses = [
     ...currentMonthEntries.needs.map((item) => ({

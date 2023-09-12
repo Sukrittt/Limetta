@@ -26,7 +26,7 @@ export const EditExpenseForm = ({
   const [description, setDescription] = useState(expense.description);
   const [expenseTypeSelected, setExpenseTypeSelected] = useState(expense.type);
 
-  const editEntry = trpc.editEntry.useMutation({
+  const editEntry = trpc.entries.editEntry.useMutation({
     onSuccess: () => {
       onClose();
       toast({

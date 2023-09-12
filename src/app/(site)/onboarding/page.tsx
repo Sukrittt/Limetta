@@ -6,7 +6,7 @@ import { IncomeCard } from "@/components/income-card";
 export const dynamic = "force-dynamic";
 
 const Onboarding = async () => {
-  const currentUser = await serverClient.getCurrentUser();
+  const currentUser = await serverClient.user.getCurrentUser();
 
   if (currentUser.monthlyIncome) redirect("/dashboard");
 

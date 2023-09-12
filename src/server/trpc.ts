@@ -22,9 +22,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
   },
 });
 
-// const t = initTRPC.create();
-
-export const router = t.router;
+export const createTRPCRouter = t.router;
 export const publicProcedure = t.procedure;
 
 const enforcedUserIsAuthed = t.middleware(async ({ next }) => {

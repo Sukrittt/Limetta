@@ -5,6 +5,10 @@ import {
   Info,
   BarChart3,
   Settings,
+  PartyPopper,
+  Hand,
+  CalendarCheck,
+  BarChart4,
 } from "lucide-react";
 
 export const Icons = {
@@ -29,4 +33,8 @@ export const Icons = {
   info: Info,
   overview: BarChart3,
   customize: Settings,
+  wants: PartyPopper,
+  needs: Hand,
+  streaks: CalendarCheck,
+  entries: BarChart4,
 };

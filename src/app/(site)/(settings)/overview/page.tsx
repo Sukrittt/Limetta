@@ -10,38 +10,58 @@ import {
 import { ExpenseOverview } from "@/components/expense-overview";
 import { format } from "date-fns";
 import { MonthlyExpenseSheet } from "@/components/expense/mothly-expense-sheet";
+import { Icons } from "@/components/icons";
 
 const Overview = async () => {
   const userBooks = await serverClient.books.getUserBooks();
 
-  const data = userBooks.map((obj) => {
-    const totalExpenses =
-      obj.needs.reduce((acc, need) => acc + need.amount, 0) +
-      obj.wants.reduce((acc, want) => acc + want.amount, 0);
+  const data =
+    userBooks.length === 0
+      ? []
+      : userBooks.map((obj) => {
+          const totalExpenses =
+            obj.needs.reduce((acc, need) => acc + need.amount, 0) +
+            obj.wants.reduce((acc, want) => acc + want.amount, 0);
 
-    const month = new Date(obj.books[0].createdAt).toLocaleString("en-US", {
-      month: "short",
-    });
+          const month = new Date(obj.books[0].createdAt).toLocaleString(
+            "en-US",
+            {
+              month: "short",
+            }
+          );
 
-    return {
-      name: month,
-      total: totalExpenses,
-    };
-  });
+          return {
+            name: month,
+            total: totalExpenses,
+          };
+        });
 
-  const expenseData = userBooks.map((obj) => {
-    const totalExpenses =
-      obj.needs.reduce((acc, need) => acc + need.amount, 0) +
-      obj.wants.reduce((acc, want) => acc + want.amount, 0);
+  let totalWants = 0,
+    totalNeeds = 0,
+    totalEntries = 0;
 
-    const month = format(obj.books[0].createdAt, "MMMM yyyy");
+  const expenseData =
+    userBooks.length === 0
+      ? []
+      : userBooks.map((obj) => {
+          const totalWantEntries = obj.wants.reduce((acc) => acc + 1, 0);
+          const totalNeedEntries = obj.needs.reduce((acc) => acc + 1, 0);
 
-    return {
-      month,
-      total: totalExpenses,
-      ...obj,
-    };
-  });
+          totalEntries = totalWantEntries + totalNeedEntries;
+
+          totalWants = obj.wants.reduce((acc, need) => acc + need.amount, 0);
+          totalNeeds = obj.needs.reduce((acc, want) => acc + want.amount, 0);
+
+          const totalExpenses = totalWants + totalNeeds;
+
+          const month = format(obj.books[0].createdAt, "MMMM yyyy");
+
+          return {
+            month,
+            total: totalExpenses,
+            ...obj,
+          };
+        });
 
   const totalSpent = data.reduce((acc, obj) => acc + obj.total, 0);
 
@@ -52,33 +72,45 @@ const Overview = async () => {
           Budget Overview
         </h1>
         <p className="text-muted-foreground text-md">
-          Monthly Expense Summary and History
+          Monthly Expense Summary for the Past Year
         </p>
       </div>
       <div className="grid grid-cols-4 gap-4">
         <Card>
-          <CardHeader>
-            <CardTitle className="text-md">Title</CardTitle>
+          <CardHeader className="flex flex-row justify-between items-center pb-2">
+            <CardTitle className="text-md">Needs</CardTitle>
+            <Icons.needs className="w-4 h-4" />
           </CardHeader>
-          <CardContent>Content</CardContent>
+          <CardContent>
+            <p className="font-mono text-lg text-muted-foreground">{`₹${totalWants}`}</p>
+          </CardContent>
         </Card>
         <Card>
-          <CardHeader>
-            <CardTitle className="text-md">Title</CardTitle>
+          <CardHeader className="flex flex-row justify-between items-center pb-2">
+            <CardTitle className="text-md">Wants</CardTitle>
+            <Icons.wants className="w-4 h-4" />
           </CardHeader>
-          <CardContent>Content</CardContent>
+          <CardContent>
+            <p className="font-mono text-lg text-muted-foreground">{`₹${totalNeeds}`}</p>
+          </CardContent>
         </Card>
         <Card>
-          <CardHeader>
-            <CardTitle className="text-md">Title</CardTitle>
+          <CardHeader className="flex flex-row justify-between items-center pb-2">
+            <CardTitle className="text-md">Months Recorded</CardTitle>
+            <Icons.streaks className="w-4 h-4" />
           </CardHeader>
-          <CardContent>Content</CardContent>
+          <CardContent>
+            <p className="font-mono text-lg text-muted-foreground">{`${userBooks.length}`}</p>
+          </CardContent>
         </Card>
         <Card>
-          <CardHeader>
-            <CardTitle className="text-md">Title</CardTitle>
+          <CardHeader className="flex flex-row justify-between items-center pb-2">
+            <CardTitle className="text-md">Total Entries</CardTitle>
+            <Icons.entries className="h-4 w-4" />
           </CardHeader>
-          <CardContent>Content</CardContent>
+          <CardContent>
+            <p className="font-mono text-lg text-muted-foreground">{`${totalEntries}`}</p>
+          </CardContent>
         </Card>
       </div>
       <div className="grid grid-cols-5 gap-4">
@@ -92,18 +124,28 @@ const Overview = async () => {
         </Card>
         <Card className="col-span-2 max-h-[450px] overflow-y-auto no-scrollbar">
           <CardHeader>
-            <CardTitle className="text-md">Previous Month Expenses</CardTitle>
-            <CardDescription>You spent ₹{totalSpent} till now.</CardDescription>
+            <CardTitle className="text-md">Total Monthly Expenses</CardTitle>
+            <CardDescription>
+              You have spent ₹{totalSpent} till now.
+            </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col py-0 px-3">
-            {expenseData.map((expense, index) => (
-              <MonthlyExpenseSheet key={index} expenseData={expense}>
-                <div className="flex items-center justify-between hover:bg-muted rounded-lg transtion p-3 cursor-pointer">
-                  <span className="text-sm">{expense.month}</span>
-                  <span className="font-mono">{`₹${expense.total}`}</span>
-                </div>
-              </MonthlyExpenseSheet>
-            ))}
+            {expenseData.length === 0 ? (
+              <div className="flex flex-col items-center justify-center min-h-[270px]">
+                <p className="text-sm font-mono text-muted-foreground">
+                  No entries created yet.
+                </p>
+              </div>
+            ) : (
+              expenseData.map((expense, index) => (
+                <MonthlyExpenseSheet key={index} expenseData={expense}>
+                  <div className="flex items-center justify-between hover:bg-muted rounded-lg transtion p-3 cursor-pointer">
+                    <span className="text-sm">{expense.month}</span>
+                    <span className="font-mono">{`₹${expense.total}`}</span>
+                  </div>
+                </MonthlyExpenseSheet>
+              ))
+            )}
           </CardContent>
         </Card>
       </div>

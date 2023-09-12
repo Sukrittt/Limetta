@@ -46,7 +46,7 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
       <SheetTrigger className="focus:outline-none focus:ring-2 rounded-lg focus:ring-offset-muted focus:ring-offset-2 ring-offset-background">
         {children}
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="overflow-y-auto no-scrollbar">
         <SheetHeader>
           <SheetTitle>{`${expenseData.month} expenses`}</SheetTitle>
           <SheetDescription>

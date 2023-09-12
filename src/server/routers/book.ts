@@ -31,13 +31,7 @@ export const bookRouter = createTRPCRouter({
       .leftJoin(wants, eq(books.id, wants.bookId));
 
     if (currentMonthBooks.length === 0) {
-      return [
-        {
-          books: [],
-          needs: [],
-          wants: [],
-        },
-      ];
+      return [];
     }
 
     const bookMap = new Map();

@@ -49,7 +49,7 @@ export const IncomeCard = ({ title }: { title: string }) => {
     }
   }, [monthlyIncome]);
 
-  const updateUserIncome = trpc.updateMonthlyIncome.useMutation({
+  const updateUserIncome = trpc.user.updateMonthlyIncome.useMutation({
     onSuccess: () => {
       router.push("/dashboard");
     },

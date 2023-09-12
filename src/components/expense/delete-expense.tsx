@@ -9,12 +9,12 @@ import {
 } from "@nextui-org/modal";
 import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
+import { Spinner } from "@nextui-org/spinner";
 
+import { cn } from "@/lib/utils";
 import { trpc } from "@/trpc/client";
 import { toast } from "@/hooks/use-toast";
-import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 export const DeleteExpense = ({
   expenseId,
@@ -67,20 +67,25 @@ export const DeleteExpense = ({
                 </p>
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button
+                  color="danger"
+                  variant="light"
+                  className={cn(
+                    buttonVariants({ size: "sm", variant: "ghost" }),
+                    "rounded-lg"
+                  )}
+                  onPress={onClose}
+                >
                   Cancel
                 </Button>
                 <Button
                   color="primary"
                   disabled={deleteEntry.isLoading}
-                  className={cn(buttonVariants(), "rounded-lg")}
+                  className={cn(buttonVariants({ size: "sm" }), "rounded-lg")}
                   onClick={() => deleteEntry.mutate({ expenseId, expenseType })}
                 >
                   {deleteEntry.isLoading ? (
-                    <>
-                      <Icons.spinner className="h-4 w-4 animate-spin mr-1" />
-                      Deleting
-                    </>
+                    <Spinner color="default" size="sm" />
                   ) : (
                     "Delete"
                   )}

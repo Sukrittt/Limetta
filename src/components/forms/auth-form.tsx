@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { Spinner } from "@nextui-org/spinner";
 
-import { Icons } from "@/components/icons";
 import { toast } from "@/hooks/use-toast";
+import { Icons } from "@/components/icons";
 import { Button } from "@nextui-org/button";
 import { buttonVariants } from "@/components/ui/button";
 
@@ -52,7 +53,7 @@ const AuthForm = () => {
         disabled={isLoading === "google"}
       >
         {isLoading === "google" ? (
-          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+          <Spinner color="default" size="sm" className="mr-2" />
         ) : (
           <Icons.google className="mr-2 h-4 w-4" />
         )}{" "}
@@ -64,7 +65,7 @@ const AuthForm = () => {
         disabled={isLoading === "github"}
       >
         {isLoading === "github" ? (
-          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+          <Spinner color="default" size="sm" className="mr-2" />
         ) : (
           <Icons.gitHub className="mr-2 h-4 w-4" />
         )}{" "}

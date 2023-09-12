@@ -1,9 +1,10 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { Input } from "@nextui-org/input";
-import { RadioGroup, Radio } from "@nextui-org/radio";
+import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
+import { Spinner } from "@nextui-org/spinner";
+import { RadioGroup, Radio } from "@nextui-org/radio";
 import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
 
 import {
@@ -262,12 +263,15 @@ export const IncomeCard = ({ title }: { title: string }) => {
           </NextUICard>
 
           <Button
-            className={cn(buttonVariants(), "w-full mt-4 tracking-tight")}
+            className={cn(
+              buttonVariants({ size: "sm" }),
+              "w-full mt-4 tracking-tight"
+            )}
             disabled={updateUserIncome.isLoading}
             onClick={handleUpdateMonthlyIncome}
           >
             {updateUserIncome.isLoading ? (
-              <Icons.spinner className="h-4 w-4 animate-spin" />
+              <Spinner color="default" size="sm" />
             ) : (
               "Continue to Dashboard"
             )}

@@ -1,12 +1,24 @@
 import { z } from "zod";
 import { eq } from "drizzle-orm";
+import { TRPCError } from "@trpc/server";
 
 import { db } from "@/db";
 import { needs, wants } from "@/db/schema";
 import { createTRPCRouter, privateProcedure } from "@/server/trpc";
-import { TRPCError } from "@trpc/server";
 
 export const entryRouter = createTRPCRouter({
+  addEntry: privateProcedure
+    .input(
+      z.object({
+        bookId: z.number(),
+        expenseType: z.enum(["need", "want"]),
+        amount: z.number().positive(),
+        description: z.string().min(1).max(50),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      // add entry
+    }),
   deleteEntry: privateProcedure
     .input(
       z.object({ expenseId: z.number(), expenseType: z.enum(["need", "want"]) })

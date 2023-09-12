@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Input } from "@nextui-org/input";
 import { useRouter } from "next/navigation";
+import { Spinner } from "@nextui-org/spinner";
 import { RadioGroup, Radio } from "@nextui-org/radio";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 
@@ -9,7 +10,6 @@ import { cn } from "@/lib/utils";
 import { trpc } from "@/trpc/client";
 import { ExpenseType } from "@/types";
 import { toast } from "@/hooks/use-toast";
-import { Icons } from "@/components/icons";
 import { Button } from "@nextui-org/button";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
@@ -115,20 +115,25 @@ export const EditExpenseForm = ({
         </form>
       </ModalBody>
       <ModalFooter>
-        <Button color="danger" variant="light" onPress={onClose}>
+        <Button
+          color="danger"
+          variant="light"
+          className={cn(
+            buttonVariants({ size: "sm", variant: "ghost" }),
+            "rounded-lg"
+          )}
+          onPress={onClose}
+        >
           Close
         </Button>
         <Button
           color="primary"
-          className={cn(buttonVariants(), "rounded-lg")}
+          className={cn(buttonVariants({ size: "sm" }), "rounded-lg")}
           disabled={editEntry.isLoading}
           onClick={handleSubmit}
         >
           {editEntry.isLoading ? (
-            <>
-              <Icons.spinner className="h-4 w-4 animate-spin mr-1" />
-              Updating
-            </>
+            <Spinner color="default" size="sm" />
           ) : (
             "Update"
           )}

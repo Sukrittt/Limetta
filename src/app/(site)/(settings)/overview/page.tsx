@@ -69,7 +69,7 @@ const Overview = async () => {
   const totalSpent = data.reduce((acc, obj) => acc + obj.total, 0);
 
   return (
-    <Shell className="tracking-tight">
+    <Shell className="tracking-tight px-0">
       <div className="space-y-2">
         <h1 className="line-clamp-1 text-3xl font-bold tracking-tight py-1">
           Budget Overview
@@ -78,7 +78,7 @@ const Overview = async () => {
           Monthly Expense Summary for the Past Year
         </p>
       </div>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="flex flex-row justify-between items-center pb-2">
             <CardTitle className="text-md">Needs</CardTitle>
@@ -117,7 +117,7 @@ const Overview = async () => {
         </Card>
       </div>
       <div className="grid grid-cols-5 gap-4">
-        <Card className="col-span-3">
+        <Card className="col-span-5 lg:col-span-3">
           <CardHeader>
             <CardTitle className="text-md">Overview</CardTitle>
           </CardHeader>
@@ -125,14 +125,14 @@ const Overview = async () => {
             <ExpenseOverview data={data} />
           </CardContent>
         </Card>
-        <Card className="col-span-2 max-h-[450px] overflow-y-auto no-scrollbar">
+        <Card className="col-span-5 lg:col-span-2 max-h-[450px] overflow-y-auto no-scrollbar">
           <CardHeader>
             <CardTitle className="text-md">Total Monthly Expenses</CardTitle>
             <CardDescription>
               You have spent ₹{totalSpent} till now.
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col gap-y-2 py-0 px-3">
+          <CardContent className="flex flex-col gap-y-2 pb-6 lg:py-0 px-3">
             {expenseData.length === 0 ? (
               <div className="flex flex-col items-center justify-center min-h-[270px]">
                 <p className="text-sm font-mono text-muted-foreground">

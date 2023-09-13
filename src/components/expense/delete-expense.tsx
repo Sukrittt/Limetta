@@ -53,7 +53,12 @@ export const DeleteExpense = ({
       >
         Delete
       </span>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur">
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        backdrop="blur"
+        placement="center"
+      >
         <ModalContent>
           {(onClose) => (
             <>

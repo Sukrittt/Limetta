@@ -52,15 +52,15 @@ const Dashboard = async () => {
     currentUser.monthlyIncome * (currentUser.investmentsPercentage / 100);
 
   return (
-    <Shell className="grid grid-cols-7">
-      <div className="col-span-5">
-        <Card className="h-[calc(100vh-130px)] overflow-y-auto no-scrollbar">
+    <Shell className="grid grid-cols-7 md:py-4">
+      <div className="col-span-7 lg:col-span-5">
+        <Card className="h-[calc(100vh-140px)] overflow-y-auto no-scrollbar">
           <CardTitle>
-            <CardHeader className="text-center text-3xl py-4">{`${currentMonth} Entries`}</CardHeader>
+            <CardHeader className="text-center text-xl md:text-3xl py-4">{`${currentMonth} Entries`}</CardHeader>
             <Divider />
           </CardTitle>
           <CardContent className="space-y-2 text-sm tracking-tight pt-3">
-            <div className="flex justify-end">
+            <div className="flex justify-end mb-6">
               <AddExpense />
             </div>
             {expenses.length === 0 ? (
@@ -70,9 +70,9 @@ const Dashboard = async () => {
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-7 px-6">
-                  <span>Date & Time</span>
-                  <span className="col-span-3">Details</span>
+                <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-6">
+                  <span className="hidden lg:block">Date & Time</span>
+                  <span className="col-span-2 sm:col-span-3">Details</span>
                   <span className="text-center">Needs</span>
                   <span className="text-center">Wants</span>
                 </div>
@@ -86,15 +86,15 @@ const Dashboard = async () => {
           </CardContent>
         </Card>
       </div>
-      <div className="col-span-2">
-        <Card className="h-[calc(100vh-130px)]">
+      <div className="col-span-7 lg:col-span-2">
+        <Card className="lg:h-[calc(100vh-140px)] overflow-y-auto no-scrollbar">
           <CardTitle>
             <CardHeader className="text-center py-4">
               Expense Insights
             </CardHeader>
             <Divider />
           </CardTitle>
-          <CardContent className="flex flex-col gap-y-4 pt-3">
+          <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 pt-6 lg:pt-3">
             <div className="flex flex-col gap-y-2">
               <span className="font-semibold underline underline-offset-4">
                 Allotment

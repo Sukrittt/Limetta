@@ -12,20 +12,18 @@ export const Navbar = async () => {
   const session = await getAuthSession();
 
   return (
-    <div className="sticky top-0 z-40 w-full bg-background flex justify-between lg:space-around items-center py-3 px-8 lg:px-16">
-      <div className="w-full lg:flex hidden gap-x-8 items-center">
-        <div className="relative z-20 flex items-center">
-          <Link
-            href="/"
-            className={cn(
-              buttonVariants({ variant: "link" }),
-              "text-md tracking-tighter text-white"
-            )}
-          >
-            <Icons.logo className="mr-2 h-6 w-6  fill-black dark:fill-white" />
-            {siteConfig.name}
-          </Link>
-        </div>
+    <div className="sticky top-0 z-40 w-full bg-background flex justify-between lg:space-around items-center py-5 px-8 lg:px-24">
+      <div className="relative z-20 flex items-center">
+        <Link
+          href="/"
+          className={cn(
+            buttonVariants({ variant: "link" }),
+            "text-md tracking-tighter text-white"
+          )}
+        >
+          <Icons.logo className="mr-2 h-6 w-6  fill-black dark:fill-white" />
+          {siteConfig.name}
+        </Link>
       </div>
       <div className="flex gap-x-4 items-center">
         {session ? (

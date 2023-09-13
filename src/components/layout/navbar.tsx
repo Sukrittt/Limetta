@@ -18,10 +18,10 @@ export const Navbar = async () => {
           href="/"
           className={cn(
             buttonVariants({ variant: "link" }),
-            "text-md tracking-tighter text-white"
+            "text-md tracking-tighter text-white pl-0"
           )}
         >
-          <Icons.logo className="mr-2 h-6 w-6  fill-black dark:fill-white" />
+          <Icons.logo className="mr-2 h-6 w-6 fill-black dark:fill-white" />
           {siteConfig.name}
         </Link>
       </div>

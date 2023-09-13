@@ -1,6 +1,7 @@
 "use client";
 import { FC } from "react";
 import { Session } from "next-auth";
+import { signOut } from "next-auth/react";
 import { Avatar } from "@nextui-org/avatar";
 
 import {
@@ -10,9 +11,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Icons } from "@/components/icons";
-import { signOut } from "next-auth/react";
 import { sidebarItems } from "@/config";
+import { Icons } from "@/components/icons";
 
 interface NavDropdownProps {
   session: Session;

@@ -23,16 +23,14 @@ const Customize = async () => {
 
   return (
     <Shell>
-      <div className="max-w-md m-auto flex items-center justify-center">
-        <IncomeCard
-          title="Tailor Your Monthly Budget and Expense Ratio"
-          income={currentUser.monthlyIncome}
-          initialNeedRatio={currentUser.needsPercentage}
-          initialWantRatio={currentUser.wantsPercentage}
-          initialInvestmentRatio={currentUser.investmentsPercentage}
-          initialSelectedRatio={initialSelectedRatio}
-        />
-      </div>
+      <IncomeCard
+        title="Tailor Your Monthly Budget and Expense Ratio"
+        income={currentUser.monthlyIncome}
+        initialNeedRatio={currentUser.needsPercentage}
+        initialWantRatio={currentUser.wantsPercentage}
+        initialInvestmentRatio={currentUser.investmentsPercentage}
+        initialSelectedRatio={initialSelectedRatio}
+      />
     </Shell>
   );
 };

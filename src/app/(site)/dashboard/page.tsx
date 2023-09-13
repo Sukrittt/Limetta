@@ -52,7 +52,7 @@ const Dashboard = async () => {
     currentUser.monthlyIncome * (currentUser.investmentsPercentage / 100);
 
   return (
-    <Shell className="grid grid-cols-7 md:py-4">
+    <Shell className="grid grid-cols-7 md:py-4 tracking-tight">
       <div className="col-span-7 lg:col-span-5">
         <Card className="h-[calc(100vh-140px)] overflow-y-auto no-scrollbar">
           <CardTitle>
@@ -89,12 +89,12 @@ const Dashboard = async () => {
       <div className="col-span-7 lg:col-span-2">
         <Card className="lg:h-[calc(100vh-140px)] overflow-y-auto no-scrollbar">
           <CardTitle>
-            <CardHeader className="text-center py-4">
+            <CardHeader className="text-center py-5">
               Expense Insights
             </CardHeader>
             <Divider />
           </CardTitle>
-          <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 pt-6 lg:pt-3">
+          <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 pt-6 lg:pb-0 lg:pt-3">
             <div className="flex flex-col gap-y-2">
               <span className="font-semibold underline underline-offset-4">
                 Allotment

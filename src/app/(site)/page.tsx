@@ -2,7 +2,9 @@ import Link from "next/link";
 import { Button } from "@nextui-org/button";
 import { Balancer } from "react-wrap-balancer";
 
+import { cn } from "@/lib/utils";
 import { Shell } from "@/components/shell";
+import { buttonVariants } from "@/components/ui/button";
 
 export default function Home() {
   return (
@@ -10,20 +12,19 @@ export default function Home() {
       <section
         id="hero"
         aria-labelledby="hero-heading"
-        className="mx-auto flex w-full max-w-[64rem] flex-col items-center justify-center gap-4 pb-8 pt-6 text-center md:pb-12 md:pt-10 lg:pt-20 lg:pb-10"
+        className="mx-auto flex w-full max-w-[64rem] flex-col items-center justify-center gap-4 pb-8 text-center pt-10 sm:pt-20 lg:pb-10"
       >
-        <h1 className="text-3xl font-bold leading-tight tracking-tight md:text-5xl lg:text-8xl lg:leading-[1.1]">
+        <Balancer className="font-bold leading-tight tracking-tight text-5xl sm:text-7xl lg:text-8xl lg:leading-[1.1]">
           Your <span className="font-mono text-primary">Financial</span>{" "}
           Wellness Starts Here
-        </h1>
-        <Balancer className="max-w-[46rem] text-xl text-muted-foreground sm:text-xl">
+        </Balancer>
+        <Balancer className="max-w-[32rem] lg:max-w-[46rem] text-lg sm:text-xl text-muted-foreground">
           Take control of your finances with our intuitive budgeting and expense
           tracking app. Achieve your financial goals, one step at a time.
         </Balancer>
         <Button
           color="primary"
-          className="rounded-full"
-          size="lg"
+          className={cn(buttonVariants(), "rounded-full text-md lg:h-11")}
           as={Link}
           href="/sign-in"
         >

@@ -132,7 +132,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
         <div className="flex gap-x-2 items-center">
           <Label>Monthly Income</Label>
           <ToolTip
-            text="This amount will be used for splitting it into categories."
+            text="This amount will be used to allocate your budget between wants and needs."
             showArrow
           >
             <Icons.info className="h-3 w-3 text-muted-foreground cursor-pointer" />
@@ -187,7 +187,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
                   Ratio must add up to 100%
                 </p>
               )}
-              <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+              <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
                 <Input
                   placeholder="0"
                   type="number"

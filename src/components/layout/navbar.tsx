@@ -12,7 +12,7 @@ export const Navbar = async () => {
   const session = await getAuthSession();
 
   return (
-    <div className="sticky top-0 z-40 w-full bg-background flex justify-between lg:space-around items-center py-3 border-b px-8 lg:px-16">
+    <div className="sticky top-0 z-40 w-full bg-background flex justify-between lg:space-around items-center py-3 px-8 lg:px-16">
       <div className="w-full lg:flex hidden gap-x-8 items-center">
         <div className="relative z-20 flex items-center">
           <Link
@@ -32,7 +32,7 @@ export const Navbar = async () => {
           <NavDropdown session={session} />
         ) : (
           <Button
-            className={buttonVariants({ size: "sm" })}
+            className={cn(buttonVariants({ size: "sm" }), "rounded-full")}
             as={Link}
             href="/sign-in"
           >

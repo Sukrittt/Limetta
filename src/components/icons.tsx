@@ -1,7 +1,5 @@
 import {
-  LucideProps,
-  Wallet,
-  LogOut,
+  LucideProps, LogOut,
   Info,
   BarChart3,
   Settings,
@@ -9,6 +7,7 @@ import {
   Hand,
   CalendarCheck,
   BarChart4,
+  Scale
 } from "lucide-react";
 
 export const Icons = {
@@ -28,7 +27,7 @@ export const Icons = {
       />
     </svg>
   ),
-  logo: Wallet,
+  logo: Scale,
   logout: LogOut,
   info: Info,
   overview: BarChart3,

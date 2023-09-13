@@ -85,7 +85,7 @@ const Overview = async () => {
             <Icons.needs className="w-4 h-4" />
           </CardHeader>
           <CardContent>
-            <p className="font-mono text-lg text-muted-foreground">{`₹${totalWants}`}</p>
+            <p className="font-mono text-lg text-muted-foreground">{`₹${totalNeeds}`}</p>
           </CardContent>
         </Card>
         <Card>
@@ -94,7 +94,7 @@ const Overview = async () => {
             <Icons.wants className="w-4 h-4" />
           </CardHeader>
           <CardContent>
-            <p className="font-mono text-lg text-muted-foreground">{`₹${totalNeeds}`}</p>
+            <p className="font-mono text-lg text-muted-foreground">{`₹${totalWants}`}</p>
           </CardContent>
         </Card>
         <Card>
@@ -132,7 +132,7 @@ const Overview = async () => {
               You have spent ₹{totalSpent} till now.
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col py-0 px-3">
+          <CardContent className="flex flex-col gap-y-2 py-0 px-3">
             {expenseData.length === 0 ? (
               <div className="flex flex-col items-center justify-center min-h-[270px]">
                 <p className="text-sm font-mono text-muted-foreground">
@@ -142,7 +142,7 @@ const Overview = async () => {
             ) : (
               expenseData.map((expense, index) => (
                 <MonthlyExpenseSheet key={index} expenseData={expense}>
-                  <div className="flex items-center justify-between hover:bg-muted rounded-lg transtion p-3 cursor-pointer">
+                  <div className="flex items-center justify-between hover:bg-muted rounded-lg transtion p-3 cursor-pointer border">
                     <span className="text-sm">{expense.month}</span>
                     <span className="font-mono">{`₹${expense.total}`}</span>
                   </div>

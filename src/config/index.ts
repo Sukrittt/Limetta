@@ -4,6 +4,7 @@ export const siteConfig = {
   name: "Balancewise",
   description:
     "Experience a smarter way to manage your finances with Balancewise, a cutting-edge application crafted on Next.js. Our mission is to empower you with effortless expense tracking and provide a comprehensive monthly budget overview. Gain control, make informed decisions, and pave the way to financial success, all in one user-friendly platform.",
+  url: "https://balancewise.vercel.app",
 };
 
 export const sidebarItems = [

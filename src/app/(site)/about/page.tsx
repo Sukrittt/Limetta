@@ -77,7 +77,7 @@ const About = () => {
                   target="_blank"
                   className="underline font-medium tracking-tight underline-offset-4"
                 >
-                  nextui
+                  nextui.org
                 </Link>{" "}
                 - For UI components with awesome animations.
               </li>

@@ -1,5 +1,6 @@
 import {
-  LucideProps, LogOut,
+  LucideProps,
+  LogOut,
   Info,
   BarChart3,
   Settings,
@@ -7,7 +8,8 @@ import {
   Hand,
   CalendarCheck,
   BarChart4,
-  Scale
+  Scale,
+  AlertTriangle,
 } from "lucide-react";
 
 export const Icons = {
@@ -36,4 +38,5 @@ export const Icons = {
   needs: Hand,
   streaks: CalendarCheck,
   entries: BarChart4,
+  warning: AlertTriangle,
 };

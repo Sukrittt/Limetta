@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export const dynamic = "force-dynamic";
 
 const Dashboard = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 10000));
   const session = await getAuthSession();
   const currentUser = await serverClient.user.getCurrentUser();
   const currentMonthEntries = await serverClient.books.getCurrentMonthBooks();
@@ -56,7 +57,7 @@ const Dashboard = async () => {
       <div className="col-span-7 lg:col-span-5">
         <Card className="h-[calc(100vh-140px)] overflow-y-auto no-scrollbar">
           <CardTitle>
-            <CardHeader className="text-center text-xl md:text-3xl py-4">{`${currentMonth} Entries`}</CardHeader>
+            <CardHeader className="text-center text-2xl font-mono md:text-3xl py-4">{`${currentMonth} Entries`}</CardHeader>
             <Divider />
           </CardTitle>
           <CardContent className="space-y-2 text-sm tracking-tight pt-6 md:pt-3">
@@ -89,7 +90,7 @@ const Dashboard = async () => {
       <div className="col-span-7 lg:col-span-2">
         <Card className="lg:h-[calc(100vh-140px)] overflow-y-auto no-scrollbar">
           <CardTitle>
-            <CardHeader className="text-center py-5">
+            <CardHeader className="text-center py-5 font-mono">
               Expense Insights
             </CardHeader>
             <Divider />

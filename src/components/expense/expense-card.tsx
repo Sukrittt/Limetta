@@ -17,16 +17,16 @@ export const ExpenseCard = ({ expense }: { expense: ExpenseType }) => {
             {format(zonedDate, "dd MMM '·' h:mm a", { timeZone })}
           </span>
         </div>
-        <span className="text-base font-mono col-span-2 sm:col-span-3 break-words">
+        <span className="text-base col-span-2 sm:col-span-3 break-words">
           {expense.description}
         </span>
         {expense.type === "need" ? (
-          <span className="text-center font-mono">{`₹${expense.amount}`}</span>
+          <span className="text-center">{`₹${expense.amount}`}</span>
         ) : (
           <span className="text-center">-</span>
         )}
         {expense.type === "want" ? (
-          <span className="text-center font-mono">{`₹${expense.amount}`}</span>
+          <span className="text-center">{`₹${expense.amount}`}</span>
         ) : (
           <span className="text-center">-</span>
         )}

@@ -1,3 +1,6 @@
+import { format } from "date-fns";
+
+import { Icons } from "@/components/icons";
 import { Shell } from "@/components/shell";
 import { serverClient } from "@/trpc/server-client";
 import {
@@ -8,9 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ExpenseOverview } from "@/components/expense-overview";
-import { format } from "date-fns";
 import { MonthlyExpenseSheet } from "@/components/expense/mothly-expense-sheet";
-import { Icons } from "@/components/icons";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
@@ -142,7 +143,7 @@ const Overview = async () => {
             ) : (
               expenseData.map((expense, index) => (
                 <MonthlyExpenseSheet key={index} expenseData={expense}>
-                  <div className="flex items-center justify-between hover:bg-muted rounded-lg transtion p-3 cursor-pointer border">
+                  <div className="flex items-center justify-between hover:bg-muted rounded-lg transtion-all p-3 cursor-pointer border">
                     <span className="text-sm">{expense.month}</span>
                     <span className="font-mono">{`₹${expense.total}`}</span>
                   </div>

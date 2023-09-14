@@ -12,7 +12,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export const dynamic = "force-dynamic";
 
 const Dashboard = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 10000));
   const session = await getAuthSession();
   const currentUser = await serverClient.user.getCurrentUser();
   const currentMonthEntries = await serverClient.books.getCurrentMonthBooks();

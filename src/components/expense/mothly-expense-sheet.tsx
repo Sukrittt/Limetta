@@ -43,11 +43,11 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
 
   return (
     <Sheet>
-      <SheetTrigger className="focus:outline-none focus:ring-2 rounded-lg focus:ring-offset-muted focus:ring-offset-2 ring-offset-background">
+      <SheetTrigger className="focus:outline-none rounded-lg focus-visible:ring-2 focus-visible:ring-neutral-800">
         {children}
       </SheetTrigger>
       <SheetContent className="overflow-y-auto no-scrollbar">
-        <SheetHeader>
+        <SheetHeader className="mt-2 sm:mt-0">
           <SheetTitle>{`${expenseData.month} expenses`}</SheetTitle>
           <SheetDescription>
             You spent a total of ₹{expenseData.total} this month.

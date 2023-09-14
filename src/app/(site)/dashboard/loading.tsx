@@ -1,5 +1,4 @@
 import { Divider } from "@nextui-org/divider";
-// import { Skeleton } from "@nextui-org/skeleton";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import { Shell } from "@/components/shell";

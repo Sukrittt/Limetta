@@ -41,7 +41,7 @@ const About = () => {
             <h1 className="text-xl font-semibold tracking-tight">
               Tech stack used
             </h1>
-            <Divider className="my-2" />
+            <Divider className="mt-2 mb-4" />
             <ul className="space-y-2 mx-5 mt-2">
               {techStack.map((tech, index) => (
                 <li key={index} className="list-disc">
@@ -59,7 +59,7 @@ const About = () => {
 
           <div>
             <h1 className="text-xl font-semibold tracking-tight">Credits</h1>
-            <Divider className="my-2" />
+            <Divider className="mt-2 mb-4" />
             <ul className="space-y-2 mx-5 mt-2 list-disc">
               <li>
                 <Link
@@ -88,7 +88,7 @@ const About = () => {
             <h1 className="text-xl font-semibold tracking-tight">
               Key features
             </h1>
-            <Divider className="my-2" />
+            <Divider className="mt-2 mb-4" />
             <ul className="space-y-2 mx-5 mt-2">
               {features.map((feature, index) => (
                 <li key={index} className="list-disc">
@@ -102,7 +102,7 @@ const About = () => {
             <h1 className="text-xl font-semibold tracking-tight">
               About the author
             </h1>
-            <Divider className="my-2" />
+            <Divider className="mt-2 mb-4" />
             <ul className="space-y-2 mx-5 mt-2">
               {socials.map((social) => (
                 <li key={social.id} className="list-disc">

@@ -59,8 +59,8 @@ const Dashboard = async () => {
             <CardHeader className="text-center text-xl md:text-3xl py-4">{`${currentMonth} Entries`}</CardHeader>
             <Divider />
           </CardTitle>
-          <CardContent className="space-y-2 text-sm tracking-tight pt-3">
-            <div className="flex justify-end mb-6">
+          <CardContent className="space-y-2 text-sm tracking-tight pt-6 md:pt-3">
+            <div className="flex justify-end pb-6 md:pb-3">
               <AddExpense />
             </div>
             {expenses.length === 0 ? (
@@ -70,7 +70,7 @@ const Dashboard = async () => {
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-6">
+                <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6">
                   <span className="hidden lg:block">Date & Time</span>
                   <span className="col-span-2 sm:col-span-3">Details</span>
                   <span className="text-center">Needs</span>

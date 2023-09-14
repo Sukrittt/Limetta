@@ -11,13 +11,15 @@ export const ExpenseCard = ({ expense }: { expense: ExpenseType }) => {
 
   return (
     <Card>
-      <CardContent className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 gap-y-2 py-3">
+      <CardContent className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 gap-y-2 px-4 sm:px-6 py-3 font-mono">
         <div className="hidden lg:flex items-center col-span-2 lg:col-span-1">
           <span className="text-xs tracking-tighter">
             {format(zonedDate, "dd MMM '·' h:mm a", { timeZone })}
           </span>
         </div>
-        <span className="col-span-2 sm:col-span-3">{expense.description}</span>
+        <span className="text-base font-mono col-span-2 sm:col-span-3 break-words">
+          {expense.description}
+        </span>
         {expense.type === "need" ? (
           <span className="text-center font-mono">{`₹${expense.amount}`}</span>
         ) : (
@@ -33,7 +35,7 @@ export const ExpenseCard = ({ expense }: { expense: ExpenseType }) => {
           <DeleteExpense expenseId={expense.id} expenseType={expense.type} />
         </div>
       </CardContent>
-      <CardFooter className="py-3 lg:hidden">
+      <CardFooter className="py-3 px-4 sm:px-6 lg:hidden font-mono">
         <div className="flex justify-between w-full text-xs items-center">
           <div className="flex items-center">
             <span className="text-xs tracking-tighter">

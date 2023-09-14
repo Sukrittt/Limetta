@@ -19,7 +19,10 @@ export const AddExpense = () => {
       <Button
         onPress={onOpen}
         color="primary"
-        className={cn(buttonVariants({ size: "sm" }), "rounded-lg")}
+        className={cn(
+          buttonVariants({ size: "sm" }),
+          "rounded-lg font-mono tracking-tighter"
+        )}
       >
         Add Entry
       </Button>

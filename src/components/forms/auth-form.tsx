@@ -46,7 +46,7 @@ const AuthForm = () => {
   };
 
   return (
-    <div className="grid gap-y-4 w-full h-full">
+    <div className="grid gap-y-4">
       <Button
         onClick={handleGoogleLogin}
         className={buttonVariants({ variant: "outline" })}

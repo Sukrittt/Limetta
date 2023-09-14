@@ -22,7 +22,7 @@ const Customize = async () => {
       : "default";
 
   return (
-    <Shell>
+    <Shell className="px-0">
       <IncomeCard
         title="Tailor Your Monthly Budget and Expense Ratio"
         income={currentUser.monthlyIncome}

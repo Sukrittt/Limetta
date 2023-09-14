@@ -125,18 +125,20 @@ export const IncomeCard: FC<IncomeCardProps> = ({
 
   return (
     <Card>
-      <CardTitle>
-        <CardHeader className="text-center">{title}</CardHeader>
-      </CardTitle>
+      <CardHeader>
+        <CardTitle className="text-center">{title}</CardTitle>
+      </CardHeader>
       <CardContent className="flex flex-col gap-y-4 relative">
         <div className="flex gap-x-2 items-center">
           <Label>Monthly Income</Label>
-          <ToolTip
-            text="This amount will be used to allocate your budget between wants and needs."
-            showArrow
-          >
-            <Icons.info className="h-3 w-3 text-muted-foreground cursor-pointer" />
-          </ToolTip>
+          <div className="hidden lg:block">
+            <ToolTip
+              text="This amount will be used to allocate your budget between wants and needs."
+              showArrow
+            >
+              <Icons.info className="h-3 w-3 text-muted-foreground cursor-pointer" />
+            </ToolTip>
+          </div>
         </div>
         <Input
           placeholder="Enter your monthly income here."

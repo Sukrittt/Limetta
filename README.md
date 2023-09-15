@@ -1,5 +1,5 @@
 # [Balancewise](https://balance-wise.vercel.app)
-Discover a new way to connect with our Next.js web app. Engage in real-time global chats and video chat rooms, bridging distances and fostering instant connections.
+Experience a smarter way to manage your finances with Balancewise, a cutting-edge application crafted on Next.js.
 
 [![Balancewise](./public/images/homepage-snapshot.png)](https://balance-wise.vercel.app)
 

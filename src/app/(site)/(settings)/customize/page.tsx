@@ -1,11 +1,20 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
+import { env } from "@/env.mjs";
 import { Shell } from "@/components/shell";
 import { serverClient } from "@/trpc/server-client";
 import { IncomeCard } from "@/components/income-card";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
+  title: "Customize",
+  description:
+    "Tailor your financial plan with our Customize page. Personalize your monthly income and define the allocation ratio for needs and wants. Take control of your financial strategy by customizing your budget to align with your goals.",
+};
 
 const Customize = async () => {
   const currentUser = await serverClient.user.getCurrentUser();

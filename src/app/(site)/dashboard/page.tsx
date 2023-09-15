@@ -1,6 +1,8 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Divider } from "@nextui-org/divider";
 
+import { env } from "@/env.mjs";
 import { cn } from "@/lib/utils";
 import { Shell } from "@/components/shell";
 import { getAuthSession } from "@/lib/auth";
@@ -10,6 +12,13 @@ import { ExpenseCard } from "@/components/expense/expense-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
+  title: "Dashboard",
+  description:
+    "Manage your expenses and gain a clear overview of your monthly budget with our user-friendly dashboard. Easily add, edit, and delete expenses while tracking your financial progress for the month.",
+};
 
 const Dashboard = async () => {
   const session = await getAuthSession();

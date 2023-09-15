@@ -1,5 +1,7 @@
 import { format } from "date-fns";
+import type { Metadata } from "next";
 
+import { env } from "@/env.mjs";
 import { Icons } from "@/components/icons";
 import { Shell } from "@/components/shell";
 import { serverClient } from "@/trpc/server-client";
@@ -15,6 +17,13 @@ import { MonthlyExpenseSheet } from "@/components/expense/mothly-expense-sheet";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
+  title: "Overview",
+  description:
+    "Get a comprehensive view of your finances over the past 12 months with our Overview page. Explore detailed expense graphs for each month, review your transaction history, and gain insights into your needs, wants, and total entries.",
+};
 
 const Overview = async () => {
   const userBooks = await serverClient.books.getUserBooks();

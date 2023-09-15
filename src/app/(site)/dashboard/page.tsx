@@ -61,7 +61,15 @@ const Dashboard = async () => {
           </CardTitle>
           <CardContent className="space-y-2 text-sm tracking-tight pt-6 md:pt-3">
             <div className="flex justify-end pb-6 md:pb-3">
-              <AddExpense />
+              <AddExpense
+                expenses={expenses}
+                calculations={{
+                  needsTotal,
+                  wantsTotal,
+                  totalSaved:
+                    currentUser.monthlyIncome - (needsTotal + wantsTotal),
+                }}
+              />
             </div>
             {expenses.length === 0 ? (
               <div className="flex flex-col items-center gap-y-1 pt-4 font-mono text-muted-foreground tracking-tight">

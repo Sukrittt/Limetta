@@ -7,3 +7,9 @@ export type ExpenseType = {
   amount: number;
   bookId: number;
 };
+
+export type Calculations = {
+  needsTotal: number;
+  wantsTotal: number;
+  totalSaved: number;
+};

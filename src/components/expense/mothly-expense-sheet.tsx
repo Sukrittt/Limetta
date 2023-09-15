@@ -59,19 +59,25 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
             <span>Amount</span>
           </div>
           <Divider />
-          {expenses.map((expense) => (
-            <div key={expense.id} className="grid grid-cols-4">
-              <div className="flex items-center col-span-3">
-                <span className="text-sm break-words">
-                  {expense.description}
-                </span>
+          {expenses.length === 0 ? (
+            <p className="font-mono mt-2 text-center text-sm text-muted-foreground">
+              No expenses recorded for this month.
+            </p>
+          ) : (
+            expenses.map((expense) => (
+              <div key={expense.id} className="grid grid-cols-4">
+                <div className="flex items-center col-span-3">
+                  <span className="text-sm break-words">
+                    {expense.description}
+                  </span>
+                </div>
+                <div className="flex gap-x-1 justify-end items-center">
+                  <span className="font-mono">{`₹${expense.amount}`}</span>
+                  <span className="text-xs">{`(${expense.type})`}</span>
+                </div>
               </div>
-              <div className="flex gap-x-1 justify-end items-center">
-                <span className="font-mono">{`₹${expense.amount}`}</span>
-                <span className="text-xs">{`(${expense.type})`}</span>
-              </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </SheetContent>
     </Sheet>

@@ -91,7 +91,7 @@ export const AddExpense: FC<AddExpenseProps> = ({ expenses, calculations }) => {
         color="primary"
         className={cn(
           buttonVariants({ size: "sm", variant: "secondary" }),
-          "rounded-lg font-mono tracking-tighter mr-2"
+          "rounded-lg tracking-tighter mr-2"
         )}
       >
         {isLoading ? <Spinner color="default" size="sm" /> : "Download"}
@@ -101,7 +101,7 @@ export const AddExpense: FC<AddExpenseProps> = ({ expenses, calculations }) => {
         color="primary"
         className={cn(
           buttonVariants({ size: "sm" }),
-          "rounded-lg font-mono tracking-tighter"
+          "rounded-lg tracking-tighter"
         )}
       >
         Add Entry

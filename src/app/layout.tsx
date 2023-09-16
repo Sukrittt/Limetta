@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Montserrat } from "next/font/google";
 
 import "./styles/globals.css";
 import { env } from "@/env.mjs";
@@ -7,7 +7,7 @@ import { siteConfig } from "@/config";
 import { Toaster } from "@/components/ui/toaster";
 import { Providers } from "@/components/providers";
 
-const font = Roboto({ subsets: ["latin"], weight: "400" });
+const font = Montserrat({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),

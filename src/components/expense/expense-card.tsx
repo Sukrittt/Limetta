@@ -17,7 +17,7 @@ export const ExpenseCard = ({ expense }: { expense: ExpenseType }) => {
             {format(zonedDate, "dd MMM '·' h:mm a", { timeZone })}
           </span>
         </div>
-        <span className="text-base col-span-2 sm:col-span-3 break-words">
+        <span className="col-span-2 sm:col-span-3 break-words">
           {expense.description}
         </span>
         {expense.type === "need" ? (

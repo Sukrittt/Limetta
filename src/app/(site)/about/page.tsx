@@ -58,33 +58,6 @@ const About = () => {
           </div>
 
           <div>
-            <h1 className="text-xl font-semibold tracking-tight">Credits</h1>
-            <Divider className="mt-2 mb-4" />
-            <ul className="space-y-2 mx-5 mt-2 list-disc">
-              <li>
-                <Link
-                  href="https://ui.shadcn.com"
-                  target="_blank"
-                  className="underline font-medium tracking-tight underline-offset-4"
-                >
-                  shadcn/ui
-                </Link>{" "}
-                - For the awesome reusable components library
-              </li>
-              <li>
-                <Link
-                  href="https://nextui.org"
-                  target="_blank"
-                  className="underline font-medium tracking-tight underline-offset-4"
-                >
-                  nextui.org
-                </Link>{" "}
-                - For UI components with awesome animations.
-              </li>
-            </ul>
-          </div>
-
-          <div>
             <h1 className="text-xl font-semibold tracking-tight">
               Key features
             </h1>

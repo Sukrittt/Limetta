@@ -12,7 +12,7 @@ export const Navbar = async () => {
   const session = await getAuthSession();
 
   return (
-    <div className="sticky top-0 z-40 w-full bg-background flex justify-between lg:space-around items-center py-5 px-8 lg:px-24">
+    <div className="sticky top-0 z-40 w-full bg-background flex justify-between items-center py-5 px-8 lg:px-24">
       <div className="relative z-20 flex items-center">
         <Link
           href="/"
@@ -23,6 +23,20 @@ export const Navbar = async () => {
         >
           <Icons.logo className="mr-2 h-6 w-6 fill-black dark:fill-white" />
           {siteConfig.name}
+        </Link>
+      </div>
+      <div className="rounded-full border py-2 px-3 text-xs flex gap-x-2">
+        <Link href="/expense-tracker" className="hover:text-primary transition">
+          Expense Tracker
+        </Link>
+        <Link href="#" className="hover:text-primary transition">
+          Investments
+        </Link>
+        <Link href="#" className="hover:text-primary transition">
+          Savings
+        </Link>
+        <Link href="#" className="hover:text-primary transition">
+          Miscellaneous
         </Link>
       </div>
       <div className="flex gap-x-4 items-center">

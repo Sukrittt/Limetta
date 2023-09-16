@@ -7,7 +7,7 @@ import { siteConfig } from "@/config";
 import { Toaster } from "@/components/ui/toaster";
 import { Providers } from "@/components/providers";
 
-const font = Montserrat({ subsets: ["latin"], weight: "400" });
+const font = Montserrat({ subsets: ["latin"], weight: "500" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),

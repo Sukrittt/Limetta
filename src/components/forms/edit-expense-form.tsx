@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Input } from "@nextui-org/input";
 import { useRouter } from "next/navigation";
 import { Spinner } from "@nextui-org/spinner";
@@ -22,9 +22,12 @@ export const EditExpenseForm = ({
   onClose: () => void;
 }) => {
   const router = useRouter();
-  const [amount, setAmount] = useState(expense.amount);
+  const [amount, setAmount] = useState(expense.amount.toString());
   const [description, setDescription] = useState(expense.description);
   const [expenseTypeSelected, setExpenseTypeSelected] = useState(expense.type);
+  const [inputValidationState, setInputValidationState] = useState<
+    "valid" | "invalid"
+  >("valid");
 
   const editEntry = trpc.entries.editEntry.useMutation({
     onSuccess: () => {
@@ -53,15 +56,37 @@ export const EditExpenseForm = ({
       });
     }
 
+    if (!parseFloat(amount)) {
+      return toast({
+        title: "Amount is invalid",
+        description: "Please enter a valid amount.",
+        variant: "destructive",
+      });
+    }
+
     editEntry.mutate({
       bookId: expense.bookId,
       expenseId: expense.id,
-      amount,
+      amount: parseFloat(amount),
       description,
       expenseType: expenseTypeSelected,
       initialExpenseType: expense.type,
     });
   };
+
+  const updateInputValidationState = useCallback(() => {
+    if (!amount) return;
+
+    if (parseFloat(amount) > 0) {
+      setInputValidationState("valid");
+    } else {
+      setInputValidationState("invalid");
+    }
+  }, [amount]);
+
+  useEffect(() => {
+    updateInputValidationState();
+  }, [amount, updateInputValidationState]);
 
   return (
     <>
@@ -71,16 +96,20 @@ export const EditExpenseForm = ({
             <Label>Amount</Label>
             <Input
               autoFocus
-              placeholder="Eg: ₹ 20"
-              type="number"
+              placeholder="Eg: 20"
               disabled={editEntry.isLoading}
-              value={amount?.toString() ?? ""}
-              onChange={(e) => setAmount(parseInt(e.target.value))}
+              value={amount ?? ""}
+              onChange={(e) => setAmount(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   handleSubmit();
                 }
               }}
+              validationState={inputValidationState}
+              errorMessage={
+                inputValidationState === "invalid" &&
+                "Please entery a valid amount."
+              }
               startContent={
                 <div className="pointer-events-none flex items-center">
                   <span className="text-default-400 text-small">₹</span>

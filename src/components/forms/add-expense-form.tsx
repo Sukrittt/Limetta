@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Input } from "@nextui-org/input";
 import { useRouter } from "next/navigation";
 import { Spinner } from "@nextui-org/spinner";
@@ -15,8 +15,11 @@ import { buttonVariants } from "@/components/ui/button";
 
 export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
   const router = useRouter();
-  const [amount, setAmount] = useState<number | null>(null);
+  const [amount, setAmount] = useState<string | null>(null);
   const [description, setDescription] = useState("");
+  const [inputValidationState, setInputValidationState] = useState<
+    "valid" | "invalid"
+  >("valid");
   const [expenseTypeSelected, setExpenseTypeSelected] = useState<
     "want" | "need"
   >("need");
@@ -56,12 +59,34 @@ export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
       });
     }
 
+    if (!parseFloat(amount)) {
+      return toast({
+        title: "Amount is invalid",
+        description: "Please enter a valid amount.",
+        variant: "destructive",
+      });
+    }
+
     addEntry.mutate({
-      amount,
+      amount: parseFloat(amount),
       description,
       expenseType: expenseTypeSelected,
     });
   };
+
+  const updateInputValidationState = useCallback(() => {
+    if (!amount) return;
+
+    if (parseFloat(amount) > 0) {
+      setInputValidationState("valid");
+    } else {
+      setInputValidationState("invalid");
+    }
+  }, [amount]);
+
+  useEffect(() => {
+    updateInputValidationState();
+  }, [amount, updateInputValidationState]);
 
   return (
     <>
@@ -71,15 +96,19 @@ export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
             <Label>Amount</Label>
             <Input
               autoFocus
-              placeholder="Eg: ₹ 20"
-              type="number"
-              value={amount?.toString() ?? ""}
-              onChange={(e) => setAmount(parseInt(e.target.value))}
+              placeholder="Eg: 20"
+              value={amount ?? ""}
+              onChange={(e) => setAmount(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   handleSubmit();
                 }
               }}
+              validationState={inputValidationState}
+              errorMessage={
+                inputValidationState === "invalid" &&
+                "Please entery a valid amount."
+              }
               startContent={
                 <div className="pointer-events-none flex items-center">
                   <span className="text-default-400 text-small">₹</span>

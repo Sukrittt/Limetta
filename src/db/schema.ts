@@ -6,6 +6,7 @@ import {
   varchar,
   serial,
   text,
+  float,
 } from "drizzle-orm/mysql-core";
 import { relations } from "drizzle-orm";
 import type { AdapterAccount } from "@auth/core/adapters";
@@ -20,10 +21,10 @@ export const users = mysqlTable("user", {
   }).defaultNow(),
   image: varchar("image", { length: 255 }),
 
-  monthlyIncome: int("monthlyIncome"),
-  needsPercentage: int("needsPercentage").notNull().default(50),
-  wantsPercentage: int("wantsPercentage").notNull().default(30),
-  investmentsPercentage: int("investmentsPercentage").notNull().default(20),
+  monthlyIncome: float("monthlyIncome"),
+  needsPercentage: float("needsPercentage").notNull().default(50),
+  wantsPercentage: float("wantsPercentage").notNull().default(30),
+  investmentsPercentage: float("investmentsPercentage").notNull().default(20),
 });
 
 export type User = typeof users.$inferSelect;
@@ -105,7 +106,7 @@ export const UserBooksRelations = relations(users, ({ many }) => ({
 // Needs
 export const needs = mysqlTable("needs", {
   id: serial("id").primaryKey(),
-  amount: int("amount").notNull(),
+  amount: float("amount").notNull(),
   description: varchar("description", { length: 50 }).notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
   bookId: int("bookId").notNull(),
@@ -135,7 +136,7 @@ export const bookNeedsRelations = relations(books, ({ many }) => ({
 // Wants
 export const wants = mysqlTable("wants", {
   id: serial("id").primaryKey(),
-  amount: int("amount").notNull(),
+  amount: float("amount").notNull(),
   description: varchar("description", { length: 50 }).notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
   bookId: int("bookId").notNull(),

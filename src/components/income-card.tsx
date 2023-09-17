@@ -44,8 +44,8 @@ export const IncomeCard: FC<IncomeCardProps> = ({
   actionLabel,
 }) => {
   const router = useRouter();
-  const [monthlyIncome, setMonthlyIncome] = useState<number | undefined>(
-    income
+  const [monthlyIncome, setMonthlyIncome] = useState<string | undefined>(
+    income?.toString() ?? undefined
   );
 
   const [ratioSelected, setRatioSelected] = useState(
@@ -56,19 +56,21 @@ export const IncomeCard: FC<IncomeCardProps> = ({
   >("valid");
 
   const [needRatio, setNeedRatio] = useState(
-    ratioSelected === "default" ? 50 : initialNeedRatio ?? 0
+    ratioSelected === "default" ? "50" : initialNeedRatio?.toString() ?? ""
   );
   const [wantRatio, setWantRatio] = useState(
-    ratioSelected === "default" ? 30 : initialWantRatio ?? 0
+    ratioSelected === "default" ? "30" : initialWantRatio?.toString() ?? ""
   );
   const [investmentRatio, setInvestmentRatio] = useState(
-    ratioSelected === "default" ? 20 : initialInvestmentRatio ?? 0
+    ratioSelected === "default"
+      ? "20"
+      : initialInvestmentRatio?.toString() ?? ""
   );
 
   const updateInputValidationState = useCallback(() => {
     if (!monthlyIncome) return;
 
-    if (monthlyIncome > 0) {
+    if (parseFloat(monthlyIncome) > 0) {
       setInputValidationState("valid");
     } else {
       setInputValidationState("invalid");
@@ -91,7 +93,20 @@ export const IncomeCard: FC<IncomeCardProps> = ({
   const handleUpdateMonthlyIncome = () => {
     if (inputValidationState === "invalid") return;
 
-    if (needRatio + wantRatio + investmentRatio !== 100) {
+    if (!monthlyIncome) {
+      return toast({
+        title: "Monthly Income is required",
+        description: "Please enter a valid monthly income.",
+        variant: "destructive",
+      });
+    }
+
+    if (
+      parseFloat(needRatio) +
+        parseFloat(wantRatio) +
+        parseFloat(investmentRatio) !==
+      100
+    ) {
       return toast({
         title: "Invalid ratio",
         description: "Ratio must add up to 100%.",
@@ -99,7 +114,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
       });
     }
 
-    if (!monthlyIncome) {
+    if (!parseFloat(monthlyIncome)) {
       return toast({
         title: "Invalid monthly income",
         description: "Please enter a valid monthly income.",
@@ -108,10 +123,10 @@ export const IncomeCard: FC<IncomeCardProps> = ({
     }
 
     updateUserIncome.mutate({
-      monthlyIncome: monthlyIncome,
-      needsPercentage: needRatio,
-      wantsPercentage: wantRatio,
-      investmentsPercentage: investmentRatio,
+      monthlyIncome: parseFloat(monthlyIncome),
+      needsPercentage: parseFloat(needRatio),
+      wantsPercentage: parseFloat(wantRatio),
+      investmentsPercentage: parseFloat(investmentRatio),
     });
   };
 
@@ -121,9 +136,9 @@ export const IncomeCard: FC<IncomeCardProps> = ({
 
   useEffect(() => {
     if (ratioSelected === "default") {
-      setNeedRatio(50);
-      setWantRatio(30);
-      setInvestmentRatio(20);
+      setNeedRatio("50");
+      setWantRatio("30");
+      setInvestmentRatio("20");
     }
   }, [ratioSelected]);
 
@@ -146,9 +161,8 @@ export const IncomeCard: FC<IncomeCardProps> = ({
         </div>
         <Input
           placeholder="Enter your monthly income here."
-          type="number"
-          value={monthlyIncome?.toString() ?? ""}
-          onChange={(e) => setMonthlyIncome(parseInt(e.target.value))}
+          value={monthlyIncome ?? ""}
+          onChange={(e) => setMonthlyIncome(e.target.value)}
           validationState={inputValidationState}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
@@ -157,7 +171,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
           }}
           errorMessage={
             inputValidationState === "invalid" &&
-            "Monthly income must be greater than 0."
+            "Please entery a valid monthly income."
           }
           labelPlacement="outside"
           startContent={
@@ -188,7 +202,10 @@ export const IncomeCard: FC<IncomeCardProps> = ({
         {ratioSelected === "custom" && (
           <NextUICard>
             <NextUIBody>
-              {needRatio + wantRatio + investmentRatio !== 100 && (
+              {parseFloat(needRatio) +
+                parseFloat(wantRatio) +
+                parseFloat(investmentRatio) !==
+                100 && (
                 <p className="text-red-500 text-xs tracking-tight mb-2">
                   Ratio must add up to 100%
                 </p>
@@ -196,15 +213,8 @@ export const IncomeCard: FC<IncomeCardProps> = ({
               <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
                 <Input
                   placeholder="0"
-                  type="number"
-                  value={needRatio?.toString() ?? ""}
-                  onChange={(e) =>
-                    setNeedRatio(
-                      parseInt(
-                        e.target.value.length === 0 ? "0" : e.target.value
-                      )
-                    )
-                  }
+                  value={needRatio ?? ""}
+                  onChange={(e) => setNeedRatio(e.target.value)}
                   label="Need ratio"
                   labelPlacement="outside"
                   endContent={
@@ -215,15 +225,8 @@ export const IncomeCard: FC<IncomeCardProps> = ({
                 />
                 <Input
                   placeholder="0"
-                  type="number"
-                  value={wantRatio?.toString() ?? ""}
-                  onChange={(e) =>
-                    setWantRatio(
-                      parseInt(
-                        e.target.value.length === 0 ? "0" : e.target.value
-                      )
-                    )
-                  }
+                  value={wantRatio ?? ""}
+                  onChange={(e) => setWantRatio(e.target.value)}
                   label="Want ratio"
                   labelPlacement="outside"
                   endContent={
@@ -234,15 +237,8 @@ export const IncomeCard: FC<IncomeCardProps> = ({
                 />
                 <Input
                   placeholder="0"
-                  type="number"
                   value={investmentRatio?.toString() ?? ""}
-                  onChange={(e) =>
-                    setInvestmentRatio(
-                      parseInt(
-                        e.target.value.length === 0 ? "0" : e.target.value
-                      )
-                    )
-                  }
+                  onChange={(e) => setInvestmentRatio(e.target.value)}
                   label="Investment ratio"
                   labelPlacement="outside"
                   endContent={
@@ -264,7 +260,10 @@ export const IncomeCard: FC<IncomeCardProps> = ({
                 Needs: ₹
                 <span className="font-semibold ml-1">
                   {monthlyIncome
-                    ? (monthlyIncome * (needRatio / 100)).toFixed(1)
+                    ? (
+                        parseFloat(monthlyIncome) *
+                        (parseFloat(needRatio) / 100)
+                      ).toFixed(1)
                     : 0}
                 </span>
               </span>
@@ -272,7 +271,10 @@ export const IncomeCard: FC<IncomeCardProps> = ({
                 Wants: ₹
                 <span className="font-semibold ml-1">
                   {monthlyIncome
-                    ? (monthlyIncome * (wantRatio / 100)).toFixed(1)
+                    ? (
+                        parseFloat(monthlyIncome) *
+                        (parseFloat(wantRatio) / 100)
+                      ).toFixed(1)
                     : 0}
                 </span>
               </span>
@@ -280,7 +282,10 @@ export const IncomeCard: FC<IncomeCardProps> = ({
                 Investments: ₹
                 <span className="font-semibold ml-1">
                   {monthlyIncome
-                    ? (monthlyIncome * (investmentRatio / 100)).toFixed(1)
+                    ? (
+                        parseFloat(monthlyIncome) *
+                        (parseFloat(investmentRatio) / 100)
+                      ).toFixed(1)
                     : 0}
                 </span>
               </span>

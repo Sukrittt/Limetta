@@ -22,7 +22,7 @@ CREATE TABLE `books` (
 --> statement-breakpoint
 CREATE TABLE `needs` (
 	`id` serial AUTO_INCREMENT NOT NULL,
-	`amount` int NOT NULL,
+	`amount` float NOT NULL,
 	`description` varchar(50) NOT NULL,
 	`userId` varchar(255) NOT NULL,
 	`bookId` int NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE `user` (
 	`email` varchar(255) NOT NULL,
 	`emailVerified` timestamp(3) DEFAULT (now()),
 	`image` varchar(255),
-	`monthlyIncome` int,
+	`monthlyIncome` float,
 	`needsPercentage` int NOT NULL DEFAULT 50,
 	`wantsPercentage` int NOT NULL DEFAULT 30,
 	`investmentsPercentage` int NOT NULL DEFAULT 20,
@@ -59,7 +59,7 @@ CREATE TABLE `verificationToken` (
 --> statement-breakpoint
 CREATE TABLE `wants` (
 	`id` serial AUTO_INCREMENT NOT NULL,
-	`amount` int NOT NULL,
+	`amount` float NOT NULL,
 	`description` varchar(50) NOT NULL,
 	`userId` varchar(255) NOT NULL,
 	`bookId` int NOT NULL,

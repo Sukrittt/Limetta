@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { Shell } from "@/components/shell";
@@ -10,6 +11,8 @@ export const dynamic = "force-dynamic";
 
 const Dashboard = async () => {
   const currentUser = await serverClient.user.getCurrentUser();
+
+  if (!currentUser.monthlyIncome) redirect("/onboarding");
 
   return (
     <Shell>

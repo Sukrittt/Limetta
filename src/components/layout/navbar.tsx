@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config";
 import NavDropdown from "./nav-dropdown";
 import { Icons } from "@/components/icons";
+import { NavSection } from "./nav-section";
 import { getAuthSession } from "@/lib/auth";
 import { buttonVariants } from "@/components/ui/button";
 
@@ -25,20 +26,7 @@ export const Navbar = async () => {
           {siteConfig.name}
         </Link>
       </div>
-      <div className="hidden rounded-full border py-2 px-3 text-xs lg:flex gap-x-2">
-        <Link href="/expense-tracker" className="hover:text-primary transition">
-          Expense Tracker
-        </Link>
-        <Link href="#" className="hover:text-primary transition">
-          Investments
-        </Link>
-        <Link href="#" className="hover:text-primary transition">
-          Savings
-        </Link>
-        <Link href="#" className="hover:text-primary transition">
-          Miscellaneous
-        </Link>
-      </div>
+      <NavSection />
       <div className="flex gap-x-4 items-center">
         {session ? (
           <NavDropdown session={session} />

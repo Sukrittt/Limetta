@@ -25,7 +25,7 @@ export const Navbar = async () => {
           {siteConfig.name}
         </Link>
       </div>
-      <div className="rounded-full border py-2 px-3 text-xs flex gap-x-2">
+      <div className="hidden rounded-full border py-2 px-3 text-xs lg:flex gap-x-2">
         <Link href="/expense-tracker" className="hover:text-primary transition">
           Expense Tracker
         </Link>

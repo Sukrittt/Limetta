@@ -21,7 +21,10 @@ const Onboarding = async () => {
 
   return (
     <div className="min-h-[calc(100vh-150px)] max-w-lg p-5 m-auto flex items-center justify-center">
-      <IncomeCard title="Financial Setup: Let&rsquo;s Get Started" />
+      <IncomeCard
+        title="Financial Setup: Let&rsquo;s Get Started"
+        actionLabel="Continue to Dashboard"
+      />
     </div>
   );
 };

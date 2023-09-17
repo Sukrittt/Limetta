@@ -29,6 +29,8 @@ interface IncomeCardProps {
   initialWantRatio?: number;
   initialInvestmentRatio?: number;
   initialSelectedRatio?: string;
+  href?: string;
+  actionLabel: string;
 }
 
 export const IncomeCard: FC<IncomeCardProps> = ({
@@ -38,6 +40,8 @@ export const IncomeCard: FC<IncomeCardProps> = ({
   initialWantRatio,
   initialInvestmentRatio,
   initialSelectedRatio,
+  href = "/dashboard",
+  actionLabel,
 }) => {
   const router = useRouter();
   const [monthlyIncome, setMonthlyIncome] = useState<number | undefined>(
@@ -73,7 +77,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
 
   const updateUserIncome = trpc.user.updateMonthlyIncome.useMutation({
     onSuccess: () => {
-      router.push("/dashboard");
+      router.push(href);
     },
     onError: () => {
       toast({
@@ -295,7 +299,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
           {updateUserIncome.isLoading ? (
             <Spinner color="default" size="sm" />
           ) : (
-            "Continue to Dashboard"
+            actionLabel
           )}
         </Button>
       </CardFooter>

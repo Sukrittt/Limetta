@@ -24,8 +24,8 @@ const Customize = async () => {
   if (!currentUser.monthlyIncome) redirect("/onboarding");
 
   const initialSelectedRatio =
-    currentUser.needsPercentage !== 50 &&
-    currentUser.wantsPercentage !== 30 &&
+    currentUser.needsPercentage !== 50 ||
+    currentUser.wantsPercentage !== 30 ||
     currentUser.investmentsPercentage !== 20
       ? "custom"
       : "default";
@@ -39,6 +39,8 @@ const Customize = async () => {
         initialWantRatio={currentUser.wantsPercentage}
         initialInvestmentRatio={currentUser.investmentsPercentage}
         initialSelectedRatio={initialSelectedRatio}
+        href="/expense-tracker"
+        actionLabel="Save"
       />
     </Shell>
   );

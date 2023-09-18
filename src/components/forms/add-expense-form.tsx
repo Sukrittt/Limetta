@@ -13,7 +13,13 @@ import { Button } from "@nextui-org/button";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
 
-export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
+export const AddExpenseForm = ({
+  onClose,
+  monthlyIncome,
+}: {
+  onClose: () => void;
+  monthlyIncome: number;
+}) => {
   const router = useRouter();
   const [amount, setAmount] = useState<string | null>(null);
   const [description, setDescription] = useState("");
@@ -22,7 +28,7 @@ export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
   >("valid");
   const [expenseTypeSelected, setExpenseTypeSelected] = useState<
     "want" | "need"
-  >("need");
+  >("want");
 
   const addEntry = trpc.entries.addEntry.useMutation({
     onSuccess: () => {
@@ -70,6 +76,7 @@ export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
     addEntry.mutate({
       amount: parseFloat(amount),
       description,
+      monthlyIncome,
       expenseType: expenseTypeSelected,
     });
   };

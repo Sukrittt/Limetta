@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 
 import { db } from "@/db";
-import { users } from "@/db/schema";
+import { books, users } from "@/db/schema";
 import { createTRPCRouter, privateProcedure } from "@/server/trpc";
 
 export const userRouter = createTRPCRouter({
@@ -29,6 +29,19 @@ export const userRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      await db
+        .update(books)
+        .set({
+          monthIncome: input.monthlyIncome,
+        })
+        .where(
+          and(
+            eq(books.userId, ctx.userId),
+            sql`MONTH(books.createdAt) = MONTH(NOW())`,
+            sql`YEAR(books.createdAt) = YEAR(NOW())`
+          )
+        );
+
       await db
         .update(users)
         .set({

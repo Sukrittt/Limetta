@@ -16,6 +16,7 @@ CREATE TABLE `account` (
 CREATE TABLE `books` (
 	`id` serial AUTO_INCREMENT NOT NULL,
 	`userId` varchar(255) NOT NULL,
+	`monthIncome` float NOT NULL,
 	`createdAt` timestamp NOT NULL DEFAULT (now()),
 	CONSTRAINT `books_id` PRIMARY KEY(`id`)
 );
@@ -44,9 +45,9 @@ CREATE TABLE `user` (
 	`emailVerified` timestamp(3) DEFAULT (now()),
 	`image` varchar(255),
 	`monthlyIncome` float,
-	`needsPercentage` int NOT NULL DEFAULT 50,
-	`wantsPercentage` int NOT NULL DEFAULT 30,
-	`investmentsPercentage` int NOT NULL DEFAULT 20,
+	`needsPercentage` float NOT NULL DEFAULT 50,
+	`wantsPercentage` float NOT NULL DEFAULT 30,
+	`investmentsPercentage` float NOT NULL DEFAULT 20,
 	CONSTRAINT `user_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint

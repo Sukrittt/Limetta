@@ -71,6 +71,7 @@ const Dashboard = async () => {
           <CardContent className="space-y-2 text-sm tracking-tight pt-6 md:pt-3">
             <div className="flex justify-end pb-6 md:pb-3">
               <AddExpense
+                monthlyIncome={currentUser.monthlyIncome}
                 expenses={expenses}
                 calculations={{
                   needsTotal,
@@ -81,7 +82,7 @@ const Dashboard = async () => {
               />
             </div>
             {expenses.length === 0 ? (
-              <div className="flex flex-col items-center gap-y-1 pt-4 text-muted-foreground tracking-tight">
+              <div className="flex flex-col items-center gap-y-1 pt-4 text-muted-foreground tracking-tight font-mono">
                 <p>No entries added Yet!</p>
                 <p>Add your first entry of the month.</p>
               </div>
@@ -112,86 +113,104 @@ const Dashboard = async () => {
             <Divider />
           </CardTitle>
           <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 pt-6 lg:pb-0 lg:pt-3 text-sm">
-            <div className="flex flex-col gap-y-2">
-              <span className="font-semibold underline underline-offset-4">
-                Allotment
-              </span>
-              <div className="flex flex-col gap-y-1">
-                <span>Needs: {`₹${needShare}`}</span>
-                <span>Wants: {`₹${wantShare}`}</span>
-                <span>Investments: {`₹${investmentShare}`}</span>
-                <span>Monthly Income: {`₹${currentUser.monthlyIncome}`}</span>
-              </div>
-            </div>
-            <div className="flex flex-col gap-y-2">
-              <span className="font-semibold underline underline-offset-4 mb-1">
-                Spendings
-              </span>
-              <div className="flex flex-col gap-y-1">
-                <span>Needs: {`₹${needsTotal}`}</span>
-                <span>Wants: {`₹${wantsTotal}`}</span>
-                <span>Total Spendings: {`₹${needsTotal + wantsTotal}`}</span>
-              </div>
-            </div>
-            <div className="flex flex-col gap-y-2">
-              <span className="font-semibold underline underline-offset-4 mb-1">
-                Money Left
-              </span>
-              <div className="flex flex-col gap-y-1">
-                <span>
-                  Needs:{" "}
-                  <span
-                    className={cn({
-                      "text-rose-500": needShare - needsTotal < 0,
-                    })}
-                  >
-                    {`₹${needShare - needsTotal}`}
+            {currentMonthEntries.books.length === 0 ? (
+              <p className="pt-4 text-muted-foreground tracking-tighter text-center font-mono">
+                Start adding entires to get more insights.
+              </p>
+            ) : (
+              <>
+                <div className="flex flex-col gap-y-2">
+                  <span className="font-semibold underline underline-offset-4">
+                    Allotment
                   </span>
-                </span>
-                <span>
-                  Wants:{" "}
-                  <span
-                    className={cn({
-                      "text-rose-500": wantShare - wantsTotal < 0,
-                    })}
-                  >
-                    {`₹${wantShare - wantsTotal}`}
+                  <div className="flex flex-col gap-y-1">
+                    <span>Needs: {`₹${needShare}`}</span>
+                    <span>Wants: {`₹${wantShare}`}</span>
+                    <span>Investments: {`₹${investmentShare}`}</span>
+                    <span>
+                      Monthly Income:{" "}
+                      {`₹${currentMonthEntries.books[0].monthIncome}`}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-y-2">
+                  <span className="font-semibold underline underline-offset-4 mb-1">
+                    Spendings
                   </span>
-                </span>
-              </div>
-            </div>
-            <div className="flex flex-col gap-y-2">
-              <span className="font-semibold underline underline-offset-4 mb-1">
-                Savings
-              </span>
-              <div className="flex flex-col gap-y-1">
-                <span>
-                  Left for Spending:{" "}
-                  <span
-                    className={cn({
-                      "text-rose-500":
-                        needShare + wantShare - (needsTotal + wantsTotal) < 0,
-                    })}
-                  >
-                    {`₹${needShare + wantShare - (needsTotal + wantsTotal)}`}
+                  <div className="flex flex-col gap-y-1">
+                    <span>Needs: {`₹${needsTotal}`}</span>
+                    <span>Wants: {`₹${wantsTotal}`}</span>
+                    <span>
+                      Total Spendings: {`₹${needsTotal + wantsTotal}`}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-y-2">
+                  <span className="font-semibold underline underline-offset-4 mb-1">
+                    Money Left
                   </span>
-                </span>
-                <span>
-                  Total Savings:{" "}
-                  <span
-                    className={cn({
-                      "text-rose-500":
-                        currentUser.monthlyIncome - (needsTotal + wantsTotal) <
-                        0,
-                    })}
-                  >
-                    {`₹${
-                      currentUser.monthlyIncome - (needsTotal + wantsTotal)
-                    }`}
+                  <div className="flex flex-col gap-y-1">
+                    <span>
+                      Needs:{" "}
+                      <span
+                        className={cn({
+                          "text-rose-500": needShare - needsTotal < 0,
+                        })}
+                      >
+                        {`₹${needShare - needsTotal}`}
+                      </span>
+                    </span>
+                    <span>
+                      Wants:{" "}
+                      <span
+                        className={cn({
+                          "text-rose-500": wantShare - wantsTotal < 0,
+                        })}
+                      >
+                        {`₹${wantShare - wantsTotal}`}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-y-2">
+                  <span className="font-semibold underline underline-offset-4 mb-1">
+                    Savings
                   </span>
-                </span>
-              </div>
-            </div>
+                  <div className="flex flex-col gap-y-1">
+                    <span>
+                      Left for Spending:{" "}
+                      <span
+                        className={cn({
+                          "text-rose-500":
+                            needShare + wantShare - (needsTotal + wantsTotal) <
+                            0,
+                        })}
+                      >
+                        {`₹${
+                          needShare + wantShare - (needsTotal + wantsTotal)
+                        }`}
+                      </span>
+                    </span>
+                    <span>
+                      Total Savings:{" "}
+                      <span
+                        className={cn({
+                          "text-rose-500":
+                            currentMonthEntries.books[0].monthIncome -
+                              (needsTotal + wantsTotal) <
+                            0,
+                        })}
+                      >
+                        {`₹${
+                          currentMonthEntries.books[0].monthIncome -
+                          (needsTotal + wantsTotal)
+                        }`}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </>
+            )}
           </CardContent>
         </Card>
       </div>

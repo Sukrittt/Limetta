@@ -22,9 +22,14 @@ import { ExcelDataType } from "@/lib/validators";
 interface AddExpenseProps {
   expenses: ExpenseType[];
   calculations: Calculations;
+  monthlyIncome: number;
 }
 
-export const AddExpense: FC<AddExpenseProps> = ({ expenses, calculations }) => {
+export const AddExpense: FC<AddExpenseProps> = ({
+  expenses,
+  calculations,
+  monthlyIncome,
+}) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const { mutate: downloadEntries, isLoading } = useMutation({
@@ -118,7 +123,7 @@ export const AddExpense: FC<AddExpenseProps> = ({ expenses, calculations }) => {
               <ModalHeader className="flex flex-col gap-1">
                 Add expense
               </ModalHeader>
-              <AddExpenseForm onClose={onClose} />
+              <AddExpenseForm onClose={onClose} monthlyIncome={monthlyIncome} />
             </>
           )}
         </ModalContent>

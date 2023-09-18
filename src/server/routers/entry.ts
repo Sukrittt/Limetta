@@ -9,6 +9,7 @@ export const entryRouter = createTRPCRouter({
   addEntry: privateProcedure
     .input(
       z.object({
+        monthlyIncome: z.number().positive(),
         expenseType: z.enum(["need", "want"]),
         amount: z.number().positive(),
         description: z.string().min(1).max(50),
@@ -31,6 +32,7 @@ export const entryRouter = createTRPCRouter({
       if (currentMonthBooks.length === 0) {
         const newlyCreatedBook = await db.insert(books).values({
           userId: ctx.userId,
+          monthIncome: input.monthlyIncome,
         });
 
         bookId = parseInt(newlyCreatedBook.insertId);

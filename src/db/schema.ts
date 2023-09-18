@@ -87,6 +87,7 @@ export const verificationTokens = mysqlTable(
 export const books = mysqlTable("books", {
   id: serial("id").primaryKey(),
   userId: varchar("userId", { length: 255 }).notNull(),
+  monthIncome: float("monthIncome").notNull(),
   createdAt: timestamp("createdAt").notNull().defaultNow(),
 });
 

@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "18f773e8-5dff-4ca9-aa8f-d8bb4fe9214f",
+  "id": "71918360-25a2-418a-9e22-04768e10cf90",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -111,6 +111,13 @@
         "userId": {
           "name": "userId",
           "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "monthIncome": {
+          "name": "monthIncome",
+          "type": "float",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -280,7 +287,7 @@
         },
         "needsPercentage": {
           "name": "needsPercentage",
-          "type": "int",
+          "type": "float",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
@@ -288,7 +295,7 @@
         },
         "wantsPercentage": {
           "name": "wantsPercentage",
-          "type": "int",
+          "type": "float",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
@@ -296,7 +303,7 @@
         },
         "investmentsPercentage": {
           "name": "investmentsPercentage",
-          "type": "int",
+          "type": "float",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,

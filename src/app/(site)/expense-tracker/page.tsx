@@ -53,12 +53,27 @@ const Dashboard = async () => {
 
   if (!currentUser.monthlyIncome) redirect("/onboarding");
 
-  const needShare =
-    currentUser.monthlyIncome * (currentUser.needsPercentage / 100);
-  const wantShare =
-    currentUser.monthlyIncome * (currentUser.wantsPercentage / 100);
+  const currentMonthIncome =
+    currentMonthEntries.books.length > 0
+      ? currentMonthEntries.books[0].monthIncome
+      : 0;
+  const currentMonthNeedPercetange =
+    currentMonthEntries.books.length > 0
+      ? currentMonthEntries.books[0].needsPercentage
+      : 0;
+  const currentMonthWantPercetange =
+    currentMonthEntries.books.length > 0
+      ? currentMonthEntries.books[0].wantsPercentage
+      : 0;
+  const currentMonthInvestmentPercetange =
+    currentMonthEntries.books.length > 0
+      ? currentMonthEntries.books[0].investmentsPercentage
+      : 0;
+
+  const needShare = currentMonthIncome * (currentMonthNeedPercetange / 100);
+  const wantShare = currentMonthIncome * (currentMonthWantPercetange / 100);
   const investmentShare =
-    currentUser.monthlyIncome * (currentUser.investmentsPercentage / 100);
+    currentMonthIncome * (currentMonthInvestmentPercetange / 100);
 
   return (
     <Shell className="grid grid-cols-7 md:py-4 tracking-tight">
@@ -71,7 +86,6 @@ const Dashboard = async () => {
           <CardContent className="space-y-2 text-sm tracking-tight pt-6 md:pt-3">
             <div className="flex justify-end pb-6 md:pb-3">
               <AddExpense
-                monthlyIncome={currentUser.monthlyIncome}
                 expenses={expenses}
                 calculations={{
                   needsTotal,
@@ -127,10 +141,7 @@ const Dashboard = async () => {
                     <span>Needs: {`₹${needShare}`}</span>
                     <span>Wants: {`₹${wantShare}`}</span>
                     <span>Investments: {`₹${investmentShare}`}</span>
-                    <span>
-                      Monthly Income:{" "}
-                      {`₹${currentMonthEntries.books[0].monthIncome}`}
-                    </span>
+                    <span>Monthly Income: {`₹${currentMonthIncome}`}</span>
                   </div>
                 </div>
                 <div className="flex flex-col gap-y-2">
@@ -196,15 +207,10 @@ const Dashboard = async () => {
                       <span
                         className={cn({
                           "text-rose-500":
-                            currentMonthEntries.books[0].monthIncome -
-                              (needsTotal + wantsTotal) <
-                            0,
+                            currentMonthIncome - (needsTotal + wantsTotal) < 0,
                         })}
                       >
-                        {`₹${
-                          currentMonthEntries.books[0].monthIncome -
-                          (needsTotal + wantsTotal)
-                        }`}
+                        {`₹${currentMonthIncome - (needsTotal + wantsTotal)}`}
                       </span>
                     </span>
                   </div>

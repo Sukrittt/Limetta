@@ -33,6 +33,9 @@ export const userRouter = createTRPCRouter({
         .update(books)
         .set({
           monthIncome: input.monthlyIncome,
+          needsPercentage: input.needsPercentage,
+          wantsPercentage: input.wantsPercentage,
+          investmentsPercentage: input.investmentsPercentage,
         })
         .where(
           and(

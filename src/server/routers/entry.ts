@@ -1,7 +1,9 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { and, eq, sql } from "drizzle-orm";
+
 import { db } from "@/db";
+import { userRouter } from "./user";
 import { books, needs, wants } from "@/db/schema";
 import { createTRPCRouter, privateProcedure } from "@/server/trpc";
 
@@ -9,7 +11,6 @@ export const entryRouter = createTRPCRouter({
   addEntry: privateProcedure
     .input(
       z.object({
-        monthlyIncome: z.number().positive(),
         expenseType: z.enum(["need", "want"]),
         amount: z.number().positive(),
         description: z.string().min(1).max(50),
@@ -30,9 +31,15 @@ export const entryRouter = createTRPCRouter({
       let bookId;
 
       if (currentMonthBooks.length === 0) {
+        const caller = userRouter.createCaller(ctx);
+        const currentUser = await caller.getCurrentUser();
+
         const newlyCreatedBook = await db.insert(books).values({
           userId: ctx.userId,
-          monthIncome: input.monthlyIncome,
+          monthIncome: currentUser.monthlyIncome ?? 0,
+          needsPercentage: currentUser.needsPercentage,
+          wantsPercentage: currentUser.wantsPercentage,
+          investmentsPercentage: currentUser.investmentsPercentage,
         });
 
         bookId = parseInt(newlyCreatedBook.insertId);

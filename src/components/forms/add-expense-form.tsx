@@ -13,13 +13,7 @@ import { Button } from "@nextui-org/button";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
 
-export const AddExpenseForm = ({
-  onClose,
-  monthlyIncome,
-}: {
-  onClose: () => void;
-  monthlyIncome: number;
-}) => {
+export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
   const router = useRouter();
   const [amount, setAmount] = useState<string | null>(null);
   const [description, setDescription] = useState("");
@@ -76,7 +70,6 @@ export const AddExpenseForm = ({
     addEntry.mutate({
       amount: parseFloat(amount),
       description,
-      monthlyIncome,
       expenseType: expenseTypeSelected,
     });
   };

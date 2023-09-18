@@ -152,7 +152,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
           <Label>Monthly Income</Label>
           <div className="hidden lg:block">
             <ToolTip
-              text="This amount will be used to allocate your budget between wants and needs."
+              text="To allocate your budget between needs, wants and investments."
               showArrow
             >
               <Icons.info className="h-3 w-3 text-muted-foreground cursor-pointer" />

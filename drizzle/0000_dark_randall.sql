@@ -18,6 +18,9 @@ CREATE TABLE `books` (
 	`userId` varchar(255) NOT NULL,
 	`monthIncome` float NOT NULL,
 	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`needsPercentage` float NOT NULL,
+	`wantsPercentage` float NOT NULL,
+	`investmentsPercentage` float NOT NULL,
 	CONSTRAINT `books_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint

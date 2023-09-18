@@ -89,6 +89,9 @@ export const books = mysqlTable("books", {
   userId: varchar("userId", { length: 255 }).notNull(),
   monthIncome: float("monthIncome").notNull(),
   createdAt: timestamp("createdAt").notNull().defaultNow(),
+  needsPercentage: float("needsPercentage").notNull(),
+  wantsPercentage: float("wantsPercentage").notNull(),
+  investmentsPercentage: float("investmentsPercentage").notNull(),
 });
 
 export type Books = typeof books.$inferSelect;

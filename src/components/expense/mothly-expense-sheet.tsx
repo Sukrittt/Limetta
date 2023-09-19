@@ -11,6 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { CurrencyType } from "@/config";
 
 type ExpenseType = {
   books: Books[];
@@ -23,11 +24,13 @@ type ExpenseType = {
 interface MonthlyExpenseSheetProps {
   children: ReactNode;
   expenseData: ExpenseType;
+  currency: CurrencyType;
 }
 
 export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
   children,
   expenseData,
+  currency,
 }) => {
   const expenses = [
     ...expenseData.needs.map((item) => ({
@@ -50,7 +53,7 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
         <SheetHeader className="mt-2 sm:mt-0">
           <SheetTitle>{`${expenseData.month} expenses`}</SheetTitle>
           <SheetDescription>
-            You spent a total of ₹{expenseData.total} this month.
+            {`You spent a total of ${currency}${expenseData.total} this month.`}
           </SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-8 tracking-tight">
@@ -72,7 +75,7 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
                   </span>
                 </div>
                 <div className="flex gap-x-1 justify-end items-center">
-                  <span className="font-mono">{`₹${expense.amount}`}</span>
+                  <span className="font-mono">{`${currency}${expense.amount}`}</span>
                   <span className="text-xs">{`(${expense.type})`}</span>
                 </div>
               </div>

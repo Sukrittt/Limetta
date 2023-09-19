@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { CurrencyType } from "@/config";
 import { ExpenseOverview } from "@/components/expense-overview";
 import { MonthlyExpenseSheet } from "@/components/expense/mothly-expense-sheet";
 
@@ -27,6 +28,7 @@ export const metadata: Metadata = {
 
 const Overview = async () => {
   const userBooks = await serverClient.books.getUserBooks();
+  const currentUser = await serverClient.user.getCurrentUser();
 
   const data =
     userBooks.length === 0
@@ -95,7 +97,7 @@ const Overview = async () => {
             <Icons.needs className="w-4 h-4" />
           </CardHeader>
           <CardContent>
-            <p className="font-mono text-lg text-muted-foreground">{`₹${totalNeeds}`}</p>
+            <p className="font-mono text-lg text-muted-foreground">{`${currentUser.currency}${totalNeeds}`}</p>
           </CardContent>
         </Card>
         <Card>
@@ -104,7 +106,7 @@ const Overview = async () => {
             <Icons.wants className="w-4 h-4" />
           </CardHeader>
           <CardContent>
-            <p className="font-mono text-lg text-muted-foreground">{`₹${totalWants}`}</p>
+            <p className="font-mono text-lg text-muted-foreground">{`${currentUser.currency}${totalWants}`}</p>
           </CardContent>
         </Card>
         <Card>
@@ -139,7 +141,8 @@ const Overview = async () => {
           <CardHeader>
             <CardTitle className="text-md">Total Monthly Expenses</CardTitle>
             <CardDescription>
-              You have spent ₹{totalSpent} till now.
+              You have spent ${currentUser.currency}
+              {totalSpent} till now.
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-y-2 pb-6 lg:py-0 px-3">
@@ -151,10 +154,14 @@ const Overview = async () => {
               </div>
             ) : (
               expenseData.map((expense, index) => (
-                <MonthlyExpenseSheet key={index} expenseData={expense}>
+                <MonthlyExpenseSheet
+                  key={index}
+                  expenseData={expense}
+                  currency={currentUser.currency as CurrencyType}
+                >
                   <div className="flex items-center justify-between hover:bg-muted rounded-lg transtion-all p-3 cursor-pointer border">
                     <span className="text-sm">{expense.month}</span>
-                    <span className="font-mono">{`₹${expense.total}`}</span>
+                    <span className="font-mono">{`${currentUser.currency}${expense.total}`}</span>
                   </div>
                 </MonthlyExpenseSheet>
               ))

@@ -25,6 +25,8 @@ export const users = mysqlTable("user", {
   needsPercentage: float("needsPercentage").notNull().default(50),
   wantsPercentage: float("wantsPercentage").notNull().default(30),
   investmentsPercentage: float("investmentsPercentage").notNull().default(20),
+
+  currency: varchar("currency", { length: 1 }).notNull().default("₹"),
 });
 
 export type User = typeof users.$inferSelect;

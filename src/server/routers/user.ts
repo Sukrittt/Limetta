@@ -26,6 +26,7 @@ export const userRouter = createTRPCRouter({
         needsPercentage: z.number(),
         wantsPercentage: z.number(),
         investmentsPercentage: z.number(),
+        currency: z.string().min(1).max(1),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -52,6 +53,7 @@ export const userRouter = createTRPCRouter({
           needsPercentage: input.needsPercentage,
           wantsPercentage: input.wantsPercentage,
           investmentsPercentage: input.investmentsPercentage,
+          currency: input.currency,
         })
         .where(eq(users.id, ctx.userId));
     }),

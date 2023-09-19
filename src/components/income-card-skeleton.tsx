@@ -1,4 +1,3 @@
-import { Shell } from "@/components/shell";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Card,
@@ -9,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
 
-export const IncomeSkeleton = ({
+export const IncomeCardSkeleton = ({
   title,
   onBoarding = false,
 }: {
@@ -23,6 +22,7 @@ export const IncomeSkeleton = ({
       </CardHeader>
       <CardContent className="flex flex-col gap-y-4 relative">
         <Skeleton className="h-4 w-20" />
+        <Skeleton className="h-14 w-full rounded-xl" />
         <Skeleton className="h-10 w-full rounded-xl" />
 
         <div className="flex flex-wrap gap-3 items-center">
@@ -30,7 +30,7 @@ export const IncomeSkeleton = ({
             <Skeleton className="h-6 w-6 rounded-full" />
             <div className="flex flex-col gap-y-3">
               <Skeleton className="h-4 w-20" />
-              <Skeleton className="h-4 w-36" />
+              <Skeleton className="h-4 w-48" />
             </div>
           </div>
           <div className="flex gap-x-2">
@@ -47,19 +47,19 @@ export const IncomeSkeleton = ({
           <NextUIBody className="py-2">
             <div className="flex justify-around gap-2 tracking-tight font-mono text-sm flex-wrap">
               <span>
-                Needs: ₹
+                Needs:
                 <span className="font-semibold ml-1">
                   {onBoarding ? "0" : "---"}
                 </span>
               </span>
               <span>
-                Wants: ₹
+                Wants:
                 <span className="font-semibold ml-1">
                   {onBoarding ? "0" : "---"}
                 </span>
               </span>
               <span>
-                Investments: ₹
+                Investments:
                 <span className="font-semibold ml-1">
                   {onBoarding ? "0" : "---"}
                 </span>

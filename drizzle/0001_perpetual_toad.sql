@@ -1,0 +1,1 @@
+ALTER TABLE `user` ADD `currency` varchar(1) DEFAULT '₹' NOT NULL;

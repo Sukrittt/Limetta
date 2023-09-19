@@ -1,9 +1,9 @@
-import { IncomeSkeleton } from "@/components/income-skeleton";
+import { IncomeCardSkeleton } from "@/components/income-card-skeleton";
 
 const loading = () => {
   return (
     <div className="min-h-[calc(100vh-150px)] max-w-xl p-5 m-auto flex items-center justify-center">
-      <IncomeSkeleton
+      <IncomeCardSkeleton
         title="Financial Setup: Let&rsquo;s Get Started"
         onBoarding
       />

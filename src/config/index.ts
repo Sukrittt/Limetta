@@ -28,6 +28,27 @@ export const sidebarItems = [
   },
 ];
 
+export type CurrencyType = "₹" | "$" | "€" | "£";
+
+export const currencies = [
+  {
+    value: "₹",
+    label: "INR",
+  },
+  {
+    value: "$",
+    label: "USD",
+  },
+  {
+    value: "€",
+    label: "EUR",
+  },
+  {
+    value: "£",
+    label: "GBP",
+  },
+];
+
 export const techStack = [
   {
     name: "Next.js",

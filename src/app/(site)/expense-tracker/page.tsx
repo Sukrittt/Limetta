@@ -4,6 +4,7 @@ import { Divider } from "@nextui-org/divider";
 
 import { env } from "@/env.mjs";
 import { cn } from "@/lib/utils";
+import { CurrencyType } from "@/config";
 import { Shell } from "@/components/shell";
 import { getAuthSession } from "@/lib/auth";
 import { serverClient } from "@/trpc/server-client";
@@ -110,7 +111,11 @@ const Dashboard = async () => {
                 </div>
                 <div className="flex flex-col gap-y-4">
                   {expenses.map((expense) => (
-                    <ExpenseCard key={expense.id} expense={expense} />
+                    <ExpenseCard
+                      key={expense.id}
+                      expense={expense}
+                      currency={currentUser.currency as CurrencyType}
+                    />
                   ))}
                 </div>
               </>
@@ -138,10 +143,15 @@ const Dashboard = async () => {
                     Allotment
                   </span>
                   <div className="flex flex-col gap-y-1">
-                    <span>Needs: {`₹${needShare}`}</span>
-                    <span>Wants: {`₹${wantShare}`}</span>
-                    <span>Investments: {`₹${investmentShare}`}</span>
-                    <span>Monthly Income: {`₹${currentMonthIncome}`}</span>
+                    <span>Needs: {`${currentUser.currency}${needShare}`}</span>
+                    <span>Wants: {`${currentUser.currency}${wantShare}`}</span>
+                    <span>
+                      Investments: {`${currentUser.currency}${investmentShare}`}
+                    </span>
+                    <span>
+                      Monthly Income:{" "}
+                      {`${currentUser.currency}${currentMonthIncome}`}
+                    </span>
                   </div>
                 </div>
                 <div className="flex flex-col gap-y-2">
@@ -149,10 +159,11 @@ const Dashboard = async () => {
                     Spendings
                   </span>
                   <div className="flex flex-col gap-y-1">
-                    <span>Needs: {`₹${needsTotal}`}</span>
-                    <span>Wants: {`₹${wantsTotal}`}</span>
+                    <span>Needs: {`${currentUser.currency}${needsTotal}`}</span>
+                    <span>Wants: {`${currentUser.currency}${wantsTotal}`}</span>
                     <span>
-                      Total Spendings: {`₹${needsTotal + wantsTotal}`}
+                      Total Spendings:{" "}
+                      {`${currentUser.currency}${needsTotal + wantsTotal}`}
                     </span>
                   </div>
                 </div>
@@ -168,7 +179,7 @@ const Dashboard = async () => {
                           "text-rose-500": needShare - needsTotal < 0,
                         })}
                       >
-                        {`₹${needShare - needsTotal}`}
+                        {`${currentUser.currency}${needShare - needsTotal}`}
                       </span>
                     </span>
                     <span>
@@ -178,7 +189,7 @@ const Dashboard = async () => {
                           "text-rose-500": wantShare - wantsTotal < 0,
                         })}
                       >
-                        {`₹${wantShare - wantsTotal}`}
+                        {`${currentUser.currency}${wantShare - wantsTotal}`}
                       </span>
                     </span>
                   </div>
@@ -197,7 +208,7 @@ const Dashboard = async () => {
                             0,
                         })}
                       >
-                        {`₹${
+                        {`${currentUser.currency}${
                           needShare + wantShare - (needsTotal + wantsTotal)
                         }`}
                       </span>
@@ -210,7 +221,9 @@ const Dashboard = async () => {
                             currentMonthIncome - (needsTotal + wantsTotal) < 0,
                         })}
                       >
-                        {`₹${currentMonthIncome - (needsTotal + wantsTotal)}`}
+                        {`${currentUser.currency}${
+                          currentMonthIncome - (needsTotal + wantsTotal)
+                        }`}
                       </span>
                     </span>
                   </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { env } from "@/env.mjs";
+import { currencyType } from "@/config";
 import { Shell } from "@/components/shell";
 import { serverClient } from "@/trpc/server-client";
 import { IncomeCard } from "@/components/income-card";
@@ -39,6 +40,7 @@ const Customize = async () => {
         initialWantRatio={currentUser.wantsPercentage}
         initialInvestmentRatio={currentUser.investmentsPercentage}
         initialSelectedRatio={initialSelectedRatio}
+        initialCurrency={currentUser.currency as currencyType}
         href="/expense-tracker"
         actionLabel="Save"
       />

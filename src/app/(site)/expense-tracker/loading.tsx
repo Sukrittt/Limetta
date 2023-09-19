@@ -23,7 +23,8 @@ const loading = () => {
             <Divider />
           </CardTitle>
           <CardContent className="space-y-2 text-sm pt-6 md:pt-3">
-            <div className="flex justify-end pb-6 md:pb-3">
+            <div className="flex justify-end gap-x-2 pb-6 md:pb-3">
+              <Skeleton className="h-8 w-20 rounded-lg" />
               <Skeleton className="h-8 w-20 rounded-lg" />
             </div>
             <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6">

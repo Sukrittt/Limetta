@@ -6,6 +6,7 @@ import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
 import { RadioGroup, Radio } from "@nextui-org/radio";
 import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
+import { Select, SelectSection, SelectItem } from "@nextui-org/select";
 
 import {
   Card,
@@ -20,6 +21,7 @@ import { toast } from "@/hooks/use-toast";
 import { Icons } from "@/components/icons";
 import { Label } from "@/components/ui/label";
 import ToolTip from "@/components/ui/tool-tip";
+import { currencies, CurrencyType } from "@/config";
 import { buttonVariants } from "@/components/ui/button";
 
 interface IncomeCardProps {
@@ -29,6 +31,7 @@ interface IncomeCardProps {
   initialWantRatio?: number;
   initialInvestmentRatio?: number;
   initialSelectedRatio?: string;
+  initialCurrency?: CurrencyType;
   href?: string;
   actionLabel: string;
 }
@@ -40,6 +43,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
   initialWantRatio,
   initialInvestmentRatio,
   initialSelectedRatio,
+  initialCurrency,
   href = "/dashboard",
   actionLabel,
 }) => {
@@ -51,6 +55,10 @@ export const IncomeCard: FC<IncomeCardProps> = ({
   const [ratioSelected, setRatioSelected] = useState(
     initialSelectedRatio ?? "default"
   );
+  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyType>(
+    initialCurrency ?? "₹"
+  );
+
   const [inputValidationState, setInputValidationState] = useState<
     "valid" | "invalid"
   >("valid");
@@ -127,6 +135,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
       needsPercentage: parseFloat(needRatio),
       wantsPercentage: parseFloat(wantRatio),
       investmentsPercentage: parseFloat(investmentRatio),
+      currency: selectedCurrency,
     });
   };
 
@@ -159,6 +168,21 @@ export const IncomeCard: FC<IncomeCardProps> = ({
             </ToolTip>
           </div>
         </div>
+        <Select
+          label="Currency"
+          selectedKeys={selectedCurrency}
+          onChange={(e) => {
+            if (e.target.value === "") return;
+
+            setSelectedCurrency(e.target.value as CurrencyType);
+          }}
+        >
+          {currencies.map((currency) => (
+            <SelectItem key={currency.value} value={currency.value}>
+              {currency.label}
+            </SelectItem>
+          ))}
+        </Select>
         <Input
           placeholder="Enter your monthly income here."
           value={monthlyIncome ?? ""}
@@ -176,7 +200,9 @@ export const IncomeCard: FC<IncomeCardProps> = ({
           labelPlacement="outside"
           startContent={
             <div className="pointer-events-none flex items-center">
-              <span className="text-default-400 text-small">₹</span>
+              <span className="text-default-400 text-small">
+                {selectedCurrency}
+              </span>
             </div>
           }
         />
@@ -257,7 +283,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
           <NextUIBody className="py-2">
             <div className="flex justify-around gap-2 tracking-tight font-mono text-sm flex-wrap">
               <span>
-                Needs: ₹
+                Needs: {selectedCurrency}
                 <span className="font-semibold ml-1">
                   {monthlyIncome
                     ? (
@@ -268,7 +294,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
                 </span>
               </span>
               <span>
-                Wants: ₹
+                Wants: {selectedCurrency}
                 <span className="font-semibold ml-1">
                   {monthlyIncome
                     ? (
@@ -279,7 +305,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
                 </span>
               </span>
               <span>
-                Investments: ₹
+                Investments: {selectedCurrency}
                 <span className="font-semibold ml-1">
                   {monthlyIncome
                     ? (

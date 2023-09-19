@@ -6,6 +6,7 @@ import { CurrencyType } from "@/config";
 import { Miscellaneous } from "@/db/schema";
 import { Card, CardContent } from "@/components/ui/card";
 import { MiscEditEntry } from "@/components/misc/misc-edit";
+import { MiscDeleteEntry } from "@/components/misc/misc-delete";
 
 const MiscCard = ({
   initialBalance,
@@ -86,7 +87,7 @@ const MiscCard = ({
               ) : (
                 <div className="flex justify-around items-center text-xs">
                   <MiscEditEntry entryDetails={entryDetails} />
-                  <span>Delete</span>
+                  <MiscDeleteEntry entryDetails={entryDetails} />
                 </div>
               )}
             </CardContent>

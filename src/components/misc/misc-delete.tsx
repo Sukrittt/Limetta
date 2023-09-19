@@ -12,28 +12,27 @@ import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
 
 import { cn } from "@/lib/utils";
+import { EntryType } from "@/types";
 import { trpc } from "@/trpc/client";
 import { toast } from "@/hooks/use-toast";
 import { buttonVariants } from "@/components/ui/button";
 
-export const DeleteExpense = ({
-  expenseId,
-  expenseType,
+export const MiscDeleteEntry = ({
+  entryDetails,
 }: {
-  expenseId: number;
-  expenseType: "want" | "need";
+  entryDetails: EntryType;
 }) => {
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
-  const deleteEntry = trpc.entries.deleteEntry.useMutation({
+  const deleteEntry = trpc.misc.deleteMiscEntry.useMutation({
     onSuccess: () => {
       onClose();
       router.refresh();
 
       toast({
-        title: "Expense deleted",
-        description: "Your expense has been deleted successfully.",
+        title: "Entry deleted",
+        description: "Your entry has been deleted successfully.",
       });
     },
     onError: () => {
@@ -68,7 +67,7 @@ export const DeleteExpense = ({
               <ModalBody>
                 <p className="text-muted-foreground">
                   This action cannot be undone. This will permanently delete
-                  this entry from this month&rsquo;s expenses.
+                  this entry from this account.
                 </p>
               </ModalBody>
               <ModalFooter>
@@ -87,7 +86,13 @@ export const DeleteExpense = ({
                   color="primary"
                   disabled={deleteEntry.isLoading}
                   className={cn(buttonVariants({ size: "sm" }), "rounded-lg")}
-                  onClick={() => deleteEntry.mutate({ expenseId, expenseType })}
+                  onClick={() =>
+                    deleteEntry.mutate({
+                      entryType: entryDetails.entryType,
+                      miscId: entryDetails.miscId,
+                      initialBalance: entryDetails.initialBalance,
+                    })
+                  }
                 >
                   {deleteEntry.isLoading ? (
                     <Spinner color="default" size="sm" />

@@ -62,18 +62,18 @@ export const miscRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const rawMiscEntry = await db
+      const existingMiscEntry = await db
         .select()
         .from(miscellaneous)
         .where(eq(miscellaneous.id, input.miscId));
 
-      if (rawMiscEntry.length === 0)
+      if (existingMiscEntry.length === 0)
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "Entry not found",
         });
 
-      const miscEntry = rawMiscEntry[0]; // there should only be one entry with that id
+      const miscEntry = existingMiscEntry[0]; // there should only be one entry with that id
 
       const updatedBalance = getUpdatedBalance(
         input.initialBalance,
@@ -83,22 +83,66 @@ export const miscRouter = createTRPCRouter({
         miscEntry.entryType
       );
 
-      await db
-        .update(users)
-        .set({
-          miscellanousBalance: updatedBalance,
-        })
-        .where(eq(users.id, ctx.userId));
+      const promises = [
+        db
+          .update(users)
+          .set({
+            miscellanousBalance: updatedBalance,
+          })
+          .where(eq(users.id, ctx.userId)),
+        db
+          .update(miscellaneous)
+          .set({
+            amount: input.amount,
+            entryName: input.description,
+            entryType: input.entryType,
+            createdAt: miscEntry.createdAt,
+          })
+          .where(eq(miscellaneous.id, input.miscId)),
+      ];
 
-      await db
-        .update(miscellaneous)
-        .set({
-          amount: input.amount,
-          entryName: input.description,
-          entryType: input.entryType,
-          createdAt: miscEntry.createdAt,
-        })
+      await Promise.all(promises);
+    }),
+  deleteMiscEntry: privateProcedure
+    .input(
+      z.object({
+        initialBalance: z.number(),
+        entryType: z.enum(["in", "out"]),
+        miscId: z.number(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const existingMiscEntry = await db
+        .select()
+        .from(miscellaneous)
         .where(eq(miscellaneous.id, input.miscId));
+
+      if (existingMiscEntry.length === 0) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Entry not found",
+        });
+      }
+
+      let updatedBalance;
+
+      if (input.entryType === "in") {
+        updatedBalance = input.initialBalance - existingMiscEntry[0].amount;
+      } else {
+        updatedBalance = input.initialBalance + existingMiscEntry[0].amount;
+      }
+
+      const promises = [
+        db
+          .update(users)
+          .set({
+            miscellanousBalance: updatedBalance,
+          })
+          .where(eq(users.id, ctx.userId)),
+        db.delete(miscellaneous).where(eq(miscellaneous.id, input.miscId)),
+      ];
+
+      await Promise.all(promises);
     }),
 });
 

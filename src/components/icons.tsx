@@ -10,7 +10,6 @@ import {
   BarChart4,
   Scale,
   AlertTriangle,
-  Puzzle,
 } from "lucide-react";
 
 export const Icons = {
@@ -40,5 +39,4 @@ export const Icons = {
   streaks: CalendarCheck,
   entries: BarChart4,
   warning: AlertTriangle,
-  puzzle: Puzzle,
 };

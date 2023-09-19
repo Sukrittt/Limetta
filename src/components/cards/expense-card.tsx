@@ -39,7 +39,7 @@ export const ExpenseCard = ({
         ) : (
           <span className="text-center">-</span>
         )}
-        <div className="hidden lg:flex gap-x-2 justify-around text-xs items-center">
+        <div className="hidden lg:flex justify-around text-xs items-center">
           <EditExpense expense={expense} />
           <DeleteExpense expenseId={expense.id} expenseType={expense.type} />
         </div>

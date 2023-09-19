@@ -2,12 +2,13 @@ import { redirect } from "next/navigation";
 import { Divider } from "@nextui-org/divider";
 
 import { cn } from "@/lib/utils";
+import { CurrencyType } from "@/config";
 import { Shell } from "@/components/shell";
-import { serverClient } from "@/trpc/server-client";
 import MiscCard from "@/components/cards/misc-card";
+import { serverClient } from "@/trpc/server-client";
+import { Card, CardContent } from "@/components/ui/card";
 import { MiscIncome } from "@/components/misc/misc-income";
 import { MiscExpense } from "@/components/misc/misc-expense";
-import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
 
 const Miscellaneous = async () => {
   const currentUser = await serverClient.user.getCurrentUser();
@@ -17,16 +18,18 @@ const Miscellaneous = async () => {
 
   return (
     <Shell>
-      <NextUICard className="rounded-2xl">
-        <NextUIBody className="flex flex-col gap-y-8 py-8">
+      <Card className="rounded-2xl">
+        <CardContent className="flex flex-col gap-y-8 py-8">
           <div className="flex flex-col items-center gap-y-2">
             <span
               className={cn("text-4xl", {
                 "text-red-500": currentUser.miscellanousBalance < 0,
               })}
-            >{`${
-              currentUser.currency
-            }${currentUser.miscellanousBalance.toLocaleString()}`}</span>
+            >
+              <span>{currentUser.miscellanousBalance < 0 ? "-" : ""}</span>
+              <span>{currentUser.currency}</span>
+              {Math.abs(currentUser.miscellanousBalance).toLocaleString()}
+            </span>
             <p className="text-sm text-muted-foreground tracking-tight">
               Miscellaneous Balance
             </p>
@@ -35,12 +38,16 @@ const Miscellaneous = async () => {
             <MiscIncome initialBalance={currentUser.miscellanousBalance} />
             <MiscExpense initialBalance={currentUser.miscellanousBalance} />
           </div>
-        </NextUIBody>
+        </CardContent>
         <Divider />
-        <NextUIBody className="h-[calc(70vh-140px)] overflow-y-auto no-scrollbar">
-          <MiscCard miscEntries={miscEntries} />
-        </NextUIBody>
-      </NextUICard>
+        <CardContent className="h-[calc(70vh-140px)] overflow-y-auto no-scrollbar pt-8">
+          <MiscCard
+            miscEntries={miscEntries}
+            currency={currentUser.currency as CurrencyType}
+            initialBalance={currentUser.miscellanousBalance}
+          />
+        </CardContent>
+      </Card>
     </Shell>
   );
 };

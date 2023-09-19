@@ -1,53 +1,61 @@
-"use client";
 import { useCallback, useEffect, useState } from "react";
 import { Input } from "@nextui-org/input";
 import { useRouter } from "next/navigation";
+import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
 import { RadioGroup, Radio } from "@nextui-org/radio";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 
 import { cn } from "@/lib/utils";
+import { EntryType } from "@/types";
 import { trpc } from "@/trpc/client";
-import { ExpenseType } from "@/types";
 import { toast } from "@/hooks/use-toast";
-import { Button } from "@nextui-org/button";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
 
-export const EditExpenseForm = ({
-  expense,
+export const MiscEditForm = ({
   onClose,
+  entryDetails,
 }: {
-  expense: ExpenseType;
   onClose: () => void;
+  entryDetails: EntryType;
 }) => {
   const router = useRouter();
-  const [amount, setAmount] = useState(expense.amount.toString());
-  const [description, setDescription] = useState(expense.description);
-  const [expenseTypeSelected, setExpenseTypeSelected] = useState(expense.type);
+  const [amount, setAmount] = useState(entryDetails.amount.toString());
+  const [description, setDescription] = useState(entryDetails.description);
+  const [entryType, setEntryType] = useState(entryDetails.entryType);
+
   const [inputValidationState, setInputValidationState] = useState<
     "valid" | "invalid"
   >("valid");
 
-  const editEntry = trpc.entries.editEntry.useMutation({
+  const updateMiscEntry = trpc.misc.editMiscEntry.useMutation({
     onSuccess: () => {
-      onClose();
-      toast({
-        title: "Expense Updated",
-        description: "Your expense has been updated successfully.",
-      });
       router.refresh();
-    },
-    onError: () => {
       toast({
-        title: "Something went wrong.",
-        description: "Please try again.",
+        title: "Entry updated",
+        description: "Your entry has been updated successfully.",
+      });
+      onClose();
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "Something went wrong.",
         variant: "destructive",
       });
     },
   });
 
   const handleSubmit = () => {
+    if (!amount) {
+      return toast({
+        title: "Amount is required",
+        description: "Please enter a valid amount.",
+        variant: "destructive",
+      });
+    }
+
     if (description.length === 0 || description.length > 100) {
       return toast({
         title: "Description is too long/short",
@@ -64,13 +72,12 @@ export const EditExpenseForm = ({
       });
     }
 
-    editEntry.mutate({
-      bookId: expense.bookId,
-      expenseId: expense.id,
+    updateMiscEntry.mutate({
       amount: parseFloat(amount),
       description,
-      expenseType: expenseTypeSelected,
-      initialExpenseType: expense.type,
+      entryType,
+      initialBalance: entryDetails.initialBalance,
+      miscId: entryDetails.miscId,
     });
   };
 
@@ -96,8 +103,7 @@ export const EditExpenseForm = ({
             <Label>Amount</Label>
             <Input
               autoFocus
-              placeholder="Eg: 20"
-              disabled={editEntry.isLoading}
+              placeholder="Eg: 500"
               value={amount ?? ""}
               onChange={(e) => setAmount(e.target.value)}
               onKeyDown={(e) => {
@@ -119,11 +125,10 @@ export const EditExpenseForm = ({
           </div>
 
           <div className="flex flex-col gap-y-2">
-            <Label>Expense Description</Label>
+            <Label>Income Description</Label>
             <Input
-              placeholder="Eg: Coffee"
+              placeholder="Eg: Freelance"
               value={description}
-              disabled={editEntry.isLoading}
               onChange={(e) => setDescription(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
@@ -135,17 +140,11 @@ export const EditExpenseForm = ({
           <div>
             <RadioGroup
               orientation="horizontal"
-              value={expenseTypeSelected}
-              onValueChange={(value) =>
-                setExpenseTypeSelected(value as "need" | "want")
-              }
+              value={entryType}
+              onValueChange={(value) => setEntryType(value as "in" | "out")}
             >
-              <Radio value="need" description="It's a necessity.">
-                Needs
-              </Radio>
-              <Radio value="want" description="It's a luxury.">
-                Wants
-              </Radio>
+              <Radio value="in">Income</Radio>
+              <Radio value="out">Expense</Radio>
             </RadioGroup>
           </div>
         </form>
@@ -153,11 +152,11 @@ export const EditExpenseForm = ({
       <ModalFooter>
         <Button
           color="danger"
-          variant="light"
           className={cn(
             buttonVariants({ size: "sm", variant: "ghost" }),
             "rounded-lg"
           )}
+          variant="light"
           onPress={onClose}
         >
           Close
@@ -165,10 +164,10 @@ export const EditExpenseForm = ({
         <Button
           color="primary"
           className={cn(buttonVariants({ size: "sm" }), "rounded-lg")}
-          disabled={editEntry.isLoading}
           onClick={handleSubmit}
+          disabled={updateMiscEntry.isLoading}
         >
-          {editEntry.isLoading ? (
+          {updateMiscEntry.isLoading ? (
             <Spinner color="default" size="sm" />
           ) : (
             "Update"

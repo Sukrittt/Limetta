@@ -13,3 +13,11 @@ export type Calculations = {
   wantsTotal: number;
   totalSaved: number;
 };
+
+export type EntryType = {
+  miscId: number;
+  amount: number;
+  description: string;
+  entryType: "in" | "out";
+  initialBalance: number;
+};

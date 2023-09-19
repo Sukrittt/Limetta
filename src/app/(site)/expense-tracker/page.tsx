@@ -102,23 +102,21 @@ const Dashboard = async () => {
                 <p>Add your first entry of the month.</p>
               </div>
             ) : (
-              <>
+              <div className="flex flex-col gap-y-2">
                 <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6">
                   <span className="hidden lg:block">Date & Time</span>
                   <span className="col-span-2 sm:col-span-3">Details</span>
                   <span className="text-center">Needs</span>
                   <span className="text-center">Wants</span>
                 </div>
-                <div className="flex flex-col gap-y-4">
-                  {expenses.map((expense) => (
-                    <ExpenseCard
-                      key={expense.id}
-                      expense={expense}
-                      currency={currentUser.currency as CurrencyType}
-                    />
-                  ))}
-                </div>
-              </>
+                {expenses.map((expense) => (
+                  <ExpenseCard
+                    key={expense.id}
+                    expense={expense}
+                    currency={currentUser.currency as CurrencyType}
+                  />
+                ))}
+              </div>
             )}
           </CardContent>
         </Card>
@@ -179,7 +177,10 @@ const Dashboard = async () => {
                           "text-red-500": needShare - needsTotal < 0,
                         })}
                       >
-                        {`${currentUser.currency}${needShare - needsTotal}`}
+                        <span>{needShare - needsTotal < 0 ? "-" : ""}</span>
+                        {`${currentUser.currency}${Math.abs(
+                          needShare - needsTotal
+                        )}`}
                       </span>
                     </span>
                     <span>
@@ -189,7 +190,10 @@ const Dashboard = async () => {
                           "text-red-500": wantShare - wantsTotal < 0,
                         })}
                       >
-                        {`${currentUser.currency}${wantShare - wantsTotal}`}
+                        <span>{wantShare - wantsTotal < 0 ? "-" : ""}</span>
+                        {`${currentUser.currency}${Math.abs(
+                          wantShare - wantsTotal
+                        )}`}
                       </span>
                     </span>
                   </div>
@@ -208,9 +212,14 @@ const Dashboard = async () => {
                             0,
                         })}
                       >
-                        {`${currentUser.currency}${
+                        <span>
+                          {needShare + wantShare - (needsTotal + wantsTotal) < 0
+                            ? "-"
+                            : ""}
+                        </span>
+                        {`${currentUser.currency}${Math.abs(
                           needShare + wantShare - (needsTotal + wantsTotal)
-                        }`}
+                        )}`}
                       </span>
                     </span>
                     <span>
@@ -221,9 +230,14 @@ const Dashboard = async () => {
                             currentMonthIncome - (needsTotal + wantsTotal) < 0,
                         })}
                       >
-                        {`${currentUser.currency}${
+                        <span>
+                          {currentMonthIncome - (needsTotal + wantsTotal) < 0
+                            ? "-"
+                            : ""}
+                        </span>
+                        {`${currentUser.currency}${Math.abs(
                           currentMonthIncome - (needsTotal + wantsTotal)
-                        }`}
+                        )}`}
                       </span>
                     </span>
                   </div>

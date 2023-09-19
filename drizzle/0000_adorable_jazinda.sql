@@ -24,14 +24,50 @@ CREATE TABLE `books` (
 	CONSTRAINT `books_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
+CREATE TABLE `investments` (
+	`id` serial AUTO_INCREMENT NOT NULL,
+	`entryName` varchar(100) NOT NULL,
+	`entryType` varchar(100) NOT NULL,
+	`amount` float NOT NULL,
+	`transferingTo` varchar(100),
+	`transferingFrom` varchar(100),
+	`userId` varchar(255) NOT NULL,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `investments_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `miscellaneous` (
+	`id` serial AUTO_INCREMENT NOT NULL,
+	`entryName` varchar(100) NOT NULL,
+	`entryType` varchar(100) NOT NULL,
+	`amount` float NOT NULL,
+	`transferingTo` varchar(100),
+	`transferingFrom` varchar(100),
+	`userId` varchar(255) NOT NULL,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `miscellaneous_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
 CREATE TABLE `needs` (
 	`id` serial AUTO_INCREMENT NOT NULL,
 	`amount` float NOT NULL,
-	`description` varchar(50) NOT NULL,
+	`description` varchar(100) NOT NULL,
 	`userId` varchar(255) NOT NULL,
 	`bookId` int NOT NULL,
 	`createdAt` timestamp NOT NULL DEFAULT (now()),
 	CONSTRAINT `needs_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `savings` (
+	`id` serial AUTO_INCREMENT NOT NULL,
+	`entryName` varchar(100) NOT NULL,
+	`entryType` varchar(100) NOT NULL,
+	`amount` float NOT NULL,
+	`transferingTo` varchar(100),
+	`transferingFrom` varchar(100),
+	`userId` varchar(255) NOT NULL,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `savings_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
 CREATE TABLE `session` (
@@ -51,6 +87,10 @@ CREATE TABLE `user` (
 	`needsPercentage` float NOT NULL DEFAULT 50,
 	`wantsPercentage` float NOT NULL DEFAULT 30,
 	`investmentsPercentage` float NOT NULL DEFAULT 20,
+	`savingsBalance` float NOT NULL DEFAULT 0,
+	`investmentsBalance` float NOT NULL DEFAULT 0,
+	`miscellanousBalance` float NOT NULL DEFAULT 0,
+	`currency` varchar(1) NOT NULL DEFAULT '₹',
 	CONSTRAINT `user_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
@@ -64,7 +104,7 @@ CREATE TABLE `verificationToken` (
 CREATE TABLE `wants` (
 	`id` serial AUTO_INCREMENT NOT NULL,
 	`amount` float NOT NULL,
-	`description` varchar(50) NOT NULL,
+	`description` varchar(100) NOT NULL,
 	`userId` varchar(255) NOT NULL,
 	`bookId` int NOT NULL,
 	`createdAt` timestamp NOT NULL DEFAULT (now()),

@@ -11,40 +11,6 @@ import {
 import { relations } from "drizzle-orm";
 import type { AdapterAccount } from "@auth/core/adapters";
 
-export const users = mysqlTable("user", {
-  id: varchar("id", { length: 255 }).notNull().primaryKey(),
-  name: varchar("name", { length: 255 }),
-  email: varchar("email", { length: 255 }).notNull(),
-  emailVerified: timestamp("emailVerified", {
-    mode: "date",
-    fsp: 3,
-  }).defaultNow(),
-  image: varchar("image", { length: 255 }),
-
-  monthlyIncome: float("monthlyIncome"),
-  needsPercentage: float("needsPercentage").notNull().default(50),
-  wantsPercentage: float("wantsPercentage").notNull().default(30),
-  investmentsPercentage: float("investmentsPercentage").notNull().default(20),
-
-  currency: varchar("currency", { length: 1 }).notNull().default("₹"),
-});
-
-export type User = typeof users.$inferSelect;
-
-export const usersRelations = relations(users, ({ one }) => ({
-  accounts: one(accounts, {
-    fields: [users.id],
-    references: [accounts.userId],
-  }),
-}));
-
-export const sessionRelations = relations(users, ({ one }) => ({
-  sessions: one(sessions, {
-    fields: [users.id],
-    references: [sessions.userId],
-  }),
-}));
-
 export const accounts = mysqlTable(
   "account",
   {
@@ -85,7 +51,45 @@ export const verificationTokens = mysqlTable(
   })
 );
 
-//monthly books
+export const users = mysqlTable("user", {
+  id: varchar("id", { length: 255 }).notNull().primaryKey(),
+  name: varchar("name", { length: 255 }),
+  email: varchar("email", { length: 255 }).notNull(),
+  emailVerified: timestamp("emailVerified", {
+    mode: "date",
+    fsp: 3,
+  }).defaultNow(),
+  image: varchar("image", { length: 255 }),
+
+  monthlyIncome: float("monthlyIncome"),
+  needsPercentage: float("needsPercentage").notNull().default(50),
+  wantsPercentage: float("wantsPercentage").notNull().default(30),
+  investmentsPercentage: float("investmentsPercentage").notNull().default(20),
+
+  savingsBalance: float("savingsBalance").notNull().default(0),
+  investmentsBalance: float("investmentsBalance").notNull().default(0),
+  miscellanousBalance: float("miscellanousBalance").notNull().default(0),
+
+  currency: varchar("currency", { length: 1 }).notNull().default("₹"),
+});
+
+export const usersRelations = relations(users, ({ one }) => ({
+  accounts: one(accounts, {
+    fields: [users.id],
+    references: [accounts.userId],
+  }),
+}));
+
+export const sessionRelations = relations(users, ({ one }) => ({
+  sessions: one(sessions, {
+    fields: [users.id],
+    references: [sessions.userId],
+  }),
+}));
+
+export type User = typeof users.$inferSelect;
+
+// Books
 export const books = mysqlTable("books", {
   id: serial("id").primaryKey(),
   userId: varchar("userId", { length: 255 }).notNull(),
@@ -113,7 +117,7 @@ export const UserBooksRelations = relations(users, ({ many }) => ({
 export const needs = mysqlTable("needs", {
   id: serial("id").primaryKey(),
   amount: float("amount").notNull(),
-  description: varchar("description", { length: 50 }).notNull(),
+  description: varchar("description", { length: 100 }).notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
   bookId: int("bookId").notNull(),
   createdAt: timestamp("createdAt").notNull().defaultNow(),
@@ -143,7 +147,7 @@ export const bookNeedsRelations = relations(books, ({ many }) => ({
 export const wants = mysqlTable("wants", {
   id: serial("id").primaryKey(),
   amount: float("amount").notNull(),
-  description: varchar("description", { length: 50 }).notNull(),
+  description: varchar("description", { length: 100 }).notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
   bookId: int("bookId").notNull(),
   createdAt: timestamp("createdAt").notNull().defaultNow(),
@@ -167,4 +171,106 @@ export const wantsRelationWithUsers = relations(wants, ({ one }) => ({
 
 export const bookWantsRelations = relations(books, ({ many }) => ({
   wants: many(wants),
+}));
+
+// Savings Account
+export const savings = mysqlTable("savings", {
+  id: serial("id").primaryKey(),
+  entryName: varchar("entryName", { length: 100 }).notNull(),
+  entryType: varchar("entryType", {
+    length: 100,
+    enum: ["in", "out"],
+  }).notNull(),
+  amount: float("amount").notNull(),
+  transferingTo: varchar("transferingTo", {
+    length: 100,
+    enum: ["investments", "miscellaneous"],
+  }),
+  transferingFrom: varchar("transferingFrom", {
+    length: 100,
+    enum: ["investments", "miscellaneous"],
+  }),
+  userId: varchar("userId", { length: 255 }).notNull(),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+});
+
+export type Savings = typeof savings.$inferSelect;
+
+export const savingsRelation = relations(savings, ({ one }) => ({
+  author: one(users, {
+    fields: [savings.userId],
+    references: [users.id],
+  }),
+}));
+
+export const UserSavingsRelations = relations(users, ({ many }) => ({
+  savings: many(savings),
+}));
+
+// Investments Account
+export const investments = mysqlTable("investments", {
+  id: serial("id").primaryKey(),
+  entryName: varchar("entryName", { length: 100 }).notNull(),
+  entryType: varchar("entryType", {
+    length: 100,
+    enum: ["in", "out"],
+  }).notNull(),
+  amount: float("amount").notNull(),
+  transferingTo: varchar("transferingTo", {
+    length: 100,
+    enum: ["savings", "miscellaneous"],
+  }),
+  transferingFrom: varchar("transferingFrom", {
+    length: 100,
+    enum: ["savings", "miscellaneous"],
+  }),
+  userId: varchar("userId", { length: 255 }).notNull(),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+});
+
+export type Investments = typeof investments.$inferSelect;
+
+export const investmentsRelation = relations(investments, ({ one }) => ({
+  author: one(users, {
+    fields: [investments.userId],
+    references: [users.id],
+  }),
+}));
+
+export const UserInvestmentsRelations = relations(users, ({ many }) => ({
+  investments: many(investments),
+}));
+
+// Miscellaneous Account
+export const miscellaneous = mysqlTable("miscellaneous", {
+  id: serial("id").primaryKey(),
+  entryName: varchar("entryName", { length: 100 }).notNull(),
+  entryType: varchar("entryType", {
+    length: 100,
+    enum: ["in", "out"],
+  }).notNull(),
+  amount: float("amount").notNull(),
+  transferingTo: varchar("transferingTo", {
+    length: 100,
+    enum: ["investments", "savings"],
+  }),
+  transferingFrom: varchar("transferingFrom", {
+    length: 100,
+    enum: ["investments", "savings"],
+  }),
+  userId: varchar("userId", { length: 255 }).notNull(),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+});
+
+export type Miscellaneous = typeof miscellaneous.$inferSelect;
+
+export const miscellaneousRelation = relations(miscellaneous, ({ one }) => ({
+  author: one(users, {
+    fields: [miscellaneous.userId],
+    references: [users.id],
+  }),
+}));
+
+export const UserMiscellaneousRelations = relations(users, ({ many }) => ({
+  miscellaneous: many(miscellaneous),
 }));

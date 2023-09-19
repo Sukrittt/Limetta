@@ -30,12 +30,12 @@ export const ExpenseCard = ({
           {expense.description}
         </span>
         {expense.type === "need" ? (
-          <span className="text-center">{`${currency}${expense.amount}`}</span>
+          <span className="text-center">{`${currency}${expense.amount.toLocaleString()}`}</span>
         ) : (
           <span className="text-center">-</span>
         )}
         {expense.type === "want" ? (
-          <span className="text-center">{`${currency}${expense.amount}`}</span>
+          <span className="text-center">{`${currency}${expense.amount.toLocaleString()}`}</span>
         ) : (
           <span className="text-center">-</span>
         )}

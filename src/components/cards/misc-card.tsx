@@ -73,7 +73,7 @@ const MiscCard = ({
               >
                 {entry.entryType === "in" ? "+" : "-"}
                 {currency}
-                {entry.amount}
+                {entry.amount.toLocaleString()}
               </span>
               {transferEntry ? (
                 <Link

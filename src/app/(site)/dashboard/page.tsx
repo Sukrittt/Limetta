@@ -4,8 +4,6 @@ import { redirect } from "next/navigation";
 import { Shell } from "@/components/shell";
 import { serverClient } from "@/trpc/server-client";
 import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -59,7 +57,7 @@ const Dashboard = async () => {
                   <span className="text-lg text-muted-foreground mr-2">
                     {currentUser.currency}
                   </span>
-                  {account.balance}
+                  {account.balance.toLocaleString()}
                 </span>
               </NextUIBody>
             </NextUICard>

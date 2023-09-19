@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 import { env } from "@/env.mjs";
 import { serverClient } from "@/trpc/server-client";
-import { IncomeCard } from "@/components/income-card";
+import { IncomeCard } from "@/components/cards/income-card";
 
 export const dynamic = "force-dynamic";
 

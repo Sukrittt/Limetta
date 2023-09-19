@@ -1,42 +1,43 @@
-"use client";
 import { useCallback, useEffect, useState } from "react";
 import { Input } from "@nextui-org/input";
 import { useRouter } from "next/navigation";
+import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
-import { RadioGroup, Radio } from "@nextui-org/radio";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 
 import { cn } from "@/lib/utils";
 import { trpc } from "@/trpc/client";
 import { toast } from "@/hooks/use-toast";
-import { Button } from "@nextui-org/button";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
 
-export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
+export const MiscExpenseForm = ({
+  onClose,
+  initialBalance,
+}: {
+  onClose: () => void;
+  initialBalance: number;
+}) => {
   const router = useRouter();
   const [amount, setAmount] = useState<string | null>(null);
   const [description, setDescription] = useState("");
   const [inputValidationState, setInputValidationState] = useState<
     "valid" | "invalid"
   >("valid");
-  const [expenseTypeSelected, setExpenseTypeSelected] = useState<
-    "want" | "need"
-  >("want");
 
-  const addEntry = trpc.entries.addEntry.useMutation({
+  const addMiscExpense = trpc.misc.addMiscEntry.useMutation({
     onSuccess: () => {
-      onClose();
       router.refresh();
       toast({
         title: "Expense added",
         description: "Your expense has been added successfully.",
       });
+      onClose();
     },
-    onError: () => {
+    onError: (error) => {
       toast({
-        title: "Something went wrong.",
-        description: "Please try again.",
+        title: "Error",
+        description: "Something went wrong.",
         variant: "destructive",
       });
     },
@@ -67,10 +68,11 @@ export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
       });
     }
 
-    addEntry.mutate({
+    addMiscExpense.mutate({
       amount: parseFloat(amount),
       description,
-      expenseType: expenseTypeSelected,
+      entryType: "out",
+      initialBalance,
     });
   };
 
@@ -96,7 +98,7 @@ export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
             <Label>Amount</Label>
             <Input
               autoFocus
-              placeholder="Eg: 20"
+              placeholder="Eg: 1000"
               value={amount ?? ""}
               onChange={(e) => setAmount(e.target.value)}
               onKeyDown={(e) => {
@@ -118,9 +120,9 @@ export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
           </div>
 
           <div className="flex flex-col gap-y-2">
-            <Label>Expense Description</Label>
+            <Label>Income Description</Label>
             <Input
-              placeholder="Eg: Coffee"
+              placeholder="Eg: Emergency Repairs"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               onKeyDown={(e) => {
@@ -129,23 +131,6 @@ export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
                 }
               }}
             />
-          </div>
-          <div>
-            <RadioGroup
-              orientation="horizontal"
-              value={expenseTypeSelected}
-              onValueChange={(value) => {
-                if (value !== "want" && value !== "need") return;
-                setExpenseTypeSelected(value);
-              }}
-            >
-              <Radio value="need" description="It's a necessity.">
-                Needs
-              </Radio>
-              <Radio value="want" description="It's a luxury.">
-                Wants
-              </Radio>
-            </RadioGroup>
           </div>
         </form>
       </ModalBody>
@@ -165,9 +150,13 @@ export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
           color="primary"
           className={cn(buttonVariants({ size: "sm" }), "rounded-lg")}
           onClick={handleSubmit}
-          disabled={addEntry.isLoading}
+          disabled={addMiscExpense.isLoading}
         >
-          {addEntry.isLoading ? <Spinner color="default" size="sm" /> : "Add"}
+          {addMiscExpense.isLoading ? (
+            <Spinner color="default" size="sm" />
+          ) : (
+            "Add"
+          )}
         </Button>
       </ModalFooter>
     </>

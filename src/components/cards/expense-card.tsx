@@ -3,8 +3,8 @@ import { format } from "date-fns";
 
 import { ExpenseType } from "@/types";
 import { CurrencyType } from "@/config";
-import { EditExpense } from "./edit-expense";
-import { DeleteExpense } from "./delete-expense";
+import { EditExpense } from "../expense/edit-expense";
+import { DeleteExpense } from "../expense/delete-expense";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 export const ExpenseCard = ({

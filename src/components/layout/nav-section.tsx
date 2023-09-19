@@ -34,9 +34,12 @@ export const NavSection = () => {
         <Link
           key={index}
           href={section.href}
-          className={cn("hover:text-primary transition", {
-            "text-primary": pathname === section.href,
-          })}
+          className={cn(
+            "hover:text-primary transition focus:outline-none focus:text-primary",
+            {
+              "text-primary": pathname === section.href,
+            }
+          )}
         >
           {section.name}
         </Link>

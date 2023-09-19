@@ -5,7 +5,7 @@ import { env } from "@/env.mjs";
 import { CurrencyType } from "@/config";
 import { Shell } from "@/components/shell";
 import { serverClient } from "@/trpc/server-client";
-import { IncomeCard } from "@/components/income-card";
+import { IncomeCard } from "@/components/cards/income-card";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";

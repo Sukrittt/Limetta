@@ -32,8 +32,8 @@ export const DeleteExpense = ({
       router.refresh();
 
       toast({
-        title: "Entry deleted",
-        description: "The entry has been deleted successfully.",
+        title: "Delete deleted",
+        description: "The delete has been deleted successfully.",
       });
     },
     onError: () => {

@@ -1,4 +1,4 @@
-import { IncomeCardSkeleton } from "@/components/income-card-skeleton";
+import { IncomeCardSkeleton } from "@/components/cards/income-card-skeleton";
 
 const loading = () => {
   return (

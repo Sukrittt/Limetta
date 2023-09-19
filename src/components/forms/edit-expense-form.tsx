@@ -34,7 +34,7 @@ export const EditExpenseForm = ({
       onClose();
       toast({
         title: "Expense Updated",
-        description: "Expense has been updated successfully.",
+        description: "Your expense has been updated successfully.",
       });
       router.refresh();
     },
@@ -48,7 +48,7 @@ export const EditExpenseForm = ({
   });
 
   const handleSubmit = () => {
-    if (description.length === 0 || description.length > 50) {
+    if (description.length === 0 || description.length > 100) {
       return toast({
         title: "Description is too long/short",
         description: "Please enter a valid description.",

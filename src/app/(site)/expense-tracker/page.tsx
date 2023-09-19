@@ -9,7 +9,7 @@ import { Shell } from "@/components/shell";
 import { getAuthSession } from "@/lib/auth";
 import { serverClient } from "@/trpc/server-client";
 import { AddExpense } from "@/components/expense/add-expense";
-import { ExpenseCard } from "@/components/expense/expense-card";
+import { ExpenseCard } from "@/components/cards/expense-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const dynamic = "force-dynamic";
@@ -176,7 +176,7 @@ const Dashboard = async () => {
                       Needs:{" "}
                       <span
                         className={cn({
-                          "text-rose-500": needShare - needsTotal < 0,
+                          "text-red-500": needShare - needsTotal < 0,
                         })}
                       >
                         {`${currentUser.currency}${needShare - needsTotal}`}
@@ -186,7 +186,7 @@ const Dashboard = async () => {
                       Wants:{" "}
                       <span
                         className={cn({
-                          "text-rose-500": wantShare - wantsTotal < 0,
+                          "text-red-500": wantShare - wantsTotal < 0,
                         })}
                       >
                         {`${currentUser.currency}${wantShare - wantsTotal}`}
@@ -203,7 +203,7 @@ const Dashboard = async () => {
                       Left for Spending:{" "}
                       <span
                         className={cn({
-                          "text-rose-500":
+                          "text-red-500":
                             needShare + wantShare - (needsTotal + wantsTotal) <
                             0,
                         })}
@@ -217,7 +217,7 @@ const Dashboard = async () => {
                       Total Savings:{" "}
                       <span
                         className={cn({
-                          "text-rose-500":
+                          "text-red-500":
                             currentMonthIncome - (needsTotal + wantsTotal) < 0,
                         })}
                       >

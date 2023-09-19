@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
 import { RadioGroup, Radio } from "@nextui-org/radio";
+import { Select, SelectItem } from "@nextui-org/select";
 import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
-import { Select, SelectSection, SelectItem } from "@nextui-org/select";
 
 import {
   Card,

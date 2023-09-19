@@ -1,6 +1,7 @@
 "use client";
-import { cn } from "@/lib/utils";
+
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
 export const NavSection = () => {
@@ -24,6 +25,8 @@ export const NavSection = () => {
       href: "/miscellaneous",
     },
   ];
+
+  if (pathname === "/onboarding") return;
 
   return (
     <div className="hidden rounded-full border py-2 px-3 text-xs lg:flex gap-x-2">

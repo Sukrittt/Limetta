@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { cn } from "@/lib/utils";
 import { Shell } from "@/components/shell";
 import { serverClient } from "@/trpc/server-client";
+import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
 import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -12,6 +13,24 @@ const Dashboard = async () => {
   const currentUser = await serverClient.user.getCurrentUser();
 
   if (!currentUser.monthlyIncome) redirect("/onboarding");
+
+  const accountCards = [
+    {
+      title: "Savings Account",
+      href: "/savings",
+      balance: currentUser.savingsBalance,
+    },
+    {
+      title: "Investments Account",
+      href: "/investments",
+      balance: currentUser.investmentsBalance,
+    },
+    {
+      title: "Miscellaneous Account",
+      href: "/miscellanous",
+      balance: currentUser.miscellanousBalance,
+    },
+  ];
 
   return (
     <Shell>
@@ -21,47 +40,31 @@ const Dashboard = async () => {
         }`}</h1>
         <p className="text-muted-foreground text-sm">Welcome Back!</p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Link href="/expense-tracker">
-          <div
-            className={cn(
-              buttonVariants({ variant: "secondary" }),
-              "h-[250px] w-full rounded-3xl bg-[#eedcdc] hover:bg-[#eedcdc]/80 transition-all text-neutral-800 font-semibold text-lg tracking-tight"
-            )}
-          >
-            Expense Tracker
-          </div>
-        </Link>
-        <Link href="/investments">
-          <div
-            className={cn(
-              buttonVariants({ variant: "secondary" }),
-              "h-[250px] w-full rounded-3xl bg-[#f1eee9] hover:bg-[#f1eee9]/80 transition-all text-neutral-800 font-semibold text-lg tracking-tight"
-            )}
-          >
-            Investments account
-          </div>
-        </Link>
-        <Link href="/savings">
-          <div
-            className={cn(
-              buttonVariants({ variant: "secondary" }),
-              "h-[250px] w-full rounded-3xl bg-[#c0dedc] hover:bg-[#c0dedc]/80 transition-all text-neutral-800 font-semibold text-lg tracking-tight"
-            )}
-          >
-            Savings account
-          </div>
-        </Link>
-        <Link href="/miscellaneous">
-          <div
-            className={cn(
-              buttonVariants({ variant: "secondary" }),
-              "h-[250px] w-full rounded-3xl bg-[#e6dff1] hover:bg-[#e6dff1]/80 transition-all text-neutral-800 font-semibold text-lg tracking-tight"
-            )}
-          >
-            Miscellaneous account
-          </div>
-        </Link>
+      <div className="grid grid-cols-4 gap-4 tracking-tight">
+        <NextUICard className="col-span-3">
+          <NextUIBody>Expense Tracker Entries</NextUIBody>
+        </NextUICard>
+
+        <div className="grid grid-cols-1 gap-4">
+          {accountCards.map((account, index) => (
+            <NextUICard key={index}>
+              <NextUIBody>
+                <Link
+                  href={account.href}
+                  className="underline-offset-4 hover:underline hover:text-primary transition text-muted-foreground"
+                >
+                  {account.title}
+                </Link>
+                <span className="mt-2 font-bold text-xl">
+                  <span className="text-lg text-muted-foreground mr-2">
+                    {currentUser.currency}
+                  </span>
+                  {account.balance}
+                </span>
+              </NextUIBody>
+            </NextUICard>
+          ))}
+        </div>
       </div>
     </Shell>
   );

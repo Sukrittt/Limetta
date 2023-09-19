@@ -141,7 +141,7 @@ const Overview = async () => {
           <CardHeader>
             <CardTitle className="text-md">Total Monthly Expenses</CardTitle>
             <CardDescription>
-              You have spent ${currentUser.currency}
+              You have spent {currentUser.currency}
               {totalSpent} till now.
             </CardDescription>
           </CardHeader>

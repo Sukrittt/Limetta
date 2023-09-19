@@ -129,18 +129,18 @@ const Dashboard = async () => {
             </CardHeader>
             <Divider />
           </CardTitle>
-          <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 pt-6 lg:pb-0 lg:pt-3 text-sm">
+          <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 pt-6 lg:pb-0 lg:pt-3">
             {currentMonthEntries.books.length === 0 ? (
               <p className="pt-4 text-muted-foreground tracking-tighter text-center font-mono">
                 Start adding entires to get more insights.
               </p>
             ) : (
               <>
-                <div className="flex flex-col gap-y-2">
-                  <span className="font-semibold underline underline-offset-4">
+                <div className="flex flex-col gap-y-1">
+                  <span className="font-semibold underline underline-offset-4 mb-1">
                     Allotment
                   </span>
-                  <div className="flex flex-col gap-y-1">
+                  <div className="flex flex-col font-mono">
                     <span>Needs: {`${currentUser.currency}${needShare}`}</span>
                     <span>Wants: {`${currentUser.currency}${wantShare}`}</span>
                     <span>
@@ -152,11 +152,11 @@ const Dashboard = async () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex flex-col gap-y-2">
+                <div className="flex flex-col gap-y-1">
                   <span className="font-semibold underline underline-offset-4 mb-1">
                     Spendings
                   </span>
-                  <div className="flex flex-col gap-y-1">
+                  <div className="flex flex-col font-mono">
                     <span>Needs: {`${currentUser.currency}${needsTotal}`}</span>
                     <span>Wants: {`${currentUser.currency}${wantsTotal}`}</span>
                     <span>
@@ -165,11 +165,11 @@ const Dashboard = async () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex flex-col gap-y-2">
+                <div className="flex flex-col gap-y-1">
                   <span className="font-semibold underline underline-offset-4 mb-1">
                     Money Left
                   </span>
-                  <div className="flex flex-col gap-y-1">
+                  <div className="flex flex-col font-mono">
                     <span>
                       Needs:{" "}
                       <span
@@ -198,11 +198,11 @@ const Dashboard = async () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex flex-col gap-y-2">
+                <div className="flex flex-col gap-y-1">
                   <span className="font-semibold underline underline-offset-4 mb-1">
                     Savings
                   </span>
-                  <div className="flex flex-col gap-y-1">
+                  <div className="flex flex-col font-mono">
                     <span>
                       Left for Spending:{" "}
                       <span

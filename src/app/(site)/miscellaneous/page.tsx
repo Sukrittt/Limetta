@@ -10,6 +10,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { MiscIncome } from "@/components/misc/misc-income";
 import { MiscExpense } from "@/components/misc/misc-expense";
 
+export const dynamic = "force-dynamic";
+
 const Miscellaneous = async () => {
   const currentUser = await serverClient.user.getCurrentUser();
   const miscEntries = await serverClient.misc.getMiscTransactions();

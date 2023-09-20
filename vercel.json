@@ -1,7 +1,7 @@
 {
     "crons": [
       {
-        "path": "/api/trpc/cron",
+        "path": "/api/cron",
         "schedule": "0 17 * * *"
       }
     ]

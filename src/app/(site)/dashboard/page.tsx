@@ -25,7 +25,7 @@ const Dashboard = async () => {
     },
     {
       title: "Miscellaneous Account",
-      href: "/miscellanous",
+      href: "/miscellaneous",
       balance: currentUser.miscellanousBalance,
     },
   ];

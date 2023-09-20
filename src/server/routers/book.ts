@@ -18,7 +18,7 @@ function filterUniqueObjects(arr: any) {
 
 export const bookRouter = createTRPCRouter({
   getUserBooks: privateProcedure.query(async ({ ctx }) => {
-    const currentMonthBooks = await db
+    const userBooks = await db
       .select()
       .from(books)
       .where(
@@ -30,13 +30,13 @@ export const bookRouter = createTRPCRouter({
       .leftJoin(needs, eq(books.id, needs.bookId))
       .leftJoin(wants, eq(books.id, wants.bookId));
 
-    if (currentMonthBooks.length === 0) {
+    if (userBooks.length === 0) {
       return [];
     }
 
     const bookMap = new Map();
 
-    currentMonthBooks.forEach((row) => {
+    userBooks.forEach((row) => {
       const bookId = row.books.id;
 
       if (!bookMap.has(bookId)) {

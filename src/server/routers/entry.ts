@@ -198,4 +198,5 @@ export const entryRouter = createTRPCRouter({
         }
       }
     }),
+  transferSavings: privateProcedure.mutation(async ({ ctx }) => {}),
 });

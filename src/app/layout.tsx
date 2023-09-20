@@ -5,7 +5,7 @@ import "./styles/globals.css";
 import { env } from "@/env.mjs";
 import { siteConfig } from "@/config";
 import { Toaster } from "@/components/ui/toaster";
-import { Providers } from "@/components/providers";
+import { Providers } from "@/components/providers/providers";
 
 const font = Montserrat({ subsets: ["latin"], weight: "500" });
 

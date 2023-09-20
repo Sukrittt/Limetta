@@ -16,12 +16,6 @@ export const sidebarItems = [
   },
   {
     id: 2,
-    label: "Overview",
-    Icon: Icons.overview,
-    href: "/overview",
-  },
-  {
-    id: 3,
     label: "Customize",
     Icon: Icons.customize,
     href: "/customize",
@@ -46,6 +40,58 @@ export const currencies = [
   {
     value: "£",
     label: "GBP",
+  },
+];
+
+export const dashboardItems = [
+  {
+    title: "Expense Tracker",
+    Icon: Icons.wallet,
+    subItems: [
+      {
+        title: "Transactions",
+        href: "/expense-tracker",
+        Icon: Icons.transactions,
+      },
+      {
+        title: "Overview",
+        href: "/overview",
+        Icon: Icons.overview,
+      },
+    ],
+  },
+  {
+    title: "Investments",
+    Icon: Icons.investments,
+    subItems: [
+      {
+        title: "Transactions",
+        href: "/investments",
+        Icon: Icons.transactions,
+      },
+    ],
+  },
+  {
+    title: "Savings",
+    Icon: Icons.piggy,
+    subItems: [
+      {
+        title: "Transactions",
+        href: "/savings",
+        Icon: Icons.transactions,
+      },
+    ],
+  },
+  {
+    title: "Miscellaneous",
+    Icon: Icons.siren,
+    subItems: [
+      {
+        title: "Transactions",
+        href: "/miscellaneous",
+        Icon: Icons.transactions,
+      },
+    ],
   },
 ];
 

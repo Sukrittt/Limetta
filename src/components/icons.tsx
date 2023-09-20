@@ -10,6 +10,11 @@ import {
   BarChart4,
   Scale,
   AlertTriangle,
+  Wallet,
+  PiggyBank,
+  Siren,
+  ArrowDownUp,
+  SearchCheck,
 } from "lucide-react";
 
 export const Icons = {
@@ -32,11 +37,16 @@ export const Icons = {
   logo: Scale,
   logout: LogOut,
   info: Info,
-  overview: BarChart3,
   customize: Settings,
   wants: PartyPopper,
   needs: Hand,
   streaks: CalendarCheck,
   entries: BarChart4,
   warning: AlertTriangle,
+  wallet: Wallet,
+  piggy: PiggyBank,
+  overview: SearchCheck,
+  investments: BarChart3,
+  siren: Siren,
+  transactions: ArrowDownUp,
 };

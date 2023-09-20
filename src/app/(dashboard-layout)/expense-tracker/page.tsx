@@ -5,7 +5,6 @@ import { Divider } from "@nextui-org/divider";
 import { env } from "@/env.mjs";
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/config";
-import { Shell } from "@/components/shell";
 import { getAuthSession } from "@/lib/auth";
 import { serverClient } from "@/trpc/server-client";
 import { AddExpense } from "@/components/expense/add-expense";
@@ -77,7 +76,7 @@ const Dashboard = async () => {
     currentMonthIncome * (currentMonthInvestmentPercetange / 100);
 
   return (
-    <Shell className="grid grid-cols-7 md:py-4 tracking-tight">
+    <div className="grid grid-cols-7 gap-8 md:py-4 tracking-tight">
       <div className="col-span-7 lg:col-span-5">
         <Card className="h-[calc(100vh-140px)] overflow-y-auto no-scrollbar">
           <CardTitle>
@@ -247,7 +246,7 @@ const Dashboard = async () => {
           </CardContent>
         </Card>
       </div>
-    </Shell>
+    </div>
   );
 };
 

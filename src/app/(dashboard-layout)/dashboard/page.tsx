@@ -31,9 +31,9 @@ const Dashboard = async () => {
   ];
 
   return (
-    <Shell>
+    <div className="flex flex-col gap-y-8">
       <div>
-        <h1 className="text-2xl font-semibold">{`Hello ${
+        <h1 className="text-3xl font-semibold">{`Hello ${
           currentUser.name ? currentUser.name.split(" ")[0] : "User"
         }`}</h1>
         <p className="text-muted-foreground text-sm">Welcome Back!</p>
@@ -64,7 +64,7 @@ const Dashboard = async () => {
           ))}
         </div>
       </div>
-    </Shell>
+    </div>
   );
 };
 

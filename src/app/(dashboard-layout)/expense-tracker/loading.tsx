@@ -15,7 +15,7 @@ const loading = () => {
   const currentMonth = currentDate.toLocaleString("en-US", { month: "long" });
 
   return (
-    <Shell className="grid grid-cols-7 md:py-4 tracking-tight">
+    <div className="grid grid-cols-7 gap-8 md:py-4 tracking-tight">
       <div className="col-span-7 lg:col-span-5">
         <Card className="h-[calc(100vh-140px)] overflow-y-auto no-scrollbar">
           <CardTitle>
@@ -92,7 +92,7 @@ const loading = () => {
           </CardContent>
         </Card>
       </div>
-    </Shell>
+    </div>
   );
 };
 

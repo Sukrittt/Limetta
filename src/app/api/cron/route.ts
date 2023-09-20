@@ -6,7 +6,7 @@ export async function GET() {
     await db.insert(miscellaneous).values({
       userId: "4130d5c5-eb0b-4bbb-abbc-3c509b6e3138",
       amount: 69,
-      entryName: "cron job",
+      entryName: "Cron job test successfull",
       entryType: "in",
     });
 

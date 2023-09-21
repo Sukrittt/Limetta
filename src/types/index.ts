@@ -6,6 +6,7 @@ export type ExpenseType = {
   createdAt: Date;
   amount: number;
   bookId: number;
+  totalSpendings: number;
 };
 
 export type Calculations = {

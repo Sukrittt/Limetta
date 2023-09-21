@@ -17,6 +17,7 @@ CREATE TABLE `books` (
 	`id` serial AUTO_INCREMENT NOT NULL,
 	`userId` varchar(255) NOT NULL,
 	`monthIncome` float NOT NULL,
+	`totalSpendings` float NOT NULL DEFAULT 0,
 	`createdAt` timestamp NOT NULL DEFAULT (now()),
 	`needsPercentage` float NOT NULL,
 	`wantsPercentage` float NOT NULL,

@@ -41,7 +41,11 @@ export const ExpenseCard = ({
         )}
         <div className="hidden lg:flex justify-around text-xs items-center">
           <EditExpense expense={expense} />
-          <DeleteExpense expenseId={expense.id} expenseType={expense.type} />
+          <DeleteExpense
+            expenseId={expense.id}
+            expenseType={expense.type}
+            totalSpendings={expense.totalSpendings}
+          />
         </div>
       </CardContent>
       <CardFooter className="py-3 px-4 sm:px-6 lg:hidden">
@@ -54,7 +58,11 @@ export const ExpenseCard = ({
           </div>
           <div className="flex gap-x-4">
             <EditExpense expense={expense} />
-            <DeleteExpense expenseId={expense.id} expenseType={expense.type} />
+            <DeleteExpense
+              expenseId={expense.id}
+              expenseType={expense.type}
+              totalSpendings={expense.totalSpendings}
+            />
           </div>
         </div>
       </CardFooter>

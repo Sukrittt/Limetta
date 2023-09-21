@@ -94,6 +94,7 @@ export const books = mysqlTable("books", {
   id: serial("id").primaryKey(),
   userId: varchar("userId", { length: 255 }).notNull(),
   monthIncome: float("monthIncome").notNull(),
+  totalSpendings: float("totalSpendings").notNull().default(0),
   createdAt: timestamp("createdAt").notNull().defaultNow(),
   needsPercentage: float("needsPercentage").notNull(),
   wantsPercentage: float("wantsPercentage").notNull(),

@@ -29,10 +29,12 @@ const Dashboard = async () => {
     ...currentMonthEntries.needs.map((item) => ({
       ...item,
       type: "need" as const,
+      totalSpendings: currentMonthEntries.books[0].totalSpendings,
     })),
     ...currentMonthEntries.wants.map((item) => ({
       ...item,
       type: "want" as const,
+      totalSpendings: currentMonthEntries.books[0].totalSpendings,
     })),
   ];
   expenses.sort((a: any, b: any) => b.createdAt - a.createdAt);
@@ -76,9 +78,9 @@ const Dashboard = async () => {
     currentMonthIncome * (currentMonthInvestmentPercetange / 100);
 
   return (
-    <div className="grid grid-cols-7 gap-8 md:py-4 tracking-tight">
+    <div className="grid grid-cols-7 gap-8 py-4 tracking-tight">
       <div className="col-span-7 lg:col-span-5">
-        <Card className="h-[calc(100vh-140px)] overflow-y-auto no-scrollbar">
+        <Card className="h-[calc(100vh-100px)] overflow-y-auto no-scrollbar">
           <CardTitle>
             <CardHeader className="text-center text-2xl md:text-3xl py-4">{`${currentMonth} Entries`}</CardHeader>
             <Divider />
@@ -121,7 +123,7 @@ const Dashboard = async () => {
         </Card>
       </div>
       <div className="col-span-7 lg:col-span-2">
-        <Card className="lg:h-[calc(100vh-140px)] overflow-y-auto no-scrollbar">
+        <Card className="lg:h-[calc(100vh-100px)] overflow-y-auto no-scrollbar">
           <CardTitle>
             <CardHeader className="text-center py-5 ">
               Expense Insights

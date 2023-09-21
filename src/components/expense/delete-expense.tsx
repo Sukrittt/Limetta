@@ -19,9 +19,11 @@ import { buttonVariants } from "@/components/ui/button";
 export const DeleteExpense = ({
   expenseId,
   expenseType,
+  totalSpendings,
 }: {
   expenseId: number;
   expenseType: "want" | "need";
+  totalSpendings: number;
 }) => {
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -87,7 +89,13 @@ export const DeleteExpense = ({
                   color="primary"
                   disabled={deleteEntry.isLoading}
                   className={cn(buttonVariants({ size: "sm" }), "rounded-lg")}
-                  onClick={() => deleteEntry.mutate({ expenseId, expenseType })}
+                  onClick={() =>
+                    deleteEntry.mutate({
+                      expenseId,
+                      expenseType,
+                      totalSpendings,
+                    })
+                  }
                 >
                   {deleteEntry.isLoading ? (
                     <Spinner color="default" size="sm" />

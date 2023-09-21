@@ -29,6 +29,7 @@ export const entryRouter = createTRPCRouter({
         );
 
       let bookId;
+      let totalSpendings = 0;
 
       if (currentMonthBooks.length === 0) {
         const caller = userRouter.createCaller(ctx);
@@ -45,7 +46,15 @@ export const entryRouter = createTRPCRouter({
         bookId = parseInt(newlyCreatedBook.insertId);
       } else {
         bookId = currentMonthBooks[0].id;
+        totalSpendings = currentMonthBooks[0].totalSpendings;
       }
+
+      await db
+        .update(books)
+        .set({
+          totalSpendings: totalSpendings + input.amount,
+        })
+        .where(eq(books.id, bookId));
 
       if (input.expenseType === "need") {
         await db.insert(needs).values({
@@ -65,7 +74,11 @@ export const entryRouter = createTRPCRouter({
     }),
   deleteEntry: privateProcedure
     .input(
-      z.object({ expenseId: z.number(), expenseType: z.enum(["need", "want"]) })
+      z.object({
+        expenseId: z.number(),
+        expenseType: z.enum(["need", "want"]),
+        totalSpendings: z.number().positive(),
+      })
     )
     .mutation(async ({ ctx, input }) => {
       if (input.expenseType === "need") {
@@ -87,6 +100,13 @@ export const entryRouter = createTRPCRouter({
             message: "You are not authorized to delete this entry",
           });
         }
+
+        await db
+          .update(books)
+          .set({
+            totalSpendings: input.totalSpendings - existingNeedEntry[0].amount,
+          })
+          .where(eq(books.id, existingNeedEntry[0].bookId));
 
         await db.delete(needs).where(eq(needs.id, input.expenseId));
       } else if (input.expenseType === "want") {
@@ -109,6 +129,13 @@ export const entryRouter = createTRPCRouter({
           });
         }
 
+        await db
+          .update(books)
+          .set({
+            totalSpendings: input.totalSpendings - existingWantEntry[0].amount,
+          })
+          .where(eq(books.id, existingWantEntry[0].bookId));
+
         await db.delete(wants).where(eq(wants.id, input.expenseId));
       }
     }),
@@ -121,6 +148,7 @@ export const entryRouter = createTRPCRouter({
         expenseType: z.enum(["need", "want"]),
         amount: z.number().positive(),
         description: z.string().min(1).max(50),
+        totalSpendings: z.number().positive(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -143,6 +171,14 @@ export const entryRouter = createTRPCRouter({
             message: "You are not authorized to update this entry",
           });
         }
+
+        const updatedSpendings =
+          input.totalSpendings - existingNeedEntry[0].amount + input.amount;
+
+        await db
+          .update(books)
+          .set({ totalSpendings: updatedSpendings })
+          .where(eq(books.id, existingNeedEntry[0].bookId));
 
         if (input.expenseType !== input.initialExpenseType) {
           await db.delete(needs).where(eq(needs.id, input.expenseId));
@@ -180,6 +216,14 @@ export const entryRouter = createTRPCRouter({
           });
         }
 
+        const updatedSpendings =
+          input.totalSpendings - existingWantEntry[0].amount + input.amount;
+
+        await db
+          .update(books)
+          .set({ totalSpendings: updatedSpendings })
+          .where(eq(books.id, existingWantEntry[0].bookId));
+
         if (input.expenseType !== input.initialExpenseType) {
           await db.delete(wants).where(eq(wants.id, input.expenseId));
 
@@ -198,5 +242,4 @@ export const entryRouter = createTRPCRouter({
         }
       }
     }),
-  transferSavings: privateProcedure.mutation(async ({ ctx }) => {}),
 });

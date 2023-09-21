@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "d0d4beeb-dd85-4d9b-8ec7-10e8ff07bb5a",
+  "id": "65d38de2-12a0-497c-a455-b955abbb6452",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -121,6 +121,14 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "totalSpendings": {
+          "name": "totalSpendings",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
         },
         "createdAt": {
           "name": "createdAt",

@@ -1,6 +1,7 @@
+import { and, eq, sql } from "drizzle-orm";
+
 import { db } from "@/db";
 import { books, savings } from "@/db/schema";
-import { and, sql } from "drizzle-orm";
 
 export async function GET() {
   try {
@@ -25,10 +26,25 @@ export async function GET() {
       });
       const savingYear = book.createdAt.getFullYear();
 
+      const existingSavingEntry = await db
+        .select()
+        .from(savings)
+        .where(
+          and(
+            eq(savings.userId, book.userId),
+            eq(
+              savings.entryName,
+              `Monthly savings for ${savingMonth} ${savingYear}`
+            )
+          )
+        );
+
+      if (existingSavingEntry.length > 0) return;
+
       await db.insert(savings).values({
         amount: totalSavings > 0 ? totalSavings : 0,
         userId: book.userId,
-        entryName: `Monthly Savings for ${savingMonth} ${savingYear}`,
+        entryName: `Monthly savings for ${savingMonth} ${savingYear}`,
         entryType: "in",
       });
     });

@@ -34,7 +34,7 @@ export const MiscIncomeForm = ({
       });
       onClose();
     },
-    onError: (error) => {
+    onError: () => {
       toast({
         title: "Error",
         description: "Something went wrong.",

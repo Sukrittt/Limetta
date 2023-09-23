@@ -68,6 +68,7 @@ export const users = mysqlTable("user", {
 
   savingsBalance: float("savingsBalance").notNull().default(0),
   investmentsBalance: float("investmentsBalance").notNull().default(0),
+  totalInvested: float("totalInvested").notNull().default(0),
   miscellanousBalance: float("miscellanousBalance").notNull().default(0),
 
   currency: varchar("currency", { length: 1 }).notNull().default("₹"),
@@ -212,6 +213,7 @@ export const UserSavingsRelations = relations(users, ({ many }) => ({
 export const investments = mysqlTable("investments", {
   id: serial("id").primaryKey(),
   entryName: varchar("entryName", { length: 100 }).notNull(),
+  investmentType: varchar("investmentType", { length: 100 }).notNull(),
   entryType: varchar("entryType", {
     length: 100,
     enum: ["in", "out"],

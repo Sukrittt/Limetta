@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "65d38de2-12a0-497c-a455-b955abbb6452",
+  "id": "0d425146-ca90-435c-a8d8-c9020e311ffe",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -184,6 +184,13 @@
         },
         "entryName": {
           "name": "entryName",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "investmentType": {
+          "name": "investmentType",
           "type": "varchar(100)",
           "primaryKey": false,
           "notNull": true,
@@ -567,6 +574,14 @@
         },
         "investmentsBalance": {
           "name": "investmentsBalance",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "totalInvested": {
+          "name": "totalInvested",
           "type": "float",
           "primaryKey": false,
           "notNull": true,

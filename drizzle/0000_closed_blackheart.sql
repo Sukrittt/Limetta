@@ -28,6 +28,7 @@ CREATE TABLE `books` (
 CREATE TABLE `investments` (
 	`id` serial AUTO_INCREMENT NOT NULL,
 	`entryName` varchar(100) NOT NULL,
+	`investmentType` varchar(100) NOT NULL,
 	`entryType` varchar(100) NOT NULL,
 	`amount` float NOT NULL,
 	`transferingTo` varchar(100),
@@ -90,6 +91,7 @@ CREATE TABLE `user` (
 	`investmentsPercentage` float NOT NULL DEFAULT 20,
 	`savingsBalance` float NOT NULL DEFAULT 0,
 	`investmentsBalance` float NOT NULL DEFAULT 0,
+	`totalInvested` float NOT NULL DEFAULT 0,
 	`miscellanousBalance` float NOT NULL DEFAULT 0,
 	`currency` varchar(1) NOT NULL DEFAULT '₹',
 	CONSTRAINT `user_id` PRIMARY KEY(`id`)

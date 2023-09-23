@@ -14,9 +14,11 @@ import { InvestAddEntryForm } from "@/components/forms/invest-add-entry-form";
 
 export const InvestAddEntry = ({
   initialBalance,
+  initialTotalInvested,
   currency,
 }: {
   initialBalance: number;
+  initialTotalInvested: number;
   currency: CurrencyType;
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -42,6 +44,7 @@ export const InvestAddEntry = ({
                 onClose={onClose}
                 currency={currency}
                 initialBalance={initialBalance}
+                initialTotalInvested={initialTotalInvested}
               />
             </>
           )}

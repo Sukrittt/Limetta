@@ -20,10 +20,12 @@ export const InvestAddEntryForm = ({
   onClose,
   currency,
   initialBalance,
+  initialTotalInvested,
 }: {
   onClose: () => void;
   currency: CurrencyType;
   initialBalance: number;
+  initialTotalInvested: number;
 }) => {
   const router = useRouter();
   const [amount, setAmount] = useState<string | null>(null);
@@ -108,6 +110,7 @@ export const InvestAddEntryForm = ({
       entryType: "out",
       initialBalance,
       investmentType: activeInvestment,
+      initialTotalInvested,
     });
   };
 
@@ -142,6 +145,7 @@ export const InvestAddEntryForm = ({
           <div className="flex flex-col gap-y-2">
             <Label>Investment Name</Label>
             <Input
+              autoFocus
               placeholder="Eg: Reliance Industries"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -185,7 +189,6 @@ export const InvestAddEntryForm = ({
                     <div className="flex flex-col gap-y-2">
                       <Label>Total Invested</Label>
                       <Input
-                        autoFocus
                         placeholder="Eg: 5000"
                         value={amount ?? ""}
                         onChange={(e) => setAmount(e.target.value)}

@@ -26,6 +26,8 @@ export const investmentRouter = createTRPCRouter({
         investmentType: z.string().min(1).max(100),
         entryType: z.enum(["in", "out"]),
         initialBalance: z.number(),
+        initialTotalInvested: z.number(),
+        tradeBooking: z.boolean().optional().default(false),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -44,12 +46,23 @@ export const investmentRouter = createTRPCRouter({
           });
         }
 
-        await db
-          .update(users)
-          .set({
-            investmentsBalance: input.initialBalance - input.amount,
-          })
-          .where(eq(users.id, ctx.userId));
+        //booking profit/loss
+        if (input.tradeBooking) {
+          await db
+            .update(users)
+            .set({
+              investmentsBalance: input.initialBalance - input.amount,
+            })
+            .where(eq(users.id, ctx.userId));
+        } else {
+          await db
+            .update(users)
+            .set({
+              investmentsBalance: input.initialBalance - input.amount,
+              totalInvested: input.initialTotalInvested + input.amount,
+            })
+            .where(eq(users.id, ctx.userId));
+        }
       }
 
       await db.insert(investments).values({

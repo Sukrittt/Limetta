@@ -26,7 +26,7 @@ export const investmentRouter = createTRPCRouter({
         investmentType: z.string().min(1).max(100),
         entryType: z.enum(["in", "out"]),
         initialBalance: z.number(),
-        initialTotalInvested: z.number(),
+        initialTotalInvested: z.number().optional().default(0),
         tradeBooking: z.boolean().optional().default(false),
       })
     )
@@ -39,13 +39,6 @@ export const investmentRouter = createTRPCRouter({
           })
           .where(eq(users.id, ctx.userId));
       } else {
-        if (input.initialBalance < input.amount) {
-          throw new TRPCError({
-            code: "UNPROCESSABLE_CONTENT",
-            message: "Amount is greater than balance",
-          });
-        }
-
         //booking profit/loss
         if (input.tradeBooking) {
           await db
@@ -55,6 +48,13 @@ export const investmentRouter = createTRPCRouter({
             })
             .where(eq(users.id, ctx.userId));
         } else {
+          if (input.initialBalance < input.amount) {
+            throw new TRPCError({
+              code: "UNPROCESSABLE_CONTENT",
+              message: "Amount is greater than balance",
+            });
+          }
+
           await db
             .update(users)
             .set({

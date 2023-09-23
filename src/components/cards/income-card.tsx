@@ -52,8 +52,8 @@ export const IncomeCard: FC<IncomeCardProps> = ({
     income?.toString() ?? undefined
   );
 
-  const [ratioSelected, setRatioSelected] = useState(
-    initialSelectedRatio ?? "default"
+  const [ratioSelected, setRatioSelected] = useState<"default" | "custom">(
+    (initialSelectedRatio as "default" | "custom") ?? "default"
   );
   const [selectedCurrency, setSelectedCurrency] = useState<CurrencyType>(
     initialCurrency ?? "₹"
@@ -211,7 +211,9 @@ export const IncomeCard: FC<IncomeCardProps> = ({
           <RadioGroup
             orientation="horizontal"
             value={ratioSelected}
-            onValueChange={setRatioSelected}
+            onValueChange={(value: string) =>
+              setRatioSelected(value as "default" | "custom")
+            }
           >
             <Radio
               value="default"

@@ -122,7 +122,9 @@ export const IncomeCard: FC<IncomeCardProps> = ({
       });
     }
 
-    if (!parseFloat(monthlyIncome)) {
+    const parsedAmount = parseFloat(monthlyIncome.replace(/,/g, ""));
+
+    if (!parsedAmount) {
       return toast({
         title: "Invalid monthly income",
         description: "Please enter a valid monthly income.",
@@ -131,7 +133,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
     }
 
     updateUserIncome.mutate({
-      monthlyIncome: parseFloat(monthlyIncome),
+      monthlyIncome: parsedAmount,
       needsPercentage: parseFloat(needRatio),
       wantsPercentage: parseFloat(wantRatio),
       investmentsPercentage: parseFloat(investmentRatio),

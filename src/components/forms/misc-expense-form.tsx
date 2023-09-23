@@ -63,7 +63,9 @@ export const MiscExpenseForm = ({
       });
     }
 
-    if (!parseFloat(amount)) {
+    const parsedAmount = parseFloat(amount.replace(/,/g, ""));
+
+    if (!parsedAmount) {
       return toast({
         title: "Amount is invalid",
         description: "Please enter a valid amount.",
@@ -72,7 +74,7 @@ export const MiscExpenseForm = ({
     }
 
     addMiscExpense.mutate({
-      amount: parseFloat(amount),
+      amount: parsedAmount,
       description,
       entryType: "out",
       initialBalance,

@@ -17,7 +17,7 @@ import { trpc } from "@/trpc/client";
 import { toast } from "@/hooks/use-toast";
 import { buttonVariants } from "@/components/ui/button";
 
-export const MiscDeleteEntry = ({
+export const InvestmentDeleteEntry = ({
   entryDetails,
 }: {
   entryDetails: EntryType;
@@ -25,7 +25,7 @@ export const MiscDeleteEntry = ({
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
-  const deleteEntry = trpc.misc.deleteMiscEntry.useMutation({
+  const deleteEntry = trpc.investments.deleteInvestmentEntry.useMutation({
     onSuccess: () => {
       onClose();
       router.refresh();
@@ -89,7 +89,7 @@ export const MiscDeleteEntry = ({
                   onClick={() =>
                     deleteEntry.mutate({
                       entryType: entryDetails.entryType,
-                      miscId: entryDetails.entryId,
+                      investId: entryDetails.entryId,
                       initialBalance: entryDetails.initialBalance,
                     })
                   }

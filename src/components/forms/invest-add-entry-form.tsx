@@ -72,7 +72,9 @@ export const InvestAddEntryForm = ({
       });
     }
 
-    if (parseFloat(amount) > initialBalance) {
+    const parsedAmount = parseFloat(amount.replace(/,/g, ""));
+
+    if (parsedAmount > initialBalance) {
       return toast({
         title: "Insufficient balance",
         description: "You don't have enough balance to make this investment.",
@@ -96,7 +98,7 @@ export const InvestAddEntryForm = ({
       });
     }
 
-    if (!parseFloat(amount)) {
+    if (!parsedAmount) {
       return toast({
         title: "Amount is invalid",
         description: "Please enter a valid amount.",
@@ -104,9 +106,11 @@ export const InvestAddEntryForm = ({
       });
     }
 
+    const customDescription = `Invested in ${description}`;
+
     addInvestmentEntry.mutate({
-      amount: parseFloat(amount),
-      description,
+      amount: parsedAmount,
+      description: customDescription,
       entryType: "out",
       initialBalance,
       investmentType: activeInvestment,

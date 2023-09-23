@@ -16,7 +16,7 @@ export type Calculations = {
 };
 
 export type EntryType = {
-  miscId: number;
+  entryId: number;
   amount: number;
   description: string;
   entryType: "in" | "out";

@@ -88,7 +88,9 @@ export const InvestBookEntryForm = ({
       });
     }
 
-    if (!parseFloat(amount)) {
+    const parsedAmount = parseFloat(amount.replace(/,/g, ""));
+
+    if (!parsedAmount) {
       return toast({
         title: "Amount is invalid",
         description: "Please enter a valid amount.",
@@ -101,7 +103,7 @@ export const InvestBookEntryForm = ({
     const customDescription = `${tradeStatusText} from ${description}`;
 
     addInvestmentEntry.mutate({
-      amount: parseFloat(amount),
+      amount: parsedAmount,
       description: customDescription,
       entryType: tradeStatus === "profit" ? "in" : "out",
       initialBalance,

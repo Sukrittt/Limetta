@@ -39,7 +39,6 @@ export const investmentRouter = createTRPCRouter({
           })
           .where(eq(users.id, ctx.userId));
       } else {
-        //booking profit/loss
         if (input.tradeBooking) {
           await db
             .update(users)
@@ -72,5 +71,48 @@ export const investmentRouter = createTRPCRouter({
         entryType: input.entryType,
         investmentType: input.investmentType,
       });
+    }),
+  deleteInvestmentEntry: privateProcedure
+    .input(
+      z.object({
+        initialBalance: z.number(),
+        entryType: z.enum(["in", "out"]),
+        investId: z.number(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const existingInvestmentEntry = await db
+        .select()
+        .from(investments)
+        .where(eq(investments.id, input.investId));
+
+      if (existingInvestmentEntry.length === 0) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Entry not found",
+        });
+      }
+
+      let updatedBalance;
+
+      if (input.entryType === "in") {
+        updatedBalance =
+          input.initialBalance - existingInvestmentEntry[0].amount;
+      } else {
+        updatedBalance =
+          input.initialBalance + existingInvestmentEntry[0].amount;
+      }
+
+      const promises = [
+        db
+          .update(users)
+          .set({
+            investmentsBalance: updatedBalance,
+          })
+          .where(eq(users.id, ctx.userId)),
+        db.delete(investments).where(eq(investments.id, input.investId)),
+      ];
+
+      await Promise.all(promises);
     }),
 });

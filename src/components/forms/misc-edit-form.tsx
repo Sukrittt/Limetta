@@ -67,7 +67,9 @@ export const MiscEditForm = ({
       });
     }
 
-    if (!parseFloat(amount)) {
+    const parsedAmount = parseFloat(amount.replace(/,/g, ""));
+
+    if (!parsedAmount) {
       return toast({
         title: "Amount is invalid",
         description: "Please enter a valid amount.",
@@ -76,11 +78,11 @@ export const MiscEditForm = ({
     }
 
     updateMiscEntry.mutate({
-      amount: parseFloat(amount),
+      amount: parsedAmount,
       description,
       entryType,
       initialBalance: entryDetails.initialBalance,
-      miscId: entryDetails.miscId,
+      miscId: entryDetails.entryId,
     });
   };
 

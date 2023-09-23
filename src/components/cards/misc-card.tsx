@@ -39,7 +39,7 @@ const MiscCard = ({
           : entry.transferingTo;
 
         const entryDetails = {
-          miscId: entry.id,
+          entryId: entry.id,
           amount: entry.amount,
           description: entry.entryName,
           entryType: entry.entryType,

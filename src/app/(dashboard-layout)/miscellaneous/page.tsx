@@ -35,8 +35,14 @@ const Miscellaneous = async () => {
           </p>
         </div>
         <div className="flex justify-center gap-x-12 items-center">
-          <MiscIncome initialBalance={currentUser.miscellanousBalance} />
-          <MiscExpense initialBalance={currentUser.miscellanousBalance} />
+          <MiscIncome
+            initialBalance={currentUser.miscellanousBalance}
+            currency={currentUser.currency as CurrencyType}
+          />
+          <MiscExpense
+            initialBalance={currentUser.miscellanousBalance}
+            currency={currentUser.currency as CurrencyType}
+          />
         </div>
       </CardContent>
       <Divider />

@@ -7,6 +7,7 @@ import { ModalBody, ModalFooter } from "@nextui-org/modal";
 
 import { cn } from "@/lib/utils";
 import { trpc } from "@/trpc/client";
+import { CurrencyType } from "@/config";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
@@ -14,9 +15,11 @@ import { buttonVariants } from "@/components/ui/button";
 export const MiscIncomeForm = ({
   onClose,
   initialBalance,
+  currency,
 }: {
   onClose: () => void;
   initialBalance: number;
+  currency: CurrencyType;
 }) => {
   const router = useRouter();
   const [amount, setAmount] = useState<string | null>(null);
@@ -113,7 +116,9 @@ export const MiscIncomeForm = ({
               }
               startContent={
                 <div className="pointer-events-none flex items-center">
-                  <span className="text-default-400 text-small">₹</span>
+                  <span className="text-default-400 text-small">
+                    {currency}
+                  </span>
                 </div>
               }
             />

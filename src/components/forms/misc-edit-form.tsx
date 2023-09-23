@@ -12,12 +12,15 @@ import { trpc } from "@/trpc/client";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
+import { CurrencyType } from "@/config";
 
 export const MiscEditForm = ({
   onClose,
+  currency,
   entryDetails,
 }: {
   onClose: () => void;
+  currency: CurrencyType;
   entryDetails: EntryType;
 }) => {
   const router = useRouter();
@@ -118,7 +121,9 @@ export const MiscEditForm = ({
               }
               startContent={
                 <div className="pointer-events-none flex items-center">
-                  <span className="text-default-400 text-small">₹</span>
+                  <span className="text-default-400 text-small">
+                    {currency}
+                  </span>
                 </div>
               }
             />

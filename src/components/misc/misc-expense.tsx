@@ -8,10 +8,17 @@ import {
 import { Button } from "@nextui-org/button";
 
 import { cn } from "@/lib/utils";
+import { CurrencyType } from "@/config";
 import { buttonVariants } from "@/components/ui/button";
 import { MiscExpenseForm } from "@/components/forms/misc-expense-form";
 
-export const MiscExpense = ({ initialBalance }: { initialBalance: number }) => {
+export const MiscExpense = ({
+  initialBalance,
+  currency,
+}: {
+  initialBalance: number;
+  currency: CurrencyType;
+}) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
@@ -36,6 +43,7 @@ export const MiscExpense = ({ initialBalance }: { initialBalance: number }) => {
               </ModalHeader>
               <MiscExpenseForm
                 onClose={onClose}
+                currency={currency}
                 initialBalance={initialBalance}
               />
             </>

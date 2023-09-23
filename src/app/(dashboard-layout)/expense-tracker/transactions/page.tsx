@@ -88,6 +88,7 @@ const Dashboard = async () => {
           <CardContent className="space-y-2 text-sm tracking-tight pt-6 md:pt-3">
             <div className="flex justify-end pb-6 md:pb-3">
               <AddExpense
+                currency={currentUser.currency as CurrencyType}
                 expenses={expenses}
                 calculations={{
                   needsTotal,

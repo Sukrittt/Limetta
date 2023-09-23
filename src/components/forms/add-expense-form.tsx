@@ -8,12 +8,19 @@ import { ModalBody, ModalFooter } from "@nextui-org/modal";
 
 import { cn } from "@/lib/utils";
 import { trpc } from "@/trpc/client";
+import { CurrencyType } from "@/config";
 import { toast } from "@/hooks/use-toast";
 import { Button } from "@nextui-org/button";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
 
-export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
+export const AddExpenseForm = ({
+  onClose,
+  currency,
+}: {
+  onClose: () => void;
+  currency: CurrencyType;
+}) => {
   const router = useRouter();
   const [amount, setAmount] = useState<string | null>(null);
   const [description, setDescription] = useState("");
@@ -111,7 +118,9 @@ export const AddExpenseForm = ({ onClose }: { onClose: () => void }) => {
               }
               startContent={
                 <div className="pointer-events-none flex items-center">
-                  <span className="text-default-400 text-small">₹</span>
+                  <span className="text-default-400 text-small">
+                    {currency}
+                  </span>
                 </div>
               }
             />

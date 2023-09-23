@@ -86,7 +86,10 @@ const MiscCard = ({
                 </Link>
               ) : (
                 <div className="flex justify-around items-center text-xs">
-                  <MiscEditEntry entryDetails={entryDetails} />
+                  <MiscEditEntry
+                    entryDetails={entryDetails}
+                    currency={currency}
+                  />
                   <MiscDeleteEntry entryDetails={entryDetails} />
                 </div>
               )}

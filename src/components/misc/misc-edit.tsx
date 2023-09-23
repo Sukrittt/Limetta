@@ -6,12 +6,15 @@ import {
   useDisclosure,
 } from "@nextui-org/modal";
 import { EntryType } from "@/types";
+import { CurrencyType } from "@/config";
 import { MiscEditForm } from "@/components/forms/misc-edit-form";
 
 export const MiscEditEntry = ({
   entryDetails,
+  currency,
 }: {
   entryDetails: EntryType;
+  currency: CurrencyType;
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -35,7 +38,11 @@ export const MiscEditEntry = ({
               <ModalHeader className="flex flex-col gap-1">
                 Edit entry
               </ModalHeader>
-              <MiscEditForm entryDetails={entryDetails} onClose={onClose} />
+              <MiscEditForm
+                entryDetails={entryDetails}
+                onClose={onClose}
+                currency={currency}
+              />
             </>
           )}
         </ModalContent>

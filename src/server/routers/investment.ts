@@ -144,6 +144,8 @@ export const investmentRouter = createTRPCRouter({
     .input(
       z.object({
         initialBalance: z.number(),
+        initialTotalInvested: z.number(),
+        tradeBooking: z.boolean(),
         entryType: z.enum(["in", "out"]),
         investId: z.number(),
       })
@@ -161,7 +163,7 @@ export const investmentRouter = createTRPCRouter({
         });
       }
 
-      let updatedBalance;
+      let updatedBalance, updatedTotalInvestedBalance;
 
       if (input.entryType === "in") {
         updatedBalance =
@@ -169,6 +171,11 @@ export const investmentRouter = createTRPCRouter({
       } else {
         updatedBalance =
           input.initialBalance + existingInvestmentEntry[0].amount;
+
+        if (!input.tradeBooking) {
+          updatedTotalInvestedBalance =
+            input.initialTotalInvested - existingInvestmentEntry[0].amount;
+        }
       }
 
       const promises = [
@@ -176,6 +183,7 @@ export const investmentRouter = createTRPCRouter({
           .update(users)
           .set({
             investmentsBalance: updatedBalance,
+            totalInvested: updatedTotalInvestedBalance,
           })
           .where(eq(users.id, ctx.userId)),
         db.delete(investments).where(eq(investments.id, input.investId)),

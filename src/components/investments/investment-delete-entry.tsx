@@ -19,8 +19,12 @@ import { buttonVariants } from "@/components/ui/button";
 
 export const InvestmentDeleteEntry = ({
   entryDetails,
+  initialTotalInvested,
+  tradeBooking,
 }: {
   entryDetails: EntryType;
+  initialTotalInvested: number;
+  tradeBooking: boolean;
 }) => {
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -91,6 +95,8 @@ export const InvestmentDeleteEntry = ({
                       entryType: entryDetails.entryType,
                       investId: entryDetails.entryId,
                       initialBalance: entryDetails.initialBalance,
+                      initialTotalInvested,
+                      tradeBooking,
                     })
                   }
                 >

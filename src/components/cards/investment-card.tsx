@@ -106,7 +106,11 @@ export const InvestmentCard = ({
                       entry.investmentType as InvestmentType
                     }
                   />
-                  <InvestmentDeleteEntry entryDetails={entryDetails} />
+                  <InvestmentDeleteEntry
+                    entryDetails={entryDetails}
+                    tradeBooking={entry.tradeBooks}
+                    initialTotalInvested={initialTotalInvested}
+                  />
                 </div>
               )}
             </CardContent>

@@ -2,19 +2,22 @@ import Link from "next/link";
 import { format } from "date-fns";
 
 import { cn } from "@/lib/utils";
-import { CurrencyType } from "@/config";
 import { Investments } from "@/db/schema";
+import { CurrencyType, InvestmentType } from "@/config";
 import { Card, CardContent } from "@/components/ui/card";
+import { InvestmentEditEntry } from "@/components/investments/invest-edit-entry";
 import { InvestmentDeleteEntry } from "@/components/investments/investment-delete-entry";
 
 export const InvestmentCard = ({
   initialBalance,
   investmentEntries,
   currency,
+  initialTotalInvested,
 }: {
   investmentEntries: Investments[];
   currency: CurrencyType;
   initialBalance: number;
+  initialTotalInvested: number;
 }) => {
   if (investmentEntries.length === 0) {
     return (
@@ -37,6 +40,12 @@ export const InvestmentCard = ({
         const transferText = entry.transferingFrom
           ? entry.transferingFrom
           : entry.transferingTo;
+
+        const customDescription = entry.tradeBooks
+          ? entry.entryType === "in"
+            ? `Profits earned from ${entry.entryName}`
+            : `Loss incurred from ${entry.entryName}`
+          : `Invested in ${entry.entryName}`;
 
         const entryDetails = {
           entryId: entry.id,
@@ -61,7 +70,7 @@ export const InvestmentCard = ({
                       ${transferText} account`}
                   </>
                 ) : (
-                  entry.entryName
+                  customDescription
                 )}
               </span>
 
@@ -88,9 +97,16 @@ export const InvestmentCard = ({
                 </Link>
               ) : (
                 <div className="flex justify-around items-center text-xs">
-                  <span>Edit</span>
+                  <InvestmentEditEntry
+                    currency={currency}
+                    entryDetails={entryDetails}
+                    tradeBooking={entry.tradeBooks}
+                    initialTotalInvested={initialTotalInvested}
+                    initialInvestmentType={
+                      entry.investmentType as InvestmentType
+                    }
+                  />
                   <InvestmentDeleteEntry entryDetails={entryDetails} />
-                  {/* <MiscEditEntry entryDetails={entryDetails} /> */}
                 </div>
               )}
             </CardContent>

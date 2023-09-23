@@ -2,80 +2,81 @@ import { useCallback, useEffect, useState } from "react";
 import { Input } from "@nextui-org/input";
 import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
-import { Spinner } from "@nextui-org/spinner";
-import { Tabs, Tab } from "@nextui-org/tabs";
 import { Selection } from "@nextui-org/react";
+import { Tabs, Tab } from "@nextui-org/tabs";
+import { Spinner } from "@nextui-org/spinner";
 import { RadioGroup, Radio } from "@nextui-org/radio";
 import { Select, SelectItem } from "@nextui-org/select";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
 
 import { cn } from "@/lib/utils";
+import { EntryType } from "@/types";
 import { trpc } from "@/trpc/client";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
 import { CurrencyType, InvestmentType, investments } from "@/config";
 
-export const InvestBookEntryForm = ({
+export const InvestmentEditEntryForm = ({
   onClose,
   currency,
-  initialBalance,
+  entryDetails,
+  tradeBooking,
+  initialTotalInvested,
+  initialInvestmentType,
 }: {
   onClose: () => void;
   currency: CurrencyType;
-  initialBalance: number;
+  tradeBooking: boolean;
+  initialTotalInvested: number;
+  entryDetails: EntryType;
+  initialInvestmentType: InvestmentType;
 }) => {
   const router = useRouter();
-  const [amount, setAmount] = useState<string | null>(null);
-  const [description, setDescription] = useState("");
-  const [tradeStatus, setTradeStatus] = useState<"profit" | "loss">("profit");
+  const [amount, setAmount] = useState(entryDetails.amount.toLocaleString());
+  const [description, setDescription] = useState(entryDetails.description);
+  const [entryType, setEntryType] = useState(entryDetails.entryType);
+
   const [selectedInvestmentType, setSelectedInvestmentType] =
-    useState<Selection>(new Set(["Stocks"]));
-  const [activeInvestment, setActiveInvestment] = useState<InvestmentType | "">(
-    ""
+    useState<Selection>(new Set([initialInvestmentType]));
+  const [activeInvestment, setActiveInvestment] = useState<InvestmentType>(
+    initialInvestmentType
   );
-  const [inputValidationState, setInputValidationState] = useState<
-    "valid" | "invalid"
-  >("valid");
   const [tabSelected, setTabSelected] = useState<"default" | "custom">(
     "default"
   );
-
   const [quantity, setQuantity] = useState("");
   const [sharePrice, setSharePrice] = useState("");
 
-  const addInvestmentEntry = trpc.investments.addInvestmentEntry.useMutation({
-    onSuccess: () => {
-      router.refresh();
-      toast({
-        title: "Entry added",
-        description: "Your entry has been added successfully.",
-      });
-      onClose();
-    },
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "Something went wrong.",
-        variant: "destructive",
-      });
-    },
-  });
+  const [inputValidationState, setInputValidationState] = useState<
+    "valid" | "invalid"
+  >("valid");
+
+  const updateInvestmentEntry =
+    trpc.investments.editInvestmentEntry.useMutation({
+      onSuccess: () => {
+        router.refresh();
+        toast({
+          title: "Entry updated",
+          description: "Your entry has been updated successfully.",
+        });
+        onClose();
+      },
+      onError: () => {
+        toast({
+          title: "Error",
+          description: "Something went wrong.",
+          variant: "destructive",
+        });
+      },
+    });
 
   const handleSubmit = () => {
     if (!amount) {
       return toast({
         title: "Amount is required",
         description: "Please enter a valid amount.",
-        variant: "destructive",
-      });
-    }
-
-    if (!activeInvestment) {
-      return toast({
-        title: "Type of investment is required",
-        description: "Please select a valid type of investment.",
         variant: "destructive",
       });
     }
@@ -90,6 +91,14 @@ export const InvestBookEntryForm = ({
 
     const parsedAmount = parseFloat(amount.replace(/,/g, ""));
 
+    if (!tradeBooking && parsedAmount > entryDetails.initialBalance) {
+      return toast({
+        title: "Insufficient balance",
+        description: "You don't have enough balance to make this investment.",
+        variant: "destructive",
+      });
+    }
+
     if (!parsedAmount) {
       return toast({
         title: "Amount is invalid",
@@ -98,13 +107,15 @@ export const InvestBookEntryForm = ({
       });
     }
 
-    addInvestmentEntry.mutate({
-      amount: parsedAmount,
+    updateInvestmentEntry.mutate({
       description,
-      entryType: tradeStatus === "profit" ? "in" : "out",
-      initialBalance,
+      entryType,
+      tradeBooking,
+      amount: parsedAmount,
+      initialTotalInvested,
       investmentType: activeInvestment,
-      tradeBooking: true,
+      investId: entryDetails.entryId,
+      initialBalance: entryDetails.initialBalance,
     });
   };
 
@@ -119,18 +130,21 @@ export const InvestBookEntryForm = ({
   }, [amount]);
 
   useEffect(() => {
-    if (!sharePrice || !quantity) {
-      return setAmount("");
-    }
-
-    if (parseFloat(sharePrice) > 0 && parseFloat(quantity) > 0) {
-      setAmount((parseFloat(sharePrice) * parseFloat(quantity)).toString());
-    }
-  }, [sharePrice, quantity]);
-
-  useEffect(() => {
     updateInputValidationState();
   }, [amount, updateInputValidationState]);
+
+  useEffect(() => {
+    if (!sharePrice || !quantity) {
+      return setAmount(entryDetails.amount.toLocaleString());
+    }
+
+    const parsedQuantity = parseFloat(quantity.replace(/,/g, ""));
+    const parsedSharePrice = parseFloat(sharePrice.replace(/,/g, ""));
+
+    if (parsedSharePrice > 0 && parsedQuantity > 0) {
+      setAmount((parsedSharePrice * parsedQuantity).toLocaleString());
+    }
+  }, [sharePrice, quantity, entryDetails.amount]);
 
   return (
     <>
@@ -139,7 +153,6 @@ export const InvestBookEntryForm = ({
           <div className="flex flex-col gap-y-2">
             <Label>Investment Name</Label>
             <Input
-              autoFocus
               placeholder="Eg: Reliance Industries"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -168,22 +181,22 @@ export const InvestBookEntryForm = ({
             ))}
           </Select>
 
-          <div>
-            <RadioGroup
-              orientation="horizontal"
-              value={tradeStatus}
-              onValueChange={(value: string) =>
-                setTradeStatus(value as "profit" | "loss")
-              }
-            >
-              <Radio value="profit" description="Earned profits.">
-                Profit
-              </Radio>
-              <Radio value="loss" description="Incurred loss.">
-                Loss
-              </Radio>
-            </RadioGroup>
-          </div>
+          {tradeBooking && (
+            <div>
+              <RadioGroup
+                orientation="horizontal"
+                value={entryType}
+                onValueChange={(value) => setEntryType(value as "in" | "out")}
+              >
+                <Radio value="in" description="Earned profits.">
+                  Profit
+                </Radio>
+                <Radio value="out" description="Incurred loss.">
+                  Loss
+                </Radio>
+              </RadioGroup>
+            </div>
+          )}
 
           <div className="flex flex-col gap-y-2">
             <Tabs
@@ -198,10 +211,7 @@ export const InvestBookEntryForm = ({
                 <NextUICard>
                   <NextUIBody>
                     <div className="flex flex-col gap-y-2">
-                      <Label>{`Total ${
-                        tradeStatus.charAt(0).toUpperCase() +
-                        tradeStatus.substring(1)
-                      }`}</Label>
+                      <Label>Total Invested</Label>
                       <Input
                         placeholder="Eg: 5000"
                         value={amount ?? ""}
@@ -267,16 +277,11 @@ export const InvestBookEntryForm = ({
                         />
                       </div>
                     </div>
-                    <span
-                      className={cn("text-xs tracking-tight text-primary", {
-                        "text-red-500": tradeStatus === "loss",
-                      })}
-                    >
-                      {`Total ${
-                        tradeStatus.charAt(0).toUpperCase() +
-                        tradeStatus.substring(1)
-                      }`}
-                      : {amount ? parseFloat(amount).toLocaleString() : 0}
+                    <span className="text-xs text-primary tracking-tight">
+                      Total invested:{" "}
+                      {amount
+                        ? parseFloat(amount.replace(/,/g, "")).toLocaleString()
+                        : 0}
                     </span>
                   </NextUIBody>
                 </NextUICard>
@@ -301,12 +306,12 @@ export const InvestBookEntryForm = ({
           color="primary"
           className={cn(buttonVariants({ size: "sm" }), "rounded-lg")}
           onClick={handleSubmit}
-          disabled={addInvestmentEntry.isLoading}
+          disabled={updateInvestmentEntry.isLoading}
         >
-          {addInvestmentEntry.isLoading ? (
+          {updateInvestmentEntry.isLoading ? (
             <Spinner color="default" size="sm" />
           ) : (
-            "Add"
+            "Update"
           )}
         </Button>
       </ModalFooter>

@@ -24,7 +24,7 @@ export const MiscEditForm = ({
   entryDetails: EntryType;
 }) => {
   const router = useRouter();
-  const [amount, setAmount] = useState(entryDetails.amount.toString());
+  const [amount, setAmount] = useState(entryDetails.amount.toLocaleString());
   const [description, setDescription] = useState(entryDetails.description);
   const [entryType, setEntryType] = useState(entryDetails.entryType);
 
@@ -41,7 +41,7 @@ export const MiscEditForm = ({
       });
       onClose();
     },
-    onError: (error) => {
+    onError: () => {
       toast({
         title: "Error",
         description: "Something went wrong.",

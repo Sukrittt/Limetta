@@ -31,7 +31,7 @@ export const InvestAddEntryForm = ({
   const [amount, setAmount] = useState<string | null>(null);
   const [description, setDescription] = useState("");
   const [selectedInvestmentType, setSelectedInvestmentType] =
-    useState<Selection>(new Set([]));
+    useState<Selection>(new Set(["Stocks"]));
   const [activeInvestment, setActiveInvestment] = useState<InvestmentType | "">(
     ""
   );
@@ -42,8 +42,8 @@ export const InvestAddEntryForm = ({
     "default"
   );
 
-  const [sharePrice, setSharePrice] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [sharePrice, setSharePrice] = useState("");
 
   const addInvestmentEntry = trpc.investments.addInvestmentEntry.useMutation({
     onSuccess: () => {
@@ -106,11 +106,9 @@ export const InvestAddEntryForm = ({
       });
     }
 
-    const customDescription = `Invested in ${description}`;
-
     addInvestmentEntry.mutate({
       amount: parsedAmount,
-      description: customDescription,
+      description,
       entryType: "out",
       initialBalance,
       investmentType: activeInvestment,
@@ -133,8 +131,11 @@ export const InvestAddEntryForm = ({
       return setAmount("");
     }
 
-    if (parseFloat(sharePrice) > 0 && parseFloat(quantity) > 0) {
-      setAmount((parseFloat(sharePrice) * parseFloat(quantity)).toString());
+    const parsedQuantity = parseFloat(quantity.replace(/,/g, ""));
+    const parsedSharePrice = parseFloat(sharePrice.replace(/,/g, ""));
+
+    if (parsedSharePrice > 0 && parsedQuantity > 0) {
+      setAmount((parsedSharePrice * parsedQuantity).toLocaleString());
     }
   }, [sharePrice, quantity]);
 
@@ -226,7 +227,7 @@ export const InvestAddEntryForm = ({
                         <Label>Share price</Label>
                         <Input
                           autoFocus
-                          placeholder="Eg: 2000"
+                          placeholder="Eg: 500"
                           value={sharePrice ?? ""}
                           onChange={(e) => setSharePrice(e.target.value)}
                           onKeyDown={(e) => {
@@ -259,7 +260,9 @@ export const InvestAddEntryForm = ({
                     </div>
                     <span className="text-xs text-primary tracking-tight">
                       Total invested:{" "}
-                      {amount ? parseFloat(amount).toLocaleString() : 0}
+                      {amount
+                        ? parseFloat(amount.replace(/,/g, "")).toLocaleString()
+                        : 0}
                     </span>
                   </NextUIBody>
                 </NextUICard>

@@ -5,6 +5,7 @@ import { db } from "@/db";
 import { miscellaneous, users } from "@/db/schema";
 import { createTRPCRouter, privateProcedure } from "@/server/trpc";
 import { TRPCError } from "@trpc/server";
+import { getUpdatedBalance } from "@/lib/utils";
 
 export const miscRouter = createTRPCRouter({
   getMiscTransactions: privateProcedure.query(async ({ ctx }) => {
@@ -145,24 +146,3 @@ export const miscRouter = createTRPCRouter({
       await Promise.all(promises);
     }),
 });
-
-const getUpdatedBalance = (
-  initialBalance: number,
-  existingAmount: number,
-  updatedAmount: number,
-  updatedEntryType: "in" | "out",
-  existingEntryType: "in" | "out"
-) => {
-  if (updatedEntryType === existingEntryType) {
-    if (updatedEntryType === "in") {
-      return initialBalance - existingAmount + updatedAmount;
-    }
-    return initialBalance + existingAmount - updatedAmount;
-  } else {
-    if (existingEntryType === "in") {
-      return initialBalance - existingAmount - updatedAmount;
-    }
-
-    return initialBalance + existingAmount + updatedAmount;
-  }
-};

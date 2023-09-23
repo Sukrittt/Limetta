@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "0d425146-ca90-435c-a8d8-c9020e311ffe",
+  "id": "8d10c619-c7f0-48c0-9dd6-d6b58875f8d7",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -195,6 +195,14 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "tradeBooks": {
+          "name": "tradeBooks",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
         },
         "entryType": {
           "name": "entryType",

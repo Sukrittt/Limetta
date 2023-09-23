@@ -7,6 +7,7 @@ import {
   serial,
   text,
   float,
+  boolean,
 } from "drizzle-orm/mysql-core";
 import { relations } from "drizzle-orm";
 import type { AdapterAccount } from "@auth/core/adapters";
@@ -214,6 +215,7 @@ export const investments = mysqlTable("investments", {
   id: serial("id").primaryKey(),
   entryName: varchar("entryName", { length: 100 }).notNull(),
   investmentType: varchar("investmentType", { length: 100 }).notNull(),
+  tradeBooks: boolean("tradeBooks").notNull().default(false), // true if the entry is a trade booking (profit/loss entry)
   entryType: varchar("entryType", {
     length: 100,
     enum: ["in", "out"],

@@ -50,12 +50,12 @@ export const dashboardItems = [
     subItems: [
       {
         title: "Transactions",
-        href: "/expense-tracker",
+        href: "/expense-tracker/transactions",
         Icon: Icons.transactions,
       },
       {
         title: "Overview",
-        href: "/overview",
+        href: "/expense-tracker/overview",
         Icon: Icons.overview,
       },
     ],

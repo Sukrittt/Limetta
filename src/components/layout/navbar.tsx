@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config";
 import NavDropdown from "./nav-dropdown";
 import { Icons } from "@/components/icons";
-import { NavSection } from "./nav-section";
 import { getAuthSession } from "@/lib/auth";
 import { buttonVariants } from "@/components/ui/button";
 
@@ -26,7 +25,6 @@ export const Navbar = async () => {
           {siteConfig.name}
         </Link>
       </div>
-      <NavSection />
       <div className="flex gap-x-4 items-center">
         {session ? (
           <NavDropdown session={session} />

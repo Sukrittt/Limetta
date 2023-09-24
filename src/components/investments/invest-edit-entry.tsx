@@ -6,7 +6,7 @@ import {
   useDisclosure,
 } from "@nextui-org/modal";
 import { EntryType } from "@/types";
-import { CurrencyType, InvestmentType } from "@/config";
+import { CurrencyType } from "@/config";
 import { InvestmentEditEntryForm } from "@/components/forms/investment-edit-form";
 
 export const InvestmentEditEntry = ({
@@ -14,9 +14,7 @@ export const InvestmentEditEntry = ({
   currency,
   tradeBooking,
   initialTotalInvested,
-  initialInvestmentType,
 }: {
-  initialInvestmentType: InvestmentType;
   initialTotalInvested: number;
   entryDetails: EntryType;
   currency: CurrencyType;
@@ -45,7 +43,6 @@ export const InvestmentEditEntry = ({
                 Edit entry
               </ModalHeader>
               <InvestmentEditEntryForm
-                initialInvestmentType={initialInvestmentType}
                 tradeBooking={tradeBooking}
                 initialTotalInvested={initialTotalInvested}
                 entryDetails={entryDetails}

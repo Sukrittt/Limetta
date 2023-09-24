@@ -23,35 +23,6 @@ export const sidebarItems = [
 ];
 
 export type CurrencyType = "₹" | "$" | "€" | "£";
-export type InvestmentType =
-  | "Stocks"
-  | "Mutual Funds"
-  | "Cryptocurrencies"
-  | "Bonds"
-  | "Others";
-
-export const investments = [
-  {
-    value: "Stocks",
-    label: "Stocks",
-  },
-  {
-    value: "Mutual Funds",
-    label: "Mutual Funds",
-  },
-  {
-    value: "Cryptocurrencies",
-    label: "Cryptocurrencies",
-  },
-  {
-    value: "Bonds",
-    label: "Bonds",
-  },
-  {
-    value: "Others",
-    label: "Others",
-  },
-];
 
 export const currencies = [
   {

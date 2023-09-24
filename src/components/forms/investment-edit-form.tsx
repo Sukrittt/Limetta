@@ -11,10 +11,10 @@ import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
 import { cn } from "@/lib/utils";
 import { EntryType } from "@/types";
 import { trpc } from "@/trpc/client";
+import { CurrencyType } from "@/config";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
-import { CurrencyType, InvestmentType } from "@/config";
 
 export const InvestmentEditEntryForm = ({
   onClose,
@@ -22,14 +22,12 @@ export const InvestmentEditEntryForm = ({
   entryDetails,
   tradeBooking,
   initialTotalInvested,
-  initialInvestmentType,
 }: {
   onClose: () => void;
   currency: CurrencyType;
   tradeBooking: boolean;
   initialTotalInvested: number;
   entryDetails: EntryType;
-  initialInvestmentType: InvestmentType;
 }) => {
   const router = useRouter();
   const [amount, setAmount] = useState(entryDetails.amount.toLocaleString());

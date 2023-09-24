@@ -5,30 +5,30 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/modal";
-import { Button } from "@nextui-org/button";
 
-import { cn } from "@/lib/utils";
+import { EntryType } from "@/types";
 import { CurrencyType } from "@/config";
-import { buttonVariants } from "@/components/ui/button";
 import { InvestBookEntryForm } from "@/components/forms/invest-book-entry-form";
 
-export const InvestBookEntry = ({
-  initialBalance,
+export const InvestmentBookEntry = ({
   currency,
+  initialBalance,
+  entryDetails,
 }: {
   initialBalance: number;
   currency: CurrencyType;
+  entryDetails: EntryType;
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <>
-      <Button
-        onPress={onOpen}
-        className={cn(buttonVariants({ variant: "secondary" }), "rounded-full")}
+      <span
+        className="cursor-pointer hover:text-primary hover:opacity-90 transition col-span-2"
+        onClick={onOpen}
       >
-        Record Profit/Loss
-      </Button>
+        Profit/Loss
+      </span>
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -45,6 +45,7 @@ export const InvestBookEntry = ({
                 onClose={onClose}
                 currency={currency}
                 initialBalance={initialBalance}
+                entryDetails={entryDetails}
               />
             </>
           )}

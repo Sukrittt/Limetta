@@ -49,10 +49,10 @@ const Investments = async () => {
             initialTotalInvested={currentUser.totalInvested}
             currency={currentUser.currency as CurrencyType}
           />
-          <InvestBookEntry
+          {/* <InvestBookEntry
             initialBalance={currentUser.investmentsBalance}
             currency={currentUser.currency as CurrencyType}
-          />
+          /> */}
         </div>
       </CardContent>
       <Divider />

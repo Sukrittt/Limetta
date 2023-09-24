@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/config";
 import { Investments } from "@/db/schema";
 import { Card, CardContent } from "@/components/ui/card";
+import { InvestmentBookEntry } from "@/components/investments/invest-book-entry";
 import { InvestmentEditEntry } from "@/components/investments/invest-edit-entry";
 import { InvestmentDeleteEntry } from "@/components/investments/investment-delete-entry";
 
@@ -27,12 +28,22 @@ export const InvestmentCard = ({
     );
   }
 
+  const getCustomizedDescription = (entry: Investments) => {
+    if (entry.tradeBooks) {
+      return entry.entryType === "in"
+        ? `Profits earned from ${entry.entryName}`
+        : `Loss incurred from ${entry.entryName}`;
+    }
+    return entry.entryType === "in"
+      ? `Investment return from ${entry.entryName}`
+      : `Invested in ${entry.entryName}`;
+  };
+
   return (
     <div className="flex flex-col gap-y-2 text-sm">
-      <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6">
+      <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-8 px-4 sm:px-6">
         <span className="hidden lg:block">Date & Time</span>
         <span className="col-span-2 sm:col-span-3">Details</span>
-        <span>Investment Type</span>
         <span className="text-center col-span-2">Amount</span>
       </div>
       {investmentEntries.map((entry) => {
@@ -41,11 +52,7 @@ export const InvestmentCard = ({
           ? entry.transferingFrom
           : entry.transferingTo;
 
-        const customDescription = entry.tradeBooks
-          ? entry.entryType === "in"
-            ? `Profits earned from ${entry.entryName}`
-            : `Loss incurred from ${entry.entryName}`
-          : `Invested in ${entry.entryName}`;
+        const customDescription = getCustomizedDescription(entry);
 
         const entryDetails = {
           entryId: entry.id,
@@ -57,7 +64,7 @@ export const InvestmentCard = ({
 
         return (
           <Card key={entry.id}>
-            <CardContent className="grid grid-cols-7 px-4 sm:px-6 py-3">
+            <CardContent className="grid grid-cols-8 px-4 sm:px-6 py-3">
               <div className="items-center col-span-2 lg:col-span-1">
                 <span className="text-xs tracking-tighter">
                   {format(entry.createdAt, "dd MMM '·' h:mm a")}
@@ -94,7 +101,16 @@ export const InvestmentCard = ({
                       transferText?.slice(1)}
                 </Link>
               ) : (
-                <div className="flex justify-around items-center text-xs">
+                <div className="justify-center items-center text-xs col-span-2 grid grid-cols-4">
+                  {!entry.tradeBooks && entry.entryType === "out" ? (
+                    <InvestmentBookEntry
+                      currency={currency}
+                      initialBalance={initialBalance}
+                      entryDetails={entryDetails}
+                    />
+                  ) : (
+                    <span className="col-span-2" />
+                  )}
                   <InvestmentEditEntry
                     currency={currency}
                     entryDetails={entryDetails}

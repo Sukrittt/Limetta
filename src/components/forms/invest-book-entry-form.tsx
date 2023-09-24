@@ -9,24 +9,27 @@ import { ModalBody, ModalFooter } from "@nextui-org/modal";
 import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
 
 import { cn } from "@/lib/utils";
+import { EntryType } from "@/types";
 import { trpc } from "@/trpc/client";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
-import { CurrencyType, InvestmentType, investments } from "@/config";
+import { CurrencyType } from "@/config";
 
 export const InvestBookEntryForm = ({
   onClose,
   currency,
   initialBalance,
+  entryDetails,
 }: {
   onClose: () => void;
   currency: CurrencyType;
   initialBalance: number;
+  entryDetails: EntryType;
 }) => {
   const router = useRouter();
   const [amount, setAmount] = useState<string | null>(null);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(entryDetails.description);
   const [tradeStatus, setTradeStatus] = useState<"profit" | "loss">("profit");
 
   const [inputValidationState, setInputValidationState] = useState<
@@ -38,6 +41,9 @@ export const InvestBookEntryForm = ({
 
   const [quantity, setQuantity] = useState("");
   const [sharePrice, setSharePrice] = useState("");
+  const [investedAmount, setInvestedAmount] = useState(
+    entryDetails.amount.toLocaleString()
+  );
 
   const addInvestmentEntry = trpc.investments.addInvestmentEntry.useMutation({
     onSuccess: () => {
@@ -90,6 +96,7 @@ export const InvestBookEntryForm = ({
       entryType: tradeStatus === "profit" ? "in" : "out",
       initialBalance,
       tradeBooking: true,
+      investedAmount: parseFloat(investedAmount.replace(/,/g, "")),
     });
   };
 
@@ -136,6 +143,27 @@ export const InvestBookEntryForm = ({
             />
           </div>
 
+          <div className="flex flex-col gap-y-2">
+            <Label>Invested Amount</Label>
+            <Input
+              placeholder="Eg: 2000"
+              value={investedAmount ?? ""}
+              onChange={(e) => setInvestedAmount(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSubmit();
+                }
+              }}
+              startContent={
+                <div className="pointer-events-none flex items-center">
+                  <span className="text-default-400 text-small">
+                    {currency}
+                  </span>
+                </div>
+              }
+            />
+          </div>
+
           <div>
             <RadioGroup
               orientation="horizontal"
@@ -162,7 +190,7 @@ export const InvestBookEntryForm = ({
                 setTabSelected(value as "default" | "custom")
               }
             >
-              <Tab key="defaut" title="Investment Amount">
+              <Tab key="defaut" title="Total Amount">
                 <NextUICard>
                   <NextUIBody>
                     <div className="flex flex-col gap-y-2">
@@ -204,7 +232,7 @@ export const InvestBookEntryForm = ({
                         <Label>Share price</Label>
                         <Input
                           autoFocus
-                          placeholder="Eg: 2000"
+                          placeholder="Eg: 500"
                           value={sharePrice ?? ""}
                           onChange={(e) => setSharePrice(e.target.value)}
                           onKeyDown={(e) => {

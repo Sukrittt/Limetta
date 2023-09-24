@@ -9,10 +9,10 @@ import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
 
 import { cn } from "@/lib/utils";
 import { trpc } from "@/trpc/client";
+import { CurrencyType } from "@/config";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
-import { CurrencyType, InvestmentType, investments } from "@/config";
 
 export const InvestAddEntryForm = ({
   onClose,

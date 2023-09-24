@@ -26,42 +26,52 @@ export const investmentRouter = createTRPCRouter({
         description: z.string().min(1).max(100),
         entryType: z.enum(["in", "out"]),
         initialBalance: z.number(),
-        initialTotalInvested: z.number().optional().default(0),
         tradeBooking: z.boolean().optional().default(false),
+        initialTotalInvested: z.number().optional().default(0),
+        investedAmount: z.number().optional().default(0),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      if (input.entryType === "in") {
-        await db
-          .update(users)
-          .set({
-            investmentsBalance: input.initialBalance + input.amount,
-          })
-          .where(eq(users.id, ctx.userId));
-      } else {
-        if (input.tradeBooking) {
+      if (input.tradeBooking) {
+        await db.insert(investments).values({
+          userId: ctx.userId,
+          amount: input.investedAmount,
+          entryName: input.description,
+          entryType: input.entryType,
+        });
+
+        if (input.entryType === "in") {
           await db
             .update(users)
             .set({
-              investmentsBalance: input.initialBalance - input.amount,
+              investmentsBalance:
+                input.initialBalance + input.investedAmount + input.amount,
             })
             .where(eq(users.id, ctx.userId));
         } else {
-          if (input.initialBalance < input.amount) {
-            throw new TRPCError({
-              code: "UNPROCESSABLE_CONTENT",
-              message: "Amount is greater than balance",
-            });
-          }
-
           await db
             .update(users)
             .set({
-              investmentsBalance: input.initialBalance - input.amount,
-              totalInvested: input.initialTotalInvested + input.amount,
+              investmentsBalance:
+                input.initialBalance + input.investedAmount - input.amount,
             })
             .where(eq(users.id, ctx.userId));
         }
+      } else {
+        if (input.initialBalance < input.amount) {
+          throw new TRPCError({
+            code: "UNPROCESSABLE_CONTENT",
+            message: "Amount is greater than balance",
+          });
+        }
+
+        await db
+          .update(users)
+          .set({
+            investmentsBalance: input.initialBalance - input.amount,
+            totalInvested: input.initialTotalInvested + input.amount,
+          })
+          .where(eq(users.id, ctx.userId));
       }
 
       await db.insert(investments).values({

@@ -4,9 +4,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
 import { Tabs, Tab } from "@nextui-org/tabs";
-import { Selection } from "@nextui-org/react";
 import { RadioGroup, Radio } from "@nextui-org/radio";
-import { Select, SelectItem } from "@nextui-org/select";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
 
@@ -30,11 +28,7 @@ export const InvestBookEntryForm = ({
   const [amount, setAmount] = useState<string | null>(null);
   const [description, setDescription] = useState("");
   const [tradeStatus, setTradeStatus] = useState<"profit" | "loss">("profit");
-  const [selectedInvestmentType, setSelectedInvestmentType] =
-    useState<Selection>(new Set(["Stocks"]));
-  const [activeInvestment, setActiveInvestment] = useState<InvestmentType | "">(
-    ""
-  );
+
   const [inputValidationState, setInputValidationState] = useState<
     "valid" | "invalid"
   >("valid");
@@ -72,14 +66,6 @@ export const InvestBookEntryForm = ({
       });
     }
 
-    if (!activeInvestment) {
-      return toast({
-        title: "Type of investment is required",
-        description: "Please select a valid type of investment.",
-        variant: "destructive",
-      });
-    }
-
     if (description.length === 0 || description.length > 100) {
       return toast({
         title: "Description is too long/short",
@@ -103,7 +89,6 @@ export const InvestBookEntryForm = ({
       description,
       entryType: tradeStatus === "profit" ? "in" : "out",
       initialBalance,
-      investmentType: activeInvestment,
       tradeBooking: true,
     });
   };
@@ -150,23 +135,6 @@ export const InvestBookEntryForm = ({
               }}
             />
           </div>
-
-          <Select
-            label="Investment Type"
-            placeholder="Select an investment type"
-            labelPlacement="outside"
-            selectedKeys={selectedInvestmentType}
-            onSelectionChange={setSelectedInvestmentType}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-              setActiveInvestment(e.target.value as InvestmentType);
-            }}
-          >
-            {investments.map((investment) => (
-              <SelectItem key={investment.value} value={investment.value}>
-                {investment.label}
-              </SelectItem>
-            ))}
-          </Select>
 
           <div>
             <RadioGroup

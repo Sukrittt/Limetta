@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "8d10c619-c7f0-48c0-9dd6-d6b58875f8d7",
+  "id": "8990b080-e289-4fad-814a-3484c69db02a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -184,13 +184,6 @@
         },
         "entryName": {
           "name": "entryName",
-          "type": "varchar(100)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "investmentType": {
-          "name": "investmentType",
           "type": "varchar(100)",
           "primaryKey": false,
           "notNull": true,

@@ -24,7 +24,6 @@ export const investmentRouter = createTRPCRouter({
       z.object({
         amount: z.number().positive(),
         description: z.string().min(1).max(100),
-        investmentType: z.string().min(1).max(100),
         entryType: z.enum(["in", "out"]),
         initialBalance: z.number(),
         initialTotalInvested: z.number().optional().default(0),
@@ -70,7 +69,6 @@ export const investmentRouter = createTRPCRouter({
         amount: input.amount,
         entryName: input.description,
         entryType: input.entryType,
-        investmentType: input.investmentType,
         tradeBooks: input.tradeBooking,
       });
     }),
@@ -83,7 +81,6 @@ export const investmentRouter = createTRPCRouter({
         entryType: z.enum(["in", "out"]),
         initialBalance: z.number(),
         tradeBooking: z.boolean(),
-        investmentType: z.string().min(1).max(100),
         initialTotalInvested: z.number(),
       })
     )
@@ -131,7 +128,6 @@ export const investmentRouter = createTRPCRouter({
             amount: input.amount,
             entryName: input.description,
             entryType: input.entryType,
-            investmentType: input.investmentType,
             createdAt: investmentEntry.createdAt,
             tradeBooks: input.tradeBooking,
           })

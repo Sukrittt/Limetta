@@ -28,7 +28,6 @@ CREATE TABLE `books` (
 CREATE TABLE `investments` (
 	`id` serial AUTO_INCREMENT NOT NULL,
 	`entryName` varchar(100) NOT NULL,
-	`investmentType` varchar(100) NOT NULL,
 	`tradeBooks` boolean NOT NULL DEFAULT false,
 	`entryType` varchar(100) NOT NULL,
 	`amount` float NOT NULL,

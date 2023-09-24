@@ -2,11 +2,9 @@ import { useCallback, useEffect, useState } from "react";
 import { Input } from "@nextui-org/input";
 import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
-import { Selection } from "@nextui-org/react";
 import { Tabs, Tab } from "@nextui-org/tabs";
 import { Spinner } from "@nextui-org/spinner";
 import { RadioGroup, Radio } from "@nextui-org/radio";
-import { Select, SelectItem } from "@nextui-org/select";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
 
@@ -16,7 +14,7 @@ import { trpc } from "@/trpc/client";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
-import { CurrencyType, InvestmentType, investments } from "@/config";
+import { CurrencyType, InvestmentType } from "@/config";
 
 export const InvestmentEditEntryForm = ({
   onClose,
@@ -38,11 +36,6 @@ export const InvestmentEditEntryForm = ({
   const [description, setDescription] = useState(entryDetails.description);
   const [entryType, setEntryType] = useState(entryDetails.entryType);
 
-  const [selectedInvestmentType, setSelectedInvestmentType] =
-    useState<Selection>(new Set([initialInvestmentType]));
-  const [activeInvestment, setActiveInvestment] = useState<InvestmentType>(
-    initialInvestmentType
-  );
   const [tabSelected, setTabSelected] = useState<"default" | "custom">(
     "default"
   );
@@ -113,7 +106,6 @@ export const InvestmentEditEntryForm = ({
       tradeBooking,
       amount: parsedAmount,
       initialTotalInvested,
-      investmentType: activeInvestment,
       investId: entryDetails.entryId,
       initialBalance: entryDetails.initialBalance,
     });
@@ -163,23 +155,6 @@ export const InvestmentEditEntryForm = ({
               }}
             />
           </div>
-
-          <Select
-            label="Investment Type"
-            placeholder="Select an investment type"
-            labelPlacement="outside"
-            selectedKeys={selectedInvestmentType}
-            onSelectionChange={setSelectedInvestmentType}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-              setActiveInvestment(e.target.value as InvestmentType);
-            }}
-          >
-            {investments.map((investment) => (
-              <SelectItem key={investment.value} value={investment.value}>
-                {investment.label}
-              </SelectItem>
-            ))}
-          </Select>
 
           {tradeBooking && (
             <div>

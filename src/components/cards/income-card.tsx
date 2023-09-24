@@ -291,7 +291,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
                 <span className="font-semibold ml-1">
                   {monthlyIncome
                     ? (
-                        parseFloat(monthlyIncome) *
+                        parseFloat(monthlyIncome.replace(/,/g, "")) *
                         (parseFloat(needRatio) / 100)
                       ).toFixed(1)
                     : 0}
@@ -302,7 +302,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
                 <span className="font-semibold ml-1">
                   {monthlyIncome
                     ? (
-                        parseFloat(monthlyIncome) *
+                        parseFloat(monthlyIncome.replace(/,/g, "")) *
                         (parseFloat(wantRatio) / 100)
                       ).toFixed(1)
                     : 0}
@@ -313,7 +313,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
                 <span className="font-semibold ml-1">
                   {monthlyIncome
                     ? (
-                        parseFloat(monthlyIncome) *
+                        parseFloat(monthlyIncome.replace(/,/g, "")) *
                         (parseFloat(investmentRatio) / 100)
                       ).toFixed(1)
                     : 0}

@@ -4,8 +4,6 @@ import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
 import { Tabs, Tab } from "@nextui-org/tabs";
-import { Select, SelectItem } from "@nextui-org/select";
-import { Selection } from "@nextui-org/react";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
 
@@ -30,11 +28,6 @@ export const InvestAddEntryForm = ({
   const router = useRouter();
   const [amount, setAmount] = useState<string | null>(null);
   const [description, setDescription] = useState("");
-  const [selectedInvestmentType, setSelectedInvestmentType] =
-    useState<Selection>(new Set(["Stocks"]));
-  const [activeInvestment, setActiveInvestment] = useState<InvestmentType | "">(
-    ""
-  );
   const [inputValidationState, setInputValidationState] = useState<
     "valid" | "invalid"
   >("valid");
@@ -82,14 +75,6 @@ export const InvestAddEntryForm = ({
       });
     }
 
-    if (!activeInvestment) {
-      return toast({
-        title: "Type of investment is required",
-        description: "Please select a valid type of investment.",
-        variant: "destructive",
-      });
-    }
-
     if (description.length === 0 || description.length > 100) {
       return toast({
         title: "Description is too long/short",
@@ -111,7 +96,6 @@ export const InvestAddEntryForm = ({
       description,
       entryType: "out",
       initialBalance,
-      investmentType: activeInvestment,
       initialTotalInvested,
     });
   };
@@ -161,23 +145,6 @@ export const InvestAddEntryForm = ({
               }}
             />
           </div>
-
-          <Select
-            label="Investment Type"
-            placeholder="Select an investment type"
-            labelPlacement="outside"
-            selectedKeys={selectedInvestmentType}
-            onSelectionChange={setSelectedInvestmentType}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-              setActiveInvestment(e.target.value as InvestmentType);
-            }}
-          >
-            {investments.map((investment) => (
-              <SelectItem key={investment.value} value={investment.value}>
-                {investment.label}
-              </SelectItem>
-            ))}
-          </Select>
 
           <div className="flex flex-col gap-y-2">
             <Tabs

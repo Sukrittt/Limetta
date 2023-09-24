@@ -214,7 +214,6 @@ export const UserSavingsRelations = relations(users, ({ many }) => ({
 export const investments = mysqlTable("investments", {
   id: serial("id").primaryKey(),
   entryName: varchar("entryName", { length: 100 }).notNull(),
-  investmentType: varchar("investmentType", { length: 100 }).notNull(),
   tradeBooks: boolean("tradeBooks").notNull().default(false), // true if the entry is a trade booking (profit/loss entry)
   entryType: varchar("entryType", {
     length: 100,

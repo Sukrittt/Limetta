@@ -15,6 +15,7 @@ import {
   Siren,
   ArrowDownUp,
   SearchCheck,
+  HelpCircle,
 } from "lucide-react";
 
 export const Icons = {
@@ -49,4 +50,5 @@ export const Icons = {
   investments: BarChart3,
   siren: Siren,
   transactions: ArrowDownUp,
+  help: HelpCircle,
 };

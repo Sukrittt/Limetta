@@ -60,38 +60,74 @@ export const dashboardItems = [
       },
     ],
   },
+  // {
+  //   title: "Investments",
+  //   Icon: Icons.investments,
+  //   subItems: [
+  //     {
+  //       title: "Transactions",
+  //       href: "/investments",
+  //       Icon: Icons.transactions,
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: "Savings",
+  //   Icon: Icons.piggy,
+  //   subItems: [
+  //     {
+  //       title: "Transactions",
+  //       href: "/savings",
+  //       Icon: Icons.transactions,
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: "Miscellaneous",
+  //   Icon: Icons.siren,
+  //   subItems: [
+  //     {
+  //       title: "Transactions",
+  //       href: "/miscellaneous",
+  //       Icon: Icons.transactions,
+  //     },
+  //   ],
+  // },
+];
+
+export const accounts = [
   {
-    title: "Investments",
+    label: "Expense Tracker",
+    href: "/expense-tracker",
+    Icon: Icons.wallet,
+  },
+  {
+    label: "Investments",
+    href: "/investments",
     Icon: Icons.investments,
-    subItems: [
-      {
-        title: "Transactions",
-        href: "/investments",
-        Icon: Icons.transactions,
-      },
-    ],
   },
   {
-    title: "Savings",
+    label: "Savings",
+    href: "/savings",
     Icon: Icons.piggy,
-    subItems: [
-      {
-        title: "Transactions",
-        href: "/savings",
-        Icon: Icons.transactions,
-      },
-    ],
   },
   {
-    title: "Miscellaneous",
+    label: "Miscellaneous",
+    href: "/miscellaneous",
     Icon: Icons.siren,
-    subItems: [
-      {
-        title: "Transactions",
-        href: "/miscellaneous",
-        Icon: Icons.transactions,
-      },
-    ],
+  },
+];
+
+export const settings = [
+  {
+    label: "Customize",
+    href: "/customize",
+    Icon: Icons.customize,
+  },
+  {
+    label: "Help",
+    href: "/help",
+    Icon: Icons.help,
   },
 ];
 

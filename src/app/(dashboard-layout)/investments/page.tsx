@@ -6,7 +6,6 @@ import { serverClient } from "@/trpc/server-client";
 import { Card, CardContent } from "@/components/ui/card";
 import { InvestmentCard } from "@/components/cards/investment-card";
 import { InvestAddEntry } from "@/components/investments/invest-add-entry";
-import { InvestBookEntry } from "@/components/investments/invest-book-entry";
 
 export const dynamic = "force-dynamic";
 
@@ -49,10 +48,6 @@ const Investments = async () => {
             initialTotalInvested={currentUser.totalInvested}
             currency={currentUser.currency as CurrencyType}
           />
-          {/* <InvestBookEntry
-            initialBalance={currentUser.investmentsBalance}
-            currency={currentUser.currency as CurrencyType}
-          /> */}
         </div>
       </CardContent>
       <Divider />

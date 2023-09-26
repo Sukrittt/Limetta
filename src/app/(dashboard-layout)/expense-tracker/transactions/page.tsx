@@ -4,7 +4,7 @@ import { Divider } from "@nextui-org/divider";
 
 import { env } from "@/env.mjs";
 import { cn } from "@/lib/utils";
-import { CurrencyType } from "@/config";
+import { CurrencyType } from "@/types";
 import { getAuthSession } from "@/lib/auth";
 import { serverClient } from "@/trpc/server-client";
 import { AddExpense } from "@/components/expense/add-expense";

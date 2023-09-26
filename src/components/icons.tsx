@@ -16,6 +16,8 @@ import {
   ArrowDownUp,
   SearchCheck,
   HelpCircle,
+  Repeat,
+  ArrowLeftRight,
 } from "lucide-react";
 
 export const Icons = {
@@ -51,4 +53,6 @@ export const Icons = {
   siren: Siren,
   transactions: ArrowDownUp,
   help: HelpCircle,
+  repeat: Repeat,
+  transfer: ArrowLeftRight,
 };

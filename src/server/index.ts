@@ -4,6 +4,7 @@ import { userRouter } from "@/server/routers/user";
 import { bookRouter } from "@/server/routers/book";
 import { entryRouter } from "@/server/routers/entry";
 import { savingsRouter } from "@/server/routers/savings";
+import { TransferRouter } from "@/server/routers/transfer";
 import { investmentRouter } from "@/server/routers/investment";
 
 export const appRouter = createTRPCRouter({
@@ -13,6 +14,7 @@ export const appRouter = createTRPCRouter({
   misc: miscRouter,
   savings: savingsRouter,
   investments: investmentRouter,
+  transfer: TransferRouter,
 });
 
 export type AppRouter = typeof appRouter;

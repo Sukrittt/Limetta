@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { env } from "@/env.mjs";
-import { CurrencyType } from "@/config";
+import { CurrencyType } from "@/types";
 import { Shell } from "@/components/shell";
 import { serverClient } from "@/trpc/server-client";
 import { IncomeCard } from "@/components/cards/income-card";

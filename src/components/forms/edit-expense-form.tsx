@@ -64,10 +64,12 @@ export const EditExpenseForm = ({
       });
     }
 
+    const parsedAmount = parseFloat(amount.replace(/,/g, ""));
+
     editEntry.mutate({
       bookId: expense.bookId,
       expenseId: expense.id,
-      amount: parseFloat(amount),
+      amount: parsedAmount,
       description,
       expenseType: expenseTypeSelected,
       initialExpenseType: expense.type,
@@ -76,7 +78,7 @@ export const EditExpenseForm = ({
   };
 
   const updateInputValidationState = useCallback(() => {
-    if (!amount) return;
+    if (!amount) return setInputValidationState("valid");
 
     if (parseFloat(amount) > 0) {
       setInputValidationState("valid");

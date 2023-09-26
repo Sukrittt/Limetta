@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CurrencyType } from "@/config";
+import { CurrencyType } from "@/types";
 import { ExpenseOverview } from "@/components/expense-overview";
 import { MonthlyExpenseSheet } from "@/components/expense/mothly-expense-sheet";
 

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 
 import { cn } from "@/lib/utils";
-import { CurrencyType } from "@/config";
+import { CurrencyType } from "@/types";
 import { Investments } from "@/db/schema";
 import { Card, CardContent } from "@/components/ui/card";
 import { InvestmentBookEntry } from "@/components/investments/invest-book-entry";
@@ -94,7 +94,7 @@ export const InvestmentCard = ({
               {transferEntry ? (
                 <Link
                   href={`/${transferText}`}
-                  className="text-primary text-center underline underline-offset-4"
+                  className="text-primary text-center underline underline-offset-4 col-span-2"
                 >
                   {transferText &&
                     transferText?.charAt(0).toUpperCase() +

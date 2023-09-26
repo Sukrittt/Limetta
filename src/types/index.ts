@@ -22,3 +22,7 @@ export type EntryType = {
   entryType: "in" | "out";
   initialBalance: number;
 };
+
+export type CurrencyType = "₹" | "$" | "€" | "£";
+
+export type AccountType = "investments" | "savings" | "miscellaneous";

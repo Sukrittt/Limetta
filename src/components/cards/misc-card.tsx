@@ -2,7 +2,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 
 import { cn } from "@/lib/utils";
-import { CurrencyType } from "@/config";
+import { CurrencyType } from "@/types";
 import { Miscellaneous } from "@/db/schema";
 import { Card, CardContent } from "@/components/ui/card";
 import { MiscEditEntry } from "@/components/misc/misc-edit";

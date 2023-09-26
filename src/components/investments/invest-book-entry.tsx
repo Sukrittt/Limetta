@@ -7,7 +7,7 @@ import {
 } from "@nextui-org/modal";
 
 import { EntryType } from "@/types";
-import { CurrencyType } from "@/config";
+import { CurrencyType } from "@/types";
 import { InvestBookEntryForm } from "@/components/forms/invest-book-entry-form";
 
 export const InvestmentBookEntry = ({

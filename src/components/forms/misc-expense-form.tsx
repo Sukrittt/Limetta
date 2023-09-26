@@ -7,7 +7,7 @@ import { ModalBody, ModalFooter } from "@nextui-org/modal";
 
 import { cn } from "@/lib/utils";
 import { trpc } from "@/trpc/client";
-import { CurrencyType } from "@/config";
+import { CurrencyType } from "@/types";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
@@ -37,7 +37,7 @@ export const MiscExpenseForm = ({
       });
       onClose();
     },
-    onError: (error) => {
+    onError: () => {
       toast({
         title: "Error",
         description: "Something went wrong.",
@@ -82,7 +82,7 @@ export const MiscExpenseForm = ({
   };
 
   const updateInputValidationState = useCallback(() => {
-    if (!amount) return;
+    if (!amount) return setInputValidationState("valid");
 
     if (parseFloat(amount) > 0) {
       setInputValidationState("valid");

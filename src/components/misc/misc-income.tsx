@@ -8,7 +8,7 @@ import {
 import { Button } from "@nextui-org/button";
 
 import { cn } from "@/lib/utils";
-import { CurrencyType } from "@/config";
+import { CurrencyType } from "@/types";
 import { buttonVariants } from "@/components/ui/button";
 import { MiscIncomeForm } from "@/components/forms/misc-income-form";
 

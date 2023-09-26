@@ -22,8 +22,6 @@ export const sidebarItems = [
   },
 ];
 
-export type CurrencyType = "₹" | "$" | "€" | "£";
-
 export const currencies = [
   {
     value: "₹",
@@ -43,62 +41,77 @@ export const currencies = [
   },
 ];
 
-export const dashboardItems = [
+export const accountTypes = [
   {
-    title: "Expense Tracker",
-    Icon: Icons.wallet,
-    subItems: [
-      {
-        title: "Transactions",
-        href: "/expense-tracker/transactions",
-        Icon: Icons.transactions,
-      },
-      {
-        title: "Overview",
-        href: "/expense-tracker/overview",
-        Icon: Icons.overview,
-      },
-    ],
+    value: "savings",
+    label: "Savings",
   },
-  // {
-  //   title: "Investments",
-  //   Icon: Icons.investments,
-  //   subItems: [
-  //     {
-  //       title: "Transactions",
-  //       href: "/investments",
-  //       Icon: Icons.transactions,
-  //     },
-  //   ],
-  // },
-  // {
-  //   title: "Savings",
-  //   Icon: Icons.piggy,
-  //   subItems: [
-  //     {
-  //       title: "Transactions",
-  //       href: "/savings",
-  //       Icon: Icons.transactions,
-  //     },
-  //   ],
-  // },
-  // {
-  //   title: "Miscellaneous",
-  //   Icon: Icons.siren,
-  //   subItems: [
-  //     {
-  //       title: "Transactions",
-  //       href: "/miscellaneous",
-  //       Icon: Icons.transactions,
-  //     },
-  //   ],
-  // },
+  {
+    value: "investments",
+    label: "Investments",
+  },
+  {
+    value: "miscellaneous",
+    label: "Miscellaneous",
+  },
 ];
+
+// export const dashboardItems = [
+//   {
+//     title: "Expense Tracker",
+//     Icon: Icons.wallet,
+//     subItems: [
+//       {
+//         title: "Transactions",
+//         href: "/expense-tracker/transactions",
+//         Icon: Icons.transactions,
+//       },
+//       {
+//         title: "Overview",
+//         href: "/expense-tracker/overview",
+//         Icon: Icons.overview,
+//       },
+//     ],
+//   },
+// {
+//   title: "Investments",
+//   Icon: Icons.investments,
+//   subItems: [
+//     {
+//       title: "Transactions",
+//       href: "/investments",
+//       Icon: Icons.transactions,
+//     },
+//   ],
+// },
+// {
+//   title: "Savings",
+//   Icon: Icons.piggy,
+//   subItems: [
+//     {
+//       title: "Transactions",
+//       href: "/savings",
+//       Icon: Icons.transactions,
+//     },
+//   ],
+// },
+// {
+//   title: "Miscellaneous",
+//   Icon: Icons.siren,
+//   subItems: [
+//     {
+//       title: "Transactions",
+//       href: "/miscellaneous",
+//       Icon: Icons.transactions,
+//     },
+//   ],
+// },
+// ];
 
 export const accounts = [
   {
     label: "Expense Tracker",
-    href: "/expense-tracker",
+    href: "/expense-tracker/transactions",
     Icon: Icons.wallet,
   },
   {
@@ -119,6 +132,11 @@ export const accounts = [
 ];
 
 export const settings = [
+  {
+    label: "Transfer",
+    href: "/transfer",
+    Icon: Icons.repeat,
+  },
   {
     label: "Customize",
     href: "/customize",

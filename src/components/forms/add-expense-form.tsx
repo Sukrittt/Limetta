@@ -8,7 +8,7 @@ import { ModalBody, ModalFooter } from "@nextui-org/modal";
 
 import { cn } from "@/lib/utils";
 import { trpc } from "@/trpc/client";
-import { CurrencyType } from "@/config";
+import { CurrencyType } from "@/types";
 import { toast } from "@/hooks/use-toast";
 import { Button } from "@nextui-org/button";
 import { Label } from "@/components/ui/label";
@@ -84,7 +84,7 @@ export const AddExpenseForm = ({
   };
 
   const updateInputValidationState = useCallback(() => {
-    if (!amount) return;
+    if (!amount) return setInputValidationState("valid");
 
     if (parseFloat(amount) > 0) {
       setInputValidationState("valid");

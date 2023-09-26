@@ -11,7 +11,7 @@ import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
 import { cn } from "@/lib/utils";
 import { EntryType } from "@/types";
 import { trpc } from "@/trpc/client";
-import { CurrencyType } from "@/config";
+import { CurrencyType } from "@/types";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
@@ -110,7 +110,7 @@ export const InvestmentEditEntryForm = ({
   };
 
   const updateInputValidationState = useCallback(() => {
-    if (!amount) return;
+    if (!amount) return setInputValidationState("valid");
 
     if (parseFloat(amount) > 0) {
       setInputValidationState("valid");

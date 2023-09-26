@@ -14,7 +14,7 @@ import { trpc } from "@/trpc/client";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
-import { CurrencyType } from "@/config";
+import { CurrencyType } from "@/types";
 
 export const InvestBookEntryForm = ({
   onClose,
@@ -101,7 +101,7 @@ export const InvestBookEntryForm = ({
   };
 
   const updateInputValidationState = useCallback(() => {
-    if (!amount) return;
+    if (!amount) return setInputValidationState("valid");
 
     if (parseFloat(amount) > 0) {
       setInputValidationState("valid");

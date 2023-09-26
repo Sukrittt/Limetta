@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { Divider } from "@nextui-org/divider";
 
 import { cn } from "@/lib/utils";
-import { CurrencyType } from "@/config";
+import { CurrencyType } from "@/types";
 import { serverClient } from "@/trpc/server-client";
 import MiscCard from "@/components/cards/misc-card";
 import { Card, CardContent } from "@/components/ui/card";
@@ -18,7 +18,7 @@ const Miscellaneous = async () => {
   if (!currentUser.monthlyIncome) redirect("/onboarding");
 
   return (
-    <Card className="rounded-2xl">
+    <Card>
       <CardContent className="flex flex-col gap-y-8 py-8">
         <div className="flex flex-col items-center gap-y-2">
           <span

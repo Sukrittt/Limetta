@@ -3,7 +3,7 @@ import { format } from "date-fns";
 
 import { cn } from "@/lib/utils";
 import { Savings } from "@/db/schema";
-import { CurrencyType } from "@/config";
+import { CurrencyType } from "@/types";
 import { Card, CardContent } from "@/components/ui/card";
 
 const SavingsCard = ({

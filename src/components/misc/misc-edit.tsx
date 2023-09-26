@@ -6,7 +6,7 @@ import {
   useDisclosure,
 } from "@nextui-org/modal";
 import { EntryType } from "@/types";
-import { CurrencyType } from "@/config";
+import { CurrencyType } from "@/types";
 import { MiscEditForm } from "@/components/forms/misc-edit-form";
 
 export const MiscEditEntry = ({

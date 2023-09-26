@@ -11,7 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { CurrencyType } from "@/config";
+import { CurrencyType } from "@/types";
 
 type ExpenseType = {
   books: Books[];

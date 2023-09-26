@@ -17,11 +17,12 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { trpc } from "@/trpc/client";
+import { currencies } from "@/config";
+import { CurrencyType } from "@/types";
 import { toast } from "@/hooks/use-toast";
 import { Icons } from "@/components/icons";
 import { Label } from "@/components/ui/label";
 import ToolTip from "@/components/ui/tool-tip";
-import { currencies, CurrencyType } from "@/config";
 import { buttonVariants } from "@/components/ui/button";
 
 interface IncomeCardProps {
@@ -76,7 +77,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
   );
 
   const updateInputValidationState = useCallback(() => {
-    if (!monthlyIncome) return;
+    if (!monthlyIncome) return setInputValidationState("valid");
 
     if (parseFloat(monthlyIncome) > 0) {
       setInputValidationState("valid");

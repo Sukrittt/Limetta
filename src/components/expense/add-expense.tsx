@@ -13,7 +13,7 @@ import { Spinner } from "@nextui-org/spinner";
 import { useMutation } from "@tanstack/react-query";
 
 import { cn } from "@/lib/utils";
-import { CurrencyType } from "@/config";
+import { CurrencyType } from "@/types";
 import { toast } from "@/hooks/use-toast";
 import { ExcelDataType } from "@/lib/validators";
 import { Calculations, ExpenseType } from "@/types";

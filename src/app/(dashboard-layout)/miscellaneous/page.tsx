@@ -48,7 +48,7 @@ const Miscellaneous = async () => {
       <Divider />
       <CardContent className="h-[calc(80vh-130px)] overflow-y-auto no-scrollbar pt-8">
         <MiscCard
-          miscEntries={miscEntries}
+          initialMiscEntries={miscEntries}
           currency={currentUser.currency as CurrencyType}
           initialBalance={currentUser.miscellanousBalance}
         />

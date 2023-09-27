@@ -11,6 +11,9 @@ dependencies:
   '@auth/drizzle-adapter':
     specifier: ^0.3.2
     version: 0.3.2
+  '@mantine/hooks':
+    specifier: ^7.0.2
+    version: 7.0.2(react@18.2.0)
   '@nextui-org/react':
     specifier: ^2.1.10
     version: 2.1.10(@types/react@18.2.21)(framer-motion@10.16.4)(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.3.3)
@@ -627,6 +630,14 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
+    dev: false
+
+  /@mantine/hooks@7.0.2(react@18.2.0):
+    resolution: {integrity: sha512-Zs0h7O9yI4Lhcebp/eXN+jfFSBS4jNuKRN5msj54decKcnA9ZxjkUpUqAwCNU0Re+cx6RFSBmB8eOA/+5sw+nA==}
+    peerDependencies:
+      react: ^18.2.0
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /@next/env@13.4.19:

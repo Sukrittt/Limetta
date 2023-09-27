@@ -97,6 +97,8 @@ export const settings = [
   },
 ];
 
+export const INFINITE_SCROLLING_PAGINATION_RESULTS = 3; //change to 10
+
 export const techStack = [
   {
     name: "Next.js",

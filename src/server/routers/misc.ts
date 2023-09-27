@@ -1,11 +1,12 @@
 import { z } from "zod";
 import { desc, eq } from "drizzle-orm";
+import { TRPCError } from "@trpc/server";
 
 import { db } from "@/db";
-import { miscellaneous, users } from "@/db/schema";
-import { createTRPCRouter, privateProcedure } from "@/server/trpc";
-import { TRPCError } from "@trpc/server";
 import { getUpdatedBalance } from "@/lib/utils";
+import { miscellaneous, users } from "@/db/schema";
+import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
+import { createTRPCRouter, privateProcedure } from "@/server/trpc";
 
 export const miscRouter = createTRPCRouter({
   getMiscTransactions: privateProcedure.query(async ({ ctx }) => {
@@ -13,9 +14,8 @@ export const miscRouter = createTRPCRouter({
       .select()
       .from(miscellaneous)
       .where(eq(miscellaneous.userId, ctx.userId))
+      .limit(INFINITE_SCROLLING_PAGINATION_RESULTS)
       .orderBy(desc(miscellaneous.createdAt));
-
-    //put a limit on the number of transactions returned
 
     return miscTransactions;
   }),

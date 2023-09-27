@@ -3,6 +3,7 @@ import { Input } from "@nextui-org/input";
 import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
+import { useQueryClient } from "@tanstack/react-query";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 
 import { cn } from "@/lib/utils";
@@ -22,6 +23,8 @@ export const MiscExpenseForm = ({
   initialBalance: number;
 }) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const [amount, setAmount] = useState<string | null>(null);
   const [description, setDescription] = useState("");
   const [inputValidationState, setInputValidationState] = useState<
@@ -31,6 +34,8 @@ export const MiscExpenseForm = ({
   const addMiscExpense = trpc.misc.addMiscEntry.useMutation({
     onSuccess: () => {
       router.refresh();
+      queryClient.resetQueries(["miscellaneous-entries"]);
+
       toast({
         title: "Expense added",
         description: "Your expense has been added successfully.",

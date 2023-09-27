@@ -66,7 +66,7 @@ const SavingsCard = ({
               {transferEntry && (
                 <Link
                   href={`/${transferText}`}
-                  className="text-primary text-center underline underline-offset-4"
+                  className="text-primary text-center text-xs underline underline-offset-4"
                 >
                   {transferText &&
                     transferText?.charAt(0).toUpperCase() +

@@ -3,9 +3,10 @@ import { desc, eq } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 
 import { db } from "@/db";
-import { investments, users } from "@/db/schema";
-import { createTRPCRouter, privateProcedure } from "@/server/trpc";
 import { getUpdatedBalance } from "@/lib/utils";
+import { investments, users } from "@/db/schema";
+import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
+import { createTRPCRouter, privateProcedure } from "@/server/trpc";
 
 export const investmentRouter = createTRPCRouter({
   getInvestmentEntries: privateProcedure.query(async ({ ctx }) => {
@@ -13,9 +14,8 @@ export const investmentRouter = createTRPCRouter({
       .select()
       .from(investments)
       .where(eq(investments.userId, ctx.userId))
+      .limit(INFINITE_SCROLLING_PAGINATION_RESULTS)
       .orderBy(desc(investments.createdAt));
-
-    //put a limit on the number of transactions returned
 
     return investmentEntries;
   }),

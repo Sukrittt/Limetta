@@ -1,5 +1,10 @@
+"use client";
 import Link from "next/link";
+import axios from "axios";
 import { format } from "date-fns";
+import { useEffect, useRef, useState } from "react";
+import { useIntersection } from "@mantine/hooks";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
@@ -11,15 +16,66 @@ import { InvestmentDeleteEntry } from "@/components/investments/investment-delet
 
 export const InvestmentCard = ({
   initialBalance,
-  investmentEntries,
+  initialInvestmentEntries,
   currency,
   initialTotalInvested,
 }: {
-  investmentEntries: Investments[];
+  initialInvestmentEntries: Investments[];
   currency: CurrencyType;
   initialBalance: number;
   initialTotalInvested: number;
 }) => {
+  const lastEntryRef = useRef<HTMLElement>(null);
+  const [investmentEntries, setInvestmentEntries] = useState(
+    initialInvestmentEntries
+  );
+
+  const [noNewData, setNoNewData] = useState(false);
+
+  const { ref, entry } = useIntersection({
+    root: lastEntryRef.current,
+    threshold: 1,
+  });
+
+  const { data, fetchNextPage, isFetchingNextPage, isFetching } =
+    useInfiniteQuery(
+      ["investment-entries"],
+      async ({ pageParam = 1 }) => {
+        const queryUrl = `/api/investment?page=${pageParam}`;
+
+        const { data } = await axios(queryUrl);
+
+        setNoNewData(false);
+
+        return data as Investments[];
+      },
+      {
+        getNextPageParam: (_, pages) => {
+          return pages.length + 1;
+        },
+        initialData: { pages: [initialInvestmentEntries], pageParams: [1] },
+      }
+    );
+
+  //infinite-scroll logic
+  useEffect(() => {
+    if (isFetching) return;
+
+    if (data?.pages[data?.pages.length - 1].length === 0) {
+      setNoNewData(true);
+    }
+
+    setInvestmentEntries(
+      data?.pages.flatMap((page) => page) ?? initialInvestmentEntries
+    );
+  }, [data, initialInvestmentEntries, isFetching]);
+
+  useEffect(() => {
+    if (entry?.isIntersecting && !noNewData) {
+      fetchNextPage();
+    }
+  }, [entry, fetchNextPage, noNewData]);
+
   if (investmentEntries.length === 0) {
     return (
       <p className="mt-2 text-sm text-center tracking-tight text-muted-foreground">
@@ -27,6 +83,67 @@ export const InvestmentCard = ({
       </p>
     );
   }
+
+  return (
+    <div className="flex flex-col gap-y-2 text-sm">
+      <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-8 px-4 sm:px-6">
+        <span className="hidden lg:block">Date & Time</span>
+        <span className="col-span-2 sm:col-span-3">Details</span>
+        <span className="text-center col-span-2">Amount</span>
+      </div>
+      {investmentEntries.map((entry, index) => {
+        if (index === investmentEntries.length - 1) {
+          return (
+            <div key={entry.id} ref={ref}>
+              <InvestmentEntryItem
+                entry={entry}
+                currency={currency}
+                initialBalance={initialBalance}
+                initialTotalInvested={initialTotalInvested}
+              />
+            </div>
+          );
+        } else {
+          return (
+            <div key={entry.id}>
+              <InvestmentEntryItem
+                entry={entry}
+                currency={currency}
+                initialBalance={initialBalance}
+                initialTotalInvested={initialTotalInvested}
+              />
+            </div>
+          );
+        }
+      })}
+      {isFetchingNextPage && <p>Loading...</p>}
+    </div>
+  );
+};
+
+const InvestmentEntryItem = ({
+  entry,
+  initialBalance,
+  initialTotalInvested,
+  currency,
+}: {
+  entry: Investments;
+  initialBalance: number;
+  initialTotalInvested: number;
+  currency: CurrencyType;
+}) => {
+  const transferEntry = entry.transferingFrom || entry.transferingTo;
+  const transferText = entry.transferingFrom
+    ? entry.transferingFrom
+    : entry.transferingTo;
+
+  const entryDetails = {
+    entryId: entry.id,
+    amount: entry.amount,
+    description: entry.entryName,
+    entryType: entry.entryType,
+    initialBalance,
+  };
 
   const getCustomizedDescription = (entry: Investments) => {
     if (entry.tradeBooks) {
@@ -39,95 +156,70 @@ export const InvestmentCard = ({
       : `Invested in ${entry.entryName}`;
   };
 
+  const customDescription = getCustomizedDescription(entry);
+
   return (
-    <div className="flex flex-col gap-y-2 text-sm">
-      <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-8 px-4 sm:px-6">
-        <span className="hidden lg:block">Date & Time</span>
-        <span className="col-span-2 sm:col-span-3">Details</span>
-        <span className="text-center col-span-2">Amount</span>
-      </div>
-      {investmentEntries.map((entry) => {
-        const transferEntry = entry.transferingFrom || entry.transferingTo;
-        const transferText = entry.transferingFrom
-          ? entry.transferingFrom
-          : entry.transferingTo;
-
-        const customDescription = getCustomizedDescription(entry);
-
-        const entryDetails = {
-          entryId: entry.id,
-          amount: entry.amount,
-          description: entry.entryName,
-          entryType: entry.entryType,
-          initialBalance,
-        };
-
-        return (
-          <Card key={entry.id}>
-            <CardContent className="grid grid-cols-8 px-4 sm:px-6 py-3">
-              <div className="items-center col-span-2 lg:col-span-1">
-                <span className="text-xs tracking-tighter">
-                  {format(entry.createdAt, "dd MMM '·' h:mm a")}
-                </span>
-              </div>
-              <span className="col-span-2 sm:col-span-3 break-words">
-                {transferEntry ? (
-                  <>
-                    {`Transferred ${entry.transferingFrom ? "from" : "to"}
+    <Card key={entry.id}>
+      <CardContent className="grid grid-cols-8 px-4 sm:px-6 py-3">
+        <div className="items-center col-span-2 lg:col-span-1">
+          <span className="text-xs tracking-tighter">
+            {format(new Date(entry.createdAt), "dd MMM '·' h:mm a")}
+          </span>
+        </div>
+        <span className="col-span-2 sm:col-span-3 break-words">
+          {transferEntry ? (
+            <>
+              {`Transferred ${entry.transferingFrom ? "from" : "to"}
                       ${transferText} account`}
-                  </>
-                ) : (
-                  customDescription
-                )}
-              </span>
+            </>
+          ) : (
+            customDescription
+          )}
+        </span>
 
-              <span
-                className={cn("text-center col-span-2", {
-                  "text-green-600": entry.entryType === "in",
-                  "text-red-500": entry.entryType === "out",
-                })}
-              >
-                {entry.entryType === "in" ? "+" : "-"}
-                {currency}
-                {entry.amount.toLocaleString()}
-              </span>
-              {transferEntry ? (
-                <Link
-                  href={`/${transferText}`}
-                  className="text-primary text-center underline underline-offset-4 col-span-2"
-                >
-                  {transferText &&
-                    transferText?.charAt(0).toUpperCase() +
-                      transferText?.slice(1)}
-                </Link>
-              ) : (
-                <div className="justify-center items-center text-xs col-span-2 grid grid-cols-4">
-                  {!entry.tradeBooks && entry.entryType === "out" ? (
-                    <InvestmentBookEntry
-                      currency={currency}
-                      initialBalance={initialBalance}
-                      entryDetails={entryDetails}
-                    />
-                  ) : (
-                    <span className="col-span-2" />
-                  )}
-                  <InvestmentEditEntry
-                    currency={currency}
-                    entryDetails={entryDetails}
-                    tradeBooking={entry.tradeBooks}
-                    initialTotalInvested={initialTotalInvested}
-                  />
-                  <InvestmentDeleteEntry
-                    entryDetails={entryDetails}
-                    tradeBooking={entry.tradeBooks}
-                    initialTotalInvested={initialTotalInvested}
-                  />
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        );
-      })}
-    </div>
+        <span
+          className={cn("text-center col-span-2", {
+            "text-green-600": entry.entryType === "in",
+            "text-red-500": entry.entryType === "out",
+          })}
+        >
+          {entry.entryType === "in" ? "+" : "-"}
+          {currency}
+          {entry.amount.toLocaleString()}
+        </span>
+        {transferEntry ? (
+          <Link
+            href={`/${transferText}`}
+            className="text-primary text-center text-xs underline underline-offset-4 col-span-2"
+          >
+            {transferText &&
+              transferText?.charAt(0).toUpperCase() + transferText?.slice(1)}
+          </Link>
+        ) : (
+          <div className="justify-center items-center text-xs col-span-2 grid grid-cols-4">
+            {!entry.tradeBooks && entry.entryType === "out" ? (
+              <InvestmentBookEntry
+                currency={currency}
+                initialBalance={initialBalance}
+                entryDetails={entryDetails}
+              />
+            ) : (
+              <span className="col-span-2" />
+            )}
+            <InvestmentEditEntry
+              currency={currency}
+              entryDetails={entryDetails}
+              tradeBooking={entry.tradeBooks}
+              initialTotalInvested={initialTotalInvested}
+            />
+            <InvestmentDeleteEntry
+              entryDetails={entryDetails}
+              tradeBooking={entry.tradeBooks}
+              initialTotalInvested={initialTotalInvested}
+            />
+          </div>
+        )}
+      </CardContent>
+    </Card>
   );
 };

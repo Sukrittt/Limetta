@@ -56,7 +56,7 @@ const Investments = async () => {
       <Divider />
       <CardContent className="h-[calc(80vh-130px)] overflow-y-auto no-scrollbar pt-8">
         <InvestmentCard
-          investmentEntries={investmentEntries}
+          initialInvestmentEntries={investmentEntries}
           initialTotalInvested={currentUser.totalInvested}
           currency={currentUser.currency as CurrencyType}
           initialBalance={currentUser.investmentsBalance}

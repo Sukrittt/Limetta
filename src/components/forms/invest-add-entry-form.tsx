@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
 import { Tabs, Tab } from "@nextui-org/tabs";
+import { useQueryClient } from "@tanstack/react-query";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
 
@@ -26,6 +27,8 @@ export const InvestAddEntryForm = ({
   initialTotalInvested: number;
 }) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const [amount, setAmount] = useState<string | null>(null);
   const [description, setDescription] = useState("");
   const [inputValidationState, setInputValidationState] = useState<
@@ -41,6 +44,8 @@ export const InvestAddEntryForm = ({
   const addInvestmentEntry = trpc.investments.addInvestmentEntry.useMutation({
     onSuccess: () => {
       router.refresh();
+      queryClient.resetQueries(["investment-entries"]);
+
       toast({
         title: "Entry added",
         description: "Your entry has been added successfully.",

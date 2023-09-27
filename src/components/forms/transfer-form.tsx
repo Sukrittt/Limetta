@@ -66,15 +66,18 @@ export const TransferForm = ({
       router.refresh();
       const { dismiss } = toast({
         title: "Transfer successfully done",
-        description: `Your money was transferred to ${toAccount} account.`, // account name
-        action: (
-          <Link
-            href={`/${toAccount}`}
-            onClick={() => dismiss()}
-            className={buttonVariants({ variant: "secondary" })}
-          >
-            {toAccount.charAt(0).toUpperCase() + toAccount.slice(1)}
-          </Link>
+        description: (
+          <>
+            Your money was transferred to{" "}
+            <Link
+              href={`/${toAccount}`}
+              onClick={() => dismiss()}
+              className="text-primary underline underline-offset-4"
+            >
+              {toAccount}
+            </Link>{" "}
+            account.
+          </>
         ),
       });
       onClose();

@@ -5,11 +5,9 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/modal";
-import { Button } from "@nextui-org/button";
 
 import { Icons } from "@/components/icons";
 import { AccountType, CurrencyType } from "@/types";
-import { buttonVariants } from "@/components/ui/button";
 import { TransferForm } from "@/components/forms/transfer-form";
 
 export const Transfer = ({
@@ -29,13 +27,13 @@ export const Transfer = ({
 
   return (
     <>
-      <Button
-        onPress={onOpen}
-        // className="flex justify-center border rounded-md p-2 group cursor-pointer"
-        className={buttonVariants({ variant: "secondary" })}
+      <div
+        onClick={onOpen}
+        className="flex justify-center p-2 group cursor-pointer"
+        // className={buttonVariants({ variant: "secondary" })}
       >
         <Icons.transfer className="h-4 w-4 cursor-pointer group-hover:text-primary transition" />
-      </Button>
+      </div>
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}

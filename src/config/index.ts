@@ -56,58 +56,6 @@ export const accountTypes = [
   },
 ];
 
-// export const dashboardItems = [
-//   {
-//     title: "Expense Tracker",
-//     Icon: Icons.wallet,
-//     subItems: [
-//       {
-//         title: "Transactions",
-//         href: "/expense-tracker/transactions",
-//         Icon: Icons.transactions,
-//       },
-//       {
-//         title: "Overview",
-//         href: "/expense-tracker/overview",
-//         Icon: Icons.overview,
-//       },
-//     ],
-//   },
-// {
-//   title: "Investments",
-//   Icon: Icons.investments,
-//   subItems: [
-//     {
-//       title: "Transactions",
-//       href: "/investments",
-//       Icon: Icons.transactions,
-//     },
-//   ],
-// },
-// {
-//   title: "Savings",
-//   Icon: Icons.piggy,
-//   subItems: [
-//     {
-//       title: "Transactions",
-//       href: "/savings",
-//       Icon: Icons.transactions,
-//     },
-//   ],
-// },
-// {
-//   title: "Miscellaneous",
-//   Icon: Icons.siren,
-//   subItems: [
-//     {
-//       title: "Transactions",
-//       href: "/miscellaneous",
-//       Icon: Icons.transactions,
-//     },
-//   ],
-// },
-// ];
-
 export const accounts = [
   {
     label: "Expense Tracker",

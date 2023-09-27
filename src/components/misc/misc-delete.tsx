@@ -10,6 +10,7 @@ import {
 import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { cn } from "@/lib/utils";
 import { EntryType } from "@/types";
@@ -23,17 +24,20 @@ export const MiscDeleteEntry = ({
   entryDetails: EntryType;
 }) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   const deleteEntry = trpc.misc.deleteMiscEntry.useMutation({
     onSuccess: () => {
-      onClose();
       router.refresh();
+      queryClient.resetQueries(["miscellaneous-entries"]);
 
       toast({
         title: "Entry deleted",
         description: "Your entry has been deleted successfully.",
       });
+      onClose();
     },
     onError: () => {
       toast({

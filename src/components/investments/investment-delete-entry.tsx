@@ -10,6 +10,7 @@ import {
 import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { cn } from "@/lib/utils";
 import { EntryType } from "@/types";
@@ -27,17 +28,20 @@ export const InvestmentDeleteEntry = ({
   tradeBooking: boolean;
 }) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   const deleteEntry = trpc.investments.deleteInvestmentEntry.useMutation({
     onSuccess: () => {
-      onClose();
       router.refresh();
+      queryClient.resetQueries(["investment-entries"]);
 
       toast({
         title: "Entry deleted",
         description: "Your entry has been deleted successfully.",
       });
+      onClose();
     },
     onError: () => {
       toast({

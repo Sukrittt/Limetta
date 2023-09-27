@@ -4,15 +4,15 @@ import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
 import { RadioGroup, Radio } from "@nextui-org/radio";
+import { useQueryClient } from "@tanstack/react-query";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 
 import { cn } from "@/lib/utils";
-import { EntryType } from "@/types";
 import { trpc } from "@/trpc/client";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
+import { EntryType, CurrencyType } from "@/types";
 import { buttonVariants } from "@/components/ui/button";
-import { CurrencyType } from "@/types";
 
 export const MiscEditForm = ({
   onClose,
@@ -24,6 +24,8 @@ export const MiscEditForm = ({
   entryDetails: EntryType;
 }) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const [amount, setAmount] = useState(entryDetails.amount.toLocaleString());
   const [description, setDescription] = useState(entryDetails.description);
   const [entryType, setEntryType] = useState(entryDetails.entryType);
@@ -35,6 +37,8 @@ export const MiscEditForm = ({
   const updateMiscEntry = trpc.misc.editMiscEntry.useMutation({
     onSuccess: () => {
       router.refresh();
+      queryClient.resetQueries(["miscellaneous-entries"]);
+
       toast({
         title: "Entry updated",
         description: "Your entry has been updated successfully.",

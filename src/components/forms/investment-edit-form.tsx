@@ -5,6 +5,7 @@ import { Button } from "@nextui-org/button";
 import { Tabs, Tab } from "@nextui-org/tabs";
 import { Spinner } from "@nextui-org/spinner";
 import { RadioGroup, Radio } from "@nextui-org/radio";
+import { useQueryClient } from "@tanstack/react-query";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
 
@@ -30,6 +31,8 @@ export const InvestmentEditEntryForm = ({
   entryDetails: EntryType;
 }) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const [amount, setAmount] = useState(entryDetails.amount.toLocaleString());
   const [description, setDescription] = useState(entryDetails.description);
   const [entryType, setEntryType] = useState(entryDetails.entryType);
@@ -48,6 +51,8 @@ export const InvestmentEditEntryForm = ({
     trpc.investments.editInvestmentEntry.useMutation({
       onSuccess: () => {
         router.refresh();
+        queryClient.resetQueries(["investment-entries"]);
+
         toast({
           title: "Entry updated",
           description: "Your entry has been updated successfully.",

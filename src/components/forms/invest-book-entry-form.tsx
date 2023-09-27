@@ -5,16 +5,16 @@ import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
 import { Tabs, Tab } from "@nextui-org/tabs";
 import { RadioGroup, Radio } from "@nextui-org/radio";
+import { useQueryClient } from "@tanstack/react-query";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
 
 import { cn } from "@/lib/utils";
-import { EntryType } from "@/types";
 import { trpc } from "@/trpc/client";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
+import { EntryType, CurrencyType } from "@/types";
 import { buttonVariants } from "@/components/ui/button";
-import { CurrencyType } from "@/types";
 
 export const InvestBookEntryForm = ({
   onClose,
@@ -28,6 +28,8 @@ export const InvestBookEntryForm = ({
   entryDetails: EntryType;
 }) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const [amount, setAmount] = useState<string | null>(null);
   const [description, setDescription] = useState(entryDetails.description);
   const [tradeStatus, setTradeStatus] = useState<"profit" | "loss">("profit");
@@ -48,6 +50,8 @@ export const InvestBookEntryForm = ({
   const addInvestmentEntry = trpc.investments.addInvestmentEntry.useMutation({
     onSuccess: () => {
       router.refresh();
+      queryClient.resetQueries(["investment-entries"]);
+
       toast({
         title: "Entry added",
         description: "Your entry has been added successfully.",

@@ -159,7 +159,7 @@ const InvestmentEntryItem = ({
   const customDescription = getCustomizedDescription(entry);
 
   return (
-    <Card key={entry.id}>
+    <Card>
       <CardContent className="grid grid-cols-8 px-4 sm:px-6 py-3">
         <div className="items-center col-span-2 lg:col-span-1">
           <span className="text-xs tracking-tighter">

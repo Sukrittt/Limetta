@@ -36,7 +36,7 @@ const Savings = async () => {
       <Divider />
       <CardContent className="h-[calc(100vh-200px)] overflow-y-auto no-scrollbar pt-8">
         <SavingsCard
-          savingsEntries={savingsEntries}
+          initialSavingsEntries={savingsEntries}
           currency={currentUser.currency as CurrencyType}
         />
       </CardContent>

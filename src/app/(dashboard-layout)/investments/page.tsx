@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { Divider } from "@nextui-org/divider";
+import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
@@ -54,14 +55,16 @@ const Investments = async () => {
         </div>
       </CardContent>
       <Divider />
-      <CardContent className="h-[calc(80vh-130px)] overflow-y-auto no-scrollbar pt-8">
-        <InvestmentCard
-          initialInvestmentEntries={investmentEntries}
-          initialTotalInvested={currentUser.totalInvested}
-          currency={currentUser.currency as CurrencyType}
-          initialBalance={currentUser.investmentsBalance}
-        />
-      </CardContent>
+      <ScrollShadow className="h-[calc(80vh-130px)] w-full no-scrollbar">
+        <CardContent className="pt-8">
+          <InvestmentCard
+            initialInvestmentEntries={investmentEntries}
+            initialTotalInvested={currentUser.totalInvested}
+            currency={currentUser.currency as CurrencyType}
+            initialBalance={currentUser.investmentsBalance}
+          />
+        </CardContent>
+      </ScrollShadow>
     </Card>
   );
 };

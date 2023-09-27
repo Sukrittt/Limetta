@@ -1,9 +1,9 @@
 import { format } from "date-fns";
 import type { Metadata } from "next";
+import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { env } from "@/env.mjs";
 import { Icons } from "@/components/icons";
-import { Shell } from "@/components/shell";
 import { serverClient } from "@/trpc/server-client";
 import {
   Card,
@@ -81,7 +81,7 @@ const Overview = async () => {
   const totalSpent = data.reduce((acc, obj) => acc + obj.total, 0);
 
   return (
-    <Shell className="tracking-tight px-0">
+    <div className="grid gap-4">
       <div className="space-y-2">
         <h1 className="line-clamp-1 text-3xl font-bold tracking-tight py-1">
           Budget Overview
@@ -90,7 +90,7 @@ const Overview = async () => {
           Monthly Expense Summary for the Past Year
         </p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
         <Card>
           <CardHeader className="flex flex-row justify-between items-center pb-2">
             <CardTitle className="text-md">Needs</CardTitle>
@@ -137,39 +137,41 @@ const Overview = async () => {
             <ExpenseOverview data={data} />
           </CardContent>
         </Card>
-        <Card className="col-span-5 lg:col-span-2 max-h-[450px] overflow-y-auto no-scrollbar">
-          <CardHeader>
-            <CardTitle className="text-md">Total Monthly Expenses</CardTitle>
-            <CardDescription>
-              You have spent {currentUser.currency}
-              {totalSpent} till now.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-y-2 pb-6 lg:py-0 px-3">
-            {expenseData.length === 0 ? (
-              <div className="flex flex-col items-center justify-center min-h-[270px]">
-                <p className="text-sm font-mono text-muted-foreground">
-                  No entries created yet.
-                </p>
-              </div>
-            ) : (
-              expenseData.map((expense, index) => (
-                <MonthlyExpenseSheet
-                  key={index}
-                  expenseData={expense}
-                  currency={currentUser.currency as CurrencyType}
-                >
-                  <div className="flex items-center justify-between hover:bg-muted rounded-lg transtion-all p-3 cursor-pointer border">
-                    <span className="text-sm">{expense.month}</span>
-                    <span className="font-mono">{`${currentUser.currency}${expense.total}`}</span>
-                  </div>
-                </MonthlyExpenseSheet>
-              ))
-            )}
-          </CardContent>
+        <Card className="col-span-5 lg:col-span-2">
+          <ScrollShadow className="h-[410px] w-full no-scrollbar">
+            <CardHeader>
+              <CardTitle className="text-md">Total Monthly Expenses</CardTitle>
+              <CardDescription>
+                You have spent {currentUser.currency}
+                {totalSpent} till now.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-y-2 pb-6 lg:py-0 px-3">
+              {expenseData.length === 0 ? (
+                <div className="flex flex-col items-center justify-center min-h-[320px]">
+                  <p className="text-sm font-mono text-muted-foreground">
+                    No entries created yet.
+                  </p>
+                </div>
+              ) : (
+                expenseData.map((expense, index) => (
+                  <MonthlyExpenseSheet
+                    key={index}
+                    expenseData={expense}
+                    currency={currentUser.currency as CurrencyType}
+                  >
+                    <div className="flex items-center justify-between hover:bg-muted rounded-lg transtion-all p-3 cursor-pointer border">
+                      <span className="text-sm">{expense.month}</span>
+                      <span className="font-mono">{`${currentUser.currency}${expense.total}`}</span>
+                    </div>
+                  </MonthlyExpenseSheet>
+                ))
+              )}
+            </CardContent>
+          </ScrollShadow>
         </Card>
       </div>
-    </Shell>
+    </div>
   );
 };
 

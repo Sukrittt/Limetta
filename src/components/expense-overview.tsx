@@ -27,7 +27,7 @@ export const ExpenseOverview = ({
   }
 
   return (
-    <ResponsiveContainer width="100%" height={350}>
+    <ResponsiveContainer width="100%" height={320}>
       <BarChart data={data}>
         <XAxis
           dataKey="name"

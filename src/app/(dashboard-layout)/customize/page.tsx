@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 
 import { env } from "@/env.mjs";
 import { CurrencyType } from "@/types";
-import { Shell } from "@/components/shell";
 import { serverClient } from "@/trpc/server-client";
 import { IncomeCard } from "@/components/cards/income-card";
 
@@ -32,7 +31,7 @@ const Customize = async () => {
       : "default";
 
   return (
-    <Shell className="px-0">
+    <div>
       <IncomeCard
         title="Tailor Your Monthly Budget and Expense Ratio"
         income={currentUser.monthlyIncome}
@@ -44,7 +43,7 @@ const Customize = async () => {
         href="/expense-tracker"
         actionLabel="Save"
       />
-    </Shell>
+    </div>
   );
 };
 

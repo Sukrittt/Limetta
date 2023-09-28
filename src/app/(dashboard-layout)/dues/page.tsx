@@ -36,12 +36,12 @@ const Dues = async () => {
           <div className="flex flex-col items-center gap-y-2">
             <span
               className={cn("text-4xl", {
-                "text-red-500": currentUser.dueReceiveble < 0,
+                "text-red-500": currentUser.dueReceivable < 0,
               })}
             >
-              <span>{currentUser.dueReceiveble < 0 ? "-" : ""}</span>
+              <span>{currentUser.dueReceivable < 0 ? "-" : ""}</span>
               <span>{currentUser.currency}</span>
-              {Math.abs(currentUser.dueReceiveble).toLocaleString()}
+              {Math.abs(currentUser.dueReceivable).toLocaleString()}
             </span>
             <p className="text-sm text-muted-foreground tracking-tight">
               Due Receivable
@@ -55,7 +55,7 @@ const Dues = async () => {
             dueType="payable"
           />
           <DuePayment
-            initialBalance={currentUser.dueReceiveble}
+            initialBalance={currentUser.dueReceivable}
             currency={currentUser.currency as CurrencyType}
             dueType="receivable"
           />
@@ -64,7 +64,12 @@ const Dues = async () => {
       <Divider />
       <ScrollShadow className="h-[calc(80vh-130px)] w-full no-scrollbar">
         <CardContent className="pt-8">
-          <DueCard dues={dueEntries} />
+          <DueCard
+            currency={currentUser.currency as CurrencyType}
+            initialDues={dueEntries}
+            initialPayableBalance={currentUser.duePayable}
+            initialReceivableBalance={currentUser.dueReceivable}
+          />
         </CardContent>
       </ScrollShadow>
     </Card>

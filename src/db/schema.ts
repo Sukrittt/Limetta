@@ -73,7 +73,7 @@ export const users = mysqlTable("user", {
   miscellanousBalance: float("miscellanousBalance").notNull().default(0),
 
   duePayable: float("duePayable").notNull().default(0),
-  dueReceiveble: float("dueReceiveble").notNull().default(0),
+  dueReceivable: float("dueReceiveble").notNull().default(0),
 
   currency: varchar("currency", { length: 1 }).notNull().default("₹"),
 });
@@ -286,9 +286,15 @@ export const UserMiscellaneousRelations = relations(users, ({ many }) => ({
 export const dues = mysqlTable("dues", {
   id: serial("id").primaryKey(),
   entryName: varchar("entryName", { length: 100 }).notNull(),
-  dueType: varchar("entryType", {
+  dueStatus: varchar("entryType", {
     length: 100,
     enum: ["pending", "paid"],
+  })
+    .notNull()
+    .default("pending"),
+  dueType: varchar("dueType", {
+    length: 100,
+    enum: ["payable", "receivable"],
   }).notNull(),
   amount: float("amount").notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),

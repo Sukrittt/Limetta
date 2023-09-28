@@ -38,7 +38,7 @@ export const dueRouter = createTRPCRouter({
         await db
           .update(users)
           .set({
-            dueReceiveble: input.initialBalance + input.amount,
+            dueReceivable: input.initialBalance + input.amount,
           })
           .where(eq(users.id, ctx.userId));
       }
@@ -48,7 +48,7 @@ export const dueRouter = createTRPCRouter({
         amount: input.amount,
         entryName: input.description,
         dueDate: input.dueDate,
-        dueType: "pending",
+        dueType: input.dueType,
       });
     }),
 });

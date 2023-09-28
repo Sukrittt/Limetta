@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "74b312fd-cfae-40a9-b95a-2a9e4225ee46",
+  "id": "0c98a747-bbc6-447a-862f-fa81ffc8d708",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -191,6 +191,14 @@
         },
         "entryType": {
           "name": "entryType",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'pending'"
+        },
+        "dueType": {
+          "name": "dueType",
           "type": "varchar(100)",
           "primaryKey": false,
           "notNull": true,

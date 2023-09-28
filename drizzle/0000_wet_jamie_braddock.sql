@@ -28,7 +28,8 @@ CREATE TABLE `books` (
 CREATE TABLE `dues` (
 	`id` serial AUTO_INCREMENT NOT NULL,
 	`entryName` varchar(100) NOT NULL,
-	`entryType` varchar(100) NOT NULL,
+	`entryType` varchar(100) NOT NULL DEFAULT 'pending',
+	`dueType` varchar(100) NOT NULL,
 	`amount` float NOT NULL,
 	`userId` varchar(255) NOT NULL,
 	`dueDate` timestamp NOT NULL,

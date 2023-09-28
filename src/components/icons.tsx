@@ -19,6 +19,10 @@ import {
   Repeat,
   ArrowLeftRight,
   CalendarClock,
+  MoreVertical,
+  Pencil,
+  Trash2,
+  CheckCircle,
 } from "lucide-react";
 
 export const Icons = {
@@ -57,4 +61,8 @@ export const Icons = {
   repeat: Repeat,
   transfer: ArrowLeftRight,
   due: CalendarClock,
+  dropdown: MoreVertical,
+  edit: Pencil,
+  delete: Trash2,
+  paid: CheckCircle,
 };

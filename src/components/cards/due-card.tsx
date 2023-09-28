@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { Dues } from "@/db/schema";
 import { CurrencyType } from "@/types";
 import { Card, CardContent } from "@/components/ui/card";
+import { DueDropdown } from "@/components/dropdowns/due-dropdown";
 
 interface DueCardProps {
   initialDues: Dues[];
@@ -36,9 +37,10 @@ export const DueCard: FC<DueCardProps> = ({
 
   const { data, fetchNextPage, isFetchingNextPage, isFetching } =
     useInfiniteQuery(
-      ["miscellaneous-entries"],
+      ["dues-entries"],
       async ({ pageParam = 1 }) => {
-        const queryUrl = `/api/dues?page=${pageParam}`;
+        // const queryUrl = `/api/dues?page=${pageParam}`;
+        const queryUrl = `/api/dueasdasdsds?page=${pageParam}`;
 
         const { data } = await axios(queryUrl);
 
@@ -74,7 +76,7 @@ export const DueCard: FC<DueCardProps> = ({
   if (miscEntries.length === 0) {
     return (
       <p className="mt-2 text-sm text-center tracking-tight text-muted-foreground">
-        Your transactions will appear here.
+        Your dues will appear here.
       </p>
     );
   }
@@ -84,7 +86,9 @@ export const DueCard: FC<DueCardProps> = ({
       <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6">
         <span className="hidden lg:block">Date & Time</span>
         <span className="col-span-2 sm:col-span-3">Details</span>
-        <span className="text-center col-span-2">Amount</span>
+        <span className="text-center">Amount</span>
+        <span className="text-center">Category</span>
+        <span className="text-center">Due date</span>
       </div>
       {miscEntries.map((entry, index) => {
         if (index === miscEntries.length - 1) {
@@ -138,7 +142,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
 
   return (
     <Card>
-      <CardContent className="grid grid-cols-7 px-4 sm:px-6 py-3">
+      <CardContent className="grid grid-cols-7 px-4 sm:px-6 py-3 relative">
         <div className="items-center col-span-2 lg:col-span-1">
           <span className="text-xs tracking-tighter">
             {format(new Date(entry.createdAt), "dd MMM '·' h:mm a")}
@@ -148,22 +152,33 @@ const DueEntryItem: FC<DueEntryProps> = ({
           {entry.entryName}
         </span>
 
-        <span
-          className={cn("text-center col-span-2", {
-            // "text-green-600": entry.entryType === "in",
-            // "text-red-500": entry.entryType === "out",
-          })}
-        >
-          {/* {entry.entryType === "in" ? "+" : "-"} */}
+        <span className="text-center">
           {currency}
           {entry.amount.toLocaleString()}
         </span>
-        <div className="flex justify-around items-center text-xs">
-          {/* <MiscEditEntry entryDetails={entryDetails} currency={currency} />
-            <MiscDeleteEntry entryDetails={entryDetails} /> */}
-          <span>Edit</span>
-          <span>Delete</span>
+        <div className="flex items-center justify-center">
+          <span
+            className={cn("text-center text-xs", {
+              "text-green-600": entry.dueStatus === "paid",
+              "text-yellow-600": entry.dueStatus === "pending",
+            })}
+          >
+            {entry.dueStatus === "paid" ? "Paid" : "Pending"}
+          </span>
         </div>
+        <div className="flex items-center justify-center">
+          <span className="text-center text-xs">
+            {format(new Date(entry.dueDate), "dd MMM, yy")}
+          </span>
+        </div>
+
+        <div className="absolute top-[6px] right-2">
+          <DueDropdown />
+        </div>
+        {/* <MiscEditEntry entryDetails={entryDetails} currency={currency} />
+            <MiscDeleteEntry entryDetails={entryDetails} /> */}
+        {/* <span>Edit</span>
+          <span>Delete</span> */}
       </CardContent>
     </Card>
   );

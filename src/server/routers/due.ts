@@ -3,6 +3,7 @@ import { desc, eq } from "drizzle-orm";
 
 import { db } from "@/db";
 import { dues, users } from "@/db/schema";
+import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { createTRPCRouter, privateProcedure } from "@/server/trpc";
 
 export const dueRouter = createTRPCRouter({
@@ -11,7 +12,7 @@ export const dueRouter = createTRPCRouter({
       .select()
       .from(dues)
       .where(eq(dues.userId, ctx.userId))
-      // .limit(INFINITE_SCROLLING_PAGINATION_RESULTS) uncomment this line
+      .limit(INFINITE_SCROLLING_PAGINATION_RESULTS)
       .orderBy(desc(dues.createdAt));
 
     return miscTransactions;

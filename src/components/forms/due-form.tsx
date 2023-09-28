@@ -38,7 +38,7 @@ export const DueForm = ({
   const addDueEntry = trpc.dues.addDueEntry.useMutation({
     onSuccess: () => {
       router.refresh();
-      queryClient.resetQueries(["due-entries"]);
+      queryClient.resetQueries(["dues-entries"]);
 
       toast({
         title: "Due added",

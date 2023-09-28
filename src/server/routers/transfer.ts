@@ -110,7 +110,7 @@ export const TransferRouter = createTRPCRouter({
           db
             .update(users)
             .set({
-              miscellanousBalance: input.investmentsBalance - input.amount,
+              miscellanousBalance: input.miscellaneousBalance - input.amount,
             })
             .where(eq(users.id, ctx.userId)),
         ];

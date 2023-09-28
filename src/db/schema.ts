@@ -278,3 +278,30 @@ export const miscellaneousRelation = relations(miscellaneous, ({ one }) => ({
 export const UserMiscellaneousRelations = relations(users, ({ many }) => ({
   miscellaneous: many(miscellaneous),
 }));
+
+// Dues
+export const dues = mysqlTable("dues", {
+  id: serial("id").primaryKey(),
+  entryName: varchar("entryName", { length: 100 }).notNull(),
+  dueType: varchar("entryType", {
+    length: 100,
+    enum: ["pending", "paid"],
+  }).notNull(),
+  amount: float("amount").notNull(),
+  userId: varchar("userId", { length: 255 }).notNull(),
+  dueDate: timestamp("dueDate").notNull(),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+});
+
+export type Dues = typeof dues.$inferSelect;
+
+export const dueRelation = relations(dues, ({ one }) => ({
+  author: one(users, {
+    fields: [dues.userId],
+    references: [users.id],
+  }),
+}));
+
+export const UserDueRelations = relations(users, ({ many }) => ({
+  dues: many(dues),
+}));

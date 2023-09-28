@@ -18,6 +18,7 @@ import {
   HelpCircle,
   Repeat,
   ArrowLeftRight,
+  CalendarClock,
 } from "lucide-react";
 
 export const Icons = {
@@ -55,4 +56,5 @@ export const Icons = {
   help: HelpCircle,
   repeat: Repeat,
   transfer: ArrowLeftRight,
+  due: CalendarClock,
 };

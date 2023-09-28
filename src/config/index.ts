@@ -77,6 +77,11 @@ export const accounts = [
     href: "/miscellaneous",
     Icon: Icons.siren,
   },
+  {
+    label: "Dues",
+    href: "/dues",
+    Icon: Icons.due,
+  },
 ];
 
 export const settings = [

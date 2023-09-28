@@ -25,6 +25,17 @@ CREATE TABLE `books` (
 	CONSTRAINT `books_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
+CREATE TABLE `dues` (
+	`id` serial AUTO_INCREMENT NOT NULL,
+	`entryName` varchar(100) NOT NULL,
+	`entryType` varchar(100) NOT NULL,
+	`amount` float NOT NULL,
+	`userId` varchar(255) NOT NULL,
+	`dueDate` timestamp NOT NULL,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `dues_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
 CREATE TABLE `investments` (
 	`id` serial AUTO_INCREMENT NOT NULL,
 	`entryName` varchar(100) NOT NULL,

@@ -81,11 +81,6 @@ export const accounts = [
 
 export const settings = [
   {
-    label: "Transfer",
-    href: "/transfer",
-    Icon: Icons.repeat,
-  },
-  {
     label: "Customize",
     href: "/customize",
     Icon: Icons.customize,

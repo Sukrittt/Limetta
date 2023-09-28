@@ -16,35 +16,6 @@ export const DashboardSidebar = ({ session }: { session: Session }) => {
         <NavDropdown session={session} />
       </div>
 
-      {/* <Accordion type="single" collapsible className="w-full">
-        {dashboardItems.map((accItem, index) => (
-          <AccordionItem key={index} value={`${index + 1}`}>
-            <AccordionTrigger className="hover:no-underline">
-              <div className="flex gap-x-2 items-center text-sm hover:text-primary transition">
-                <accItem.Icon className="h-4 w-4 text-muted-foreground" />{" "}
-                {accItem.title}
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="flex flex-col gap-y-4 text-sm">
-                {accItem.subItems.map((subItem, index) => (
-                  <Link
-                    key={index}
-                    className="hover:text-primary transition"
-                    href={subItem.href}
-                  >
-                    <div className="flex gap-x-2 items-center">
-                      <subItem.Icon className="text-muted-foreground h-4 w-4" />{" "}
-                      {subItem.title}
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion> */}
-
       <div className="space-y-4 tracking-tight">
         <div className="flex gap-x-2 items-center">
           <div className="h-3 w-3 rounded-sm bg-primary" />

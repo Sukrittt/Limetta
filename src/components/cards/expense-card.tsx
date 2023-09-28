@@ -1,4 +1,3 @@
-// import { format, utcToZonedTime } from "date-fns-tz";
 import { format } from "date-fns";
 
 import { ExpenseType } from "@/types";
@@ -14,15 +13,11 @@ export const ExpenseCard = ({
   expense: ExpenseType;
   currency: CurrencyType;
 }) => {
-  // const timeZone = "Asia/Kolkata";
-  // const zonedDate = utcToZonedTime(expense.createdAt, timeZone);
-
   return (
-    <Card>
+    <Card className="bg-transparent">
       <CardContent className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 gap-y-2 px-4 sm:px-6 py-3">
         <div className="hidden lg:flex items-center col-span-2 lg:col-span-1">
           <span className="text-xs tracking-tighter">
-            {/* {format(zonedDate, "dd MMM '·' h:mm a", { timeZone })} */}
             {format(expense.createdAt, "dd MMM '·' h:mm a")}
           </span>
         </div>
@@ -52,7 +47,6 @@ export const ExpenseCard = ({
         <div className="flex justify-between w-full text-xs items-center">
           <div className="flex items-center">
             <span className="text-xs tracking-tighter">
-              {/* {format(zonedDate, "dd MMM '·' h:mm a", { timeZone })} */}
               {format(expense.createdAt, "dd MMM '·' h:mm a")}
             </span>
           </div>

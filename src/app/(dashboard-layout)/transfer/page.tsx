@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
 import { Icons } from "@/components/icons";
 import { serverClient } from "@/trpc/server-client";
-import { Transfer as TransferMoney } from "@/components/transfer";
 import { Card, CardContent } from "@/components/ui/card";
+import { Transfer as TransferMoney } from "@/components/transfer";
 
 export const dynamic = "force-dynamic";
 

@@ -82,24 +82,24 @@ const Dashboard = async () => {
     <div className="grid grid-cols-7 gap-8 py-4 tracking-tight">
       <div className="col-span-7 lg:col-span-5">
         <Card>
-          <ScrollShadow className="h-[calc(100vh-100px)] w-full no-scrollbar">
-            <CardTitle>
-              <CardHeader className="text-center text-2xl md:text-3xl py-4">{`${currentMonth} Entries`}</CardHeader>
-              <Divider />
-            </CardTitle>
-            <CardContent className="space-y-2 text-sm tracking-tight pt-6 md:pt-3">
-              <div className="flex justify-end pb-6 md:pb-3">
-                <AddExpense
-                  currency={currentUser.currency as CurrencyType}
-                  expenses={expenses}
-                  calculations={{
-                    needsTotal,
-                    wantsTotal,
-                    totalSaved:
-                      currentUser.monthlyIncome - (needsTotal + wantsTotal),
-                  }}
-                />
-              </div>
+          <CardTitle>
+            <CardHeader className="text-center text-2xl md:text-3xl py-4">{`${currentMonth} Entries`}</CardHeader>
+            <Divider />
+          </CardTitle>
+          <CardContent className="space-y-2 text-sm tracking-tight pt-6 md:pt-3">
+            <div className="flex justify-end pb-6 md:pb-3">
+              <AddExpense
+                currency={currentUser.currency as CurrencyType}
+                expenses={expenses}
+                calculations={{
+                  needsTotal,
+                  wantsTotal,
+                  totalSaved:
+                    currentUser.monthlyIncome - (needsTotal + wantsTotal),
+                }}
+              />
+            </div>
+            <ScrollShadow className="h-[calc(80vh-115px)] w-full no-scrollbar">
               {expenses.length === 0 ? (
                 <div className="flex flex-col items-center gap-y-1 pt-4 text-muted-foreground tracking-tight font-mono">
                   <p>No entries added Yet!</p>
@@ -122,8 +122,8 @@ const Dashboard = async () => {
                   ))}
                 </div>
               )}
-            </CardContent>
-          </ScrollShadow>
+            </ScrollShadow>
+          </CardContent>
         </Card>
       </div>
       <div className="col-span-7 lg:col-span-2">

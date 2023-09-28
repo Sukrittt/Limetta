@@ -1,0 +1,50 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { format } from "date-fns";
+import { Button } from "@nextui-org/button";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/popover";
+
+import { cn } from "@/lib/utils";
+import { Calendar } from "@/components/ui/calendar";
+import { buttonVariants } from "@/components/ui/button";
+
+interface DatePickerProps {
+  value: Date | undefined;
+  setValue: (date: Date | undefined) => void;
+}
+
+export function DatePicker({ setValue, value }: DatePickerProps) {
+  const [date, setDate] = useState<Date>();
+
+  useEffect(() => {
+    setValue(date);
+  }, [date, setValue]);
+
+  return (
+    <Popover placement="top">
+      <PopoverTrigger>
+        <Button
+          className={cn(
+            buttonVariants({ variant: "secondary" }),
+            "justify-start text-left font-normal rounded-xl",
+            !date && "text-muted-foreground"
+          )}
+        >
+          <CalendarIcon className="h-4 w-4" />
+          {date ? format(date, "PPP") : <span>Pick a due date</span>}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0">
+        <Calendar
+          mode="single"
+          today={value || new Date()}
+          selected={date}
+          onSelect={setDate}
+          initialFocus
+        />
+      </PopoverContent>
+    </Popover>
+  );
+}

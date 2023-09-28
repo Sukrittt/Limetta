@@ -101,9 +101,11 @@ CREATE TABLE `user` (
 	`wantsPercentage` float NOT NULL DEFAULT 30,
 	`investmentsPercentage` float NOT NULL DEFAULT 20,
 	`savingsBalance` float NOT NULL DEFAULT 0,
-	`investmentsBalance` float NOT NULL DEFAULT 0,
 	`totalInvested` float NOT NULL DEFAULT 0,
+	`investmentsBalance` float NOT NULL DEFAULT 0,
 	`miscellanousBalance` float NOT NULL DEFAULT 0,
+	`duePayable` float NOT NULL DEFAULT 0,
+	`dueReceiveble` float NOT NULL DEFAULT 0,
 	`currency` varchar(1) NOT NULL DEFAULT '₹',
 	CONSTRAINT `user_id` PRIMARY KEY(`id`)
 );

@@ -68,9 +68,12 @@ export const users = mysqlTable("user", {
   investmentsPercentage: float("investmentsPercentage").notNull().default(20),
 
   savingsBalance: float("savingsBalance").notNull().default(0),
-  investmentsBalance: float("investmentsBalance").notNull().default(0),
   totalInvested: float("totalInvested").notNull().default(0),
+  investmentsBalance: float("investmentsBalance").notNull().default(0),
   miscellanousBalance: float("miscellanousBalance").notNull().default(0),
+
+  duePayable: float("duePayable").notNull().default(0),
+  dueReceiveble: float("dueReceiveble").notNull().default(0),
 
   currency: varchar("currency", { length: 1 }).notNull().default("₹"),
 });

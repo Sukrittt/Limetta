@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "be907d83-14aa-4069-a391-857429cc1b45",
+  "id": "74b312fd-cfae-40a9-b95a-2a9e4225ee46",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -639,14 +639,6 @@
           "autoincrement": false,
           "default": 0
         },
-        "investmentsBalance": {
-          "name": "investmentsBalance",
-          "type": "float",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": 0
-        },
         "totalInvested": {
           "name": "totalInvested",
           "type": "float",
@@ -655,8 +647,32 @@
           "autoincrement": false,
           "default": 0
         },
+        "investmentsBalance": {
+          "name": "investmentsBalance",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
         "miscellanousBalance": {
           "name": "miscellanousBalance",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "duePayable": {
+          "name": "duePayable",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "dueReceiveble": {
+          "name": "dueReceiveble",
           "type": "float",
           "primaryKey": false,
           "notNull": true,

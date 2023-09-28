@@ -122,7 +122,8 @@ export const TransferForm = ({
     if (transferableAmount < parseFloat(amount.replace(/,/g, ""))) {
       return toast({
         title: "Insufficient balance",
-        description: "Please enter a valid amount.",
+        description:
+          "Your account balance is not enough to cover this transaction.",
         variant: "destructive",
       });
     }

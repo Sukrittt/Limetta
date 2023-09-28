@@ -55,9 +55,7 @@ const Dashboard = async () => {
       : 0;
 
   const needShare = currentMonthIncome * (currentMonthNeedPercetange / 100);
-  const wantShare =
-    currentMonthEntries.books[0].monthIncome *
-    (currentMonthWantPercetange / 100);
+  const wantShare = currentMonthIncome * (currentMonthWantPercetange / 100);
 
   const totalSavings = currentMonthIncome - (needsTotal + wantsTotal);
 

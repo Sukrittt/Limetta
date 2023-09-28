@@ -29,6 +29,7 @@ export const config = {
     "/savings",
     "/investments",
     "/miscellaneous",
+    "/dues",
     "/customize",
     "/overview",
     "/sign-in",

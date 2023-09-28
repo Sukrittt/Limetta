@@ -10,25 +10,39 @@ import { Button } from "@nextui-org/button";
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
 import { buttonVariants } from "@/components/ui/button";
-import { MiscExpenseForm } from "@/components/forms/misc-expense-form";
+import { MiscEntryForm } from "@/components/forms/misc-entry-form";
 
-export const MiscExpense = ({
+export const MiscEntry = ({
+  entryType,
   initialBalance,
   currency,
 }: {
   initialBalance: number;
   currency: CurrencyType;
+  entryType: "in" | "out";
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <>
-      <Button
-        onPress={onOpen}
-        className={cn(buttonVariants({ variant: "secondary" }), "rounded-full")}
-      >
-        Expense
-      </Button>
+      {entryType === "in" ? (
+        <Button
+          onPress={onOpen}
+          className={cn(buttonVariants(), "rounded-full")}
+        >
+          Income
+        </Button>
+      ) : (
+        <Button
+          onPress={onOpen}
+          className={cn(
+            buttonVariants({ variant: "secondary" }),
+            "rounded-full"
+          )}
+        >
+          Expense
+        </Button>
+      )}
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -39,11 +53,12 @@ export const MiscExpense = ({
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Add Expense
+                {entryType === "in" ? "Add Income" : "Add Expense"}
               </ModalHeader>
-              <MiscExpenseForm
+              <MiscEntryForm
                 onClose={onClose}
                 currency={currency}
+                entryType={entryType}
                 initialBalance={initialBalance}
               />
             </>

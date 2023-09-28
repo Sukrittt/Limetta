@@ -7,8 +7,7 @@ import { CurrencyType } from "@/types";
 import { serverClient } from "@/trpc/server-client";
 import MiscCard from "@/components/cards/misc-card";
 import { Card, CardContent } from "@/components/ui/card";
-import { MiscIncome } from "@/components/misc/misc-income";
-import { MiscExpense } from "@/components/misc/misc-expense";
+import { MiscEntry } from "@/components/misc/misc-entry";
 
 export const dynamic = "force-dynamic";
 
@@ -36,13 +35,15 @@ const Miscellaneous = async () => {
           </p>
         </div>
         <div className="flex justify-center gap-x-12 items-center">
-          <MiscIncome
+          <MiscEntry
             initialBalance={currentUser.miscellanousBalance}
             currency={currentUser.currency as CurrencyType}
+            entryType="in"
           />
-          <MiscExpense
+          <MiscEntry
             initialBalance={currentUser.miscellanousBalance}
             currency={currentUser.currency as CurrencyType}
+            entryType="out"
           />
         </div>
       </CardContent>

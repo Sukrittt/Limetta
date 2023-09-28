@@ -1,3 +1,4 @@
+"use client";
 import { useCallback, useEffect, useState } from "react";
 import { Input } from "@nextui-org/input";
 import { useRouter } from "next/navigation";
@@ -13,14 +14,16 @@ import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { buttonVariants } from "@/components/ui/button";
 
-export const MiscExpenseForm = ({
+export const MiscEntryForm = ({
   onClose,
   initialBalance,
   currency,
+  entryType,
 }: {
   onClose: () => void;
-  currency: CurrencyType;
   initialBalance: number;
+  currency: CurrencyType;
+  entryType: "in" | "out";
 }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -31,14 +34,14 @@ export const MiscExpenseForm = ({
     "valid" | "invalid"
   >("valid");
 
-  const addMiscExpense = trpc.misc.addMiscEntry.useMutation({
+  const addMiscEntry = trpc.misc.addMiscEntry.useMutation({
     onSuccess: () => {
       router.refresh();
       queryClient.resetQueries(["miscellaneous-entries"]);
 
       toast({
-        title: "Expense added",
-        description: "Your expense has been added successfully.",
+        title: "Entry added",
+        description: "Your entry has been added successfully.",
       });
       onClose();
     },
@@ -78,10 +81,10 @@ export const MiscExpenseForm = ({
       });
     }
 
-    addMiscExpense.mutate({
+    addMiscEntry.mutate({
       amount: parsedAmount,
       description,
-      entryType: "out",
+      entryType,
       initialBalance,
     });
   };
@@ -108,7 +111,7 @@ export const MiscExpenseForm = ({
             <Label>Amount</Label>
             <Input
               autoFocus
-              placeholder="Eg: 1000"
+              placeholder="Eg: 500"
               value={amount ?? ""}
               onChange={(e) => setAmount(e.target.value)}
               onKeyDown={(e) => {
@@ -132,9 +135,9 @@ export const MiscExpenseForm = ({
           </div>
 
           <div className="flex flex-col gap-y-2">
-            <Label>Income Description</Label>
+            <Label>Description</Label>
             <Input
-              placeholder="Eg: Emergency Repairs"
+              placeholder={`Eg: ${entryType === "in" ? "Freelance" : "Rent"}`}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               onKeyDown={(e) => {
@@ -162,9 +165,9 @@ export const MiscExpenseForm = ({
           color="primary"
           className={cn(buttonVariants({ size: "sm" }), "rounded-lg")}
           onClick={handleSubmit}
-          disabled={addMiscExpense.isLoading}
+          disabled={addMiscEntry.isLoading}
         >
-          {addMiscExpense.isLoading ? (
+          {addMiscEntry.isLoading ? (
             <Spinner color="default" size="sm" />
           ) : (
             "Add"

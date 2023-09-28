@@ -41,15 +41,25 @@ const Dashboard = async () => {
     0
   );
 
-  const needShare =
-    currentMonthEntries.books[0].monthIncome *
-    (currentMonthEntries.books[0].needsPercentage / 100);
+  const currentMonthIncome =
+    currentMonthEntries.books.length > 0
+      ? currentMonthEntries.books[0].monthIncome
+      : 0;
+  const currentMonthNeedPercetange =
+    currentMonthEntries.books.length > 0
+      ? currentMonthEntries.books[0].needsPercentage
+      : 0;
+  const currentMonthWantPercetange =
+    currentMonthEntries.books.length > 0
+      ? currentMonthEntries.books[0].wantsPercentage
+      : 0;
+
+  const needShare = currentMonthIncome * (currentMonthNeedPercetange / 100);
   const wantShare =
     currentMonthEntries.books[0].monthIncome *
-    (currentMonthEntries.books[0].wantsPercentage / 100);
+    (currentMonthWantPercetange / 100);
 
-  const totalSavings =
-    currentMonthEntries.books[0].monthIncome - (needsTotal + wantsTotal);
+  const totalSavings = currentMonthIncome - (needsTotal + wantsTotal);
 
   if (!currentUser.monthlyIncome) redirect("/onboarding");
 
@@ -88,11 +98,11 @@ const Dashboard = async () => {
         }`}</h1>
         <p className="text-muted-foreground text-sm">Welcome Back!</p>
       </div>
-      <div className="grid grid-cols-6 gap-4 tracking-tight mt-4">
+      <div className="grid grid-cols-6 gap-4 tracking-tight mt-2">
         {accountDetails.map((account, index) => (
           <Card key={index} className="col-span-2">
             <CardTitle>
-              <CardHeader className="py-3 font-normal">
+              <CardHeader className="py-4 font-normal">
                 <div className="flex items-center justify-between text-muted-foreground">
                   <Link
                     href={account.href}
@@ -123,10 +133,10 @@ const Dashboard = async () => {
           </Card>
         ))}
       </div>
-      <div className="grid grid-cols-6 gap-4 tracking-tight h-[calc(100vh-280px)]">
+      <div className="grid grid-cols-6 gap-4 tracking-tight h-[calc(100vh-300px)]">
         <Card className="col-span-4">
           <CardTitle>
-            <CardHeader className="py-3 font-normal">
+            <CardHeader className="py-4 font-normal">
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">
                   {currentMonth} Transactions
@@ -172,36 +182,44 @@ const Dashboard = async () => {
         <div className="col-span-2 grid grid-cols-1 gap-4">
           <Card>
             <CardTitle>
-              <CardHeader className="py-3 font-normal">
+              <CardHeader className="py-4 font-normal">
                 <span className="text-sm text-muted-foreground">
                   {currentMonth} Overview
                 </span>
               </CardHeader>
             </CardTitle>
             <CardContent className="flex flex-col gap-y-2">
-              <ExpenseTable
-                currency={currentUser.currency as CurrencyType}
-                needSpent={needsTotal}
-                needsLeft={needShare - needsTotal}
-                wantSpent={wantsTotal}
-                wantsLeft={wantShare - wantsTotal}
-              />
+              {currentMonthEntries.books.length === 0 ? (
+                <p className="pt-6 text-muted-foreground tracking-tighter text-center font-mono text-sm">
+                  Start adding entires to get more insights.
+                </p>
+              ) : (
+                <>
+                  <ExpenseTable
+                    currency={currentUser.currency as CurrencyType}
+                    needSpent={needsTotal}
+                    needsLeft={needShare - needsTotal}
+                    wantSpent={wantsTotal}
+                    wantsLeft={wantShare - wantsTotal}
+                  />
 
-              <span
-                className={cn("text-xs tracking-tighter", {
-                  "text-red-500": wantShare - wantsTotal < 0,
-                  "text-green-600": wantShare - wantsTotal > 0,
-                })}
-              >
-                Total Savings: <span>{totalSavings < 0 ? "-" : ""}</span>
-                {currentUser.currency}
-                {totalSavings.toLocaleString()}
-              </span>
+                  <span
+                    className={cn("text-xs tracking-tighter", {
+                      "text-red-500": wantShare - wantsTotal < 0,
+                      "text-green-600": wantShare - wantsTotal > 0,
+                    })}
+                  >
+                    Total Savings: <span>{totalSavings < 0 ? "-" : ""}</span>
+                    {currentUser.currency}
+                    {totalSavings.toLocaleString()}
+                  </span>
+                </>
+              )}
             </CardContent>
           </Card>
           <Card>
             <CardTitle>
-              <CardHeader className="py-3 font-normal">
+              <CardHeader className="py-4 font-normal">
                 <span className="text-muted-foreground text-sm">Transfer</span>
               </CardHeader>
             </CardTitle>

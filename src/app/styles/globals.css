@@ -58,7 +58,7 @@
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-background text-foreground dark min-h-screen;
+    @apply bg-background text-foreground dark min-h-screen no-scrollbar;
   }
 }
 

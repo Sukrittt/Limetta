@@ -130,7 +130,7 @@ const Dashboard = async () => {
         <Card>
           <ScrollShadow className="lg:h-[calc(100vh-100px)] w-full no-scrollbar">
             <CardTitle>
-              <CardHeader className="text-center py-5 ">
+              <CardHeader className="text-center py-5">
                 Expense Insights
               </CardHeader>
               <Divider />

@@ -23,6 +23,7 @@ import {
   Pencil,
   Trash2,
   CheckCircle,
+  Coins,
 } from "lucide-react";
 
 export const Icons = {
@@ -78,8 +79,10 @@ export const Icons = {
   repeat: Repeat,
   transfer: ArrowLeftRight,
   due: CalendarClock,
+  dueCheck: CalendarCheck,
   dropdown: MoreVertical,
   edit: Pencil,
   delete: Trash2,
   paid: CheckCircle,
+  coins: Coins,
 };

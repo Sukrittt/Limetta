@@ -6,7 +6,7 @@ import AuthForm from "@/components/forms/auth-form";
 const SignIn = () => {
   return (
     <div className="grid grid-cols-2 h-full">
-      <div className="flex flex-col gap-y-8 mt-8 py-20 px-28">
+      <div className="flex flex-col gap-y-8 mt-8 py-24 px-28">
         <div className="space-y-4">
           <h1 className="text-4xl font-medium">
             Begin Your Financial Journey with Balancewise
@@ -21,8 +21,8 @@ const SignIn = () => {
           <AuthForm />
         </div>
       </div>
-      <div className="border-l p-5 h-full flex items-center justify-center">
-        <div className="relative h-[350px] w-[600px] border rounded-2xl overflow-hidden">
+      <div className="p-5 h-full flex items-center justify-center">
+        <div className="relative h-[350px] w-[600px] border rounded-2xl shadow-2xl overflow-hidden">
           <Image
             src="/images/dashboard-snapshot.png"
             alt="dashbaord-snapshot"

@@ -9,7 +9,7 @@ import { buttonVariants } from "@/components/ui/button";
 export default function layout({ children }: { children: ReactNode }) {
   return (
     <div className="flex flex-col h-screen">
-      <div className="relative py-2 px-8 z-20 flex items-center border-b">
+      <div className="relative py-3 px-8 z-20 flex items-center">
         <Link
           href="/"
           className={cn(

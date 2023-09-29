@@ -9,6 +9,8 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { Dues } from "@/db/schema";
 import { CurrencyType } from "@/types";
+import { DuePaid } from "@/components/due/due-paid";
+import { DueDelete } from "@/components/due/due-delete";
 import { DueEditEntry } from "@/components/due/due-edit";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -39,8 +41,7 @@ export const DueCard: FC<DueCardProps> = ({
     useInfiniteQuery(
       ["dues-entries"],
       async ({ pageParam = 1 }) => {
-        // const queryUrl = `/api/dues?page=${pageParam}`;
-        const queryUrl = `/api/dueasdasdsds?page=${pageParam}`;
+        const queryUrl = `/api/dues?page=${pageParam}`;
 
         const { data } = await axios(queryUrl);
 
@@ -188,9 +189,9 @@ const DueEntryItem: FC<DueEntryProps> = ({
         </div>
 
         <div className="flex justify-around items-center text-xs">
-          <span>Paid</span>
+          <DuePaid entryDetails={entryDetails} />
           <DueEditEntry currency={currency} entryDetails={entryDetails} />
-          <span>Delete</span>
+          <DueDelete entryDetails={entryDetails} />
         </div>
       </CardContent>
     </Card>

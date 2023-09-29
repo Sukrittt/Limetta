@@ -133,6 +133,76 @@ export const dueRouter = createTRPCRouter({
         })
         .where(eq(dues.id, input.dueId));
     }),
+  deleteDueEntry: privateProcedure
+    .input(
+      z.object({
+        dueId: z.number(),
+        dueType: z.enum(["payable", "receivable"]),
+        duePayableBalance: z.number(),
+        dueReceivableBalance: z.number(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const existingDueEntry = await db
+        .select()
+        .from(dues)
+        .where(eq(dues.id, input.dueId));
+
+      if (existingDueEntry.length === 0) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Due entry not found",
+        });
+      }
+
+      const existingDueEntryData = existingDueEntry[0]; // since we are querying by id, there will be only one entry
+
+      if (input.dueType === "payable") {
+        await db
+          .update(users)
+          .set({
+            duePayable: input.duePayableBalance - existingDueEntryData.amount,
+          })
+          .where(eq(users.id, ctx.userId));
+      } else {
+        await db
+          .update(users)
+          .set({
+            dueReceivable:
+              input.dueReceivableBalance - existingDueEntryData.amount,
+          })
+          .where(eq(users.id, ctx.userId));
+      }
+
+      await db.delete(dues).where(eq(dues.id, input.dueId));
+    }),
+  dueMarkPaid: privateProcedure
+    .input(
+      z.object({
+        dueId: z.number(),
+        updatedDueStatus: z.enum(["paid", "pending"]),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const existingDueEntry = await db
+        .select()
+        .from(dues)
+        .where(eq(dues.id, input.dueId));
+
+      if (existingDueEntry.length === 0) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Due entry not found",
+        });
+      }
+
+      await db
+        .update(dues)
+        .set({
+          dueStatus: input.updatedDueStatus,
+        })
+        .where(eq(dues.id, input.dueId));
+    }),
 });
 
 function getTomorrowDate() {

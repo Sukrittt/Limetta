@@ -41,7 +41,8 @@ export const DueCard: FC<DueCardProps> = ({
     useInfiniteQuery(
       ["dues-entries"],
       async ({ pageParam = 1 }) => {
-        const queryUrl = `/api/dues?page=${pageParam}`;
+        // const queryUrl = `/api/dues?page=${pageParam}`;
+        const queryUrl = `/api/duesasdasd?page=${pageParam}`;
 
         const { data } = await axios(queryUrl);
 
@@ -86,7 +87,7 @@ export const DueCard: FC<DueCardProps> = ({
     <div className="flex flex-col gap-y-2 text-sm">
       <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-9 px-4 sm:px-6">
         <span className="hidden lg:block">Date & Time</span>
-        <span className="col-span-2 sm:col-span-3">Details</span>
+        <span className="col-span-2">Details</span>
         <span className="text-center">Amount</span>
         <span className="text-center">Type</span>
         <span className="text-center">Status</span>
@@ -154,9 +155,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
             {format(new Date(entry.createdAt), "dd MMM '·' h:mm a")}
           </span>
         </div>
-        <span className="col-span-2 sm:col-span-3 break-words">
-          {entry.entryName}
-        </span>
+        <span className="col-span-2 break-words">{entry.entryName}</span>
 
         <span className="text-center">
           {currency}
@@ -187,8 +186,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
             {format(new Date(entry.dueDate), "dd MMM, yy")}
           </span>
         </div>
-
-        <div className="flex justify-around items-center text-xs">
+        <div className="flex justify-around items-center text-xs col-span-2">
           <DuePaid entryDetails={entryDetails} />
           <DueEditEntry currency={currency} entryDetails={entryDetails} />
           <DueDelete entryDetails={entryDetails} />

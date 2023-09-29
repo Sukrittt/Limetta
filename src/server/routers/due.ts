@@ -14,7 +14,7 @@ export const dueRouter = createTRPCRouter({
       .from(dues)
       .where(eq(dues.userId, ctx.userId))
       .limit(INFINITE_SCROLLING_PAGINATION_RESULTS)
-      .orderBy(desc(dues.createdAt));
+      .orderBy(desc(dues.dueDate));
 
     return miscTransactions;
   }),

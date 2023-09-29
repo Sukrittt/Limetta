@@ -33,7 +33,7 @@ export async function GET(req: Request) {
       .where(eq(dues.userId, session.user.id))
       .offset(offsetValue)
       .limit(INFINITE_SCROLLING_PAGINATION_RESULTS)
-      .orderBy(desc(dues.createdAt));
+      .orderBy(desc(dues.dueDate));
 
     return new Response(JSON.stringify(dueTransactions));
   } catch (error) {

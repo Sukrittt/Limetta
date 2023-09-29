@@ -48,7 +48,7 @@ export const ExpenseTable: FC<ExpenseTableProps> = ({
           >
             <span>{needsLeft < 0 ? "-" : ""}</span>
             {currency}
-            {needsLeft.toLocaleString()}
+            {Math.abs(needsLeft).toLocaleString()}
           </TableCell>
         </TableRow>
         <TableRow key="2">
@@ -64,7 +64,7 @@ export const ExpenseTable: FC<ExpenseTableProps> = ({
           >
             <span>{needsLeft < 0 ? "-" : ""}</span>
             {currency}
-            {wantsLeft.toLocaleString()}
+            {Math.abs(wantsLeft).toLocaleString()}
           </TableCell>
         </TableRow>
       </TableBody>

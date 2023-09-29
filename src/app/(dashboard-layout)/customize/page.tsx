@@ -40,7 +40,7 @@ const Customize = async () => {
         initialInvestmentRatio={currentUser.investmentsPercentage}
         initialSelectedRatio={initialSelectedRatio}
         initialCurrency={currentUser.currency as CurrencyType}
-        href="/expense-tracker"
+        href="/dashboard"
         actionLabel="Save"
       />
     </div>

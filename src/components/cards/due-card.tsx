@@ -9,8 +9,8 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { Dues } from "@/db/schema";
 import { CurrencyType } from "@/types";
+import { DueEditEntry } from "@/components/due/due-edit";
 import { Card, CardContent } from "@/components/ui/card";
-import { DueDropdown } from "@/components/dropdowns/due-dropdown";
 
 interface DueCardProps {
   initialDues: Dues[];
@@ -83,11 +83,12 @@ export const DueCard: FC<DueCardProps> = ({
 
   return (
     <div className="flex flex-col gap-y-2 text-sm">
-      <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6">
+      <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-9 px-4 sm:px-6">
         <span className="hidden lg:block">Date & Time</span>
         <span className="col-span-2 sm:col-span-3">Details</span>
         <span className="text-center">Amount</span>
-        <span className="text-center">Category</span>
+        <span className="text-center">Type</span>
+        <span className="text-center">Status</span>
         <span className="text-center">Due date</span>
       </div>
       {miscEntries.map((entry, index) => {
@@ -133,16 +134,20 @@ const DueEntryItem: FC<DueEntryProps> = ({
   initialPayableBalance,
   initialReceivableBalance,
 }) => {
-  // const entryDetails = {
-  //   entryId: entry.id,
-  //   amount: entry.amount,
-  //   description: entry.entryName,
-  //   initialBalance,
-  // };
+  const entryDetails = {
+    entryId: entry.id,
+    amount: entry.amount,
+    description: entry.entryName,
+    duePayableBalance: initialPayableBalance,
+    dueReceivableBalance: initialReceivableBalance,
+    dueType: entry.dueType,
+    dueStatus: entry.dueStatus,
+    dueDate: entry.dueDate,
+  };
 
   return (
     <Card>
-      <CardContent className="grid grid-cols-7 px-4 sm:px-6 py-3 relative">
+      <CardContent className="grid grid-cols-9 px-4 sm:px-6 py-3">
         <div className="items-center col-span-2 lg:col-span-1">
           <span className="text-xs tracking-tighter">
             {format(new Date(entry.createdAt), "dd MMM '·' h:mm a")}
@@ -159,6 +164,16 @@ const DueEntryItem: FC<DueEntryProps> = ({
         <div className="flex items-center justify-center">
           <span
             className={cn("text-center text-xs", {
+              "text-red-500": entry.dueType === "payable",
+              "text-green-600": entry.dueType === "receivable",
+            })}
+          >
+            {entry.dueType === "payable" ? "Payable" : "Receivable"}
+          </span>
+        </div>
+        <div className="flex items-center justify-center">
+          <span
+            className={cn("text-center text-xs", {
               "text-green-600": entry.dueStatus === "paid",
               "text-yellow-600": entry.dueStatus === "pending",
             })}
@@ -172,13 +187,11 @@ const DueEntryItem: FC<DueEntryProps> = ({
           </span>
         </div>
 
-        <div className="absolute top-[6px] right-2">
-          <DueDropdown />
+        <div className="flex justify-around items-center text-xs">
+          <span>Paid</span>
+          <DueEditEntry currency={currency} entryDetails={entryDetails} />
+          <span>Delete</span>
         </div>
-        {/* <MiscEditEntry entryDetails={entryDetails} currency={currency} />
-            <MiscDeleteEntry entryDetails={entryDetails} /> */}
-        {/* <span>Edit</span>
-          <span>Delete</span> */}
       </CardContent>
     </Card>
   );

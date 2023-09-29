@@ -19,6 +19,8 @@ export function DatePicker({ setValue, value }: DatePickerProps) {
   const [date, setDate] = useState<Date>();
 
   useEffect(() => {
+    if (!date) return;
+
     setValue(date);
   }, [date, setValue]);
 
@@ -33,7 +35,7 @@ export function DatePicker({ setValue, value }: DatePickerProps) {
           )}
         >
           <CalendarIcon className="h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Pick a due date</span>}
+          {value ? format(value, "PPP") : <span>Pick a due date</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">

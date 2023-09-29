@@ -30,7 +30,7 @@ export const DueForm = ({
 
   const [amount, setAmount] = useState<string | null>(null);
   const [description, setDescription] = useState("");
-  const [dueDate, setDueDate] = useState<Date | undefined>(new Date());
+  const [dueDate, setDueDate] = useState<Date | undefined>(undefined);
   const [inputValidationState, setInputValidationState] = useState<
     "valid" | "invalid"
   >("valid");

@@ -50,7 +50,7 @@ export const DeleteExpense = ({
   return (
     <>
       <span
-        className="cursor-pointer hover:text-primary hover:opacity-90 transition"
+        className="cursor-pointer hover:text-red-500 hover:opacity-90 transition"
         onClick={onOpen}
       >
         Delete

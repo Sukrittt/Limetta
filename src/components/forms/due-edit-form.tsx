@@ -1,49 +1,55 @@
-"use client";
 import { useCallback, useEffect, useState } from "react";
 import { Input } from "@nextui-org/input";
 import { useRouter } from "next/navigation";
+import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
 import { RadioGroup, Radio } from "@nextui-org/radio";
+import { useQueryClient } from "@tanstack/react-query";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 
 import { cn } from "@/lib/utils";
 import { trpc } from "@/trpc/client";
-import { CurrencyType } from "@/types";
 import { toast } from "@/hooks/use-toast";
-import { Button } from "@nextui-org/button";
 import { Label } from "@/components/ui/label";
+import { DatePicker } from "@/components/date-picker";
 import { buttonVariants } from "@/components/ui/button";
+import { CurrencyType, ExtendedEntryType } from "@/types";
 
-export const AddExpenseForm = ({
+export const DueEditForm = ({
   onClose,
   currency,
+  entry,
 }: {
   onClose: () => void;
   currency: CurrencyType;
+  entry: ExtendedEntryType;
 }) => {
   const router = useRouter();
-  const [amount, setAmount] = useState<string | null>(null);
-  const [description, setDescription] = useState("");
+  const queryClient = useQueryClient();
+
+  const [amount, setAmount] = useState(entry.amount.toLocaleString());
+  const [description, setDescription] = useState(entry.description);
+  const [dueDate, setDueDate] = useState<Date | undefined>(entry.dueDate);
+  const [dueType, setDueType] = useState(entry.dueType);
   const [inputValidationState, setInputValidationState] = useState<
     "valid" | "invalid"
   >("valid");
-  const [expenseTypeSelected, setExpenseTypeSelected] = useState<
-    "want" | "need"
-  >("want");
 
-  const addEntry = trpc.entries.addEntry.useMutation({
+  const editDueEntry = trpc.dues.editDueEntry.useMutation({
     onSuccess: () => {
-      onClose();
       router.refresh();
+      queryClient.resetQueries(["dues-entries"]);
+
       toast({
-        title: "Expense added",
-        description: "Your expense has been added successfully.",
+        title: "Due updated",
+        description: "Your due has been updated successfully.",
       });
+      onClose();
     },
     onError: () => {
       toast({
-        title: "Something went wrong.",
-        description: "Please try again.",
+        title: "Error",
+        description: "Something went wrong.",
         variant: "destructive",
       });
     },
@@ -54,6 +60,14 @@ export const AddExpenseForm = ({
       return toast({
         title: "Amount is required",
         description: "Please enter a valid amount.",
+        variant: "destructive",
+      });
+    }
+
+    if (!dueDate) {
+      return toast({
+        title: "Due date is required",
+        description: "Please select a due date for the payment.",
         variant: "destructive",
       });
     }
@@ -76,10 +90,14 @@ export const AddExpenseForm = ({
       });
     }
 
-    addEntry.mutate({
+    editDueEntry.mutate({
+      dueId: entry.entryId,
       amount: parsedAmount,
       description,
-      expenseType: expenseTypeSelected,
+      dueDate,
+      duePayableBalance: entry.duePayableBalance,
+      dueReceivableBalance: entry.dueReceivableBalance,
+      dueType,
     });
   };
 
@@ -105,7 +123,7 @@ export const AddExpenseForm = ({
             <Label>Amount</Label>
             <Input
               autoFocus
-              placeholder="Eg: 20"
+              placeholder="Eg: 1000"
               value={amount ?? ""}
               onChange={(e) => setAmount(e.target.value)}
               onKeyDown={(e) => {
@@ -129,9 +147,11 @@ export const AddExpenseForm = ({
           </div>
 
           <div className="flex flex-col gap-y-2">
-            <Label>Expense Description</Label>
+            <Label>Description</Label>
             <Input
-              placeholder="Eg: Coffee"
+              placeholder={`Eg: Pending payment ${
+                entry.dueType === "payable" ? "to" : "from"
+              } XYZ`}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               onKeyDown={(e) => {
@@ -141,19 +161,28 @@ export const AddExpenseForm = ({
               }}
             />
           </div>
+
+          <div className="flex flex-col gap-y-2">
+            <Label>Due Date</Label>
+            <DatePicker value={dueDate} setValue={setDueDate} />
+          </div>
+
           <div>
             <RadioGroup
               orientation="horizontal"
-              value={expenseTypeSelected}
+              value={dueType}
               onValueChange={(value) =>
-                setExpenseTypeSelected(value as "want" | "need")
+                setDueType(value as "payable" | "receivable")
               }
             >
-              <Radio value="need" description="It's a necessity.">
-                Needs
+              <Radio value="payable" description="You have to pay in future.">
+                Payable
               </Radio>
-              <Radio value="want" description="It's a luxury.">
-                Wants
+              <Radio
+                value="receivable"
+                description="You will receive in future."
+              >
+                Receivable
               </Radio>
             </RadioGroup>
           </div>
@@ -175,9 +204,13 @@ export const AddExpenseForm = ({
           color="primary"
           className={cn(buttonVariants({ size: "sm" }), "rounded-lg")}
           onClick={handleSubmit}
-          disabled={addEntry.isLoading}
+          disabled={editDueEntry.isLoading}
         >
-          {addEntry.isLoading ? <Spinner color="default" size="sm" /> : "Add"}
+          {editDueEntry.isLoading ? (
+            <Spinner color="default" size="sm" />
+          ) : (
+            "Update"
+          )}
         </Button>
       </ModalFooter>
     </>

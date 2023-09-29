@@ -23,6 +23,17 @@ export type EntryType = {
   initialBalance: number;
 };
 
+export type ExtendedEntryType = Omit<
+  EntryType,
+  "entryType" | "initialBalance"
+> & {
+  dueStatus: "paid" | "pending";
+  dueType: "payable" | "receivable";
+  duePayableBalance: number;
+  dueReceivableBalance: number;
+  dueDate: Date;
+};
+
 export type CurrencyType = "₹" | "$" | "€" | "£";
 
 export type AccountType = "investments" | "savings" | "miscellaneous";

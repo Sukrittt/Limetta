@@ -1,40 +1,34 @@
-import Link from "next/link";
+import Image from "next/image";
+import Balancer from "react-wrap-balancer";
 
-import { cn } from "@/lib/utils";
-import { siteConfig } from "@/config";
-import { Icons } from "@/components/icons";
 import AuthForm from "@/components/forms/auth-form";
-import { buttonVariants } from "@/components/ui/button";
 
 const SignIn = () => {
   return (
-    <div className="container relative min-h-[90vh] lg:min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-      <div className="relative hidden h-full flex-col bg-muted p-10 text-white border-r lg:flex">
-        <div className="absolute inset-0 bg-zinc-900" />
-        <div className="relative z-20 flex items-center">
-          <Link
-            href="/"
-            className={cn(
-              buttonVariants({ variant: "link" }),
-              "text-lg font-medium text-white"
-            )}
-          >
-            <Icons.logo className="mr-2 h-6 w-6" />
-            {siteConfig.name}
-          </Link>
+    <div className="grid grid-cols-2 h-full">
+      <div className="flex flex-col gap-y-8 mt-8 py-20 px-28">
+        <div className="space-y-4">
+          <h1 className="text-4xl font-medium">
+            Begin Your Financial Journey with Balancewise
+          </h1>
+          <Balancer className="text-muted-foreground text-sm">
+            Join our financial tracking platform to take control of your
+            expenses, savings, and investments. Start your journey toward
+            financial wellness today.
+          </Balancer>
+        </div>
+        <div className="flex flex-col gap-y-4 max-w-md">
+          <AuthForm />
         </div>
       </div>
-      <div className="lg:p-8">
-        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-          <div className="flex flex-col space-y-2 text-center">
-            <h1 className="text-2xl font-semibold tracking-tight">
-              {`Welcome to ${siteConfig.name}`}
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              Choose your preferred sign in method
-            </p>
-          </div>
-          <AuthForm />
+      <div className="border-l p-5 h-full flex items-center justify-center">
+        <div className="relative h-[350px] w-[600px] border rounded-2xl overflow-hidden">
+          <Image
+            src="/images/dashboard-snapshot.png"
+            alt="dashbaord-snapshot"
+            className="object-contain"
+            fill
+          />
         </div>
       </div>
     </div>
@@ -42,3 +36,15 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+// <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+//   <div className="flex flex-col space-y-2 text-center">
+//     <h1 className="text-2xl font-semibold tracking-tight">
+//       {`Welcome to ${siteConfig.name}`}
+//     </h1>
+//     <p className="text-sm text-muted-foreground">
+//       Choose your preferred sign in method
+//     </p>
+//   </div>
+//   <AuthForm />
+// </div>

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { Spinner } from "@nextui-org/spinner";
 
+import { cn } from "@/lib/utils";
 import { toast } from "@/hooks/use-toast";
 import { Icons } from "@/components/icons";
 import { Button } from "@nextui-org/button";
@@ -46,30 +47,30 @@ const AuthForm = () => {
   };
 
   return (
-    <div className="grid gap-y-4">
+    <div className="grid gap-y-4 tracking-tighter">
       <Button
         onClick={handleGoogleLogin}
-        className={buttonVariants({ variant: "outline" })}
+        className={cn(buttonVariants({ variant: "outline" }), "relative")}
         disabled={isLoading === "google"}
       >
         {isLoading === "google" ? (
-          <Spinner color="default" size="sm" className="mr-2" />
+          <Spinner color="default" size="sm" className="mr-2 absolute left-3" />
         ) : (
-          <Icons.google className="mr-2 h-4 w-4" />
+          <Icons.google className="h-5 w-5 absolute left-3" />
         )}{" "}
-        Google
+        Sign in with Google
       </Button>
       <Button
         onClick={handleGithubLogin}
-        className={buttonVariants({ variant: "outline" })}
+        className={cn(buttonVariants({ variant: "outline" }), "relative")}
         disabled={isLoading === "github"}
       >
         {isLoading === "github" ? (
-          <Spinner color="default" size="sm" className="mr-2" />
+          <Spinner color="default" size="sm" className="mr-2 absolute left-3" />
         ) : (
-          <Icons.gitHub className="mr-2 h-4 w-4" />
+          <Icons.gitHub className="h-4 w-4 absolute left-3" />
         )}{" "}
-        Github
+        Sign in with Github
       </Button>
     </div>
   );

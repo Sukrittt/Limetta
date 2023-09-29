@@ -213,7 +213,9 @@ export const TransferForm = ({
               <Label>Amount</Label>
               <Input
                 autoFocus
-                placeholder="Eg: 1000"
+                placeholder={`Eg: ${
+                  transferableAmount > 0 ? transferableAmount : "1000"
+                }`}
                 value={amount ?? ""}
                 onChange={(e) => setAmount(e.target.value)}
                 onKeyDown={(e) => {

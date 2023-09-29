@@ -94,7 +94,7 @@ export const DueEditForm = ({
       dueId: entry.entryId,
       amount: parsedAmount,
       description,
-      dueDate,
+      dueDate: new Date(dueDate),
       duePayableBalance: entry.duePayableBalance,
       dueReceivableBalance: entry.dueReceivableBalance,
       dueType,

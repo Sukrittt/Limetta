@@ -2,10 +2,10 @@ import { z } from "zod";
 import { desc, eq } from "drizzle-orm";
 
 import { db } from "@/db";
+import { TRPCError } from "@trpc/server";
 import { dues, users } from "@/db/schema";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { createTRPCRouter, privateProcedure } from "@/server/trpc";
-import { TRPCError } from "@trpc/server";
 
 export const dueRouter = createTRPCRouter({
   getDueEntries: privateProcedure.query(async ({ ctx }) => {
@@ -23,7 +23,7 @@ export const dueRouter = createTRPCRouter({
       z.object({
         amount: z.number().positive(),
         description: z.string().min(1).max(100),
-        dueDate: z.date().min(getTomorrowDate()),
+        dueDate: z.date().min(new Date()),
         dueType: z.enum(["payable", "receivable"]),
         initialBalance: z.number(),
       })
@@ -59,7 +59,7 @@ export const dueRouter = createTRPCRouter({
         dueId: z.number(),
         amount: z.number().positive(),
         description: z.string().min(1).max(100),
-        dueDate: z.date().min(getTomorrowDate()),
+        dueDate: z.date().min(new Date()),
         dueType: z.enum(["payable", "receivable"]),
         duePayableBalance: z.number(),
         dueReceivableBalance: z.number(),
@@ -204,10 +204,3 @@ export const dueRouter = createTRPCRouter({
         .where(eq(dues.id, input.dueId));
     }),
 });
-
-function getTomorrowDate() {
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-
-  return tomorrow;
-}

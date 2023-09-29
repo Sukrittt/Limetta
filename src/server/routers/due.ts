@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { desc, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 import { db } from "@/db";
 import { TRPCError } from "@trpc/server";
@@ -14,7 +14,7 @@ export const dueRouter = createTRPCRouter({
       .from(dues)
       .where(eq(dues.userId, ctx.userId))
       .limit(INFINITE_SCROLLING_PAGINATION_RESULTS)
-      .orderBy(desc(dues.dueDate));
+      .orderBy(dues.dueDate);
 
     return miscTransactions;
   }),

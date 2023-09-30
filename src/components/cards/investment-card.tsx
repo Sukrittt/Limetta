@@ -9,7 +9,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
 import { Investments } from "@/db/schema";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { InvestmentBookEntry } from "@/components/investments/invest-book-entry";
 import { InvestmentEditEntry } from "@/components/investments/invest-edit-entry";
 import { InvestmentDeleteEntry } from "@/components/investments/investment-delete-entry";
@@ -41,7 +41,8 @@ export const InvestmentCard = ({
     useInfiniteQuery(
       ["investment-entries"],
       async ({ pageParam = 1 }) => {
-        const queryUrl = `/api/investment?page=${pageParam}`;
+        // const queryUrl = `/api/investment?page=${pageParam}`;
+        const queryUrl = `/api/investmentasdsd?page=${pageParam}`;
 
         const { data } = await axios(queryUrl);
 
@@ -86,9 +87,9 @@ export const InvestmentCard = ({
 
   return (
     <div className="flex flex-col gap-y-2 text-sm">
-      <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-8 px-4 sm:px-6">
+      <div className="grid grid-cols-7 lg:grid-cols-8 px-4 sm:px-6">
         <span className="hidden lg:block">Date & Time</span>
-        <span className="col-span-2 sm:col-span-3">Details</span>
+        <span className="col-span-5 lg:col-span-3">Details</span>
         <span className="text-center col-span-2">Amount</span>
       </div>
       {investmentEntries.map((entry, index) => {
@@ -160,13 +161,13 @@ const InvestmentEntryItem = ({
 
   return (
     <Card>
-      <CardContent className="grid grid-cols-8 px-4 sm:px-6 py-3">
-        <div className="items-center col-span-2 lg:col-span-1">
+      <CardContent className="grid grid-cols-7 lg:grid-cols-8 px-4 sm:px-6 py-3">
+        <div className="hidden lg:flex items-center">
           <span className="text-xs tracking-tighter">
             {format(new Date(entry.createdAt), "dd MMM '·' h:mm a")}
           </span>
         </div>
-        <span className="col-span-2 sm:col-span-3 break-words">
+        <span className="col-span-5 lg:col-span-3 break-words">
           {transferEntry ? (
             <>
               {`Transferred ${entry.transferingFrom ? "from" : "to"}
@@ -178,7 +179,7 @@ const InvestmentEntryItem = ({
         </span>
 
         <span
-          className={cn("text-center col-span-2", {
+          className={cn("text-center col-span-2 lg:col-span-2", {
             "text-green-600": entry.entryType === "in",
             "text-red-500": entry.entryType === "out",
           })}
@@ -190,13 +191,13 @@ const InvestmentEntryItem = ({
         {transferEntry ? (
           <Link
             href={`/${transferText}`}
-            className="text-primary text-center text-xs underline underline-offset-4 col-span-2"
+            className="hidden lg:block text-primary text-center text-xs underline underline-offset-4 col-span-2"
           >
             {transferText &&
               transferText?.charAt(0).toUpperCase() + transferText?.slice(1)}
           </Link>
         ) : (
-          <div className="justify-center items-center text-xs col-span-2 grid grid-cols-4">
+          <div className="justify-center items-center text-xs col-span-2 hidden lg:grid grid-cols-4">
             {!entry.tradeBooks && entry.entryType === "out" ? (
               <InvestmentBookEntry
                 currency={currency}
@@ -220,6 +221,38 @@ const InvestmentEntryItem = ({
           </div>
         )}
       </CardContent>
+      <CardFooter className="text-xs px-4 sm:px-6 pb-3 block lg:hidden">
+        {transferEntry ? (
+          <Link
+            href={`/${transferText}`}
+            className="block text-primary text-xs underline underline-offset-4"
+          >
+            {transferText &&
+              transferText?.charAt(0).toUpperCase() + transferText?.slice(1)}
+          </Link>
+        ) : (
+          <div className="text-xs flex gap-x-4">
+            {!entry.tradeBooks && entry.entryType === "out" && (
+              <InvestmentBookEntry
+                currency={currency}
+                initialBalance={initialBalance}
+                entryDetails={entryDetails}
+              />
+            )}
+            <InvestmentEditEntry
+              currency={currency}
+              entryDetails={entryDetails}
+              tradeBooking={entry.tradeBooks}
+              initialTotalInvested={initialTotalInvested}
+            />
+            <InvestmentDeleteEntry
+              entryDetails={entryDetails}
+              tradeBooking={entry.tradeBooks}
+              initialTotalInvested={initialTotalInvested}
+            />
+          </div>
+        )}
+      </CardFooter>
     </Card>
   );
 };

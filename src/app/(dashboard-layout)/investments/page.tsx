@@ -4,6 +4,7 @@ import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
+import { GoBack } from "@/components/go-back";
 import { serverClient } from "@/trpc/server-client";
 import { Card, CardContent } from "@/components/ui/card";
 import { InvestmentCard } from "@/components/cards/investment-card";
@@ -20,11 +21,12 @@ const Investments = async () => {
 
   return (
     <Card>
-      <CardContent className="flex flex-col gap-y-8 py-8">
-        <div className="flex justify-around gap-x-4">
+      <CardContent className="flex flex-col gap-y-8 pt-8 pb-4 xl:py-8 relative">
+        <GoBack />
+        <div className="flex justify-around gap-4 pt-8 xl:pt-0">
           <div className="flex flex-col items-center gap-y-2">
             <span
-              className={cn("text-4xl", {
+              className={cn("text-5xl md:text-4xl", {
                 "text-red-500": currentUser.investmentsBalance < 0,
               })}
             >
@@ -36,7 +38,7 @@ const Investments = async () => {
               Investments Balance
             </p>
           </div>
-          <div className="flex flex-col items-center gap-y-2">
+          <div className="hidden md:flex flex-col items-center gap-y-2">
             <span className="text-4xl">
               <span>{currentUser.currency}</span>
               {Math.abs(currentUser.totalInvested).toLocaleString()}

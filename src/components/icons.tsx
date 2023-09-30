@@ -25,6 +25,7 @@ import {
   CheckCircle,
   Coins,
   Menu,
+  MoveLeft,
 } from "lucide-react";
 
 export const Icons = {
@@ -87,4 +88,5 @@ export const Icons = {
   paid: CheckCircle,
   coins: Coins,
   menu: Menu,
+  back: MoveLeft,
 };

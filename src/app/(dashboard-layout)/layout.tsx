@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { Shell } from "@/components/shell";
 import { getAuthSession } from "@/lib/auth";
 import { serverClient } from "@/trpc/server-client";
-import { DashboardSidebar } from "@/components/dashboard-sidebar";
+import { DashboardSidebar } from "@/components/layout/dashboard-sidebar";
 
 export const dynamic = "force-dynamic";
 
@@ -17,11 +17,11 @@ export default async function Layout({ children }: { children: ReactNode }) {
   if (!currentUser.monthlyIncome) redirect("/onboarding");
 
   return (
-    <div className="flex-1 items-start lg:grid lg:grid-cols-[270px_minmax(0,1fr)] min-h-screen">
-      <div className="bg-card h-full">
+    <div className="flex-1 items-start xl:grid xl:grid-cols-[270px_minmax(0,1fr)] min-h-screen">
+      <div className="h-full">
         <DashboardSidebar session={session} />
       </div>
-      <Shell className="border-l-3 items-start h-full">{children}</Shell>
+      <Shell className="items-start h-full">{children}</Shell>
     </div>
   );
 }

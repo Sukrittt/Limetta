@@ -1,13 +1,12 @@
 import Link from "next/link";
 
-import { Shell } from "@/components/shell";
 import { Divider } from "@nextui-org/divider";
 import { features, socials, techStack } from "@/config";
 import { Card, CardContent } from "@/components/ui/card";
 
 const About = () => {
   return (
-    <Shell variant="markdown" className="py-6 lg:pt-0">
+    <div className="grid gap-8">
       <Card>
         <CardContent className="grid items-center gap-8 pb-8 pt-6 md:py-6">
           <div>
@@ -92,7 +91,7 @@ const About = () => {
           </div>
         </CardContent>
       </Card>
-    </Shell>
+    </div>
   );
 };
 

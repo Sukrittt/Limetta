@@ -24,6 +24,7 @@ import {
   Trash2,
   CheckCircle,
   Coins,
+  Menu,
 } from "lucide-react";
 
 export const Icons = {
@@ -85,4 +86,5 @@ export const Icons = {
   delete: Trash2,
   paid: CheckCircle,
   coins: Coins,
+  menu: Menu,
 };

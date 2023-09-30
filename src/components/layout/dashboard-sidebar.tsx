@@ -2,18 +2,23 @@
 
 import Link from "next/link";
 import { Session } from "next-auth";
+import { Avatar } from "@nextui-org/avatar";
 
 import { accounts, settings, siteConfig } from "@/config";
-import NavDropdown from "@/components/layout/nav-dropdown";
 
 export const DashboardSidebar = ({ session }: { session: Session }) => {
   return (
-    <div className="flex flex-col gap-y-8 px-5 pb-8 pt-6 md:py-8">
+    <div className="hidden xl:flex flex-col gap-y-8 px-5 pb-8 pt-3 xl:pt-6 md:py-8">
       <div className="flex justify-between items-center">
-        <Link href="/" className="text-lg font-medium tracking-tight">
+        <Link href="/" className="text-lg font-bold tracking-tight">
           {siteConfig.name}
         </Link>
-        <NavDropdown session={session} />
+        <Avatar
+          src={session.user.image ?? ""}
+          size="sm"
+          showFallback
+          name={session.user.name ?? ""}
+        />
       </div>
 
       <div className="space-y-4 tracking-tight">

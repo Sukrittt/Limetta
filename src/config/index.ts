@@ -7,21 +7,6 @@ export const siteConfig = {
   url: "https://balancewise.vercel.app",
 };
 
-export const sidebarItems = [
-  {
-    id: 1,
-    label: "About",
-    Icon: Icons.info,
-    href: "/about",
-  },
-  {
-    id: 2,
-    label: "Customize",
-    Icon: Icons.customize,
-    href: "/customize",
-  },
-];
-
 export const currencies = [
   {
     value: "₹",
@@ -89,6 +74,11 @@ export const settings = [
     label: "Customize",
     href: "/customize",
     Icon: Icons.customize,
+  },
+  {
+    label: "About",
+    href: "/about",
+    Icon: Icons.info,
   },
   {
     label: "Help",

@@ -34,7 +34,10 @@ export const Transfer = ({
       <ToolTip text="Transfer" showArrow>
         <Button
           onClick={onOpen}
-          className={cn(buttonVariants({ variant: "secondary" }), "rounded-xl")}
+          className={cn(
+            buttonVariants({ variant: "secondary", size: "sm" }),
+            "rounded-xl"
+          )}
         >
           <Icons.transfer className="h-4 w-4 cursor-pointer group-hover:text-primary transition" />
         </Button>

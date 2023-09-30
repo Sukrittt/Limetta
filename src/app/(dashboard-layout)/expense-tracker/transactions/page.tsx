@@ -113,13 +113,15 @@ const Dashboard = async () => {
                     <span className="text-center">Needs</span>
                     <span className="text-center">Wants</span>
                   </div>
-                  {expenses.map((expense) => (
-                    <ExpenseCard
-                      key={expense.id}
-                      expense={expense}
-                      currency={currentUser.currency as CurrencyType}
-                    />
-                  ))}
+                  <div className="pb-4 flex flex-col gap-y-2">
+                    {expenses.map((expense) => (
+                      <ExpenseCard
+                        key={expense.id}
+                        expense={expense}
+                        currency={currentUser.currency as CurrencyType}
+                      />
+                    ))}
+                  </div>
                 </div>
               )}
             </ScrollShadow>

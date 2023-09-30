@@ -1,15 +1,18 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { Button } from "@nextui-org/button";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
 import { Icons } from "@/components/icons";
+import { Logout } from "@/components/logout";
 import { Transfer } from "@/components/transfer";
 import { serverClient } from "@/trpc/server-client";
 import { buttonVariants } from "@/components/ui/button";
 import { ExpenseTable } from "@/components/expense-table";
 import { ExpenseCard } from "@/components/cards/expense-card";
+import { MobileSidebar } from "@/components/layout/mobile-sidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const dynamic = "force-dynamic";
@@ -90,15 +93,22 @@ const Dashboard = async () => {
 
   return (
     <div className="flex flex-col gap-y-4">
-      <div>
-        <h1 className="text-3xl font-semibold">{`Hello ${
-          currentUser.name ? currentUser.name.split(" ")[0] : "User"
-        }`}</h1>
-        <p className="text-muted-foreground text-sm">Welcome Back!</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-semibold">{`Hello ${
+            currentUser.name ? currentUser.name.split(" ")[0] : "User"
+          }`}</h1>
+          <p className="text-muted-foreground text-sm">Welcome Back!</p>
+        </div>
+        <MobileSidebar />
+
+        <div className="hidden xl:flex">
+          <Logout />
+        </div>
       </div>
-      <div className="grid grid-cols-6 gap-4 tracking-tight mt-2">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 tracking-tight mt-2">
         {accountDetails.map((account, index) => (
-          <Card key={index} className="col-span-2">
+          <Card key={index}>
             <CardTitle>
               <CardHeader className="py-4 font-normal">
                 <div className="flex items-center justify-between text-muted-foreground">
@@ -131,8 +141,8 @@ const Dashboard = async () => {
           </Card>
         ))}
       </div>
-      <div className="grid grid-cols-6 gap-4 tracking-tight h-[calc(100vh-300px)]">
-        <Card className="col-span-4">
+      <div className="grid grid-cols-6 gap-4 tracking-tight min-h-[calc(100vh-300px)]">
+        <Card className="col-span-6 lg:col-span-4">
           <CardTitle>
             <CardHeader className="py-4 font-normal">
               <div className="flex justify-between items-center">
@@ -177,7 +187,7 @@ const Dashboard = async () => {
             </ScrollShadow>
           </CardContent>
         </Card>
-        <div className="col-span-2 grid grid-cols-1 gap-4">
+        <div className="col-span-6 lg:col-span-2 grid grid-cols-1 gap-4">
           <Card>
             <CardTitle>
               <CardHeader className="py-4 font-normal">
@@ -225,7 +235,7 @@ const Dashboard = async () => {
               <div className="flex flex-col gap-y-2">
                 {accountDetails.map((account, index) => (
                   <div key={index} className="grid grid-cols-4 items-center">
-                    <div className="flex items-center gap-x-3 col-span-3">
+                    <div className="flex items-center gap-x-3 col-span-3 text-sm">
                       <account.icon className="h-4 w-4" />
                       {account.title}
                     </div>

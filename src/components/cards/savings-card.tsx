@@ -32,8 +32,7 @@ const SavingsCard = ({
     useInfiniteQuery(
       ["savings-entries"],
       async ({ pageParam = 1 }) => {
-        // const queryUrl = `/api/savings?page=${pageParam}`;
-        const queryUrl = `/api/savingasdsds?page=${pageParam}`;
+        const queryUrl = `/api/savings?page=${pageParam}`;
 
         const { data } = await axios(queryUrl);
 

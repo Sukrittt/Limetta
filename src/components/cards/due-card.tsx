@@ -3,6 +3,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { format } from "date-fns";
+import { Divider } from "@nextui-org/divider";
 import { useIntersection } from "@mantine/hooks";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
@@ -12,7 +13,7 @@ import { CurrencyType } from "@/types";
 import { DuePaid } from "@/components/due/due-paid";
 import { DueDelete } from "@/components/due/due-delete";
 import { DueEditEntry } from "@/components/due/due-edit";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 interface DueCardProps {
   initialDues: Dues[];
@@ -85,13 +86,13 @@ export const DueCard: FC<DueCardProps> = ({
 
   return (
     <div className="flex flex-col gap-y-2 text-sm">
-      <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-9 px-4 sm:px-6">
+      <div className="grid grid-cols-5 lg:grid-cols-9 px-4 sm:px-6">
         <span className="hidden lg:block">Date & Time</span>
-        <span className="col-span-2">Details</span>
+        <span className="col-span-4 lg:col-span-2">Details</span>
         <span className="text-center">Amount</span>
-        <span className="text-center">Type</span>
-        <span className="text-center">Status</span>
-        <span className="text-center">Due date</span>
+        <span className="hidden lg:block text-center">Type</span>
+        <span className="hidden lg:block text-center">Status</span>
+        <span className="hidden lg:block text-center">Due date</span>
       </div>
       {miscEntries.map((entry, index) => {
         if (index === miscEntries.length - 1) {
@@ -149,19 +150,21 @@ const DueEntryItem: FC<DueEntryProps> = ({
 
   return (
     <Card>
-      <CardContent className="grid grid-cols-9 px-4 sm:px-6 py-3">
-        <div className="items-center col-span-2 lg:col-span-1">
+      <CardContent className="grid grid-cols-5 lg:grid-cols-9 px-4 sm:px-6 py-3">
+        <div className="hidden lg:flex items-center">
           <span className="text-xs tracking-tighter">
             {format(new Date(entry.createdAt), "dd MMM '·' h:mm a")}
           </span>
         </div>
-        <span className="col-span-2 break-words">{entry.entryName}</span>
+        <span className="col-span-4 lg:col-span-2 break-words">
+          {entry.entryName}
+        </span>
 
         <span className="text-center">
           {currency}
           {entry.amount.toLocaleString()}
         </span>
-        <div className="flex items-center justify-center">
+        <div className="hidden lg:flex items-center justify-center">
           <span
             className={cn("text-center text-xs", {
               "text-red-500": entry.dueType === "payable",
@@ -171,7 +174,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
             {entry.dueType === "payable" ? "Payable" : "Receivable"}
           </span>
         </div>
-        <div className="flex items-center justify-center">
+        <div className="hidden lg:flex items-center justify-center">
           <span
             className={cn("text-center text-xs", {
               "text-green-600": entry.dueStatus === "paid",
@@ -181,17 +184,46 @@ const DueEntryItem: FC<DueEntryProps> = ({
             {entry.dueStatus === "paid" ? "Paid" : "Pending"}
           </span>
         </div>
-        <div className="flex items-center justify-center">
+        <div className="hidden lg:flex items-center justify-center">
           <span className="text-center text-xs">
             {format(new Date(entry.dueDate), "dd MMM, yy")}
           </span>
         </div>
-        <div className="flex justify-around items-center text-xs col-span-2">
+        <div className="hidden lg:flex justify-around items-center text-xs col-span-2">
           <DuePaid entryDetails={entryDetails} />
           <DueEditEntry currency={currency} entryDetails={entryDetails} />
           <DueDelete entryDetails={entryDetails} />
         </div>
       </CardContent>
+      <Divider className="block lg:hidden" />
+      <CardFooter className="text-xs px-4 sm:px-6 pb-3 flex flex-col items-start pt-3 gap-y-2 lg:hidden">
+        <div className="flex gap-x-4">
+          <span
+            className={cn("text-center text-xs", {
+              "text-red-500": entry.dueType === "payable",
+              "text-green-600": entry.dueType === "receivable",
+            })}
+          >
+            {entry.dueType === "payable" ? "Payable" : "Receivable"}
+          </span>
+          <span
+            className={cn("text-center text-xs", {
+              "text-green-600": entry.dueStatus === "paid",
+              "text-yellow-600": entry.dueStatus === "pending",
+            })}
+          >
+            {entry.dueStatus === "paid" ? "Paid" : "Pending"}
+          </span>
+        </div>
+        <span className="text-center text-xs">
+          Due date: {format(new Date(entry.dueDate), "dd MMM, yy")}
+        </span>
+        <div className="flex gap-x-4">
+          <DuePaid entryDetails={entryDetails} />
+          <DueEditEntry currency={currency} entryDetails={entryDetails} />
+          <DueDelete entryDetails={entryDetails} />
+        </div>
+      </CardFooter>
     </Card>
   );
 };

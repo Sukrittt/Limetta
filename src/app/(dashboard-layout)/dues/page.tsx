@@ -4,6 +4,7 @@ import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
+import { GoBack } from "@/components/go-back";
 import { serverClient } from "@/trpc/server-client";
 import { DueCard } from "@/components/cards/due-card";
 import { Card, CardContent } from "@/components/ui/card";
@@ -14,11 +15,11 @@ const Dues = async () => {
   const dueEntries = await serverClient.dues.getDueEntries();
 
   if (!currentUser.monthlyIncome) redirect("/onboarding");
-
   return (
     <Card>
-      <CardContent className="flex flex-col gap-y-8 py-8">
-        <div className="flex justify-around">
+      <CardContent className="flex flex-col gap-y-8 py-8 relative">
+        <GoBack />
+        <div className="flex justify-between sm:justify-around pt-10 xl:pt-0">
           <div className="flex flex-col items-center gap-y-2">
             <span
               className={cn("text-4xl", {
@@ -48,7 +49,7 @@ const Dues = async () => {
             </p>
           </div>
         </div>
-        <div className="flex justify-center gap-x-12 items-center">
+        <div className="flex flex-col gap-y-2 sm:flex-row sm:justify-center sm:gap-x-12 sm:items-center">
           <DuePayment
             initialBalance={currentUser.duePayable}
             currency={currentUser.currency as CurrencyType}

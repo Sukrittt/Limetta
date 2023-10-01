@@ -11,6 +11,7 @@ import SavingsCard from "@/components/cards/savings-card";
 export const dynamic = "force-dynamic";
 
 const Savings = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 10000));
   const currentUser = await serverClient.user.getCurrentUser();
 
   if (!currentUser.monthlyIncome) redirect("/onboarding");

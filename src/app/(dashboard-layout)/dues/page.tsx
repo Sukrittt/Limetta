@@ -18,37 +18,40 @@ const Dues = async () => {
   return (
     <Card>
       <CardContent className="flex flex-col gap-y-8 py-8 relative">
-        <GoBack />
-        <div className="flex justify-between sm:justify-around">
-          <div className="flex flex-col items-center gap-y-2">
-            <span
-              className={cn("text-4xl", {
-                "text-red-500": currentUser.duePayable < 0,
-              })}
-            >
-              <span>{currentUser.duePayable < 0 ? "-" : ""}</span>
-              <span>{currentUser.currency}</span>
-              {Math.abs(currentUser.duePayable).toLocaleString()}
-            </span>
-            <p className="text-sm text-muted-foreground tracking-tight">
-              Due Payable
-            </p>
-          </div>
-          <div className="flex flex-col items-center gap-y-2">
-            <span
-              className={cn("text-4xl", {
-                "text-red-500": currentUser.dueReceivable < 0,
-              })}
-            >
-              <span>{currentUser.dueReceivable < 0 ? "-" : ""}</span>
-              <span>{currentUser.currency}</span>
-              {Math.abs(currentUser.dueReceivable).toLocaleString()}
-            </span>
-            <p className="text-sm text-muted-foreground tracking-tight">
-              Due Receivable
-            </p>
+        <div>
+          <GoBack />
+          <div className="flex justify-between sm:justify-around">
+            <div className="flex flex-col items-center gap-y-2">
+              <span
+                className={cn("text-4xl", {
+                  "text-red-500": currentUser.duePayable < 0,
+                })}
+              >
+                <span>{currentUser.duePayable < 0 ? "-" : ""}</span>
+                <span>{currentUser.currency}</span>
+                {Math.abs(currentUser.duePayable).toLocaleString()}
+              </span>
+              <p className="text-sm text-muted-foreground tracking-tight">
+                Due Payable
+              </p>
+            </div>
+            <div className="flex flex-col items-center gap-y-2">
+              <span
+                className={cn("text-4xl", {
+                  "text-red-500": currentUser.dueReceivable < 0,
+                })}
+              >
+                <span>{currentUser.dueReceivable < 0 ? "-" : ""}</span>
+                <span>{currentUser.currency}</span>
+                {Math.abs(currentUser.dueReceivable).toLocaleString()}
+              </span>
+              <p className="text-sm text-muted-foreground tracking-tight">
+                Due Receivable
+              </p>
+            </div>
           </div>
         </div>
+
         <div className="flex flex-col gap-y-2 sm:flex-row sm:justify-center sm:gap-x-12 sm:items-center">
           <DuePayment
             initialBalance={currentUser.duePayable}

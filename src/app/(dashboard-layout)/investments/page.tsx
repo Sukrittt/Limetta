@@ -22,32 +22,35 @@ const Investments = async () => {
   return (
     <Card>
       <CardContent className="flex flex-col gap-y-8 pt-8 pb-4 xl:py-8 relative">
-        <GoBack />
-        <div className="flex justify-around gap-4">
-          <div className="flex flex-col items-center gap-y-2">
-            <span
-              className={cn("text-5xl md:text-4xl", {
-                "text-red-500": currentUser.investmentsBalance < 0,
-              })}
-            >
-              <span>{currentUser.investmentsBalance < 0 ? "-" : ""}</span>
-              <span>{currentUser.currency}</span>
-              {Math.abs(currentUser.investmentsBalance).toLocaleString()}
-            </span>
-            <p className="text-sm text-muted-foreground tracking-tight">
-              Investments Balance
-            </p>
-          </div>
-          <div className="hidden md:flex flex-col items-center gap-y-2">
-            <span className="text-4xl">
-              <span>{currentUser.currency}</span>
-              {Math.abs(currentUser.totalInvested).toLocaleString()}
-            </span>
-            <p className="text-sm text-muted-foreground tracking-tight">
-              Total Invested
-            </p>
+        <div>
+          <GoBack />
+          <div className="flex justify-around gap-4">
+            <div className="flex flex-col items-center gap-y-2">
+              <span
+                className={cn("text-5xl md:text-4xl", {
+                  "text-red-500": currentUser.investmentsBalance < 0,
+                })}
+              >
+                <span>{currentUser.investmentsBalance < 0 ? "-" : ""}</span>
+                <span>{currentUser.currency}</span>
+                {Math.abs(currentUser.investmentsBalance).toLocaleString()}
+              </span>
+              <p className="text-sm text-muted-foreground tracking-tight">
+                Investments Balance
+              </p>
+            </div>
+            <div className="hidden md:flex flex-col items-center gap-y-2">
+              <span className="text-4xl">
+                <span>{currentUser.currency}</span>
+                {Math.abs(currentUser.totalInvested).toLocaleString()}
+              </span>
+              <p className="text-sm text-muted-foreground tracking-tight">
+                Total Invested
+              </p>
+            </div>
           </div>
         </div>
+
         <div className="flex justify-center gap-x-12 items-center">
           <InvestAddEntry
             initialBalance={currentUser.investmentsBalance}

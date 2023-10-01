@@ -21,20 +21,22 @@ const Miscellaneous = async () => {
   return (
     <Card>
       <CardContent className="flex flex-col gap-y-8 py-8 relative">
-        <GoBack />
-        <div className="flex flex-col items-center gap-y-2">
-          <span
-            className={cn("text-5xl md:text-4xl", {
-              "text-red-500": currentUser.miscellanousBalance < 0,
-            })}
-          >
-            <span>{currentUser.miscellanousBalance < 0 ? "-" : ""}</span>
-            <span>{currentUser.currency}</span>
-            {Math.abs(currentUser.miscellanousBalance).toLocaleString()}
-          </span>
-          <p className="text-sm text-muted-foreground tracking-tight">
-            Miscellaneous Balance
-          </p>
+        <div>
+          <GoBack />
+          <div className="flex flex-col items-center gap-y-2">
+            <span
+              className={cn("text-5xl md:text-4xl", {
+                "text-red-500": currentUser.miscellanousBalance < 0,
+              })}
+            >
+              <span>{currentUser.miscellanousBalance < 0 ? "-" : ""}</span>
+              <span>{currentUser.currency}</span>
+              {Math.abs(currentUser.miscellanousBalance).toLocaleString()}
+            </span>
+            <p className="text-sm text-muted-foreground tracking-tight">
+              Miscellaneous Balance
+            </p>
+          </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-y-2 sm:justify-center sm:gap-x-12 sm:items-center">
           <MiscEntry

@@ -178,7 +178,7 @@ const InvestmentEntryItem = ({
         </span>
 
         <span
-          className={cn("text-center col-span-2 lg:col-span-2", {
+          className={cn("text-center col-span-2", {
             "text-green-600": entry.entryType === "in",
             "text-red-500": entry.entryType === "out",
           })}

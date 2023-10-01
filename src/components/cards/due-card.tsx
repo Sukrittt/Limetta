@@ -42,8 +42,7 @@ export const DueCard: FC<DueCardProps> = ({
     useInfiniteQuery(
       ["dues-entries"],
       async ({ pageParam = 1 }) => {
-        // const queryUrl = `/api/dues?page=${pageParam}`;
-        const queryUrl = `/api/duesasdasd?page=${pageParam}`;
+        const queryUrl = `/api/dues?page=${pageParam}`;
 
         const { data } = await axios(queryUrl);
 

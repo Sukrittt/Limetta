@@ -150,7 +150,7 @@ const Dashboard = async () => {
                   {currentMonth} Transactions
                 </span>
                 <Link
-                  href="/expense-tracker/transactions"
+                  href="/expense-tracker"
                   className={cn(buttonVariants({ variant: "link" }), "p-0")}
                 >
                   View in Detail

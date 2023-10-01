@@ -41,8 +41,7 @@ export const InvestmentCard = ({
     useInfiniteQuery(
       ["investment-entries"],
       async ({ pageParam = 1 }) => {
-        // const queryUrl = `/api/investment?page=${pageParam}`;
-        const queryUrl = `/api/investmentasdsd?page=${pageParam}`;
+        const queryUrl = `/api/investment?page=${pageParam}`;
 
         const { data } = await axios(queryUrl);
 

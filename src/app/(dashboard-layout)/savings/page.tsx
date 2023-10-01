@@ -4,6 +4,7 @@ import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
+import { GoBack } from "@/components/go-back";
 import { serverClient } from "@/trpc/server-client";
 import { Card, CardContent } from "@/components/ui/card";
 import SavingsCard from "@/components/cards/savings-card";
@@ -18,7 +19,8 @@ const Savings = async () => {
 
   return (
     <Card>
-      <CardContent className="flex flex-col gap-y-8 py-8">
+      <CardContent className="flex flex-col gap-y-8 py-8 relative">
+        <GoBack />
         <div className="flex flex-col items-center gap-y-2">
           <span
             className={cn("text-4xl", {

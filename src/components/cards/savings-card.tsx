@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Savings } from "@/db/schema";
 import { CurrencyType } from "@/types";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 const SavingsCard = ({
@@ -77,9 +77,9 @@ const SavingsCard = ({
 
   return (
     <div className="flex flex-col gap-y-2 text-sm">
-      <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6">
+      <div className="grid grid-cols-7 px-4 sm:px-6">
         <span className="hidden lg:block">Date & Time</span>
-        <span className="col-span-2 sm:col-span-3">Details</span>
+        <span className="col-span-5 lg:col-span-3">Details</span>
         <span className="text-center col-span-2">Amount</span>
       </div>
       {savingsEntries.map((entry, index) => {
@@ -119,12 +119,12 @@ const SavingsEntryItem = ({
   return (
     <Card>
       <CardContent className="grid grid-cols-7 px-4 sm:px-6 py-3">
-        <div className="items-center col-span-2 lg:col-span-1">
+        <div className="hidden lg:block items-center">
           <span className="text-xs tracking-tighter">
             {format(new Date(entry.createdAt), "dd MMM '·' h:mm a")}
           </span>
         </div>
-        <span className="col-span-2 sm:col-span-3 break-words">
+        <span className="col-span-5 lg:col-span-3 break-words">
           {transferEntry ? (
             <>
               {`Transferred ${entry.transferingFrom ? "from" : "to"}
@@ -148,13 +148,29 @@ const SavingsEntryItem = ({
         {transferEntry && (
           <Link
             href={`/${transferText}`}
-            className="text-primary text-center text-xs underline underline-offset-4"
+            className="hidden lg:block text-primary text-center text-xs underline underline-offset-4"
           >
             {transferText &&
               transferText?.charAt(0).toUpperCase() + transferText?.slice(1)}
           </Link>
         )}
       </CardContent>
+      <CardFooter className="text-xs px-4 sm:px-6 pb-3 flex gap-x-4 lg:hidden">
+        <div className="flex items-center">
+          <span className="text-xs tracking-tighter">
+            {format(new Date(entry.createdAt), "dd MMM '·' h:mm a")}
+          </span>
+        </div>
+        {transferEntry && (
+          <Link
+            href={`/${transferText}`}
+            className="text-primary text-center text-xs underline underline-offset-4"
+          >
+            {transferText &&
+              transferText?.charAt(0).toUpperCase() + transferText?.slice(1)}
+          </Link>
+        )}
+      </CardFooter>
     </Card>
   );
 };

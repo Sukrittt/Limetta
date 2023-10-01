@@ -47,7 +47,7 @@ export const ExpenseCard = ({
         <div className="flex justify-between w-full text-xs items-center">
           <div className="flex items-center">
             <span className="text-xs tracking-tighter">
-              {format(expense.createdAt, "dd MMM '·' h:mm a")}
+              {format(new Date(expense.createdAt), "dd MMM '·' h:mm a")}
             </span>
           </div>
           <div className="flex gap-x-4">

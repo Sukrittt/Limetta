@@ -44,7 +44,7 @@ export const accountTypes = [
 export const accounts = [
   {
     label: "Expense Tracker",
-    href: "/expense-tracker/transactions",
+    href: "/expense-tracker",
     Icon: Icons.wallet,
   },
   {
@@ -74,6 +74,11 @@ export const settings = [
     label: "Customize",
     href: "/customize",
     Icon: Icons.customize,
+  },
+  {
+    label: "Overview",
+    href: "/overview",
+    Icon: Icons.overview,
   },
   {
     label: "About",

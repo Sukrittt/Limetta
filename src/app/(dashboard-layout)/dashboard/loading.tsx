@@ -94,17 +94,15 @@ const loading = () => {
           <CardContent className="text-sm">
             <ScrollShadow className="h-[calc(60vh-100px)] w-full no-scrollbar">
               <div className="flex flex-col gap-y-2">
-                <div className="flex flex-col gap-y-2">
-                  <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6">
-                    <span className="hidden lg:block">Date & Time</span>
-                    <span className="col-span-2 sm:col-span-3">Details</span>
-                    <span className="text-center">Needs</span>
-                    <span className="text-center">Wants</span>
-                  </div>
-                  {Array.from({ length: 7 }).map((_, index) => (
-                    <ExpenseCardSkelton key={index} />
-                  ))}
+                <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6">
+                  <span className="hidden lg:block">Date & Time</span>
+                  <span className="col-span-2 sm:col-span-3">Details</span>
+                  <span className="text-center">Needs</span>
+                  <span className="text-center">Wants</span>
                 </div>
+                {Array.from({ length: 7 }).map((_, index) => (
+                  <ExpenseCardSkelton key={index} />
+                ))}
               </div>
             </ScrollShadow>
           </CardContent>

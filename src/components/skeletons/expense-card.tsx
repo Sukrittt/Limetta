@@ -13,10 +13,10 @@ export const ExpenseCardSkelton = () => {
           <Skeleton className="h-4 w-3/4" />
         </div>
         <div className="flex justify-center items-center">
-          <Skeleton className="h-4 w-6" />
+          <Skeleton className="h-4 w-8" />
         </div>
         <div className="flex justify-center items-center">
-          <Skeleton className="h-4 w-6" />
+          <Skeleton className="h-4 w-8" />
         </div>
         <div className="hidden lg:flex gap-x-2 justify-around text-xs items-center">
           <div className="flex justify-center items-center">

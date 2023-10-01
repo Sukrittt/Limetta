@@ -80,7 +80,7 @@ const Dashboard = async () => {
     currentMonthIncome * (currentMonthInvestmentPercetange / 100);
 
   return (
-    <div className="grid grid-cols-7 gap-8 py-4 tracking-tight">
+    <div className="grid grid-cols-7 gap-8 tracking-tight">
       <div className="col-span-7 lg:col-span-5">
         <Card>
           <CardTitle>

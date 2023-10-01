@@ -14,6 +14,7 @@ import { DuePaid } from "@/components/due/due-paid";
 import { DueDelete } from "@/components/due/due-delete";
 import { DueEditEntry } from "@/components/due/due-edit";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { DueEntryItemSkeleton } from "@/components/skeletons/infinite-cards";
 
 interface DueCardProps {
   initialDues: Dues[];
@@ -118,7 +119,10 @@ export const DueCard: FC<DueCardProps> = ({
           );
         }
       })}
-      {isFetchingNextPage && <p>Loading...</p>}
+      {isFetchingNextPage &&
+        Array.from({ length: 3 }).map((_, index) => (
+          <DueEntryItemSkeleton key={index} />
+        ))}
     </div>
   );
 };

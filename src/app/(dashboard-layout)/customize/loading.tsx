@@ -1,5 +1,5 @@
 import { Shell } from "@/components/shell";
-import { IncomeCardSkeleton } from "@/components/cards/income-card-skeleton";
+import { IncomeCardSkeleton } from "@/components/skeletons/income-card-skeleton";
 
 const loading = () => {
   return (

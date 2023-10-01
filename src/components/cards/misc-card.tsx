@@ -10,9 +10,10 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
 import { Miscellaneous } from "@/db/schema";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { MiscEditEntry } from "@/components/misc/misc-edit";
 import { MiscDeleteEntry } from "@/components/misc/misc-delete";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { MiscEntryItemSkeleton } from "@/components/skeletons/infinite-cards";
 
 const MiscCard = ({
   initialBalance,
@@ -108,7 +109,10 @@ const MiscCard = ({
           );
         }
       })}
-      {isFetchingNextPage && <p>Loading...</p>}
+      {isFetchingNextPage &&
+        Array.from({ length: 3 }).map((_, index) => (
+          <MiscEntryItemSkeleton key={index} />
+        ))}
     </div>
   );
 };

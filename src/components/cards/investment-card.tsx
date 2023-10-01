@@ -12,6 +12,7 @@ import { Investments } from "@/db/schema";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { InvestmentBookEntry } from "@/components/investments/invest-book-entry";
 import { InvestmentEditEntry } from "@/components/investments/invest-edit-entry";
+import { InvestmentEntryItemSkeleton } from "@/components/skeletons/infinite-cards";
 import { InvestmentDeleteEntry } from "@/components/investments/investment-delete-entry";
 
 export const InvestmentCard = ({
@@ -116,7 +117,10 @@ export const InvestmentCard = ({
           );
         }
       })}
-      {isFetchingNextPage && <p>Loading...</p>}
+      {isFetchingNextPage &&
+        Array.from({ length: 3 }).map((_, index) => (
+          <InvestmentEntryItemSkeleton key={index} />
+        ))}
     </div>
   );
 };

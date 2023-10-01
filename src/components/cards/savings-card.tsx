@@ -4,12 +4,13 @@ import axios from "axios";
 import { format } from "date-fns";
 import { useIntersection } from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { cn } from "@/lib/utils";
 import { Savings } from "@/db/schema";
 import { CurrencyType } from "@/types";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { SavingsEntryItemSkeleton } from "@/components/skeletons/infinite-cards";
 
 const SavingsCard = ({
   initialSavingsEntries,
@@ -97,7 +98,10 @@ const SavingsCard = ({
           );
         }
       })}
-      {isFetchingNextPage && <p>Loading...</p>}
+      {isFetchingNextPage &&
+        Array.from({ length: 3 }).map((_, index) => (
+          <SavingsEntryItemSkeleton key={index} />
+        ))}
     </div>
   );
 };

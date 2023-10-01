@@ -4,6 +4,7 @@ import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
+import { GoBack } from "@/components/go-back";
 import { serverClient } from "@/trpc/server-client";
 import MiscCard from "@/components/cards/misc-card";
 import { Card, CardContent } from "@/components/ui/card";
@@ -19,10 +20,11 @@ const Miscellaneous = async () => {
 
   return (
     <Card>
-      <CardContent className="flex flex-col gap-y-8 py-8">
-        <div className="flex flex-col items-center gap-y-2">
+      <CardContent className="flex flex-col gap-y-8 py-8 relative">
+        <GoBack />
+        <div className="flex flex-col items-center gap-y-2 pt-8 xl:pt-0">
           <span
-            className={cn("text-4xl", {
+            className={cn("text-5xl md:text-4xl", {
               "text-red-500": currentUser.miscellanousBalance < 0,
             })}
           >

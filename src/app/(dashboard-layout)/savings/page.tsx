@@ -21,9 +21,9 @@ const Savings = async () => {
     <Card>
       <CardContent className="flex flex-col gap-y-8 py-8 relative">
         <GoBack />
-        <div className="flex flex-col items-center gap-y-2">
+        <div className="flex flex-col items-center gap-y-2 pt-8 xl:pt-0">
           <span
-            className={cn("text-4xl", {
+            className={cn("text-5xl md:text-4xl", {
               "text-red-500": currentUser.savingsBalance < 0,
             })}
           >

@@ -10,7 +10,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
 import { Miscellaneous } from "@/db/schema";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { MiscEditEntry } from "@/components/misc/misc-edit";
 import { MiscDeleteEntry } from "@/components/misc/misc-delete";
 
@@ -80,9 +80,9 @@ const MiscCard = ({
 
   return (
     <div className="flex flex-col gap-y-2 text-sm">
-      <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6">
+      <div className="grid grid-cols-7 px-4 sm:px-6">
         <span className="hidden lg:block">Date & Time</span>
-        <span className="col-span-2 sm:col-span-3">Details</span>
+        <span className="col-span-5 lg:col-span-3">Details</span>
         <span className="text-center col-span-2">Amount</span>
       </div>
       {miscEntries.map((entry, index) => {
@@ -140,12 +140,12 @@ const MiscEntryItem = ({
   return (
     <Card>
       <CardContent className="grid grid-cols-7 px-4 sm:px-6 py-3">
-        <div className="items-center col-span-2 lg:col-span-1">
+        <div className="hidden lg:block items-center">
           <span className="text-xs tracking-tighter">
             {format(new Date(entry.createdAt), "dd MMM '·' h:mm a")}
           </span>
         </div>
-        <span className="col-span-2 sm:col-span-3 break-words">
+        <span className="col-span-5 lg:col-span-3 break-words">
           {transferEntry ? (
             <>
               {`Transferred ${entry.transferingFrom ? "from" : "to"}
@@ -169,18 +169,34 @@ const MiscEntryItem = ({
         {transferEntry ? (
           <Link
             href={`/${transferText}`}
+            className="hidden lg:block text-primary text-center text-xs underline underline-offset-4"
+          >
+            {transferText &&
+              transferText?.charAt(0).toUpperCase() + transferText?.slice(1)}
+          </Link>
+        ) : (
+          <div className="hidden lg:flex justify-around items-center text-xs">
+            <MiscEditEntry entryDetails={entryDetails} currency={currency} />
+            <MiscDeleteEntry entryDetails={entryDetails} />
+          </div>
+        )}
+      </CardContent>
+      <CardFooter className="text-xs px-4 sm:px-6 pb-3 block lg:hidden">
+        {transferEntry ? (
+          <Link
+            href={`/${transferText}`}
             className="text-primary text-center text-xs underline underline-offset-4"
           >
             {transferText &&
               transferText?.charAt(0).toUpperCase() + transferText?.slice(1)}
           </Link>
         ) : (
-          <div className="flex justify-around items-center text-xs">
+          <div className="flex gap-x-4 items-center text-xs">
             <MiscEditEntry entryDetails={entryDetails} currency={currency} />
             <MiscDeleteEntry entryDetails={entryDetails} />
           </div>
         )}
-      </CardContent>
+      </CardFooter>
     </Card>
   );
 };

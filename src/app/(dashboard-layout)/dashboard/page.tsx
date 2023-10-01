@@ -19,6 +19,9 @@ export const dynamic = "force-dynamic";
 
 const Dashboard = async () => {
   const currentUser = await serverClient.user.getCurrentUser();
+
+  if (!currentUser.monthlyIncome) redirect("/onboarding");
+
   const currentMonthEntries = await serverClient.books.getCurrentMonthBooks();
 
   const expenses = [
@@ -61,8 +64,6 @@ const Dashboard = async () => {
   const wantShare = currentMonthIncome * (currentMonthWantPercetange / 100);
 
   const totalSavings = currentMonthIncome - (needsTotal + wantsTotal);
-
-  if (!currentUser.monthlyIncome) redirect("/onboarding");
 
   const currentDate = new Date();
   const currentMonth = currentDate.toLocaleString("en-US", { month: "long" });

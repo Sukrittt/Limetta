@@ -24,6 +24,9 @@ export const metadata: Metadata = {
 const Dashboard = async () => {
   const session = await getAuthSession();
   const currentUser = await serverClient.user.getCurrentUser();
+
+  if (!currentUser.monthlyIncome) redirect("/onboarding");
+
   const currentMonthEntries = await serverClient.books.getCurrentMonthBooks();
 
   const expenses = [
@@ -53,8 +56,6 @@ const Dashboard = async () => {
   );
 
   if (!currentUser || !session) redirect("/sign-in");
-
-  if (!currentUser.monthlyIncome) redirect("/onboarding");
 
   const currentMonthIncome =
     currentMonthEntries.books.length > 0

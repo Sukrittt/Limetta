@@ -67,8 +67,8 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
               No expenses recorded for this month.
             </p>
           ) : (
-            expenses.map((expense) => (
-              <div key={expense.id} className="grid grid-cols-4">
+            expenses.map((expense, index) => (
+              <div key={index} className="grid grid-cols-4">
                 <div className="flex items-center col-span-3">
                   <span className="text-sm break-words">
                     {expense.description}

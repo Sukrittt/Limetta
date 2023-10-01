@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 import { Shell } from "@/components/shell";
 import { getAuthSession } from "@/lib/auth";
+import { GoBack } from "@/components/go-back";
 import { serverClient } from "@/trpc/server-client";
 import { DashboardSidebar } from "@/components/layout/dashboard-sidebar";
 
@@ -21,7 +22,12 @@ export default async function Layout({ children }: { children: ReactNode }) {
       <div className="h-full">
         <DashboardSidebar session={session} />
       </div>
-      <Shell className="items-start h-full px-6 md:px-8">{children}</Shell>
+      <Shell className="items-start h-full px-6 md:px-8">
+        <div className="space-y-4">
+          <GoBack />
+          {children}
+        </div>
+      </Shell>
     </div>
   );
 }

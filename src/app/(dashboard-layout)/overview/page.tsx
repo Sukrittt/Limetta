@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { env } from "@/env.mjs";
@@ -27,8 +28,11 @@ export const metadata: Metadata = {
 };
 
 const Overview = async () => {
-  const userBooks = await serverClient.books.getUserBooks();
   const currentUser = await serverClient.user.getCurrentUser();
+
+  if (!currentUser.monthlyIncome) redirect("/onboarding");
+
+  const userBooks = await serverClient.books.getUserBooks();
 
   const data =
     userBooks.length === 0

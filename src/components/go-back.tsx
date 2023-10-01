@@ -8,7 +8,7 @@ export const GoBack = () => {
   const router = useRouter();
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex xl:hidden justify-between items-center">
       <div className="border rounded-full relative h-9 w-9">
         <Icons.back
           className="h-6 w-6 absolute left-1.5 top-1.5"

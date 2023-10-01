@@ -4,7 +4,6 @@ import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
-import { GoBack } from "@/components/go-back";
 import { serverClient } from "@/trpc/server-client";
 import { DueCard } from "@/components/cards/due-card";
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,43 +11,42 @@ import { DuePayment } from "@/components/due/due-payment";
 
 const Dues = async () => {
   const currentUser = await serverClient.user.getCurrentUser();
-  const dueEntries = await serverClient.dues.getDueEntries();
 
   if (!currentUser.monthlyIncome) redirect("/onboarding");
+
+  const dueEntries = await serverClient.dues.getDueEntries();
+
   return (
     <Card>
       <CardContent className="flex flex-col gap-y-8 py-8 relative">
-        <div>
-          <GoBack />
-          <div className="flex justify-between sm:justify-around">
-            <div className="flex flex-col items-center gap-y-2">
-              <span
-                className={cn("text-4xl", {
-                  "text-red-500": currentUser.duePayable < 0,
-                })}
-              >
-                <span>{currentUser.duePayable < 0 ? "-" : ""}</span>
-                <span>{currentUser.currency}</span>
-                {Math.abs(currentUser.duePayable).toLocaleString()}
-              </span>
-              <p className="text-sm text-muted-foreground tracking-tight">
-                Due Payable
-              </p>
-            </div>
-            <div className="flex flex-col items-center gap-y-2">
-              <span
-                className={cn("text-4xl", {
-                  "text-red-500": currentUser.dueReceivable < 0,
-                })}
-              >
-                <span>{currentUser.dueReceivable < 0 ? "-" : ""}</span>
-                <span>{currentUser.currency}</span>
-                {Math.abs(currentUser.dueReceivable).toLocaleString()}
-              </span>
-              <p className="text-sm text-muted-foreground tracking-tight">
-                Due Receivable
-              </p>
-            </div>
+        <div className="flex justify-between sm:justify-around">
+          <div className="flex flex-col items-center gap-y-2">
+            <span
+              className={cn("text-4xl", {
+                "text-red-500": currentUser.duePayable < 0,
+              })}
+            >
+              <span>{currentUser.duePayable < 0 ? "-" : ""}</span>
+              <span>{currentUser.currency}</span>
+              {Math.abs(currentUser.duePayable).toLocaleString()}
+            </span>
+            <p className="text-sm text-muted-foreground tracking-tight">
+              Due Payable
+            </p>
+          </div>
+          <div className="flex flex-col items-center gap-y-2">
+            <span
+              className={cn("text-4xl", {
+                "text-red-500": currentUser.dueReceivable < 0,
+              })}
+            >
+              <span>{currentUser.dueReceivable < 0 ? "-" : ""}</span>
+              <span>{currentUser.currency}</span>
+              {Math.abs(currentUser.dueReceivable).toLocaleString()}
+            </span>
+            <p className="text-sm text-muted-foreground tracking-tight">
+              Due Receivable
+            </p>
           </div>
         </div>
 

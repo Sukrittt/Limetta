@@ -4,7 +4,6 @@ import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
-import { GoBack } from "@/components/go-back";
 import { serverClient } from "@/trpc/server-client";
 import { Card, CardContent } from "@/components/ui/card";
 import SavingsCard from "@/components/cards/savings-card";
@@ -13,29 +12,27 @@ export const dynamic = "force-dynamic";
 
 const Savings = async () => {
   const currentUser = await serverClient.user.getCurrentUser();
-  const savingsEntries = await serverClient.savings.getSavingsEntries();
 
   if (!currentUser.monthlyIncome) redirect("/onboarding");
+
+  const savingsEntries = await serverClient.savings.getSavingsEntries();
 
   return (
     <Card>
       <CardContent className="flex flex-col gap-y-8 py-8 relative">
-        <div>
-          <GoBack />
-          <div className="flex flex-col items-center gap-y-2">
-            <span
-              className={cn("text-5xl md:text-4xl", {
-                "text-red-500": currentUser.savingsBalance < 0,
-              })}
-            >
-              <span>{currentUser.savingsBalance < 0 ? "-" : ""}</span>
-              <span>{currentUser.currency}</span>
-              {Math.abs(currentUser.savingsBalance).toLocaleString()}
-            </span>
-            <p className="text-sm text-muted-foreground tracking-tight">
-              Savings Balance
-            </p>
-          </div>
+        <div className="flex flex-col items-center gap-y-2">
+          <span
+            className={cn("text-5xl md:text-4xl", {
+              "text-red-500": currentUser.savingsBalance < 0,
+            })}
+          >
+            <span>{currentUser.savingsBalance < 0 ? "-" : ""}</span>
+            <span>{currentUser.currency}</span>
+            {Math.abs(currentUser.savingsBalance).toLocaleString()}
+          </span>
+          <p className="text-sm text-muted-foreground tracking-tight">
+            Savings Balance
+          </p>
         </div>
       </CardContent>
       <Divider />

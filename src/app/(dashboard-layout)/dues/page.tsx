@@ -19,7 +19,7 @@ const Dues = async () => {
     <Card>
       <CardContent className="flex flex-col gap-y-8 py-8 relative">
         <GoBack />
-        <div className="flex justify-between sm:justify-around pt-10 xl:pt-0">
+        <div className="flex justify-between sm:justify-around">
           <div className="flex flex-col items-center gap-y-2">
             <span
               className={cn("text-4xl", {

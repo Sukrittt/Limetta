@@ -23,7 +23,7 @@ const Investments = async () => {
     <Card>
       <CardContent className="flex flex-col gap-y-8 pt-8 pb-4 xl:py-8 relative">
         <GoBack />
-        <div className="flex justify-around gap-4 pt-8 xl:pt-0">
+        <div className="flex justify-around gap-4">
           <div className="flex flex-col items-center gap-y-2">
             <span
               className={cn("text-5xl md:text-4xl", {

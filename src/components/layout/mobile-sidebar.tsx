@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Divider } from "@nextui-org/divider";
 
 import { Icons } from "@/components/icons";
@@ -12,6 +13,11 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export const MobileSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>

@@ -22,7 +22,7 @@ const Miscellaneous = async () => {
     <Card>
       <CardContent className="flex flex-col gap-y-8 py-8 relative">
         <GoBack />
-        <div className="flex flex-col items-center gap-y-2 pt-8 xl:pt-0">
+        <div className="flex flex-col items-center gap-y-2">
           <span
             className={cn("text-5xl md:text-4xl", {
               "text-red-500": currentUser.miscellanousBalance < 0,
@@ -36,7 +36,7 @@ const Miscellaneous = async () => {
             Miscellaneous Balance
           </p>
         </div>
-        <div className="flex justify-center gap-x-12 items-center">
+        <div className="flex flex-col sm:flex-row gap-y-2 sm:justify-center sm:gap-x-12 sm:items-center">
           <MiscEntry
             initialBalance={currentUser.miscellanousBalance}
             currency={currentUser.currency as CurrencyType}

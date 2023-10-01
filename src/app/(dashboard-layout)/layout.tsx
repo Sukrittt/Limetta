@@ -21,7 +21,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
       <div className="h-full">
         <DashboardSidebar session={session} />
       </div>
-      <Shell className="items-start h-full">{children}</Shell>
+      <Shell className="items-start h-full px-6 md:px-8">{children}</Shell>
     </div>
   );
 }

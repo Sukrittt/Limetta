@@ -28,7 +28,7 @@ export const ExpenseTable: FC<ExpenseTableProps> = ({
   wantSpent,
 }) => {
   return (
-    <Table removeWrapper aria-label="Example static collection table">
+    <Table removeWrapper aria-label="Expense Table">
       <TableHeader>
         <TableColumn>Categories</TableColumn>
         <TableColumn>Spent</TableColumn>

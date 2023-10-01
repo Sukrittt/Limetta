@@ -1,11 +1,14 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { Icons } from "@/components/icons";
 import { MobileSidebar } from "@/components/layout/mobile-sidebar";
 
 export const GoBack = () => {
   const router = useRouter();
+  const pathname = usePathname();
+
+  if (pathname === "/dashboard") return;
 
   return (
     <div className="flex xl:hidden justify-between items-center">

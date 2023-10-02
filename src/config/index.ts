@@ -74,6 +74,7 @@ export const settings = [
     label: "Customize",
     href: "/customize",
     Icon: Icons.customize,
+    hardReload: true,
   },
   {
     label: "Overview",

@@ -8,18 +8,17 @@ import { Avatar } from "@nextui-org/avatar";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import { themes } from "@/themes";
-import { Icons } from "@/components/icons";
-import ToolTip from "@/components/ui/tool-tip";
 import { useConfig } from "@/hooks/use-config";
 import { accounts, settings, siteConfig } from "@/config";
+import { ThemeSelector } from "@/components/themes/theme-selector";
+import { ThemeModeChanger } from "@/components/themes/theme-mode-changer";
 
 export const DashboardSidebar = ({ session }: { session: Session }) => {
   const pathname = usePathname();
 
   const [mounted, setMounted] = useState(false);
   const [config, setConfig] = useConfig();
-  const { setTheme: setMode, resolvedTheme: mode } = useTheme();
+  const { resolvedTheme: mode } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -98,53 +97,13 @@ export const DashboardSidebar = ({ session }: { session: Session }) => {
           )}
         </div>
       </div>
-      {mounted ? (
-        <div className="flex justify-around">
-          {["zinc", "rose", "blue", "green", "orange"].map((color) => {
-            const theme = themes.find((theme) => theme.name === color);
-            const isActive = config.theme === color;
 
-            if (!theme) {
-              return null;
-            }
-
-            return (
-              <ToolTip key={theme.name} text={color} showArrow>
-                <button
-                  onClick={() =>
-                    setConfig({
-                      ...config,
-                      theme: theme.name,
-                    })
-                  }
-                  className={cn(
-                    "h-9 w-9 rounded-full border-2 flex items-center justify-center focus:outline-none",
-                    isActive ? "border-[--theme-primary]" : "border-transparent"
-                  )}
-                  style={
-                    {
-                      "--theme-primary": `hsl(${
-                        theme?.activeColor[mode === "dark" ? "dark" : "light"]
-                      })`,
-                    } as React.CSSProperties
-                  }
-                >
-                  <span
-                    className={cn(
-                      "flex h-6 w-6 items-center justify-center rounded-full bg-[--theme-primary]"
-                    )}
-                  >
-                    {isActive && <Icons.check className="h-4 w-4 text-white" />}
-                  </span>
-                  <span className="sr-only">{theme.label}</span>
-                </button>
-              </ToolTip>
-            );
-          })}
+      <div className="absolute bottom-4">
+        <div className="flex gap-x-4">
+          <ThemeModeChanger />
+          <ThemeSelector />
         </div>
-      ) : (
-        <span>Loading...</span>
-      )}
+      </div>
     </div>
   );
 };

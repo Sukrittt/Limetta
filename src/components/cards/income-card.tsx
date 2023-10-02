@@ -34,6 +34,7 @@ interface IncomeCardProps {
   initialSelectedRatio?: string;
   initialCurrency?: CurrencyType;
   href?: string;
+  onBoarding?: boolean;
   actionLabel: string;
 }
 
@@ -46,6 +47,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
   initialSelectedRatio,
   initialCurrency,
   href = "/dashboard",
+  onBoarding = false,
   actionLabel,
 }) => {
   const router = useRouter();
@@ -324,7 +326,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
           </NextUIBody>
         </NextUICard>
 
-        {href === "/dashboard" && (
+        {!onBoarding && (
           <div className="flex items-center gap-x-1 mt-4 justify-end w-full text-xs text-muted-foreground">
             <Icons.info className="h-3 w-3" />
             <p>Expense tracker changes will take effect starting next month.</p>

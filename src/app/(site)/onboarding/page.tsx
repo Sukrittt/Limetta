@@ -24,6 +24,7 @@ const Onboarding = async () => {
       <IncomeCard
         title="Financial Setup: Let&rsquo;s Get Started"
         actionLabel="Continue to Dashboard"
+        onBoarding
       />
     </div>
   );

@@ -50,12 +50,14 @@ export const TransferForm = ({
     setToAccount("savings");
   };
 
-  const transferableAmount =
+  let transferableAmount =
     fromAccount === "investments"
       ? investmentsBalance
       : fromAccount === "savings"
       ? savingsBalance
       : miscellaneousBalance;
+
+  transferableAmount = transferableAmount > 0 ? transferableAmount : 0;
 
   const [inputValidationState, setInputValidationState] = useState<
     "valid" | "invalid"

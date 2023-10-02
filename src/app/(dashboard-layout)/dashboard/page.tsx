@@ -135,7 +135,7 @@ const Dashboard = async () => {
               >
                 <span>{account.balance < 0 ? "-" : ""}</span>
                 <span>{currentUser.currency}</span>
-                {account.balance.toLocaleString()}
+                {Math.abs(account.balance).toLocaleString()}
               </span>
             </CardContent>
           </Card>

@@ -1,7 +1,7 @@
 import { and, eq, sql } from "drizzle-orm";
 
 import { db } from "@/db";
-import { books, savings } from "@/db/schema";
+import { books, savings, users } from "@/db/schema";
 
 export async function GET() {
   try {
@@ -41,12 +41,27 @@ export async function GET() {
 
       if (existingSavingEntry.length > 0) return;
 
-      await db.insert(savings).values({
-        amount: totalSavings > 0 ? totalSavings : 0,
-        userId: book.userId,
-        entryName: `Monthly savings for ${savingMonth} ${savingYear}`,
-        entryType: "in",
-      });
+      const user = await db
+        .select()
+        .from(users)
+        .where(eq(users.id, book.userId));
+
+      const promises = [
+        db
+          .update(users)
+          .set({
+            savingsBalance: user[0].savingsBalance + totalSavings,
+          })
+          .where(eq(users.id, book.userId)),
+        db.insert(savings).values({
+          amount: totalSavings > 0 ? totalSavings : 0,
+          userId: book.userId,
+          entryName: `Monthly savings for ${savingMonth} ${savingYear}`,
+          entryType: "in",
+        }),
+      ];
+
+      await Promise.all(promises);
     });
 
     return new Response("OK");

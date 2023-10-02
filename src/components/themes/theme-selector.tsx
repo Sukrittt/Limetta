@@ -18,6 +18,8 @@ export const ThemeSelector = () => {
   const [config, setConfig] = useConfig();
   const { resolvedTheme: mode } = useTheme();
 
+  const [mounted, setMounted] = useState(false);
+
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -32,6 +34,10 @@ export const ThemeSelector = () => {
   const [filteredThemes, setFilteredThemes] = useState(initialThemes);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     if (!query) setFilteredThemes(initialThemes);
 
     const filtered = themes.filter((theme) =>
@@ -43,13 +49,21 @@ export const ThemeSelector = () => {
 
   return (
     <>
-      <div
-        className="flex items-center text-xs text-muted-foreground gap-x-1 cursor-pointer hover:text-primary transition"
-        onClick={() => setIsOpen(true)}
-      >
-        <Icons.theme className="h-3.5 w-3.5" />
-        <span>{config.theme}</span>
-      </div>
+      {mounted ? (
+        <div
+          className="flex items-center text-xs text-muted-foreground gap-x-1 cursor-pointer hover:text-primary transition"
+          onClick={() => setIsOpen(true)}
+        >
+          <Icons.theme className="h-3.5 w-3.5" />
+          <span>{config.theme}</span>
+        </div>
+      ) : (
+        <div className="grid place-items-center">
+          <span className="text-xs text-muted-foreground">
+            Loading your themes...
+          </span>
+        </div>
+      )}
 
       <CommandDialog position="top" open={isOpen} onOpenChange={setIsOpen}>
         <CommandInput

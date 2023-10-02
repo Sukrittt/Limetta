@@ -1,15 +1,23 @@
 "use client";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
-import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { themes } from "@/themes";
+import { useConfig } from "@/hooks/use-config";
+import { buttonVariants } from "@/components/ui/button";
 
 export const ExpenseOverview = ({
   data,
 }: {
   data: { name: string; total: number }[];
 }) => {
+  const { theme: mode } = useTheme();
+  const [config] = useConfig();
+
+  const theme = themes.find((theme) => theme.name === config.theme);
+
   if (data.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[350px]">
@@ -43,7 +51,19 @@ export const ExpenseOverview = ({
           axisLine={false}
           tickFormatter={(value) => `₹${value}`}
         />
-        <Bar dataKey="total" fill="#adfa1d" radius={[4, 4, 0, 0]} />
+        <Bar
+          dataKey="total"
+          style={
+            {
+              fill: "var(--theme-primary)",
+              opacity: 1,
+              "--theme-primary": `hsl(${
+                theme?.cssVars[mode === "dark" ? "dark" : "light"].primary
+              })`,
+            } as React.CSSProperties
+          }
+          radius={[4, 4, 0, 0]}
+        />
       </BarChart>
     </ResponsiveContainer>
   );

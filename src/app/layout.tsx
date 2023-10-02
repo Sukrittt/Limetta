@@ -2,10 +2,15 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 
 import "./styles/globals.css";
+import "../themes/themes.css";
+
 import { env } from "@/env.mjs";
+import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config";
 import { Toaster } from "@/components/ui/toaster";
 import { Providers } from "@/components/providers/providers";
+import { ThemeWrapper } from "@/components/themes/theme-wrapper";
+import { ThemeSwitcher } from "@/components/themes/theme-swticher";
 
 const font = Montserrat({ subsets: ["latin"], weight: "500" });
 
@@ -63,10 +68,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={font.className}>
+      <body className={cn("bg-background antialiased", font.className)}>
         <Providers>
-          <Toaster />
-          {children}
+          <ThemeWrapper>
+            <Toaster />
+            {children}
+          </ThemeWrapper>
+          <ThemeSwitcher />
         </Providers>
       </body>
     </html>

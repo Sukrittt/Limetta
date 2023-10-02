@@ -27,6 +27,7 @@ import {
   Menu,
   MoveLeft,
   ArrowDownToLine,
+  CheckIcon,
 } from "lucide-react";
 
 export const Icons = {
@@ -91,4 +92,5 @@ export const Icons = {
   menu: Menu,
   back: MoveLeft,
   download: ArrowDownToLine,
+  check: CheckIcon,
 };

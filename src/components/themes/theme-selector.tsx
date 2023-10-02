@@ -112,11 +112,11 @@ export const ThemeSelector = () => {
                 }
               >
                 <span>
-                  {theme.name === "green" ? (
+                  {theme.name === config.theme ? (
                     <span>
                       {theme.label}{" "}
                       <span className="text-muted-foreground text-xs tracking-tighter">
-                        (default)
+                        (selected)
                       </span>
                     </span>
                   ) : (

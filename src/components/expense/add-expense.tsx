@@ -12,10 +12,10 @@ import { format } from "date-fns";
 import { Spinner } from "@nextui-org/spinner";
 import { useMutation } from "@tanstack/react-query";
 
-import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
 import { toast } from "@/hooks/use-toast";
 import { ExcelDataType } from "@/lib/validators";
+import { cn, createDownloadUrl } from "@/lib/utils";
 import { Calculations, ExpenseType } from "@/types";
 import { buttonVariants } from "@/components/ui/button";
 import { AddExpenseForm } from "@/components/forms/add-expense-form";
@@ -75,19 +75,6 @@ export const AddExpense: FC<AddExpenseProps> = ({
       });
     },
   });
-
-  const createDownloadUrl = (blob: Blob, fileName: string) => {
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-
-    a.href = url;
-    a.download = fileName;
-    a.target = "_blank";
-
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-  };
 
   return (
     <>

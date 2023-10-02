@@ -34,3 +34,16 @@ export const getInitialToAccount = (fromAccount: AccountType): AccountType => {
 
   return "savings";
 };
+
+export const createDownloadUrl = (blob: Blob, fileName: string) => {
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+
+  a.href = url;
+  a.download = fileName;
+  a.target = "_blank";
+
+  document.body.appendChild(a);
+  a.click();
+  window.URL.revokeObjectURL(url);
+};

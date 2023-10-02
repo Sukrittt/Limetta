@@ -5,13 +5,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Shell } from "@/components/shell";
 import { Icons } from "@/components/icons";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const loading = () => {
   return (
-    <Shell className="tracking-tight px-0">
+    <div className="tracking-tight grid gap-4">
       <div className="space-y-2">
         <h1 className="line-clamp-1 text-3xl font-bold tracking-tight py-1">
           Budget Overview
@@ -20,7 +19,7 @@ const loading = () => {
           Monthly Expense Summary for the Past Year
         </p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
         <Card>
           <CardHeader className="flex flex-row justify-between items-center pb-2">
             <CardTitle className="text-md">Needs</CardTitle>
@@ -63,7 +62,7 @@ const loading = () => {
           <CardHeader>
             <CardTitle className="text-md">Overview</CardTitle>
           </CardHeader>
-          <CardContent className="h-[350px]">
+          <CardContent className="h-[355px]">
             <Skeleton className="h-full w-full" />
           </CardContent>
         </Card>
@@ -85,7 +84,7 @@ const loading = () => {
           </CardContent>
         </Card>
       </div>
-    </Shell>
+    </div>
   );
 };
 

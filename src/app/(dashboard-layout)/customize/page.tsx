@@ -31,19 +31,17 @@ const Customize = async () => {
       : "default";
 
   return (
-    <div>
-      <IncomeCard
-        title="Tailor Your Monthly Budget and Expense Ratio"
-        income={currentUser.monthlyIncome}
-        initialNeedRatio={currentUser.needsPercentage}
-        initialWantRatio={currentUser.wantsPercentage}
-        initialInvestmentRatio={currentUser.investmentsPercentage}
-        initialSelectedRatio={initialSelectedRatio}
-        initialCurrency={currentUser.currency as CurrencyType}
-        href="/dashboard"
-        actionLabel="Save"
-      />
-    </div>
+    <IncomeCard
+      title="Tailor Your Monthly Budget and Expense Ratio"
+      income={currentUser.monthlyIncome}
+      initialNeedRatio={currentUser.needsPercentage}
+      initialWantRatio={currentUser.wantsPercentage}
+      initialInvestmentRatio={currentUser.investmentsPercentage}
+      initialSelectedRatio={initialSelectedRatio}
+      initialCurrency={currentUser.currency as CurrencyType}
+      href="/dashboard"
+      actionLabel="Save"
+    />
   );
 };
 

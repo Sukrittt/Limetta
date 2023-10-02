@@ -1,11 +1,8 @@
-import { Shell } from "@/components/shell";
 import { IncomeCardSkeleton } from "@/components/skeletons/income-card-skeleton";
 
 const loading = () => {
   return (
-    <Shell className="px-0">
-      <IncomeCardSkeleton title="Tailor Your Monthly Budget and Expense Ratio" />
-    </Shell>
+    <IncomeCardSkeleton title="Tailor Your Monthly Budget and Expense Ratio" />
   );
 };
 

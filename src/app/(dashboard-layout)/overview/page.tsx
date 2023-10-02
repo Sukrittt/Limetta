@@ -94,7 +94,7 @@ const Overview = async () => {
           Monthly Expense Summary for the Past Year
         </p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
         <Card>
           <CardHeader className="flex flex-row justify-between items-center pb-2">
             <CardTitle className="text-md">Needs</CardTitle>

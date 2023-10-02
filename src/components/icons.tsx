@@ -26,6 +26,7 @@ import {
   Coins,
   Menu,
   MoveLeft,
+  ArrowDownToLine,
 } from "lucide-react";
 
 export const Icons = {
@@ -89,4 +90,5 @@ export const Icons = {
   coins: Coins,
   menu: Menu,
   back: MoveLeft,
+  download: ArrowDownToLine,
 };

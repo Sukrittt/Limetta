@@ -40,7 +40,7 @@ const Dues = async () => {
               </div>
             }
           >
-            <Icons.help className="h-4 w-4 cursor-pointer text-muted-foreground" />
+            <Icons.help className="h-4 w-4 text-muted-foreground" />
           </ToolTip>
         </div>
         <div className="flex justify-between sm:justify-around">

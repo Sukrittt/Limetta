@@ -35,7 +35,7 @@ const Savings = async () => {
               </div>
             }
           >
-            <Icons.help className="h-4 w-4 cursor-pointer text-muted-foreground" />
+            <Icons.help className="h-4 w-4 text-muted-foreground" />
           </ToolTip>
         </div>
         <div className="absolute top-3 right-3">

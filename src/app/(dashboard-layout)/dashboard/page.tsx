@@ -232,7 +232,7 @@ const Dashboard = async () => {
                 <div className="flex items-center gap-x-1">
                   <span className="text-sm">Transfer</span>
                   <ToolTip text="Transfer money between accounts." showArrow>
-                    <Icons.info className="h-3 w-3 cursor-pointer mt-[2px]" />
+                    <Icons.info className="h-3 w-3 mt-[2px]" />
                   </ToolTip>
                 </div>
               </CardHeader>

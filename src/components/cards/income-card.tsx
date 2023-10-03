@@ -169,7 +169,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
               text="To allocate your budget between needs, wants and investments."
               showArrow
             >
-              <Icons.info className="h-3 w-3 mt-[2px] text-muted-foreground cursor-pointer" />
+              <Icons.info className="h-3 w-3 mt-[2px] text-muted-foreground" />
             </ToolTip>
           </div>
         </div>

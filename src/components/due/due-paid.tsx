@@ -36,8 +36,8 @@ export const DuePaid = ({
       queryClient.resetQueries(["dues-entries"]);
 
       toast({
-        title: "Entry marked as paid.",
-        description: "Your entry has been marked as paid.",
+        title: `Entry marked as ${entryDetails.dueStatus}.`,
+        description: `Your entry has been marked as ${entryDetails.dueStatus}.`,
       });
       onClose();
     },

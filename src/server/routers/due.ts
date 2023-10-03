@@ -137,9 +137,11 @@ export const dueRouter = createTRPCRouter({
     .input(
       z.object({
         dueId: z.number(),
+        dueStatus: z.enum(["pending", "paid"]),
         dueType: z.enum(["payable", "receivable"]),
         duePayableBalance: z.number(),
         dueReceivableBalance: z.number(),
+        miscBalance: z.number(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -157,21 +159,65 @@ export const dueRouter = createTRPCRouter({
 
       const existingDueEntryData = existingDueEntry[0]; // since we are querying by id, there will be only one entry
 
-      if (input.dueType === "payable") {
-        await db
-          .update(users)
-          .set({
-            duePayable: input.duePayableBalance - existingDueEntryData.amount,
-          })
-          .where(eq(users.id, ctx.userId));
-      } else {
-        await db
-          .update(users)
-          .set({
-            dueReceivable:
-              input.dueReceivableBalance - existingDueEntryData.amount,
-          })
-          .where(eq(users.id, ctx.userId));
+      if (input.dueStatus === "paid") {
+        if (input.dueType === "payable") {
+          const promises = [
+            await db
+              .update(users)
+              .set({
+                miscellanousBalance:
+                  input.miscBalance + existingDueEntryData.amount,
+              })
+              .where(eq(users.id, ctx.userId)),
+
+            await db.insert(miscellaneous).values({
+              userId: ctx.userId,
+              amount: existingDueEntryData.amount,
+              entryName: `${existingDueEntryData.entryName} (due deleted)`,
+              entryType: "in",
+            }),
+          ];
+
+          await Promise.all(promises);
+        } else {
+          const promises = [
+            await db
+              .update(users)
+              .set({
+                miscellanousBalance:
+                  input.miscBalance - existingDueEntryData.amount,
+              })
+              .where(eq(users.id, ctx.userId)),
+
+            await db.insert(miscellaneous).values({
+              userId: ctx.userId,
+              amount: existingDueEntryData.amount,
+              entryName: `${existingDueEntryData.entryName} (due deleted)`,
+              entryType: "out",
+            }),
+          ];
+
+          await Promise.all(promises);
+        }
+      }
+
+      if (input.dueStatus !== "paid") {
+        if (input.dueType === "payable") {
+          await db
+            .update(users)
+            .set({
+              duePayable: input.duePayableBalance - existingDueEntryData.amount,
+            })
+            .where(eq(users.id, ctx.userId));
+        } else {
+          await db
+            .update(users)
+            .set({
+              dueReceivable:
+                input.dueReceivableBalance - existingDueEntryData.amount,
+            })
+            .where(eq(users.id, ctx.userId));
+        }
       }
 
       await db.delete(dues).where(eq(dues.id, input.dueId));

@@ -231,7 +231,7 @@ const Dashboard = async () => {
               <CardHeader className="py-4 font-normal text-muted-foreground">
                 <div className="flex items-center gap-x-1">
                   <span className="text-sm">Transfer</span>
-                  <ToolTip text="Transfer money between accounts.">
+                  <ToolTip text="Transfer money between accounts." showArrow>
                     <Icons.info className="h-3 w-3 cursor-pointer mt-[2px]" />
                   </ToolTip>
                 </div>

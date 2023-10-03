@@ -200,7 +200,11 @@ const DueEntryItem: FC<DueEntryProps> = ({
         </div>
         <div className="hidden lg:flex justify-around items-center text-xs col-span-2">
           <DuePaid entryDetails={entryDetails} miscBalance={miscBalance} />
-          <DueEditEntry currency={currency} entryDetails={entryDetails} />
+          <DueEditEntry
+            currency={currency}
+            entryDetails={entryDetails}
+            miscBalance={miscBalance}
+          />
           <DueDelete entryDetails={entryDetails} miscBalance={miscBalance} />
         </div>
       </CardContent>
@@ -229,7 +233,11 @@ const DueEntryItem: FC<DueEntryProps> = ({
         </span>
         <div className="flex gap-x-4">
           <DuePaid entryDetails={entryDetails} miscBalance={miscBalance} />
-          <DueEditEntry currency={currency} entryDetails={entryDetails} />
+          <DueEditEntry
+            currency={currency}
+            entryDetails={entryDetails}
+            miscBalance={miscBalance}
+          />
           <DueDelete entryDetails={entryDetails} miscBalance={miscBalance} />
         </div>
       </CardFooter>

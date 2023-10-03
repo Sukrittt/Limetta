@@ -19,17 +19,21 @@ export const DueEditForm = ({
   onClose,
   currency,
   entry,
+  miscBalance,
 }: {
   onClose: () => void;
   currency: CurrencyType;
   entry: ExtendedEntryType;
+  miscBalance: number;
 }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
 
   const [amount, setAmount] = useState(entry.amount.toLocaleString());
   const [description, setDescription] = useState(entry.description);
-  const [dueDate, setDueDate] = useState<Date | undefined>(entry.dueDate);
+  const [dueDate, setDueDate] = useState<Date | undefined>(
+    new Date(entry.dueDate)
+  );
   const [dueType, setDueType] = useState(entry.dueType);
   const [inputValidationState, setInputValidationState] = useState<
     "valid" | "invalid"
@@ -72,6 +76,14 @@ export const DueEditForm = ({
       });
     }
 
+    if (dueDate <= new Date()) {
+      return toast({
+        title: "Due date has passed",
+        description: "Please select a valid due date for the payment.",
+        variant: "destructive",
+      });
+    }
+
     if (description.length === 0 || description.length > 100) {
       return toast({
         title: "Description is too long/short",
@@ -97,6 +109,8 @@ export const DueEditForm = ({
       dueDate: new Date(dueDate),
       duePayableBalance: entry.duePayableBalance,
       dueReceivableBalance: entry.dueReceivableBalance,
+      dueStatus: entry.dueStatus,
+      miscBalance,
       dueType,
     });
   };

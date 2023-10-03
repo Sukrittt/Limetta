@@ -11,9 +11,11 @@ import { DueEditForm } from "@/components/forms/due-edit-form";
 export const DueEditEntry = ({
   entryDetails,
   currency,
+  miscBalance,
 }: {
   entryDetails: ExtendedEntryType;
   currency: CurrencyType;
+  miscBalance: number;
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -40,6 +42,7 @@ export const DueEditEntry = ({
               <DueEditForm
                 onClose={onClose}
                 currency={currency}
+                miscBalance={miscBalance}
                 entry={entryDetails}
               />
             </>

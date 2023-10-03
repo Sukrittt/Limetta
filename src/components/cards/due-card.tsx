@@ -14,6 +14,7 @@ import ToolTip from "@/components/ui/tool-tip";
 import { DuePaid } from "@/components/due/due-paid";
 import { DueDelete } from "@/components/due/due-delete";
 import { DueEditEntry } from "@/components/due/due-edit";
+import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { DueEntryItemSkeleton } from "@/components/skeletons/infinite-cards";
 
@@ -74,10 +75,12 @@ export const DueCard: FC<DueCardProps> = ({
   }, [data, initialDues, isFetching]);
 
   useEffect(() => {
+    if (initialDues.length < INFINITE_SCROLLING_PAGINATION_RESULTS) return;
+
     if (entry?.isIntersecting && !noNewData) {
       fetchNextPage();
     }
-  }, [entry, fetchNextPage, noNewData]);
+  }, [entry, fetchNextPage, initialDues, noNewData]);
 
   if (miscEntries.length === 0) {
     return (

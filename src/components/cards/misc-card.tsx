@@ -12,6 +12,7 @@ import { CurrencyType } from "@/types";
 import { Miscellaneous } from "@/db/schema";
 import { MiscEditEntry } from "@/components/misc/misc-edit";
 import { MiscDeleteEntry } from "@/components/misc/misc-delete";
+import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { MiscEntryItemSkeleton } from "@/components/skeletons/infinite-cards";
 
@@ -66,10 +67,13 @@ const MiscCard = ({
   }, [data, initialMiscEntries, isFetching]);
 
   useEffect(() => {
+    if (initialMiscEntries.length < INFINITE_SCROLLING_PAGINATION_RESULTS)
+      return;
+
     if (entry?.isIntersecting && !noNewData) {
       fetchNextPage();
     }
-  }, [entry, fetchNextPage, noNewData]);
+  }, [entry, fetchNextPage, noNewData, initialMiscEntries]);
 
   if (miscEntries.length === 0) {
     return (
@@ -78,6 +82,10 @@ const MiscCard = ({
       </p>
     );
   }
+
+  console.log("isFetchingNextPage", isFetchingNextPage);
+  console.log("isFetching", isFetching);
+  console.log("---------");
 
   return (
     <div className="flex flex-col gap-y-2 text-sm">

@@ -9,6 +9,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { Savings } from "@/db/schema";
 import { CurrencyType } from "@/types";
+import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { SavingsEntryItemSkeleton } from "@/components/skeletons/infinite-cards";
 
@@ -63,10 +64,13 @@ const SavingsCard = ({
   }, [data, initialSavingsEntries, isFetching]);
 
   useEffect(() => {
+    if (initialSavingsEntries.length < INFINITE_SCROLLING_PAGINATION_RESULTS)
+      return;
+
     if (entry?.isIntersecting && !noNewData) {
       fetchNextPage();
     }
-  }, [entry, fetchNextPage, noNewData]);
+  }, [entry, fetchNextPage, initialSavingsEntries, noNewData]);
 
   if (savingsEntries.length === 0) {
     return (

@@ -9,6 +9,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
 import { Investments } from "@/db/schema";
+import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { InvestmentBookEntry } from "@/components/investments/invest-book-entry";
 import { InvestmentEditEntry } from "@/components/investments/invest-edit-entry";
@@ -72,10 +73,13 @@ export const InvestmentCard = ({
   }, [data, initialInvestmentEntries, isFetching]);
 
   useEffect(() => {
+    if (initialInvestmentEntries.length < INFINITE_SCROLLING_PAGINATION_RESULTS)
+      return;
+
     if (entry?.isIntersecting && !noNewData) {
       fetchNextPage();
     }
-  }, [entry, fetchNextPage, noNewData]);
+  }, [entry, fetchNextPage, initialInvestmentEntries, noNewData]);
 
   if (investmentEntries.length === 0) {
     return (

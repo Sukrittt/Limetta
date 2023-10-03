@@ -36,7 +36,7 @@ const Savings = async () => {
         </div>
       </CardContent>
       <Divider />
-      <ScrollShadow className="h-[calc(100vh-200px)] w-full no-scrollbar">
+      <ScrollShadow className="h-[calc(100vh-220px)] w-full no-scrollbar">
         <CardContent className=" pt-8">
           <SavingsCard
             initialSavingsEntries={savingsEntries}

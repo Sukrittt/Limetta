@@ -56,7 +56,7 @@ const Investments = async () => {
         </div>
       </CardContent>
       <Divider />
-      <ScrollShadow className="h-[calc(80vh-130px)] w-full no-scrollbar">
+      <ScrollShadow className="h-[calc(80vh-150px)] w-full no-scrollbar">
         <CardContent className="pt-8">
           <InvestmentCard
             initialInvestmentEntries={investmentEntries}

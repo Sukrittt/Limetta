@@ -21,7 +21,7 @@ const loading = () => {
         </div>
       </CardContent>
       <Divider />
-      <ScrollShadow className="h-[calc(80vh-130px)] w-full no-scrollbar">
+      <ScrollShadow className="h-[calc(80vh-150px)] w-full no-scrollbar">
         <CardContent className="pt-8">
           <div className="flex flex-col gap-y-2 text-sm">
             <div className="grid grid-cols-7 px-4 sm:px-6">

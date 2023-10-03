@@ -27,9 +27,15 @@ const Dues = async () => {
             customComponent={
               <div className="px-1 py-2 max-w-xs">
                 <div className="text-small font-bold">Dues</div>
-                <div className="text-tiny">
-                  Keep track of your pending dues and mark them as paid when
-                  cleared.
+                <div className="text-tiny space-y-2">
+                  <p>
+                    1. Keep track of your pending dues and mark them as paid
+                    when cleared.
+                  </p>
+                  <p>
+                    2. Once marked as paid, it will be reflected in your
+                    miscellaneous account.
+                  </p>
                 </div>
               </div>
             }

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
 import { Selection } from "@nextui-org/react";
 import { Spinner } from "@nextui-org/spinner";
+import { useQueryClient } from "@tanstack/react-query";
 import { Select, SelectItem } from "@nextui-org/select";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 
@@ -33,6 +34,8 @@ export const TransferForm = ({
   miscellaneousBalance: number;
 }) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const [amount, setAmount] = useState<string | null>(null);
 
   const [fromAccount, setFromAccount] = useState(initialSelected);
@@ -66,6 +69,11 @@ export const TransferForm = ({
   const transferAmount = trpc.transfer.transferAmount.useMutation({
     onSuccess: () => {
       router.refresh();
+
+      queryClient.resetQueries(["investment-entries"]);
+      queryClient.resetQueries(["savings-entries"]);
+      queryClient.resetQueries(["miscellaneous-entries"]);
+
       const { dismiss } = toast({
         title: "Transfer successfully done",
         description: (

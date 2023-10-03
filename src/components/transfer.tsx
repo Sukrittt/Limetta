@@ -9,7 +9,6 @@ import { Button } from "@nextui-org/button";
 
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
-import ToolTip from "@/components/ui/tool-tip";
 import { AccountType, CurrencyType } from "@/types";
 import { buttonVariants } from "@/components/ui/button";
 import { TransferForm } from "@/components/forms/transfer-form";
@@ -31,17 +30,15 @@ export const Transfer = ({
 
   return (
     <>
-      <ToolTip text="Transfer" showArrow>
-        <Button
-          onClick={onOpen}
-          className={cn(
-            buttonVariants({ variant: "secondary", size: "sm" }),
-            "rounded-xl"
-          )}
-        >
-          <Icons.transfer className="h-4 w-4 cursor-pointer group-hover:text-primary transition" />
-        </Button>
-      </ToolTip>
+      <Button
+        onClick={onOpen}
+        className={cn(
+          buttonVariants({ variant: "secondary", size: "sm" }),
+          "rounded-xl"
+        )}
+      >
+        <Icons.transfer className="h-4 w-4 cursor-pointer group-hover:text-primary transition" />
+      </Button>
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}

@@ -21,10 +21,12 @@ interface DueCardProps {
   initialPayableBalance: number;
   initialReceivableBalance: number;
   currency: CurrencyType;
+  miscBalance: number;
 }
 
 export const DueCard: FC<DueCardProps> = ({
   initialDues,
+  miscBalance,
   initialPayableBalance,
   initialReceivableBalance,
   currency,
@@ -101,6 +103,7 @@ export const DueCard: FC<DueCardProps> = ({
               <DueEntryItem
                 entry={entry}
                 currency={currency}
+                miscBalance={miscBalance}
                 initialPayableBalance={initialPayableBalance}
                 initialReceivableBalance={initialReceivableBalance}
               />
@@ -112,6 +115,7 @@ export const DueCard: FC<DueCardProps> = ({
               <DueEntryItem
                 entry={entry}
                 currency={currency}
+                miscBalance={miscBalance}
                 initialPayableBalance={initialPayableBalance}
                 initialReceivableBalance={initialReceivableBalance}
               />
@@ -131,12 +135,14 @@ interface DueEntryProps {
   entry: Dues;
   initialPayableBalance: number;
   initialReceivableBalance: number;
+  miscBalance: number;
   currency: CurrencyType;
 }
 
 const DueEntryItem: FC<DueEntryProps> = ({
   currency,
   entry,
+  miscBalance,
   initialPayableBalance,
   initialReceivableBalance,
 }) => {
@@ -193,7 +199,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
           </span>
         </div>
         <div className="hidden lg:flex justify-around items-center text-xs col-span-2">
-          <DuePaid entryDetails={entryDetails} />
+          <DuePaid entryDetails={entryDetails} miscBalance={miscBalance} />
           <DueEditEntry currency={currency} entryDetails={entryDetails} />
           <DueDelete entryDetails={entryDetails} />
         </div>
@@ -222,7 +228,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
           Due date: {format(new Date(entry.dueDate), "dd MMM, yy")}
         </span>
         <div className="flex gap-x-4">
-          <DuePaid entryDetails={entryDetails} />
+          <DuePaid entryDetails={entryDetails} miscBalance={miscBalance} />
           <DueEditEntry currency={currency} entryDetails={entryDetails} />
           <DueDelete entryDetails={entryDetails} />
         </div>

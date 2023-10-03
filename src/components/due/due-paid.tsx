@@ -20,7 +20,9 @@ import { buttonVariants } from "@/components/ui/button";
 
 export const DuePaid = ({
   entryDetails,
+  miscBalance,
 }: {
+  miscBalance: number;
   entryDetails: ExtendedEntryType;
 }) => {
   const router = useRouter();
@@ -47,6 +49,11 @@ export const DuePaid = ({
       });
     },
   });
+
+  const calculatedDueBalance =
+    entryDetails.dueType === "payable"
+      ? entryDetails.duePayableBalance
+      : entryDetails.dueReceivableBalance;
 
   return (
     <>
@@ -96,6 +103,8 @@ export const DuePaid = ({
                   onClick={() =>
                     dueMarkPaidEntry.mutate({
                       dueId: entryDetails.entryId,
+                      initialDueBalance: calculatedDueBalance,
+                      miscBalance,
                       updatedDueStatus:
                         entryDetails.dueStatus === "pending"
                           ? "paid"

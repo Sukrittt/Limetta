@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 
 import { db } from "@/db";
 import { TRPCError } from "@trpc/server";
-import { dues, users } from "@/db/schema";
+import { dues, miscellaneous, users } from "@/db/schema";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { createTRPCRouter, privateProcedure } from "@/server/trpc";
 
@@ -181,19 +181,108 @@ export const dueRouter = createTRPCRouter({
       z.object({
         dueId: z.number(),
         updatedDueStatus: z.enum(["paid", "pending"]),
+        initialDueBalance: z.number(),
+        miscBalance: z.number(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const existingDueEntry = await db
+      const existingDueEntries = await db
         .select()
         .from(dues)
         .where(eq(dues.id, input.dueId));
 
-      if (existingDueEntry.length === 0) {
+      if (existingDueEntries.length === 0) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "Due entry not found",
         });
+      }
+
+      const existingDueEntry = existingDueEntries[0]; // since we are querying by id, there will be only one entry
+
+      //updating user balance
+      if (existingDueEntry.dueType === "payable") {
+        if (existingDueEntry.dueStatus === "pending") {
+          const promises = [
+            db
+              .update(users)
+              .set({
+                duePayable: input.initialDueBalance - existingDueEntry.amount,
+                miscellanousBalance:
+                  input.miscBalance - existingDueEntry.amount,
+              })
+              .where(eq(users.id, ctx.userId)),
+            db.insert(miscellaneous).values({
+              userId: ctx.userId,
+              amount: existingDueEntry.amount,
+              entryName: `${existingDueEntry.entryName} (due paid)`,
+              entryType: "out",
+            }),
+          ];
+
+          await Promise.all(promises);
+        } else {
+          const promises = [
+            db
+              .update(users)
+              .set({
+                duePayable: input.initialDueBalance + existingDueEntry.amount,
+                miscellanousBalance:
+                  input.miscBalance + existingDueEntry.amount,
+              })
+              .where(eq(users.id, ctx.userId)),
+            db.insert(miscellaneous).values({
+              userId: ctx.userId,
+              amount: existingDueEntry.amount,
+              entryName: `${existingDueEntry.entryName} (due marked as undo)`,
+              entryType: "in",
+            }),
+          ];
+
+          await Promise.all(promises);
+        }
+      } else {
+        if (existingDueEntry.dueStatus === "pending") {
+          const promises = [
+            db
+              .update(users)
+              .set({
+                dueReceivable:
+                  input.initialDueBalance - existingDueEntry.amount,
+                miscellanousBalance:
+                  input.miscBalance + existingDueEntry.amount,
+              })
+              .where(eq(users.id, ctx.userId)),
+            db.insert(miscellaneous).values({
+              userId: ctx.userId,
+              amount: existingDueEntry.amount,
+              entryName: `${existingDueEntry.entryName} (due received)`,
+              entryType: "in",
+            }),
+          ];
+
+          await Promise.all(promises);
+        } else {
+          const promises = [
+            db
+              .update(users)
+              .set({
+                dueReceivable:
+                  input.initialDueBalance + existingDueEntry.amount,
+                miscellanousBalance:
+                  input.miscBalance - existingDueEntry.amount,
+              })
+              .where(eq(users.id, ctx.userId)),
+            db.insert(miscellaneous).values({
+              userId: ctx.userId,
+              amount: existingDueEntry.amount,
+              entryName: `${existingDueEntry.entryName} (due marked as undo)`,
+              entryType: "out",
+            }),
+          ];
+
+          await Promise.all(promises);
+        }
       }
 
       await db

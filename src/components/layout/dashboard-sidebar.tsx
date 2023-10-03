@@ -1,42 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Session } from "next-auth";
-import { useTheme } from "next-themes";
-import { Avatar } from "@nextui-org/avatar";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import { useConfig } from "@/hooks/use-config";
 import { accounts, settings, siteConfig } from "@/config";
 import { ThemeSelector } from "@/components/themes/theme-selector";
 import { ThemeModeChanger } from "@/components/themes/theme-mode-changer";
 
-export const DashboardSidebar = ({ session }: { session: Session }) => {
+export const DashboardSidebar = () => {
   const pathname = usePathname();
-
-  const [mounted, setMounted] = useState(false);
-  const [config, setConfig] = useConfig();
-  const { resolvedTheme: mode } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <div className="hidden xl:flex flex-col gap-y-8 px-5 pb-8 pt-3 xl:pt-6 md:py-8">
-      <div className="flex justify-between items-center">
-        <Link href="/" className="text-lg font-bold tracking-tight">
-          {siteConfig.name}
-        </Link>
-        <Avatar
-          src={session.user.image ?? ""}
-          size="sm"
-          showFallback
-          name={session.user.name ?? ""}
-        />
-      </div>
+      <Link href="/" className="text-lg font-bold tracking-tight">
+        {siteConfig.name}
+      </Link>
 
       <div className="space-y-4 tracking-tight">
         <div className="flex gap-x-2 items-center">

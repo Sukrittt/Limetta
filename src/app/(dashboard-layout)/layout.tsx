@@ -18,9 +18,9 @@ export default async function Layout({ children }: { children: ReactNode }) {
   if (!currentUser.monthlyIncome) redirect("/onboarding");
 
   return (
-    <div className="flex-1 items-start xl:grid xl:grid-cols-[270px_minmax(0,1fr)] min-h-screen">
+    <div className="flex-1 items-start xl:grid xl:grid-cols-[230px_minmax(0,1fr)] min-h-screen">
       <div className="h-full">
-        <DashboardSidebar session={session} />
+        <DashboardSidebar />
       </div>
       <Shell className="items-start h-full px-6 md:px-8">
         <div className="space-y-4">

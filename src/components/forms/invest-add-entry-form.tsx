@@ -153,8 +153,9 @@ export const InvestAddEntryForm = ({
 
           <div className="flex flex-col gap-y-2">
             <Tabs
-              className="flex justify-center"
+              className="flex gap-0"
               aria-label="Options"
+              disabledKeys={["or"]}
               selectedKey={tabSelected}
               onSelectionChange={(value) =>
                 setTabSelected(value as "default" | "custom")
@@ -191,7 +192,12 @@ export const InvestAddEntryForm = ({
                   </NextUIBody>
                 </NextUICard>
               </Tab>
-              <Tab key="custom" title="Share price and quantity">
+              <Tab key="or" title="OR" className="p-0" />
+              <Tab
+                key="custom"
+                title="Share price and quantity"
+                className="px-1.5"
+              >
                 <NextUICard>
                   <NextUIBody className="flex flex-col gap-y-4">
                     <div className="flex flex-row gap-x-2">

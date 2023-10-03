@@ -3,6 +3,7 @@ import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
+import ToolTip from "@/components/ui/tool-tip";
 import { Skeleton } from "@/components/ui/skeleton";
 import { buttonVariants } from "@/components/ui/button";
 import { MobileSidebar } from "@/components/layout/mobile-sidebar";
@@ -127,8 +128,13 @@ const loading = () => {
           </Card>
           <Card>
             <CardTitle>
-              <CardHeader className="py-4 font-normal">
-                <span className="text-muted-foreground text-sm">Transfer</span>
+              <CardHeader className="py-4 font-normal text-muted-foreground">
+                <div className="flex items-center gap-x-1">
+                  <span className="text-sm">Transfer</span>
+                  <ToolTip text="Transfer money between accounts.">
+                    <Icons.info className="h-3 w-3 cursor-pointer mt-[2px]" />
+                  </ToolTip>
+                </div>
               </CardHeader>
             </CardTitle>
             <CardContent className="space-y-2">

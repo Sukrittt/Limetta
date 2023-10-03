@@ -4,6 +4,8 @@ import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
+import { Icons } from "@/components/icons";
+import ToolTip from "@/components/ui/tool-tip";
 import { serverClient } from "@/trpc/server-client";
 import { DueCard } from "@/components/cards/due-card";
 import { Card, CardContent } from "@/components/ui/card";
@@ -19,6 +21,22 @@ const Dues = async () => {
   return (
     <Card>
       <CardContent className="flex flex-col gap-y-8 py-8 relative">
+        <div className="absolute top-3 left-3">
+          <ToolTip
+            showArrow
+            customComponent={
+              <div className="px-1 py-2 max-w-xs">
+                <div className="text-small font-bold">Dues</div>
+                <div className="text-tiny">
+                  Keep track of your pending dues and mark them as paid when
+                  cleared.
+                </div>
+              </div>
+            }
+          >
+            <Icons.help className="h-4 w-4 cursor-pointer text-muted-foreground" />
+          </ToolTip>
+        </div>
         <div className="flex justify-between sm:justify-around">
           <div className="flex flex-col items-center gap-y-2">
             <span

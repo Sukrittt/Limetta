@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
 import { Icons } from "@/components/icons";
 import { Logout } from "@/components/logout";
+import ToolTip from "@/components/ui/tool-tip";
 import { Transfer } from "@/components/transfer";
 import { serverClient } from "@/trpc/server-client";
 import { buttonVariants } from "@/components/ui/button";
@@ -13,7 +14,6 @@ import { ExpenseTable } from "@/components/expense-table";
 import { ExpenseCard } from "@/components/cards/expense-card";
 import { MobileSidebar } from "@/components/layout/mobile-sidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import ToolTip from "@/components/ui/tool-tip";
 
 export const dynamic = "force-dynamic";
 
@@ -231,7 +231,7 @@ const Dashboard = async () => {
               <CardHeader className="py-4 font-normal text-muted-foreground">
                 <div className="flex items-center gap-x-1">
                   <span className="text-sm">Transfer</span>
-                  <ToolTip text="Transfer money between accounts">
+                  <ToolTip text="Transfer money between accounts.">
                     <Icons.info className="h-3 w-3 cursor-pointer mt-[2px]" />
                   </ToolTip>
                 </div>

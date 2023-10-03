@@ -4,6 +4,9 @@ import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
+import { Icons } from "@/components/icons";
+import ToolTip from "@/components/ui/tool-tip";
+import { Transfer } from "@/components/transfer";
 import { serverClient } from "@/trpc/server-client";
 import { Card, CardContent } from "@/components/ui/card";
 import { InvestmentCard } from "@/components/cards/investment-card";
@@ -21,6 +24,31 @@ const Investments = async () => {
   return (
     <Card>
       <CardContent className="flex flex-col gap-y-8 pt-8 pb-4 xl:py-8 relative">
+        <div className="absolute top-3 left-3">
+          <ToolTip
+            showArrow
+            customComponent={
+              <div className="px-1 py-2 max-w-xs">
+                <div className="text-small font-bold">Investment Account</div>
+                <div className="text-tiny">
+                  Keep an eye on your investments, track transfers, and book
+                  profits.
+                </div>
+              </div>
+            }
+          >
+            <Icons.help className="h-4 w-4 cursor-pointer text-muted-foreground" />
+          </ToolTip>
+        </div>
+        <div className="absolute top-3 right-3">
+          <Transfer
+            currency={currentUser.currency as CurrencyType}
+            initialSelected="investments"
+            savingsBalance={currentUser.savingsBalance}
+            investmentsBalance={currentUser.investmentsBalance}
+            miscellaneousBalance={currentUser.miscellanousBalance}
+          />
+        </div>
         <div className="flex justify-around gap-4">
           <div className="flex flex-col items-center gap-y-2">
             <span

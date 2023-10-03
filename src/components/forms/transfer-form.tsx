@@ -76,7 +76,7 @@ export const TransferForm = ({
               onClick={() => dismiss()}
               className="text-primary underline underline-offset-4"
             >
-              {toAccount}
+              {toAccount.charAt(0).toUpperCase() + toAccount.slice(1)}
             </Link>{" "}
             account.
           </>

@@ -33,6 +33,8 @@ CREATE TABLE `dues` (
 	`amount` float NOT NULL,
 	`userId` varchar(255) NOT NULL,
 	`dueDate` timestamp NOT NULL,
+	`transferAccountType` varchar(100),
+	`transferAccountId` int,
 	`createdAt` timestamp NOT NULL DEFAULT (now()),
 	CONSTRAINT `dues_id` PRIMARY KEY(`id`)
 );
@@ -70,6 +72,14 @@ CREATE TABLE `needs` (
 	`bookId` int NOT NULL,
 	`createdAt` timestamp NOT NULL DEFAULT (now()),
 	CONSTRAINT `needs_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `reports` (
+	`id` serial AUTO_INCREMENT NOT NULL,
+	`description` varchar(100) NOT NULL,
+	`userId` varchar(255) NOT NULL,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `reports_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
 CREATE TABLE `savings` (

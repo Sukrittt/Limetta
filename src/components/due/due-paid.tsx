@@ -7,9 +7,11 @@ import {
   ModalBody,
   ModalFooter,
 } from "@nextui-org/modal";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
+import { RadioGroup, Radio } from "@nextui-org/radio";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { cn } from "@/lib/utils";
@@ -17,6 +19,8 @@ import { trpc } from "@/trpc/client";
 import { toast } from "@/hooks/use-toast";
 import { ExtendedEntryType } from "@/types";
 import { buttonVariants } from "@/components/ui/button";
+
+type AccountType = "want" | "need" | "saving" | "miscellaneous";
 
 export const DuePaid = ({
   entryDetails,
@@ -27,6 +31,8 @@ export const DuePaid = ({
 }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const [accountTypeSelected, setAccountTypeSelected] =
+    useState<AccountType>("saving");
 
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
@@ -55,15 +61,16 @@ export const DuePaid = ({
       ? entryDetails.duePayableBalance
       : entryDetails.dueReceivableBalance;
 
+  const markText =
+    entryDetails.dueStatus === "pending" ? "Mark as Paid" : "Mark as Pending";
+
   return (
     <>
       <span
         className="cursor-pointer hover:text-primary hover:opacity-90 transition"
         onClick={onOpen}
       >
-        {entryDetails.dueStatus === "pending"
-          ? "Mark as Paid"
-          : "Mark as Unpaid"}
+        {markText}
       </span>
       <Modal
         isOpen={isOpen}
@@ -74,15 +81,52 @@ export const DuePaid = ({
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                Are you absolutely sure?
+              <ModalHeader className="flex flex-col gap-1 pb-0">
+                <h1>{markText}</h1>
+                <p className="text-muted-foreground font-normal text-base">
+                  {entryDetails.dueType === "payable"
+                    ? "From where should this amount be deducted?"
+                    : "Where should this amount be added to?"}
+                </p>
               </ModalHeader>
               <ModalBody>
-                <p className="text-muted-foreground">
-                  This will mark this entry as{" "}
-                  {entryDetails.dueStatus === "pending" ? "paid" : "unpaid"}.
-                  You can undo this action later.
-                </p>
+                <RadioGroup
+                  value={accountTypeSelected}
+                  onValueChange={(value) =>
+                    setAccountTypeSelected(value as AccountType)
+                  }
+                >
+                  {entryDetails.dueType === "payable" && (
+                    <>
+                      <Radio value="need" description="It's a necessity.">
+                        Needs
+                      </Radio>
+                      <Radio value="want" description="It's a luxury.">
+                        Wants
+                      </Radio>
+                    </>
+                  )}
+                  <Radio
+                    value="saving"
+                    description={
+                      entryDetails.dueType === "payable"
+                        ? "Deduct from my savings."
+                        : "Add to my savings."
+                    }
+                  >
+                    Savings
+                  </Radio>
+                  <Radio
+                    value="miscellaneous"
+                    description={
+                      entryDetails.dueType === "payable"
+                        ? "Deduct from my miscellaneous."
+                        : "Add to my miscellaneous."
+                    }
+                  >
+                    Miscellaneous
+                  </Radio>
+                </RadioGroup>
               </ModalBody>
               <ModalFooter>
                 <Button
@@ -114,10 +158,8 @@ export const DuePaid = ({
                 >
                   {dueMarkPaidEntry.isLoading ? (
                     <Spinner color="default" size="sm" />
-                  ) : entryDetails.dueStatus === "pending" ? (
-                    "Mark as Paid"
                   ) : (
-                    "Mark as Unpaid"
+                    markText
                   )}
                 </Button>
               </ModalFooter>

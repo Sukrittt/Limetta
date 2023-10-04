@@ -299,6 +299,13 @@ export const dues = mysqlTable("dues", {
   amount: float("amount").notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
   dueDate: timestamp("dueDate").notNull(),
+
+  transferAccountType: varchar("transferAccountType", {
+    length: 100,
+    enum: ["want", "need", "savings", "miscellaneous"],
+  }),
+  transferAccountId: int("transferAccountId"), // will contain id of the account depending on the 'transferAccountType'
+
   createdAt: timestamp("createdAt").notNull().defaultNow(),
 });
 
@@ -313,4 +320,25 @@ export const dueRelation = relations(dues, ({ one }) => ({
 
 export const UserDueRelations = relations(users, ({ many }) => ({
   dues: many(dues),
+}));
+
+// Report an Issue
+export const reports = mysqlTable("reports", {
+  id: serial("id").primaryKey(),
+  description: varchar("description", { length: 100 }).notNull(),
+  userId: varchar("userId", { length: 255 }).notNull(),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+});
+
+export type Reports = typeof dues.$inferSelect;
+
+export const reportRelation = relations(reports, ({ one }) => ({
+  author: one(users, {
+    fields: [reports.userId],
+    references: [users.id],
+  }),
+}));
+
+export const UserReportRelations = relations(users, ({ many }) => ({
+  reports: many(reports),
 }));

@@ -83,10 +83,6 @@ const MiscCard = ({
     );
   }
 
-  console.log("isFetchingNextPage", isFetchingNextPage);
-  console.log("isFetching", isFetching);
-  console.log("---------");
-
   return (
     <div className="flex flex-col gap-y-2 text-sm">
       <div className="grid grid-cols-7 px-4 sm:px-6">

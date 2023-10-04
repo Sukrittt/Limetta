@@ -7,24 +7,26 @@ import { RadioGroup, Radio } from "@nextui-org/radio";
 import { useQueryClient } from "@tanstack/react-query";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 
-import { cn } from "@/lib/utils";
 import { trpc } from "@/trpc/client";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { DatePicker } from "@/components/date-picker";
 import { buttonVariants } from "@/components/ui/button";
 import { CurrencyType, ExtendedEntryType } from "@/types";
+import { cn, getMaxSpendLimitForSavingAmount } from "@/lib/utils";
 
 export const DueEditForm = ({
   onClose,
   currency,
   entry,
   miscBalance,
+  savingBalance,
 }: {
   onClose: () => void;
   currency: CurrencyType;
   entry: ExtendedEntryType;
   miscBalance: number;
+  savingBalance: number;
 }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -94,6 +96,25 @@ export const DueEditForm = ({
 
     const parsedAmount = parseFloat(amount.replace(/,/g, ""));
 
+    const maxLimitForSavingAccount = getMaxSpendLimitForSavingAmount(
+      savingBalance,
+      entry.amount,
+      entry.dueType
+    );
+
+    if (
+      dueType === "payable" &&
+      entry.dueStatus === "paid" &&
+      entry.transferAccountType === "savings" &&
+      parsedAmount > maxLimitForSavingAccount
+    ) {
+      return toast({
+        title: "Insufficient balance.",
+        description: "Please add funds to your savings account.",
+        variant: "destructive",
+      });
+    }
+
     if (!parsedAmount) {
       return toast({
         title: "Amount is invalid",
@@ -110,6 +131,7 @@ export const DueEditForm = ({
       duePayableBalance: entry.duePayableBalance,
       dueReceivableBalance: entry.dueReceivableBalance,
       dueStatus: entry.dueStatus,
+      savingBalance,
       miscBalance,
       dueType,
     });
@@ -128,6 +150,11 @@ export const DueEditForm = ({
   useEffect(() => {
     updateInputValidationState();
   }, [amount, updateInputValidationState]);
+
+  const disableRadioForExpenseTrackerEntry =
+    entry.dueStatus === "paid" &&
+    (entry.transferAccountType === "want" ||
+      entry.transferAccountType === "need");
 
   return (
     <>
@@ -181,25 +208,27 @@ export const DueEditForm = ({
             <DatePicker value={dueDate} setValue={setDueDate} />
           </div>
 
-          <div>
-            <RadioGroup
-              orientation="horizontal"
-              value={dueType}
-              onValueChange={(value) =>
-                setDueType(value as "payable" | "receivable")
-              }
-            >
-              <Radio value="payable" description="You have to pay in future.">
-                Payable
-              </Radio>
-              <Radio
-                value="receivable"
-                description="You will receive in future."
+          {!disableRadioForExpenseTrackerEntry && (
+            <div>
+              <RadioGroup
+                orientation="horizontal"
+                value={dueType}
+                onValueChange={(value) =>
+                  setDueType(value as "payable" | "receivable")
+                }
               >
-                Receivable
-              </Radio>
-            </RadioGroup>
-          </div>
+                <Radio value="payable" description="You have to pay in future.">
+                  Payable
+                </Radio>
+                <Radio
+                  value="receivable"
+                  description="You will receive in future."
+                >
+                  Receivable
+                </Radio>
+              </RadioGroup>
+            </div>
+          )}
         </form>
       </ModalBody>
       <ModalFooter>

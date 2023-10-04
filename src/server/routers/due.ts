@@ -2,7 +2,6 @@ import { z } from "zod";
 import { and, eq, sql } from "drizzle-orm";
 
 import { db } from "@/db";
-import { TRPCError } from "@trpc/server";
 import {
   books,
   dues,
@@ -12,9 +11,11 @@ import {
   users,
   wants,
 } from "@/db/schema";
+import { userRouter } from "./user";
+import { TRPCError } from "@trpc/server";
+import { getMaxSpendLimitForSavingAmount } from "@/lib/utils";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { createTRPCRouter, privateProcedure } from "@/server/trpc";
-import { userRouter } from "./user";
 
 export const dueRouter = createTRPCRouter({
   getDueEntries: privateProcedure.query(async ({ ctx }) => {
@@ -73,6 +74,7 @@ export const dueRouter = createTRPCRouter({
         dueStatus: z.enum(["pending", "paid"]),
         duePayableBalance: z.number(),
         dueReceivableBalance: z.number(),
+        savingBalance: z.number(),
         miscBalance: z.number(),
       })
     )
@@ -92,100 +94,417 @@ export const dueRouter = createTRPCRouter({
       const existingDueEntryData = existingDueEntry[0]; // since we are querying by id, there will be only one entry
 
       if (input.dueStatus === "paid") {
+        // already paid
+        if (!existingDueEntryData.transferAccountId) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Due not paid yet.",
+          });
+        }
+
         if (input.dueType === existingDueEntryData.dueType) {
+          // due type is same
           if (input.dueType === "payable") {
-            const additionalAmount = input.amount - existingDueEntryData.amount;
+            // paid
+            if (existingDueEntryData.transferAccountType === "miscellaneous") {
+              const existingMiscEntry = await db
+                .select()
+                .from(miscellaneous)
+                .where(
+                  eq(miscellaneous.id, existingDueEntryData.transferAccountId)
+                );
 
-            const promises = [
-              db.update(users).set({
-                miscellanousBalance: input.miscBalance - additionalAmount,
-              }),
-              db.insert(miscellaneous).values({
-                userId: ctx.userId,
-                amount: Math.abs(additionalAmount),
-                entryName: `${input.description} (due edited)`,
-                entryType: additionalAmount < 0 ? "in" : "out",
-              }),
-            ];
+              if (existingMiscEntry.length > 0) {
+                const promises = [
+                  db
+                    .update(users)
+                    .set({
+                      miscellanousBalance:
+                        input.miscBalance +
+                        existingMiscEntry[0].amount -
+                        input.amount,
+                    })
+                    .where(eq(users.id, ctx.userId)),
+                  db
+                    .update(miscellaneous)
+                    .set({
+                      amount: input.amount,
+                      entryName: input.description,
+                    })
+                    .where(
+                      eq(
+                        miscellaneous.id,
+                        existingDueEntryData.transferAccountId
+                      )
+                    ),
+                ];
 
-            await Promise.all(promises);
+                await Promise.all(promises);
+              }
+            } else if (existingDueEntryData.transferAccountType === "savings") {
+              const existingSavingsEntry = await db
+                .select()
+                .from(savings)
+                .where(eq(savings.id, existingDueEntryData.transferAccountId));
+
+              if (existingSavingsEntry.length > 0) {
+                const maxLimitForSavingAccount =
+                  getMaxSpendLimitForSavingAmount(
+                    input.savingBalance,
+                    existingSavingsEntry[0].amount,
+                    existingDueEntryData.dueType
+                  );
+
+                if (input.amount > maxLimitForSavingAccount) {
+                  throw new TRPCError({
+                    code: "BAD_REQUEST",
+                    message: "Not enough savings balance",
+                  });
+                }
+
+                const promises = [
+                  db
+                    .update(users)
+                    .set({
+                      savingsBalance:
+                        input.savingBalance +
+                        existingSavingsEntry[0].amount -
+                        input.amount,
+                    })
+                    .where(eq(users.id, ctx.userId)),
+                  db
+                    .update(savings)
+                    .set({
+                      amount: input.amount,
+                      entryName: input.description,
+                    })
+                    .where(
+                      eq(savings.id, existingDueEntryData.transferAccountId)
+                    ),
+                ];
+
+                await Promise.all(promises);
+              }
+            } else {
+              let paymentDate;
+              let allowTotalSpendingUpdation = true; //to check if the 'totalSpendings' field needs to be updated
+
+              if (existingDueEntryData.transferAccountType === "need") {
+                const existingNeedEntry = await db
+                  .select()
+                  .from(needs)
+                  .where(eq(needs.id, existingDueEntryData.transferAccountId));
+
+                if (existingNeedEntry.length === 0) {
+                  allowTotalSpendingUpdation = false;
+                } else {
+                  await db
+                    .update(needs)
+                    .set({
+                      amount: input.amount,
+                      description: input.description,
+                      createdAt: existingNeedEntry[0].createdAt,
+                    })
+                    .where(
+                      eq(needs.id, existingDueEntryData.transferAccountId)
+                    );
+
+                  paymentDate = existingNeedEntry[0].createdAt;
+                }
+              } else {
+                const existingWantEntry = await db
+                  .select()
+                  .from(wants)
+                  .where(eq(wants.id, existingDueEntryData.transferAccountId));
+
+                if (existingWantEntry.length === 0) {
+                  allowTotalSpendingUpdation = false;
+                } else {
+                  await db
+                    .update(wants)
+                    .set({
+                      amount: input.amount,
+                      description: input.description,
+                      createdAt: existingWantEntry[0].createdAt,
+                    })
+                    .where(
+                      eq(wants.id, existingDueEntryData.transferAccountId)
+                    );
+
+                  paymentDate = existingWantEntry[0].createdAt;
+                }
+              }
+
+              if (allowTotalSpendingUpdation) {
+                const currentMonthBooks = await db
+                  .select()
+                  .from(books)
+                  .where(
+                    and(
+                      eq(books.userId, ctx.userId),
+                      sql`MONTH(books.createdAt) = MONTH(${paymentDate})`,
+                      sql`YEAR(books.createdAt) = YEAR(${paymentDate})`
+                    )
+                  );
+
+                if (currentMonthBooks.length === 0) {
+                  throw new TRPCError({
+                    code: "BAD_REQUEST",
+                    message: "No book found",
+                  });
+                }
+
+                await db
+                  .update(books)
+                  .set({
+                    totalSpendings:
+                      currentMonthBooks[0].totalSpendings -
+                      existingDueEntryData.amount +
+                      input.amount,
+                  })
+                  .where(eq(books.id, currentMonthBooks[0].id));
+              }
+            }
           } else {
-            const additionalAmount = input.amount - existingDueEntryData.amount;
+            //received
+            if (existingDueEntryData.transferAccountType === "miscellaneous") {
+              const existingMiscEntry = await db
+                .select()
+                .from(miscellaneous)
+                .where(
+                  eq(miscellaneous.id, existingDueEntryData.transferAccountId)
+                );
 
-            const promises = [
-              db.update(users).set({
-                miscellanousBalance: input.miscBalance + additionalAmount,
-              }),
-              db.insert(miscellaneous).values({
-                userId: ctx.userId,
-                amount: Math.abs(additionalAmount),
-                entryName: `${input.description} (due edited)`,
-                entryType: additionalAmount < 0 ? "out" : "in",
-              }),
-            ];
+              if (existingMiscEntry.length > 0) {
+                const promises = [
+                  db
+                    .update(users)
+                    .set({
+                      miscellanousBalance:
+                        input.miscBalance -
+                        existingMiscEntry[0].amount +
+                        input.amount,
+                    })
+                    .where(eq(users.id, ctx.userId)),
+                  db
+                    .update(miscellaneous)
+                    .set({
+                      amount: input.amount,
+                      entryName: input.description,
+                    })
+                    .where(
+                      eq(
+                        miscellaneous.id,
+                        existingDueEntryData.transferAccountId
+                      )
+                    ),
+                ];
 
-            await Promise.all(promises);
+                await Promise.all(promises);
+              }
+            } else if (existingDueEntryData.transferAccountType === "savings") {
+              const existingSavingsEntry = await db
+                .select()
+                .from(savings)
+                .where(eq(savings.id, existingDueEntryData.transferAccountId));
+
+              if (existingSavingsEntry.length > 0) {
+                const promises = [
+                  db
+                    .update(users)
+                    .set({
+                      savingsBalance:
+                        input.savingBalance -
+                        existingSavingsEntry[0].amount +
+                        input.amount,
+                    })
+                    .where(eq(users.id, ctx.userId)),
+                  db
+                    .update(savings)
+                    .set({
+                      amount: input.amount,
+                      entryName: input.description,
+                    })
+                    .where(
+                      eq(savings.id, existingDueEntryData.transferAccountId)
+                    ),
+                ];
+
+                await Promise.all(promises);
+              }
+            }
           }
         } else {
+          //due type changed
           if (input.dueType === "payable") {
-            const updatedMiscBalance =
-              input.miscBalance - existingDueEntryData.amount - input.amount;
+            //from receivable to payable
+            if (existingDueEntryData.transferAccountType === "miscellaneous") {
+              const existingMiscEntry = await db
+                .select()
+                .from(miscellaneous)
+                .where(
+                  eq(miscellaneous.id, existingDueEntryData.transferAccountId)
+                );
 
-            const promises = [
-              db
-                .update(users)
-                .set({
-                  miscellanousBalance: updatedMiscBalance,
-                })
-                .where(eq(users.id, ctx.userId)),
-              db.insert(miscellaneous).values([
-                {
-                  userId: ctx.userId,
-                  amount: existingDueEntryData.amount,
-                  entryName: `${existingDueEntryData.entryName} (due breakeven)`,
-                  entryType: "out",
-                },
-                {
-                  userId: ctx.userId,
-                  amount: input.amount,
-                  entryName: `${input.description} (due edited)`,
-                  entryType: "out",
-                },
-              ]),
-            ];
+              if (existingMiscEntry.length > 0) {
+                const promises = [
+                  db
+                    .update(users)
+                    .set({
+                      miscellanousBalance:
+                        input.miscBalance -
+                        existingMiscEntry[0].amount -
+                        input.amount,
+                    })
+                    .where(eq(users.id, ctx.userId)),
+                  db
+                    .update(miscellaneous)
+                    .set({
+                      amount: input.amount,
+                      entryName: input.description,
+                      entryType: "out",
+                    })
+                    .where(
+                      eq(
+                        miscellaneous.id,
+                        existingDueEntryData.transferAccountId
+                      )
+                    ),
+                ];
 
-            await Promise.all(promises);
+                await Promise.all(promises);
+              }
+            } else if (existingDueEntryData.transferAccountType === "savings") {
+              const existingSavingsEntry = await db
+                .select()
+                .from(savings)
+                .where(eq(savings.id, existingDueEntryData.transferAccountId));
+
+              if (existingSavingsEntry.length > 0) {
+                const maxLimitForSavingAccount =
+                  getMaxSpendLimitForSavingAmount(
+                    input.savingBalance,
+                    existingSavingsEntry[0].amount,
+                    existingDueEntryData.dueType
+                  );
+
+                if (input.amount > maxLimitForSavingAccount) {
+                  throw new TRPCError({
+                    code: "BAD_REQUEST",
+                    message: "Not enough savings balance",
+                  });
+                }
+
+                const promises = [
+                  db
+                    .update(users)
+                    .set({
+                      savingsBalance:
+                        input.savingBalance -
+                        existingSavingsEntry[0].amount -
+                        input.amount,
+                    })
+                    .where(eq(users.id, ctx.userId)),
+                  db
+                    .update(savings)
+                    .set({
+                      amount: input.amount,
+                      entryName: input.description,
+                      entryType: "out",
+                    })
+                    .where(
+                      eq(savings.id, existingDueEntryData.transferAccountId)
+                    ),
+                ];
+
+                await Promise.all(promises);
+              }
+            } else {
+              throw new TRPCError({
+                code: "BAD_REQUEST",
+                message:
+                  "There will exist no need/want entry with due type: 'receivable'",
+              });
+            }
           } else {
-            const updatedMiscBalance =
-              input.miscBalance + existingDueEntryData.amount + input.amount;
+            // from payable to receivable
+            if (existingDueEntryData.transferAccountType === "miscellaneous") {
+              const existingMiscEntry = await db
+                .select()
+                .from(miscellaneous)
+                .where(
+                  eq(miscellaneous.id, existingDueEntryData.transferAccountId)
+                );
 
-            const promises = [
-              db
-                .update(users)
-                .set({
-                  miscellanousBalance: updatedMiscBalance,
-                })
-                .where(eq(users.id, ctx.userId)),
-              db.insert(miscellaneous).values([
-                {
-                  userId: ctx.userId,
-                  amount: existingDueEntryData.amount,
-                  entryName: `${existingDueEntryData.entryName} (due breakeven)`,
-                  entryType: "in",
-                },
-                {
-                  userId: ctx.userId,
-                  amount: input.amount,
-                  entryName: `${input.description} (due edited)`,
-                  entryType: "in",
-                },
-              ]),
-            ];
+              if (existingMiscEntry.length > 0) {
+                const promises = [
+                  db
+                    .update(users)
+                    .set({
+                      miscellanousBalance:
+                        input.miscBalance +
+                        existingMiscEntry[0].amount +
+                        input.amount,
+                    })
+                    .where(eq(users.id, ctx.userId)),
+                  db
+                    .update(miscellaneous)
+                    .set({
+                      amount: input.amount,
+                      entryName: input.description,
+                      entryType: "in",
+                    })
+                    .where(
+                      eq(
+                        miscellaneous.id,
+                        existingDueEntryData.transferAccountId
+                      )
+                    ),
+                ];
 
-            await Promise.all(promises);
+                await Promise.all(promises);
+              }
+            } else if (existingDueEntryData.transferAccountType === "savings") {
+              const existingSavingsEntry = await db
+                .select()
+                .from(savings)
+                .where(eq(savings.id, existingDueEntryData.transferAccountId));
+
+              if (existingSavingsEntry.length > 0) {
+                const promises = [
+                  db
+                    .update(users)
+                    .set({
+                      savingsBalance:
+                        input.savingBalance +
+                        existingSavingsEntry[0].amount +
+                        input.amount,
+                    })
+                    .where(eq(users.id, ctx.userId)),
+                  db
+                    .update(savings)
+                    .set({
+                      amount: input.amount,
+                      entryName: input.description,
+                      entryType: "in",
+                    })
+                    .where(
+                      eq(savings.id, existingDueEntryData.transferAccountId)
+                    ),
+                ];
+
+                await Promise.all(promises);
+              }
+            } else {
+              throw new TRPCError({
+                code: "BAD_REQUEST",
+                message: "Cannot transfer from need or want.",
+              });
+            }
           }
         }
       } else {
+        //not paid
         if (input.dueType !== existingDueEntryData.dueType) {
           if (input.dueType === "payable") {
             await db
@@ -344,23 +663,7 @@ export const dueRouter = createTRPCRouter({
             await Promise.all(promises);
           }
         } else {
-          const currentMonthBooks = await db
-            .select()
-            .from(books)
-            .where(
-              and(
-                eq(books.userId, ctx.userId),
-                sql`MONTH(books.createdAt) = MONTH(NOW())`,
-                sql`YEAR(books.createdAt) = YEAR(NOW())`
-              )
-            );
-
-          if (currentMonthBooks.length === 0) {
-            throw new TRPCError({
-              code: "BAD_REQUEST",
-              message: "No book found",
-            });
-          }
+          let paymentDate;
 
           let allowTotalSpendingUpdation = true; //to check if the 'totalSpendings' field needs to be updated
 
@@ -376,6 +679,8 @@ export const dueRouter = createTRPCRouter({
               await db
                 .delete(needs)
                 .where(eq(needs.id, existingDueEntryData.transferAccountId));
+
+              paymentDate = existingNeedEntry[0].createdAt;
             }
           } else {
             const existingWantEntry = await db
@@ -389,10 +694,30 @@ export const dueRouter = createTRPCRouter({
               await db
                 .delete(wants)
                 .where(eq(wants.id, existingDueEntryData.transferAccountId));
+
+              paymentDate = existingWantEntry[0].createdAt;
             }
           }
 
           if (allowTotalSpendingUpdation) {
+            const currentMonthBooks = await db
+              .select()
+              .from(books)
+              .where(
+                and(
+                  eq(books.userId, ctx.userId),
+                  sql`MONTH(books.createdAt) = MONTH(${paymentDate})`,
+                  sql`YEAR(books.createdAt) = YEAR(${paymentDate})`
+                )
+              );
+
+            if (currentMonthBooks.length === 0) {
+              throw new TRPCError({
+                code: "BAD_REQUEST",
+                message: "No book found",
+              });
+            }
+
             await db
               .update(books)
               .set({

@@ -165,6 +165,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
     dueType: entry.dueType,
     dueStatus: entry.dueStatus,
     dueDate: entry.dueDate,
+    transferAccountType: entry.transferAccountType,
   };
 
   return (
@@ -223,6 +224,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
             currency={currency}
             entryDetails={entryDetails}
             miscBalance={miscBalance}
+            savingBalance={savingBalance}
           />
           <DueDelete
             entryDetails={entryDetails}
@@ -267,6 +269,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
             currency={currency}
             entryDetails={entryDetails}
             miscBalance={miscBalance}
+            savingBalance={savingBalance}
           />
           <DueDelete
             entryDetails={entryDetails}

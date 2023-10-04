@@ -32,6 +32,7 @@ export type ExtendedEntryType = Omit<
   duePayableBalance: number;
   dueReceivableBalance: number;
   dueDate: Date;
+  transferAccountType?: "want" | "need" | "savings" | "miscellaneous" | null;
 };
 
 export type CurrencyType = "₹" | "$" | "€" | "£";

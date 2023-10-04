@@ -47,3 +47,15 @@ export const createDownloadUrl = (blob: Blob, fileName: string) => {
   a.click();
   window.URL.revokeObjectURL(url);
 };
+
+export const getMaxSpendLimitForSavingAmount = (
+  balance: number,
+  entryAmount: number,
+  initialEntryType: "payable" | "receivable"
+) => {
+  if (initialEntryType === "payable") {
+    return balance + entryAmount;
+  }
+
+  return balance - entryAmount;
+};

@@ -12,10 +12,12 @@ export const DueEditEntry = ({
   entryDetails,
   currency,
   miscBalance,
+  savingBalance,
 }: {
   entryDetails: ExtendedEntryType;
   currency: CurrencyType;
   miscBalance: number;
+  savingBalance: number;
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -42,8 +44,9 @@ export const DueEditEntry = ({
               <DueEditForm
                 onClose={onClose}
                 currency={currency}
-                miscBalance={miscBalance}
                 entry={entryDetails}
+                savingBalance={savingBalance}
+                miscBalance={miscBalance}
               />
             </>
           )}

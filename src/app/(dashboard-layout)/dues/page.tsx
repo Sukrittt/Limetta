@@ -93,6 +93,7 @@ const Dues = async () => {
           <DueCard
             currency={currentUser.currency as CurrencyType}
             initialDues={dueEntries}
+            savingBalance={currentUser.savingsBalance}
             miscBalance={currentUser.miscellanousBalance}
             initialPayableBalance={currentUser.duePayable}
             initialReceivableBalance={currentUser.dueReceivable}

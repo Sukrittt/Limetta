@@ -224,7 +224,11 @@ const DueEntryItem: FC<DueEntryProps> = ({
             entryDetails={entryDetails}
             miscBalance={miscBalance}
           />
-          <DueDelete entryDetails={entryDetails} miscBalance={miscBalance} />
+          <DueDelete
+            entryDetails={entryDetails}
+            miscBalance={miscBalance}
+            savingBalance={savingBalance}
+          />
         </div>
       </CardContent>
       <Divider className="block lg:hidden" />
@@ -264,7 +268,11 @@ const DueEntryItem: FC<DueEntryProps> = ({
             entryDetails={entryDetails}
             miscBalance={miscBalance}
           />
-          <DueDelete entryDetails={entryDetails} miscBalance={miscBalance} />
+          <DueDelete
+            entryDetails={entryDetails}
+            miscBalance={miscBalance}
+            savingBalance={savingBalance}
+          />
         </div>
       </CardFooter>
     </Card>

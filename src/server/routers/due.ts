@@ -250,6 +250,7 @@ export const dueRouter = createTRPCRouter({
         duePayableBalance: z.number(),
         dueReceivableBalance: z.number(),
         miscBalance: z.number(),
+        savingBalance: z.number(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -268,44 +269,139 @@ export const dueRouter = createTRPCRouter({
       const existingDueEntryData = existingDueEntry[0]; // since we are querying by id, there will be only one entry
 
       if (input.dueStatus === "paid") {
-        if (input.dueType === "payable") {
-          const promises = [
-            await db
-              .update(users)
-              .set({
-                miscellanousBalance:
-                  input.miscBalance + existingDueEntryData.amount,
-              })
-              .where(eq(users.id, ctx.userId)),
+        if (!existingDueEntryData.transferAccountId) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Due not paid yet.",
+          });
+        }
 
-            await db.insert(miscellaneous).values({
-              userId: ctx.userId,
-              amount: existingDueEntryData.amount,
-              entryName: `${existingDueEntryData.entryName} (due deleted)`,
-              entryType: "in",
-            }),
-          ];
+        let updatedMiscBalance, updatedSavingsBalance;
 
-          await Promise.all(promises);
+        if (existingDueEntryData.dueType === "payable") {
+          if (existingDueEntryData.transferAccountType === "miscellaneous") {
+            updatedMiscBalance =
+              input.miscBalance + existingDueEntryData.amount;
+          } else if (existingDueEntryData.transferAccountType === "savings") {
+            updatedSavingsBalance =
+              input.savingBalance + existingDueEntryData.amount;
+          }
         } else {
-          const promises = [
+          if (existingDueEntryData.transferAccountType === "miscellaneous") {
+            updatedMiscBalance =
+              input.miscBalance - existingDueEntryData.amount;
+          } else if (existingDueEntryData.transferAccountType === "savings") {
+            updatedSavingsBalance =
+              input.savingBalance - existingDueEntryData.amount;
+          }
+        }
+
+        if (existingDueEntryData.transferAccountType === "miscellaneous") {
+          const existingMiscEntry = await db
+            .select()
+            .from(miscellaneous)
+            .where(
+              eq(miscellaneous.id, existingDueEntryData.transferAccountId)
+            );
+
+          if (existingMiscEntry.length > 0) {
+            const promises = [
+              db
+                .update(users)
+                .set({
+                  miscellanousBalance: updatedMiscBalance,
+                })
+                .where(eq(users.id, ctx.userId)),
+              db
+                .delete(miscellaneous)
+                .where(
+                  eq(miscellaneous.id, existingDueEntryData.transferAccountId)
+                ),
+            ];
+
+            await Promise.all(promises);
+          }
+        } else if (existingDueEntryData.transferAccountType === "savings") {
+          const existingSavingsEntry = await db
+            .select()
+            .from(savings)
+            .where(eq(savings.id, existingDueEntryData.transferAccountId));
+
+          if (existingSavingsEntry.length > 0) {
+            const promises = [
+              db
+                .update(users)
+                .set({
+                  savingsBalance: updatedSavingsBalance,
+                })
+                .where(eq(users.id, ctx.userId)),
+
+              db
+                .delete(savings)
+                .where(eq(savings.id, existingDueEntryData.transferAccountId)),
+            ];
+
+            await Promise.all(promises);
+          }
+        } else {
+          const currentMonthBooks = await db
+            .select()
+            .from(books)
+            .where(
+              and(
+                eq(books.userId, ctx.userId),
+                sql`MONTH(books.createdAt) = MONTH(NOW())`,
+                sql`YEAR(books.createdAt) = YEAR(NOW())`
+              )
+            );
+
+          if (currentMonthBooks.length === 0) {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: "No book found",
+            });
+          }
+
+          let allowTotalSpendingUpdation = true; //to check if the 'totalSpendings' field needs to be updated
+
+          if (existingDueEntryData.transferAccountType === "need") {
+            const existingNeedEntry = await db
+              .select()
+              .from(needs)
+              .where(eq(needs.id, existingDueEntryData.transferAccountId));
+
+            if (existingNeedEntry.length === 0) {
+              allowTotalSpendingUpdation = false;
+            } else {
+              await db
+                .delete(needs)
+                .where(eq(needs.id, existingDueEntryData.transferAccountId));
+            }
+          } else {
+            const existingWantEntry = await db
+              .select()
+              .from(wants)
+              .where(eq(wants.id, existingDueEntryData.transferAccountId));
+
+            if (existingWantEntry.length === 0) {
+              allowTotalSpendingUpdation = false;
+            } else {
+              await db
+                .delete(wants)
+                .where(eq(wants.id, existingDueEntryData.transferAccountId));
+            }
+          }
+
+          if (allowTotalSpendingUpdation) {
             await db
-              .update(users)
+              .update(books)
               .set({
-                miscellanousBalance:
-                  input.miscBalance - existingDueEntryData.amount,
+                totalSpendings:
+                  currentMonthBooks[0].totalSpendings -
+                  existingDueEntryData.amount,
               })
-              .where(eq(users.id, ctx.userId)),
-
-            await db.insert(miscellaneous).values({
-              userId: ctx.userId,
-              amount: existingDueEntryData.amount,
-              entryName: `${existingDueEntryData.entryName} (due deleted)`,
-              entryType: "out",
-            }),
-          ];
-
-          await Promise.all(promises);
+              .where(eq(books.id, currentMonthBooks[0].id));
+          }
         }
       } else {
         if (input.dueType === "payable") {
@@ -481,36 +577,51 @@ export const dueRouter = createTRPCRouter({
           }
 
           if (existingDueEntry.transferAccountType === "miscellaneous") {
-            const promises = [
-              db
-                .update(users)
-                .set({
-                  miscellanousBalance:
-                    input.miscBalance + existingDueEntry.amount,
-                })
-                .where(eq(users.id, ctx.userId)),
-              db
-                .delete(miscellaneous)
-                .where(
-                  eq(miscellaneous.id, existingDueEntry.transferAccountId)
-                ),
-            ];
+            const existingMiscEntry = await db
+              .select()
+              .from(miscellaneous)
+              .where(eq(miscellaneous.id, existingDueEntry.transferAccountId));
 
-            await Promise.all(promises);
+            if (existingMiscEntry.length > 0) {
+              const promises = [
+                db
+                  .update(users)
+                  .set({
+                    miscellanousBalance:
+                      input.miscBalance + existingDueEntry.amount,
+                  })
+                  .where(eq(users.id, ctx.userId)),
+                db
+                  .delete(miscellaneous)
+                  .where(
+                    eq(miscellaneous.id, existingDueEntry.transferAccountId)
+                  ),
+              ];
+
+              await Promise.all(promises);
+            }
           } else if (existingDueEntry.transferAccountType === "savings") {
-            const promises = [
-              db
-                .update(users)
-                .set({
-                  savingsBalance: input.savingBalance + existingDueEntry.amount,
-                })
-                .where(eq(users.id, ctx.userId)),
-              db
-                .delete(savings)
-                .where(eq(savings.id, existingDueEntry.transferAccountId)),
-            ];
+            const existingSavingsEntry = await db
+              .select()
+              .from(savings)
+              .where(eq(savings.id, existingDueEntry.transferAccountId));
 
-            await Promise.all(promises);
+            if (existingSavingsEntry.length > 0) {
+              const promises = [
+                db
+                  .update(users)
+                  .set({
+                    savingsBalance:
+                      input.savingBalance + existingDueEntry.amount,
+                  })
+                  .where(eq(users.id, ctx.userId)),
+                db
+                  .delete(savings)
+                  .where(eq(savings.id, existingDueEntry.transferAccountId)),
+              ];
+
+              await Promise.all(promises);
+            }
           } else {
             const currentMonthBooks = await db
               .select()
@@ -530,22 +641,45 @@ export const dueRouter = createTRPCRouter({
               });
             }
 
-            await db
-              .update(books)
-              .set({
-                totalSpendings:
-                  currentMonthBooks[0].totalSpendings - existingDueEntry.amount,
-              })
-              .where(eq(books.id, currentMonthBooks[0].id));
+            let allowTotalSpendingUpdation = true; //to check if the 'totalSpendings' field needs to be updated
 
             if (existingDueEntry.transferAccountType === "need") {
-              await db
-                .delete(needs)
+              const existingNeedEntry = await db
+                .select()
+                .from(needs)
                 .where(eq(needs.id, existingDueEntry.transferAccountId));
+
+              if (existingNeedEntry.length === 0) {
+                allowTotalSpendingUpdation = false;
+              } else {
+                await db
+                  .delete(needs)
+                  .where(eq(needs.id, existingDueEntry.transferAccountId));
+              }
             } else {
-              await db
-                .delete(wants)
+              const existingWantEntry = await db
+                .select()
+                .from(wants)
                 .where(eq(wants.id, existingDueEntry.transferAccountId));
+
+              if (existingWantEntry.length === 0) {
+                allowTotalSpendingUpdation = false;
+              } else {
+                await db
+                  .delete(wants)
+                  .where(eq(wants.id, existingDueEntry.transferAccountId));
+              }
+            }
+
+            if (allowTotalSpendingUpdation) {
+              await db
+                .update(books)
+                .set({
+                  totalSpendings:
+                    currentMonthBooks[0].totalSpendings -
+                    existingDueEntry.amount,
+                })
+                .where(eq(books.id, currentMonthBooks[0].id));
             }
           }
 
@@ -621,36 +755,51 @@ export const dueRouter = createTRPCRouter({
           }
 
           if (existingDueEntry.transferAccountType === "miscellaneous") {
-            const promises = [
-              db
-                .update(users)
-                .set({
-                  miscellanousBalance:
-                    input.miscBalance - existingDueEntry.amount,
-                })
-                .where(eq(users.id, ctx.userId)),
-              db
-                .delete(miscellaneous)
-                .where(
-                  eq(miscellaneous.id, existingDueEntry.transferAccountId)
-                ),
-            ];
+            const existingMiscEntry = await db
+              .select()
+              .from(miscellaneous)
+              .where(eq(miscellaneous.id, existingDueEntry.transferAccountId));
 
-            await Promise.all(promises);
+            if (existingMiscEntry.length > 0) {
+              const promises = [
+                db
+                  .update(users)
+                  .set({
+                    miscellanousBalance:
+                      input.miscBalance - existingDueEntry.amount,
+                  })
+                  .where(eq(users.id, ctx.userId)),
+                db
+                  .delete(miscellaneous)
+                  .where(
+                    eq(miscellaneous.id, existingDueEntry.transferAccountId)
+                  ),
+              ];
+
+              await Promise.all(promises);
+            }
           } else if (existingDueEntry.transferAccountType === "savings") {
-            const promises = [
-              db
-                .update(users)
-                .set({
-                  savingsBalance: input.savingBalance - existingDueEntry.amount,
-                })
-                .where(eq(users.id, ctx.userId)),
-              db
-                .delete(savings)
-                .where(eq(savings.id, existingDueEntry.transferAccountId)),
-            ];
+            const existingSavingsEntry = await db
+              .select()
+              .from(savings)
+              .where(eq(savings.id, existingDueEntry.transferAccountId));
 
-            await Promise.all(promises);
+            if (existingSavingsEntry.length > 0) {
+              const promises = [
+                db
+                  .update(users)
+                  .set({
+                    savingsBalance:
+                      input.savingBalance - existingDueEntry.amount,
+                  })
+                  .where(eq(users.id, ctx.userId)),
+                db
+                  .delete(savings)
+                  .where(eq(savings.id, existingDueEntry.transferAccountId)),
+              ];
+
+              await Promise.all(promises);
+            }
           }
 
           await db

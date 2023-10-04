@@ -21,9 +21,11 @@ import { buttonVariants } from "@/components/ui/button";
 export const DueDelete = ({
   entryDetails,
   miscBalance,
+  savingBalance,
 }: {
   entryDetails: ExtendedEntryType;
   miscBalance: number;
+  savingBalance: number;
 }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -99,6 +101,7 @@ export const DueDelete = ({
                       dueReceivableBalance: entryDetails.dueReceivableBalance,
                       dueType: entryDetails.dueType,
                       dueStatus: entryDetails.dueStatus,
+                      savingBalance,
                       miscBalance,
                     })
                   }

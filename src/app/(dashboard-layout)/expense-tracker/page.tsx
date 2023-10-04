@@ -179,7 +179,7 @@ const Dashboard = async () => {
                       </span>
                       <span>
                         Total Spendings:{" "}
-                        {`${currentUser.currency}${needsTotal + wantsTotal}`}
+                        {`${currentUser.currency}${currentMonthEntries.books[0].totalSpendings}`}
                       </span>
                     </div>
                   </div>

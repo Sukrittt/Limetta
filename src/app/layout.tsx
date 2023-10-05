@@ -11,6 +11,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Providers } from "@/components/providers/providers";
 import { ThemeWrapper } from "@/components/themes/theme-wrapper";
 import { ThemeSwitcher } from "@/components/themes/theme-swticher";
+import { MountClientWrapper } from "@/components/providers/mount-client-wrapper";
 
 const font = Montserrat({ subsets: ["latin"], weight: "500" });
 
@@ -72,7 +73,7 @@ export default function RootLayout({
         <Providers>
           <ThemeWrapper>
             <Toaster />
-            {children}
+            <MountClientWrapper>{children}</MountClientWrapper>
           </ThemeWrapper>
           <ThemeSwitcher />
         </Providers>

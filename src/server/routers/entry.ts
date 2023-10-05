@@ -108,14 +108,18 @@ export const entryRouter = createTRPCRouter({
           });
         }
 
-        await db
-          .update(books)
-          .set({
-            totalSpendings: input.totalSpendings - existingNeedEntry[0].amount,
-          })
-          .where(eq(books.id, existingNeedEntry[0].bookId));
+        const promises = [
+          db
+            .update(books)
+            .set({
+              totalSpendings:
+                input.totalSpendings - existingNeedEntry[0].amount,
+            })
+            .where(eq(books.id, existingNeedEntry[0].bookId)),
+          db.delete(needs).where(eq(needs.id, input.expenseId)),
+        ];
 
-        await db.delete(needs).where(eq(needs.id, input.expenseId));
+        await Promise.all(promises);
       } else if (input.expenseType === "want") {
         const existingWantEntry = await db
           .select()
@@ -143,14 +147,18 @@ export const entryRouter = createTRPCRouter({
           });
         }
 
-        await db
-          .update(books)
-          .set({
-            totalSpendings: input.totalSpendings - existingWantEntry[0].amount,
-          })
-          .where(eq(books.id, existingWantEntry[0].bookId));
+        const promises = [
+          db
+            .update(books)
+            .set({
+              totalSpendings:
+                input.totalSpendings - existingWantEntry[0].amount,
+            })
+            .where(eq(books.id, existingWantEntry[0].bookId)),
+          db.delete(wants).where(eq(wants.id, input.expenseId)),
+        ];
 
-        await db.delete(wants).where(eq(wants.id, input.expenseId));
+        await Promise.all(promises);
       }
     }),
   editEntry: privateProcedure
@@ -202,15 +210,18 @@ export const entryRouter = createTRPCRouter({
           .where(eq(books.id, existingNeedEntry[0].bookId));
 
         if (input.expenseType !== input.initialExpenseType) {
-          await db.delete(needs).where(eq(needs.id, input.expenseId));
+          const promises = [
+            db.delete(needs).where(eq(needs.id, input.expenseId)),
+            db.insert(wants).values({
+              amount: input.amount,
+              description: input.description,
+              bookId: input.bookId,
+              userId: ctx.userId,
+              createdAt: existingNeedEntry[0].createdAt,
+            }),
+          ];
 
-          await db.insert(wants).values({
-            amount: input.amount,
-            description: input.description,
-            bookId: input.bookId,
-            userId: ctx.userId,
-            createdAt: existingNeedEntry[0].createdAt,
-          });
+          await Promise.all(promises);
         } else {
           await db
             .update(needs)
@@ -253,15 +264,19 @@ export const entryRouter = createTRPCRouter({
           .where(eq(books.id, existingWantEntry[0].bookId));
 
         if (input.expenseType !== input.initialExpenseType) {
-          await db.delete(wants).where(eq(wants.id, input.expenseId));
+          const promises = [
+            db.delete(wants).where(eq(wants.id, input.expenseId)),
 
-          await db.insert(needs).values({
-            amount: input.amount,
-            description: input.description,
-            bookId: input.bookId,
-            userId: ctx.userId,
-            createdAt: existingWantEntry[0].createdAt,
-          });
+            db.insert(needs).values({
+              amount: input.amount,
+              description: input.description,
+              bookId: input.bookId,
+              userId: ctx.userId,
+              createdAt: existingWantEntry[0].createdAt,
+            }),
+          ];
+
+          await Promise.all(promises);
         } else {
           await db
             .update(wants)

@@ -14,7 +14,7 @@ export const DashboardSidebar = () => {
   return (
     <div className="hidden xl:flex flex-col gap-y-8 px-5 pb-8 pt-3 xl:pt-6 md:py-8">
       <Link href="/" className="text-lg font-bold tracking-tight">
-        {siteConfig.name}
+        <span className="text-primary">B</span>alance<span className="text-primary">W</span>ise
       </Link>
 
       <div className="space-y-4 tracking-tight">

@@ -177,7 +177,7 @@ const Dashboard = async () => {
                     </div>
                     {expenses.map((expense) => (
                       <ExpenseCard
-                        key={expense.id}
+                        key={expense.createdAt.toString()}
                         expense={expense}
                         currency={currentUser.currency as CurrencyType}
                       />

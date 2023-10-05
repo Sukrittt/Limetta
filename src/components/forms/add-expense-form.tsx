@@ -102,9 +102,23 @@ export const AddExpenseForm = ({
       <ModalBody>
         <form className="grid w-full max-w-xl gap-5">
           <div className="flex flex-col gap-y-2">
-            <Label>Amount</Label>
+            <Label>Expense Description</Label>
             <Input
               autoFocus
+              placeholder="Eg: Coffee"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSubmit();
+                }
+              }}
+            />
+          </div>
+
+          <div className="flex flex-col gap-y-2">
+            <Label>Amount</Label>
+            <Input
               placeholder="Eg: 20"
               value={amount ?? ""}
               onChange={(e) => setAmount(e.target.value)}
@@ -128,19 +142,6 @@ export const AddExpenseForm = ({
             />
           </div>
 
-          <div className="flex flex-col gap-y-2">
-            <Label>Expense Description</Label>
-            <Input
-              placeholder="Eg: Coffee"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleSubmit();
-                }
-              }}
-            />
-          </div>
           <div>
             <RadioGroup
               orientation="horizontal"

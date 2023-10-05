@@ -117,7 +117,7 @@ const Dashboard = async () => {
                   <div className="pb-4 flex flex-col gap-y-2">
                     {expenses.map((expense) => (
                       <ExpenseCard
-                        key={expense.id}
+                        key={expense.createdAt.toString()}
                         expense={expense}
                         currency={currentUser.currency as CurrencyType}
                       />

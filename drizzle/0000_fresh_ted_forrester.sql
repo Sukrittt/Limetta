@@ -59,6 +59,7 @@ CREATE TABLE `miscellaneous` (
 	`amount` float NOT NULL,
 	`transferingTo` varchar(100),
 	`transferingFrom` varchar(100),
+	`dueType` varchar(100),
 	`userId` varchar(255) NOT NULL,
 	`createdAt` timestamp NOT NULL DEFAULT (now()),
 	CONSTRAINT `miscellaneous_id` PRIMARY KEY(`id`)
@@ -70,6 +71,7 @@ CREATE TABLE `needs` (
 	`description` varchar(100) NOT NULL,
 	`userId` varchar(255) NOT NULL,
 	`bookId` int NOT NULL,
+	`dueType` varchar(100),
 	`createdAt` timestamp NOT NULL DEFAULT (now()),
 	CONSTRAINT `needs_id` PRIMARY KEY(`id`)
 );
@@ -87,6 +89,7 @@ CREATE TABLE `savings` (
 	`entryName` varchar(100) NOT NULL,
 	`entryType` varchar(100) NOT NULL,
 	`amount` float NOT NULL,
+	`dueType` varchar(100),
 	`transferingTo` varchar(100),
 	`transferingFrom` varchar(100),
 	`userId` varchar(255) NOT NULL,
@@ -134,6 +137,7 @@ CREATE TABLE `wants` (
 	`description` varchar(100) NOT NULL,
 	`userId` varchar(255) NOT NULL,
 	`bookId` int NOT NULL,
+	`dueType` varchar(100),
 	`createdAt` timestamp NOT NULL DEFAULT (now()),
 	CONSTRAINT `wants_id` PRIMARY KEY(`id`)
 );

@@ -126,6 +126,10 @@ export const needs = mysqlTable("needs", {
   description: varchar("description", { length: 100 }).notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
   bookId: int("bookId").notNull(),
+  dueType: varchar("dueType", {
+    length: 100,
+    enum: ["payable"],
+  }),
   createdAt: timestamp("createdAt").notNull().defaultNow(),
 });
 
@@ -156,6 +160,10 @@ export const wants = mysqlTable("wants", {
   description: varchar("description", { length: 100 }).notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
   bookId: int("bookId").notNull(),
+  dueType: varchar("dueType", {
+    length: 100,
+    enum: ["payable"],
+  }),
   createdAt: timestamp("createdAt").notNull().defaultNow(),
 });
 
@@ -188,6 +196,10 @@ export const savings = mysqlTable("savings", {
     enum: ["in", "out"],
   }).notNull(),
   amount: float("amount").notNull(),
+  dueType: varchar("dueType", {
+    length: 100,
+    enum: ["payable", "receivable"],
+  }),
   transferingTo: varchar("transferingTo", {
     length: 100,
     enum: ["investments", "miscellaneous"],
@@ -264,6 +276,10 @@ export const miscellaneous = mysqlTable("miscellaneous", {
   transferingFrom: varchar("transferingFrom", {
     length: 100,
     enum: ["investments", "savings"],
+  }),
+  dueType: varchar("dueType", {
+    length: 100,
+    enum: ["payable", "receivable"],
   }),
   userId: varchar("userId", { length: 255 }).notNull(),
   createdAt: timestamp("createdAt").notNull().defaultNow(),

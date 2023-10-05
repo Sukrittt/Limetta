@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "0ad1e329-859f-40ac-8e0a-b5f568be5896",
+  "id": "007df34f-8da4-4bd1-82e8-e8f9bc8fd22e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -386,6 +386,13 @@
           "notNull": false,
           "autoincrement": false
         },
+        "dueType": {
+          "name": "dueType",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "userId": {
           "name": "userId",
           "type": "varchar(255)",
@@ -450,6 +457,13 @@
           "type": "int",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "dueType": {
+          "name": "dueType",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         },
         "createdAt": {
@@ -547,6 +561,13 @@
           "type": "float",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "dueType": {
+          "name": "dueType",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         },
         "transferingTo": {
@@ -841,6 +862,13 @@
           "type": "int",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "dueType": {
+          "name": "dueType",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         },
         "createdAt": {

@@ -1,10 +1,13 @@
 "use client";
+import { useState } from "react";
 import {
   Modal,
   ModalContent,
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/modal";
+import { Spinner } from "@nextui-org/spinner";
+
 import { EntryType } from "@/types";
 import { CurrencyType } from "@/types";
 import { InvestmentEditEntryForm } from "@/components/forms/investment-edit-form";
@@ -21,15 +24,20 @@ export const InvestmentEditEntry = ({
   tradeBooking: boolean;
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [disabled, setDisabled] = useState(false);
 
   return (
     <>
-      <span
-        className="cursor-pointer hover:text-primary hover:opacity-90 transition"
-        onClick={onOpen}
-      >
-        Edit
-      </span>
+      {disabled ? (
+        <Spinner color="default" size="sm" className="h-5 w-5" />
+      ) : (
+        <span
+          className="cursor-pointer hover:text-primary hover:opacity-90 transition"
+          onClick={onOpen}
+        >
+          Edit
+        </span>
+      )}
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -43,11 +51,12 @@ export const InvestmentEditEntry = ({
                 Edit entry
               </ModalHeader>
               <InvestmentEditEntryForm
-                tradeBooking={tradeBooking}
-                initialTotalInvested={initialTotalInvested}
-                entryDetails={entryDetails}
                 onClose={onClose}
                 currency={currency}
+                setDisabled={setDisabled}
+                tradeBooking={tradeBooking}
+                entryDetails={entryDetails}
+                initialTotalInvested={initialTotalInvested}
               />
             </>
           )}

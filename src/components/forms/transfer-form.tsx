@@ -25,6 +25,7 @@ export const TransferForm = ({
   miscellaneousBalance,
   savingsBalance,
   currency,
+  setDisabled,
 }: {
   onClose: () => void;
   currency: CurrencyType;
@@ -32,6 +33,7 @@ export const TransferForm = ({
   savingsBalance: number;
   investmentsBalance: number;
   miscellaneousBalance: number;
+  setDisabled: (disabled: boolean) => void;
 }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -47,11 +49,6 @@ export const TransferForm = ({
   const [toSelection, setToSelection] = useState<Selection>(
     new Set([toAccount])
   );
-
-  const testSelection = () => {
-    setToSelection(new Set(["savings"]));
-    setToAccount("savings");
-  };
 
   let transferableAmount =
     fromAccount === "investments"
@@ -90,6 +87,7 @@ export const TransferForm = ({
           </>
         ),
       });
+      setDisabled(false);
       onClose();
     },
     onError: () => {
@@ -137,6 +135,8 @@ export const TransferForm = ({
         variant: "destructive",
       });
     }
+
+    setDisabled(true);
 
     transferAmount.mutate({
       amount: parsedAmount,

@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -6,6 +7,7 @@ import {
   useDisclosure,
 } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
+import { Spinner } from "@nextui-org/spinner";
 
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
@@ -27,18 +29,31 @@ export const Transfer = ({
   miscellaneousBalance: number;
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [disabled, setDisabled] = useState(false);
 
   return (
     <>
-      <Button
-        onClick={onOpen}
-        className={cn(
-          buttonVariants({ variant: "secondary", size: "sm" }),
-          "rounded-xl"
-        )}
-      >
-        <Icons.transfer className="h-4 w-4 cursor-pointer group-hover:text-primary transition" />
-      </Button>
+      {disabled ? (
+        <Button
+          className={cn(
+            buttonVariants({ variant: "secondary", size: "sm" }),
+            "rounded-xl"
+          )}
+          disabled={disabled}
+        >
+          <Spinner color="default" size="sm" />
+        </Button>
+      ) : (
+        <Button
+          onClick={onOpen}
+          className={cn(
+            buttonVariants({ variant: "secondary", size: "sm" }),
+            "rounded-xl"
+          )}
+        >
+          <Icons.transfer className="h-4 w-4 cursor-pointer group-hover:text-primary transition" />
+        </Button>
+      )}
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -54,6 +69,7 @@ export const Transfer = ({
               <TransferForm
                 onClose={onClose}
                 currency={currency}
+                setDisabled={setDisabled}
                 initialSelected={initialSelected}
                 savingsBalance={savingsBalance}
                 investmentsBalance={investmentsBalance}

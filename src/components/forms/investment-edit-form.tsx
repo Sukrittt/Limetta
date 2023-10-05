@@ -23,12 +23,14 @@ export const InvestmentEditEntryForm = ({
   entryDetails,
   tradeBooking,
   initialTotalInvested,
+  setDisabled,
 }: {
   onClose: () => void;
   currency: CurrencyType;
   tradeBooking: boolean;
   initialTotalInvested: number;
   entryDetails: EntryType;
+  setDisabled: (disabled: boolean) => void;
 }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -58,6 +60,7 @@ export const InvestmentEditEntryForm = ({
           description: "Your entry has been updated successfully.",
         });
         onClose();
+        setDisabled(false);
       },
       onError: () => {
         toast({
@@ -102,6 +105,8 @@ export const InvestmentEditEntryForm = ({
         variant: "destructive",
       });
     }
+
+    setDisabled(true);
 
     updateInvestmentEntry.mutate({
       description,

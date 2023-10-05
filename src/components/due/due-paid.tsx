@@ -97,17 +97,22 @@ export const DuePaid = ({
 
   return (
     <>
-      <span
-        className={cn(
-          "cursor-pointer hover:text-primary hover:opacity-90 transition",
-          {
-            "hover:text-yellow-600": entryDetails.dueStatus === "paid",
-          }
-        )}
-        onClick={onOpen}
-      >
-        {markText}
-      </span>
+      {dueMarkPaidEntry.isLoading ? (
+        <Spinner color="default" size="sm" className="h-5 w-5" />
+      ) : (
+        <span
+          className={cn(
+            "cursor-pointer hover:text-primary hover:opacity-90 transition",
+            {
+              "hover:text-yellow-600": entryDetails.dueStatus === "paid",
+            }
+          )}
+          onClick={onOpen}
+        >
+          {markText}
+        </span>
+      )}
+
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}

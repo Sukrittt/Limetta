@@ -21,12 +21,14 @@ export const DueEditForm = ({
   entry,
   miscBalance,
   savingBalance,
+  setDisabled,
 }: {
   onClose: () => void;
   currency: CurrencyType;
   entry: ExtendedEntryType;
   miscBalance: number;
   savingBalance: number;
+  setDisabled: (disabled: boolean) => void;
 }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -50,6 +52,7 @@ export const DueEditForm = ({
         title: "Due updated",
         description: "Your due has been updated successfully.",
       });
+      setDisabled(false);
       onClose();
     },
     onError: () => {
@@ -122,6 +125,8 @@ export const DueEditForm = ({
         variant: "destructive",
       });
     }
+
+    setDisabled(true);
 
     editDueEntry.mutate({
       dueId: entry.entryId,

@@ -5,6 +5,8 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/modal";
+import { useState } from "react";
+import { Spinner } from "@nextui-org/spinner";
 
 import { EntryType } from "@/types";
 import { CurrencyType } from "@/types";
@@ -20,15 +22,20 @@ export const InvestmentBookEntry = ({
   entryDetails: EntryType;
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [disabled, setDisabled] = useState(false);
 
   return (
     <>
-      <span
-        className="cursor-pointer hover:text-primary hover:opacity-90 transition col-span-2"
-        onClick={onOpen}
-      >
-        Profit/Loss
-      </span>
+      {disabled ? (
+        <Spinner color="default" size="sm" className="h-5 w-5" />
+      ) : (
+        <span
+          className="cursor-pointer hover:text-primary hover:opacity-90 transition col-span-2"
+          onClick={onOpen}
+        >
+          Profit/Loss
+        </span>
+      )}
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -44,8 +51,9 @@ export const InvestmentBookEntry = ({
               <InvestBookEntryForm
                 onClose={onClose}
                 currency={currency}
-                initialBalance={initialBalance}
                 entryDetails={entryDetails}
+                setDisabled={setDisabled}
+                initialBalance={initialBalance}
               />
             </>
           )}

@@ -18,10 +18,12 @@ export const MiscEditForm = ({
   onClose,
   currency,
   entryDetails,
+  setDisabled,
 }: {
   onClose: () => void;
   currency: CurrencyType;
   entryDetails: EntryType;
+  setDisabled: (disabled: boolean) => void;
 }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -43,6 +45,7 @@ export const MiscEditForm = ({
         title: "Entry updated",
         description: "Your entry has been updated successfully.",
       });
+      setDisabled(false);
       onClose();
     },
     onError: () => {
@@ -80,6 +83,8 @@ export const MiscEditForm = ({
         variant: "destructive",
       });
     }
+
+    setDisabled(true);
 
     updateMiscEntry.mutate({
       amount: parsedAmount,

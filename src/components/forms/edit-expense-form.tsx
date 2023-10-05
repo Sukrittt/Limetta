@@ -17,9 +17,11 @@ import { buttonVariants } from "@/components/ui/button";
 export const EditExpenseForm = ({
   expense,
   onClose,
+  setDisabled,
 }: {
   expense: ExpenseType;
   onClose: () => void;
+  setDisabled: (disabled: boolean) => void;
 }) => {
   const router = useRouter();
   const [amount, setAmount] = useState(expense.amount.toLocaleString());
@@ -36,6 +38,7 @@ export const EditExpenseForm = ({
         title: "Expense Updated",
         description: "Your expense has been updated successfully.",
       });
+      setDisabled(false);
       router.refresh();
     },
     onError: () => {
@@ -65,6 +68,8 @@ export const EditExpenseForm = ({
     }
 
     const parsedAmount = parseFloat(amount.replace(/,/g, ""));
+
+    setDisabled(true);
 
     editEntry.mutate({
       bookId: expense.bookId,

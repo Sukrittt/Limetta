@@ -1,6 +1,8 @@
 import { Divider } from "@nextui-org/divider";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
+import { Icons } from "@/components/icons";
+import ToolTip from "@/components/ui/tool-tip";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
 import { DueEntryItemSkeleton } from "@/components/skeletons/infinite-cards";
@@ -9,6 +11,28 @@ const loading = () => {
   return (
     <Card>
       <CardContent className="flex flex-col gap-y-8 py-8 relative">
+        <div className="absolute top-3 left-3">
+          <ToolTip
+            showArrow
+            customComponent={
+              <div className="px-1 py-2 max-w-xs">
+                <div className="text-small font-bold">Dues</div>
+                <div className="text-tiny space-y-2">
+                  <p>
+                    1. Keep track of your pending dues and mark them as paid
+                    when cleared.
+                  </p>
+                  <p>
+                    2. Once marked as paid, it will be reflected in the account
+                    you choose.
+                  </p>
+                </div>
+              </div>
+            }
+          >
+            <Icons.help className="h-4 w-4 text-muted-foreground" />
+          </ToolTip>
+        </div>
         <div className="flex justify-between sm:justify-around">
           <div className="flex flex-col items-center gap-y-2">
             <Skeleton className="h-10 w-28 rounded-lg" />

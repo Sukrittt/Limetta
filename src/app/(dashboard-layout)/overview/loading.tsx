@@ -11,7 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const loading = () => {
   return (
     <div className="tracking-tight grid gap-4">
-      <div className="space-y-2">
+      <div className="space-y-2 -mt-2">
         <h1 className="line-clamp-1 text-3xl font-bold tracking-tight py-1">
           Budget Overview
         </h1>
@@ -66,13 +66,13 @@ const loading = () => {
             <Skeleton className="h-full w-full" />
           </CardContent>
         </Card>
-        <Card className="col-span-5 lg:col-span-2 max-h-[450px] overflow-y-auto no-scrollbar">
+        <Card className="col-span-5 lg:col-span-2 h-[410px] overflow-y-auto no-scrollbar">
           <CardHeader>
             <CardTitle className="text-md">Total Monthly Expenses</CardTitle>
             <CardDescription>You have spent --- till now.</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-y-2 pb-6 lg:py-0 px-3">
-            {Array.from({ length: 6 }).map((_, index) => (
+            {Array.from({ length: 12 }).map((_, index) => (
               <div
                 key={index}
                 className="flex items-center justify-between hover:bg-muted rounded-lg transtion p-3 cursor-pointer border"

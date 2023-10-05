@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { Divider } from "@nextui-org/divider";
 import { features, socials, techStack } from "@/config";
@@ -6,8 +7,8 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const About = () => {
   return (
-    <div className="grid gap-8">
-      <Card>
+    <Card>
+      <ScrollShadow className="h-[calc(100vh-120px)] xl:h-[calc(100vh-90px)] w-full no-scrollbar">
         <CardContent className="grid items-center gap-8 pb-8 pt-6 md:py-6">
           <div>
             <div className="grid gap-1">
@@ -90,8 +91,8 @@ const About = () => {
             </ul>
           </div>
         </CardContent>
-      </Card>
-    </div>
+      </ScrollShadow>
+    </Card>
   );
 };
 

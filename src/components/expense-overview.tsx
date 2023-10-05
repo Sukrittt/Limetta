@@ -5,13 +5,16 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 import { cn } from "@/lib/utils";
 import { themes } from "@/themes";
+import { CurrencyType } from "@/types";
 import { useConfig } from "@/hooks/use-config";
 import { buttonVariants } from "@/components/ui/button";
 
 export const ExpenseOverview = ({
   data,
+  currency,
 }: {
   data: { name: string; total: number }[];
+  currency: CurrencyType;
 }) => {
   const { theme: mode } = useTheme();
   const [config] = useConfig();
@@ -49,7 +52,7 @@ export const ExpenseOverview = ({
           fontSize={12}
           tickLine={false}
           axisLine={false}
-          tickFormatter={(value) => `₹${value}`}
+          tickFormatter={(value) => `${currency}${value}`}
         />
         <Bar
           dataKey="total"

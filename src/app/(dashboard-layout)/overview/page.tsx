@@ -86,7 +86,7 @@ const Overview = async () => {
 
   return (
     <div className="grid gap-4">
-      <div className="space-y-2">
+      <div className="space-y-2 -mt-2">
         <h1 className="line-clamp-1 text-3xl font-bold tracking-tight py-1">
           Budget Overview
         </h1>
@@ -138,7 +138,10 @@ const Overview = async () => {
             <CardTitle className="text-md">Overview</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
-            <ExpenseOverview data={data} />
+            <ExpenseOverview
+              data={data}
+              currency={currentUser.currency as CurrencyType}
+            />
           </CardContent>
         </Card>
         <Card className="col-span-5 lg:col-span-2">

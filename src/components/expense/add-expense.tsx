@@ -36,7 +36,7 @@ export const AddExpense: FC<AddExpenseProps> = ({
   const { mutate: downloadEntries, isLoading } = useMutation({
     mutationFn: async () => {
       const excelData: ExcelDataType = {
-        data: expenses.map((expense) => ({
+        data: expenses.reverse().map((expense) => ({
           date: format(expense.createdAt, "dd-MM-yyyy"),
           details: expense.description,
           needs: expense.type === "need" ? expense.amount.toString() : "",

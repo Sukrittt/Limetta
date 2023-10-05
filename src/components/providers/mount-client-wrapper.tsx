@@ -13,7 +13,7 @@ export const MountClientWrapper = ({ children }: { children: ReactNode }) => {
 
   if (!mounted) {
     return (
-      <div className="h-screen w-screen bg-background grid place-items-center">
+      <div className="h-[90vh] sm:h-screen w-[90vh] sm:w-screen bg-background grid place-items-center">
         <div className="flex gap-x-4 items-center text-muted-foreground">
           <Spinner color="default" size="sm" />
           <p className="text-xs font-bold tracking-tighter">

@@ -31,7 +31,7 @@ const loading = () => {
                   <span className="text-center">Wants</span>
                 </div>
                 <div className="flex flex-col gap-y-4">
-                  {Array.from({ length: 10 }).map((_, index) => (
+                  {Array.from({ length: 15 }).map((_, index) => (
                     <ExpenseCardSkelton key={index} />
                   ))}
                 </div>

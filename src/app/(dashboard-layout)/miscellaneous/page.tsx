@@ -33,7 +33,7 @@ const Miscellaneous = async () => {
                   Miscellaneous Account
                 </div>
                 <div className="text-tiny">
-                  View your miscellaneous transactions and transfers.
+                  View your miscellaneous transactions, dues and transfers.
                 </div>
               </div>
             }

@@ -1,5 +1,5 @@
 import { createTRPCRouter } from "@/server/trpc";
-import { dueRouter } from "@/server/routers/due";
+import { dueRouter } from "@/server/routers/dues";
 import { userRouter } from "@/server/routers/user";
 import { miscRouter } from "@/server/routers/misc";
 import { bookRouter } from "@/server/routers/book";

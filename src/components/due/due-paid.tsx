@@ -39,7 +39,7 @@ export const DuePaid = ({
 
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
-  const dueMarkPaidEntry = trpc.dues.dueMarkAsPaid.useMutation({
+  const dueMarkPaidEntry = trpc.dues.markAsPaid.dueMarkAsPaid.useMutation({
     onSuccess: () => {
       router.refresh();
       queryClient.resetQueries(["dues-entries"]);

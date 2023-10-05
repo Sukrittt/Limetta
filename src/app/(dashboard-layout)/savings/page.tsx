@@ -30,7 +30,7 @@ const Savings = async () => {
               <div className="px-1 py-2 max-w-xs">
                 <div className="text-small font-bold">Savings Account</div>
                 <div className="text-tiny">
-                  View your monthly savings and transfers.
+                  View your monthly savings, dues and transfers.
                 </div>
               </div>
             }

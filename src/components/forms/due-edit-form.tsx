@@ -41,7 +41,7 @@ export const DueEditForm = ({
     "valid" | "invalid"
   >("valid");
 
-  const editDueEntry = trpc.dues.editDueEntry.useMutation({
+  const editDueEntry = trpc.dues.edit.editDueEntry.useMutation({
     onSuccess: () => {
       router.refresh();
       queryClient.resetQueries(["dues-entries"]);

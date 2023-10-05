@@ -25,7 +25,7 @@ const loading = () => {
               <span className="col-span-5 lg:col-span-3">Details</span>
               <span className="text-center col-span-2">Amount</span>
             </div>
-            {Array.from({ length: 5 }).map((_, index) => (
+            {Array.from({ length: 15 }).map((_, index) => (
               <SavingsEntryItemSkeleton key={index} />
             ))}
           </div>

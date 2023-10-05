@@ -43,7 +43,7 @@ const loading = () => {
               <span className="hidden lg:block text-center">Status</span>
               <span className="hidden lg:block text-center">Due date</span>
             </div>
-            {Array.from({ length: 5 }).map((_, index) => (
+            {Array.from({ length: 15 }).map((_, index) => (
               <DueEntryItemSkeleton key={index} />
             ))}
           </div>

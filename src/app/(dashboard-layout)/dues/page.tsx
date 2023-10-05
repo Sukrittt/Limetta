@@ -33,8 +33,8 @@ const Dues = async () => {
                     when cleared.
                   </p>
                   <p>
-                    2. Once marked as paid, it will be reflected in your
-                    miscellaneous account.
+                    2. Once marked as paid, it will be reflected in the account
+                    you choose.
                   </p>
                 </div>
               </div>

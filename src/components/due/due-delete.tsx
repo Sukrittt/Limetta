@@ -32,7 +32,7 @@ export const DueDelete = ({
 
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
-  const deleteEntry = trpc.dues.deleteDueEntry.useMutation({
+  const deleteEntry = trpc.dues.delete.deleteDueEntry.useMutation({
     onSuccess: () => {
       router.refresh();
       queryClient.resetQueries(["dues-entries"]);

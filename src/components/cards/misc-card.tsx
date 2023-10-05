@@ -160,7 +160,14 @@ const MiscEntryItem = ({
                       ${transferText} account`}
             </>
           ) : (
-            entry.entryName
+            <p>
+              {entry.entryName}{" "}
+              {entry.dueType && (
+                <span className="text-xs text-muted-foreground font-mono">{`(due ${
+                  entry.dueType === "payable" ? "paid" : "recieved"
+                })`}</span>
+              )}
+            </p>
           )}
         </span>
 
@@ -182,6 +189,13 @@ const MiscEntryItem = ({
             {transferText &&
               transferText?.charAt(0).toUpperCase() + transferText?.slice(1)}
           </Link>
+        ) : entry.dueType ? (
+          <Link
+            href="/dues"
+            className="hidden lg:block text-primary text-center text-xs underline underline-offset-4"
+          >
+            Dues
+          </Link>
         ) : (
           <div className="hidden lg:flex justify-around items-center text-xs">
             <MiscEditEntry entryDetails={entryDetails} currency={currency} />
@@ -197,6 +211,13 @@ const MiscEntryItem = ({
           >
             {transferText &&
               transferText?.charAt(0).toUpperCase() + transferText?.slice(1)}
+          </Link>
+        ) : entry.dueType ? (
+          <Link
+            href="/dues"
+            className="text-primary text-center text-xs underline underline-offset-4"
+          >
+            Dues
           </Link>
         ) : (
           <div className="flex gap-x-4 items-center text-xs">

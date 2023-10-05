@@ -94,6 +94,13 @@ export const entryRouter = createTRPCRouter({
           });
         }
 
+        if (existingNeedEntry[0].dueType) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "You cannot delete a due entry from here.",
+          });
+        }
+
         if (existingNeedEntry[0].userId !== ctx.userId) {
           throw new TRPCError({
             code: "UNAUTHORIZED",
@@ -119,6 +126,13 @@ export const entryRouter = createTRPCRouter({
           throw new TRPCError({
             code: "NOT_FOUND",
             message: "No such entry found",
+          });
+        }
+
+        if (existingWantEntry[0].dueType) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "You cannot delete a due entry from here.",
           });
         }
 
@@ -165,6 +179,13 @@ export const entryRouter = createTRPCRouter({
           });
         }
 
+        if (existingNeedEntry[0].dueType) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "You cannot edit a due entry from here.",
+          });
+        }
+
         if (existingNeedEntry[0].userId !== ctx.userId) {
           throw new TRPCError({
             code: "UNAUTHORIZED",
@@ -206,6 +227,13 @@ export const entryRouter = createTRPCRouter({
           throw new TRPCError({
             code: "NOT_FOUND",
             message: "No such entry found",
+          });
+        }
+
+        if (existingWantEntry[0].dueType) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "You cannot edit a due entry",
           });
         }
 

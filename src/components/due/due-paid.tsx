@@ -20,7 +20,7 @@ import { toast } from "@/hooks/use-toast";
 import { ExtendedEntryType } from "@/types";
 import { buttonVariants } from "@/components/ui/button";
 
-type AccountType = "want" | "need" | "savings" | "miscellaneous" | null;
+type AccountType = "want" | "need" | "savings" | "miscellaneous";
 
 export const DuePaid = ({
   entryDetails,
@@ -34,7 +34,7 @@ export const DuePaid = ({
   const router = useRouter();
   const queryClient = useQueryClient();
   const [accountTypeSelected, setAccountTypeSelected] = useState<AccountType>(
-    entryDetails.dueStatus === "pending" ? "savings" : null
+    entryDetails.transferAccountType ?? "savings"
   );
 
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -88,7 +88,8 @@ export const DuePaid = ({
       initialDueBalance: calculatedDueBalance,
       miscBalance,
       savingBalance,
-      accountTransferType: accountTypeSelected,
+      accountTransferType:
+        entryDetails.dueStatus === "pending" ? accountTypeSelected : null,
       updatedDueStatus:
         entryDetails.dueStatus === "pending" ? "paid" : "pending",
     });
@@ -118,7 +119,7 @@ export const DuePaid = ({
             <>
               <ModalHeader className="flex flex-col gap-1 pb-0">
                 <h1>{markText}</h1>
-                {accountTypeSelected && (
+                {entryDetails.dueStatus === "pending" && (
                   <p className="text-muted-foreground font-normal text-base">
                     {entryDetails.dueType === "payable"
                       ? "From where should this amount be deducted?"
@@ -127,7 +128,7 @@ export const DuePaid = ({
                 )}
               </ModalHeader>
               <ModalBody>
-                {accountTypeSelected ? (
+                {entryDetails.dueStatus === "pending" ? (
                   <RadioGroup
                     value={accountTypeSelected}
                     onValueChange={(value) =>

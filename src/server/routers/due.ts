@@ -362,6 +362,7 @@ export const dueRouter = createTRPCRouter({
                     .set({
                       amount: input.amount,
                       entryName: input.description,
+                      dueType: "payable",
                       entryType: "out",
                     })
                     .where(
@@ -410,6 +411,7 @@ export const dueRouter = createTRPCRouter({
                     .set({
                       amount: input.amount,
                       entryName: input.description,
+                      dueType: "payable",
                       entryType: "out",
                     })
                     .where(
@@ -452,6 +454,7 @@ export const dueRouter = createTRPCRouter({
                     .set({
                       amount: input.amount,
                       entryName: input.description,
+                      dueType: "receivable",
                       entryType: "in",
                     })
                     .where(
@@ -486,6 +489,7 @@ export const dueRouter = createTRPCRouter({
                     .set({
                       amount: input.amount,
                       entryName: input.description,
+                      dueType: "receivable",
                       entryType: "in",
                     })
                     .where(
@@ -789,7 +793,8 @@ export const dueRouter = createTRPCRouter({
             const { insertId } = await db.insert(miscellaneous).values({
               userId: ctx.userId,
               amount: existingDueEntry.amount,
-              entryName: `${existingDueEntry.entryName} (due paid)`,
+              entryName: existingDueEntry.entryName,
+              dueType: "payable",
               entryType: "out",
             });
 
@@ -813,7 +818,8 @@ export const dueRouter = createTRPCRouter({
             const { insertId } = await db.insert(savings).values({
               userId: ctx.userId,
               amount: existingDueEntry.amount,
-              entryName: `${existingDueEntry.entryName} (due paid)`,
+              entryName: existingDueEntry.entryName,
+              dueType: "payable",
               entryType: "out",
             });
 
@@ -869,7 +875,8 @@ export const dueRouter = createTRPCRouter({
             if (input.accountTransferType === "need") {
               const { insertId } = await db.insert(needs).values({
                 amount: existingDueEntry.amount,
-                description: `${existingDueEntry.entryName} (due paid)`,
+                description: existingDueEntry.entryName,
+                dueType: "payable",
                 bookId,
                 userId: ctx.userId,
               });
@@ -878,7 +885,8 @@ export const dueRouter = createTRPCRouter({
             } else if (input.accountTransferType === "want") {
               const { insertId } = await db.insert(wants).values({
                 amount: existingDueEntry.amount,
-                description: `${existingDueEntry.entryName} (due paid)`,
+                description: existingDueEntry.entryName,
+                dueType: "payable",
                 bookId,
                 userId: ctx.userId,
               });
@@ -1033,7 +1041,8 @@ export const dueRouter = createTRPCRouter({
             const { insertId } = await db.insert(miscellaneous).values({
               userId: ctx.userId,
               amount: existingDueEntry.amount,
-              entryName: `${existingDueEntry.entryName} (due received)`,
+              entryName: existingDueEntry.entryName,
+              dueType: "receivable",
               entryType: "in",
             });
 
@@ -1050,7 +1059,8 @@ export const dueRouter = createTRPCRouter({
             const { insertId } = await db.insert(savings).values({
               userId: ctx.userId,
               amount: existingDueEntry.amount,
-              entryName: `${existingDueEntry.entryName} (due received)`,
+              entryName: existingDueEntry.entryName,
+              dueType: "receivable",
               entryType: "in",
             });
 

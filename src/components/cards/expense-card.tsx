@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { format } from "date-fns";
 
 import { ExpenseType } from "@/types";
@@ -23,7 +24,12 @@ export const ExpenseCard = ({
           </span>
         </div>
         <span className="col-span-2 sm:col-span-3 break-words">
-          {expense.description}
+          {expense.description}{" "}
+          {expense.dueType && expense.dueType === "payable" && (
+            <span className="text-xs text-muted-foreground font-mono">
+              (due paid)
+            </span>
+          )}
         </span>
         {expense.type === "need" ? (
           <span className="text-center">{`${currency}${expense.amount.toLocaleString()}`}</span>
@@ -35,14 +41,23 @@ export const ExpenseCard = ({
         ) : (
           <span className="text-center">-</span>
         )}
-        <div className="hidden lg:flex justify-around text-xs items-center">
-          <EditExpense expense={expense} />
-          <DeleteExpense
-            expenseId={expense.id}
-            expenseType={expense.type}
-            totalSpendings={expense.totalSpendings}
-          />
-        </div>
+        {expense.dueType ? (
+          <Link
+            href="/dues"
+            className="hidden lg:block text-primary text-center text-xs underline underline-offset-4"
+          >
+            Dues
+          </Link>
+        ) : (
+          <div className="hidden lg:flex justify-around text-xs items-center">
+            <EditExpense expense={expense} />
+            <DeleteExpense
+              expenseId={expense.id}
+              expenseType={expense.type}
+              totalSpendings={expense.totalSpendings}
+            />
+          </div>
+        )}
       </CardContent>
       <CardFooter className="py-3 px-4 sm:px-6 lg:hidden">
         <div className="flex justify-between w-full text-xs items-center">
@@ -51,14 +66,23 @@ export const ExpenseCard = ({
               {format(expense.createdAt, "dd MMM '·' h:mm a")}
             </span>
           </div>
-          <div className="flex gap-x-4">
-            <EditExpense expense={expense} />
-            <DeleteExpense
-              expenseId={expense.id}
-              expenseType={expense.type}
-              totalSpendings={expense.totalSpendings}
-            />
-          </div>
+          {expense.dueType ? (
+            <Link
+              href="/dues"
+              className="text-primary text-center text-xs underline underline-offset-4"
+            >
+              Dues
+            </Link>
+          ) : (
+            <div className="flex gap-x-4">
+              <EditExpense expense={expense} />
+              <DeleteExpense
+                expenseId={expense.id}
+                expenseType={expense.type}
+                totalSpendings={expense.totalSpendings}
+              />
+            </div>
+          )}
         </div>
       </CardFooter>
     </Card>

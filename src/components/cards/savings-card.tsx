@@ -139,7 +139,14 @@ const SavingsEntryItem = ({
                       ${transferText} account`}
             </>
           ) : (
-            entry.entryName
+            <p>
+              {entry.entryName}{" "}
+              {entry.dueType && (
+                <span className="text-xs text-muted-foreground font-mono">{`(due ${
+                  entry.dueType === "payable" ? "paid" : "recieved"
+                })`}</span>
+              )}
+            </p>
           )}
         </span>
 
@@ -153,6 +160,14 @@ const SavingsEntryItem = ({
           {currency}
           {entry.amount.toLocaleString()}
         </span>
+        {entry.dueType && (
+          <Link
+            href="/dues"
+            className="hidden lg:block text-primary text-center text-xs underline underline-offset-4"
+          >
+            Dues
+          </Link>
+        )}
         {transferEntry && (
           <Link
             href={`/${transferText}`}
@@ -169,6 +184,14 @@ const SavingsEntryItem = ({
             {format(new Date(entry.createdAt), "dd MMM '·' h:mm a")}
           </span>
         </div>
+        {entry.dueType && (
+          <Link
+            href="/dues"
+            className="text-primary text-center text-xs underline underline-offset-4"
+          >
+            Dues
+          </Link>
+        )}
         {transferEntry && (
           <Link
             href={`/${transferText}`}

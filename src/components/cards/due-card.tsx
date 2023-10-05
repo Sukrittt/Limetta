@@ -2,6 +2,7 @@
 
 import { FC, useEffect, useRef, useState } from "react";
 import axios from "axios";
+import Link from "next/link";
 import { format } from "date-fns";
 import { Divider } from "@nextui-org/divider";
 import { useIntersection } from "@mantine/hooks";
@@ -10,6 +11,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { Dues } from "@/db/schema";
 import { CurrencyType } from "@/types";
+import { Icons } from "@/components/icons";
 import ToolTip from "@/components/ui/tool-tip";
 import { DuePaid } from "@/components/due/due-paid";
 import { DueDelete } from "@/components/due/due-delete";
@@ -168,6 +170,13 @@ const DueEntryItem: FC<DueEntryProps> = ({
     transferAccountType: entry.transferAccountType,
   };
 
+  const transferAccountHref =
+    entry.dueStatus === "paid" &&
+    (entry.transferAccountType === "savings" ||
+    entry.transferAccountType === "miscellaneous"
+      ? entry.transferAccountType
+      : "expense-tracker");
+
   return (
     <Card>
       <CardContent className="grid grid-cols-5 lg:grid-cols-9 px-4 sm:px-6 py-3">
@@ -201,7 +210,29 @@ const DueEntryItem: FC<DueEntryProps> = ({
               "text-yellow-600": entry.dueStatus === "pending",
             })}
           >
-            {entry.dueStatus === "paid" ? "Paid" : "Pending"}
+            {transferAccountHref ? (
+              <ToolTip
+                customComponent={
+                  <p className="text-sm py-1">
+                    Transferred to{" "}
+                    <Link
+                      href={`/${transferAccountHref}`}
+                      className="text-primary text-center text-xs underline underline-offset-4"
+                    >
+                      {transferAccountHref}
+                    </Link>
+                  </p>
+                }
+                showArrow
+              >
+                <div className="flex gap-x-1">
+                  <span>Paid</span>
+                  <Icons.info className="w-3 h-3 mt-[2px] text-muted-foreground" />
+                </div>
+              </ToolTip>
+            ) : (
+              "Pending"
+            )}
           </span>
         </div>
         <div className="hidden lg:flex items-center justify-center">
@@ -250,7 +281,29 @@ const DueEntryItem: FC<DueEntryProps> = ({
               "text-yellow-600": entry.dueStatus === "pending",
             })}
           >
-            {entry.dueStatus === "paid" ? "Paid" : "Pending"}
+            {transferAccountHref ? (
+              <ToolTip
+                customComponent={
+                  <p className="text-sm py-1">
+                    Transferred to{" "}
+                    <Link
+                      href={`/${transferAccountHref}`}
+                      className="text-primary text-center text-xs underline underline-offset-4"
+                    >
+                      {transferAccountHref}
+                    </Link>
+                  </p>
+                }
+                showArrow
+              >
+                <div className="flex gap-x-1">
+                  <span>Paid</span>
+                  <Icons.info className="w-3 h-3 mt-[2px] text-muted-foreground" />
+                </div>
+              </ToolTip>
+            ) : (
+              "Pending"
+            )}
           </span>
         </div>
         <span className="text-center text-xs">

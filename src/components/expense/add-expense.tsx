@@ -1,5 +1,5 @@
 "use client";
-import { FC } from "react";
+import { FC, useState } from "react";
 import axios from "axios";
 import { Button } from "@nextui-org/button";
 import {
@@ -31,6 +31,7 @@ export const AddExpense: FC<AddExpenseProps> = ({
   calculations,
   currency,
 }) => {
+  const [disabled, setDisabled] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const { mutate: downloadEntries, isLoading } = useMutation({
@@ -89,16 +90,26 @@ export const AddExpense: FC<AddExpenseProps> = ({
       >
         {isLoading ? <Spinner color="default" size="sm" /> : "Download"}
       </Button>
-      <Button
-        onPress={onOpen}
-        color="primary"
-        className={cn(
-          buttonVariants({ size: "sm" }),
-          "rounded-lg tracking-tighter"
-        )}
-      >
-        Add Entry
-      </Button>
+      {disabled ? (
+        <Button
+          disabled={disabled}
+          className={cn(buttonVariants({ size: "sm" }), "rounded-xl")}
+        >
+          <Spinner color="default" size="sm" />
+        </Button>
+      ) : (
+        <Button
+          onPress={onOpen}
+          color="primary"
+          className={cn(
+            buttonVariants({ size: "sm" }),
+            "rounded-lg tracking-tighter"
+          )}
+        >
+          Add Entry
+        </Button>
+      )}
+
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -111,7 +122,11 @@ export const AddExpense: FC<AddExpenseProps> = ({
               <ModalHeader className="flex flex-col gap-1">
                 Add expense
               </ModalHeader>
-              <AddExpenseForm onClose={onClose} currency={currency} />
+              <AddExpenseForm
+                onClose={onClose}
+                currency={currency}
+                setDisabled={setDisabled}
+              />
             </>
           )}
         </ModalContent>

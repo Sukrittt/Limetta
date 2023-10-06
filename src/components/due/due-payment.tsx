@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -6,6 +7,7 @@ import {
   useDisclosure,
 } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
+import { Spinner } from "@nextui-org/spinner";
 
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
@@ -19,19 +21,39 @@ export const DuePayment = ({
   currency: CurrencyType;
   dueType: "receivable" | "payable";
 }) => {
+  const [disabled, setDisabled] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <>
       {dueType === "receivable" ? (
+        disabled ? (
+          <Button
+            disabled={disabled}
+            className={cn(
+              buttonVariants({ variant: "secondary" }),
+              "rounded-full"
+            )}
+          >
+            <Spinner color="default" size="sm" />
+          </Button>
+        ) : (
+          <Button
+            onPress={onOpen}
+            className={cn(
+              buttonVariants({ variant: "secondary" }),
+              "rounded-full"
+            )}
+          >
+            Due Receivable
+          </Button>
+        )
+      ) : disabled ? (
         <Button
-          onPress={onOpen}
-          className={cn(
-            buttonVariants({ variant: "secondary" }),
-            "rounded-full"
-          )}
+          disabled={disabled}
+          className={cn(buttonVariants(), "rounded-full")}
         >
-          Due Receivable
+          <Spinner color="default" size="sm" />
         </Button>
       ) : (
         <Button
@@ -57,6 +79,7 @@ export const DuePayment = ({
                 dueType={dueType}
                 onClose={onClose}
                 currency={currency}
+                setDisabled={setDisabled}
               />
             </>
           )}

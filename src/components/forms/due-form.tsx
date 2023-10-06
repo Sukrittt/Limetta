@@ -18,10 +18,12 @@ export const DueForm = ({
   onClose,
   currency,
   dueType,
+  setDisabled,
 }: {
   onClose: () => void;
   currency: CurrencyType;
   dueType: "receivable" | "payable";
+  setDisabled: (disabled: boolean) => void;
 }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -42,6 +44,7 @@ export const DueForm = ({
         title: "Due added",
         description: "Your due has been added successfully.",
       });
+      setDisabled(false);
       onClose();
     },
     onError: () => {
@@ -87,6 +90,8 @@ export const DueForm = ({
         variant: "destructive",
       });
     }
+
+    setDisabled(true);
 
     addDueEntry.mutate({
       amount: parsedAmount,

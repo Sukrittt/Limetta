@@ -18,10 +18,12 @@ export const MiscEntryForm = ({
   onClose,
   currency,
   entryType,
+  setDisabled,
 }: {
   onClose: () => void;
   currency: CurrencyType;
   entryType: "in" | "out";
+  setDisabled: (disabled: boolean) => void;
 }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -41,6 +43,7 @@ export const MiscEntryForm = ({
         title: "Entry added",
         description: "Your entry has been added successfully.",
       });
+      setDisabled(false);
       onClose();
     },
     onError: () => {
@@ -78,6 +81,8 @@ export const MiscEntryForm = ({
         variant: "destructive",
       });
     }
+
+    setDisabled(true);
 
     addMiscEntry.mutate({
       amount: parsedAmount,

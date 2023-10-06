@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -6,9 +7,11 @@ import {
   useDisclosure,
 } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
+import { Spinner } from "@nextui-org/spinner";
 
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
+import { toast } from "@/hooks/use-toast";
 import { buttonVariants } from "@/components/ui/button";
 import { MiscEntryForm } from "@/components/forms/misc-entry-form";
 
@@ -19,16 +22,36 @@ export const MiscEntry = ({
   currency: CurrencyType;
   entryType: "in" | "out";
 }) => {
+  const [disabled, setDisabled] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <>
       {entryType === "in" ? (
+        disabled ? (
+          <Button
+            disabled={disabled}
+            className={cn(buttonVariants(), "rounded-full")}
+          >
+            <Spinner color="default" size="sm" />
+          </Button>
+        ) : (
+          <Button
+            onPress={onOpen}
+            className={cn(buttonVariants(), "rounded-full")}
+          >
+            Income
+          </Button>
+        )
+      ) : disabled ? (
         <Button
-          onPress={onOpen}
-          className={cn(buttonVariants(), "rounded-full")}
+          disabled={disabled}
+          className={cn(
+            buttonVariants({ variant: "secondary" }),
+            "rounded-full"
+          )}
         >
-          Income
+          <Spinner color="default" size="sm" />
         </Button>
       ) : (
         <Button
@@ -57,6 +80,7 @@ export const MiscEntry = ({
                 onClose={onClose}
                 currency={currency}
                 entryType={entryType}
+                setDisabled={setDisabled}
               />
             </>
           )}

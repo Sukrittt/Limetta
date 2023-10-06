@@ -14,10 +14,8 @@ import { InvestBookEntryForm } from "@/components/forms/invest-book-entry-form";
 
 export const InvestmentBookEntry = ({
   currency,
-  initialBalance,
   entryDetails,
 }: {
-  initialBalance: number;
   currency: CurrencyType;
   entryDetails: EntryType;
 }) => {
@@ -53,7 +51,6 @@ export const InvestmentBookEntry = ({
                 currency={currency}
                 entryDetails={entryDetails}
                 setDisabled={setDisabled}
-                initialBalance={initialBalance}
               />
             </>
           )}

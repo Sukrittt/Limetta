@@ -17,9 +17,11 @@ import { buttonVariants } from "@/components/ui/button";
 export const AddExpenseForm = ({
   onClose,
   currency,
+  setDisabled,
 }: {
   onClose: () => void;
   currency: CurrencyType;
+  setDisabled: (disabled: boolean) => void;
 }) => {
   const router = useRouter();
   const [amount, setAmount] = useState<string | null>(null);
@@ -34,7 +36,9 @@ export const AddExpenseForm = ({
   const addEntry = trpc.entries.addEntry.useMutation({
     onSuccess: () => {
       onClose();
+      setDisabled(false);
       router.refresh();
+
       toast({
         title: "Expense added",
         description: "Your expense has been added successfully.",
@@ -75,6 +79,8 @@ export const AddExpenseForm = ({
         variant: "destructive",
       });
     }
+
+    setDisabled(true);
 
     addEntry.mutate({
       amount: parsedAmount,

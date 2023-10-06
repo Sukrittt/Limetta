@@ -66,12 +66,10 @@ const Miscellaneous = async () => {
         </div>
         <div className="flex flex-col sm:flex-row gap-y-2 sm:justify-center sm:gap-x-12 sm:items-center">
           <MiscEntry
-            initialBalance={currentUser.miscellanousBalance}
             currency={currentUser.currency as CurrencyType}
             entryType="in"
           />
           <MiscEntry
-            initialBalance={currentUser.miscellanousBalance}
             currency={currentUser.currency as CurrencyType}
             entryType="out"
           />

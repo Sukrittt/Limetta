@@ -12,8 +12,8 @@ import { ExpenseType } from "@/types";
 import { EditExpenseForm } from "@/components/forms/edit-expense-form";
 
 export const EditExpense = ({ expense }: { expense: ExpenseType }) => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [disabled, setDisabled] = useState(false);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <>

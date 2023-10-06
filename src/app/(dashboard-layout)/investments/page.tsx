@@ -88,7 +88,6 @@ const Investments = async () => {
         <CardContent className="pt-8">
           <InvestmentCard
             initialInvestmentEntries={investmentEntries}
-            initialTotalInvested={currentUser.totalInvested}
             currency={currentUser.currency as CurrencyType}
             initialBalance={currentUser.investmentsBalance}
           />

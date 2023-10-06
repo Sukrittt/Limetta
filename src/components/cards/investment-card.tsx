@@ -17,15 +17,13 @@ import { InvestmentEntryItemSkeleton } from "@/components/skeletons/infinite-car
 import { InvestmentDeleteEntry } from "@/components/investments/investment-delete-entry";
 
 export const InvestmentCard = ({
+  currency,
   initialBalance,
   initialInvestmentEntries,
-  currency,
-  initialTotalInvested,
 }: {
   initialInvestmentEntries: Investments[];
   currency: CurrencyType;
   initialBalance: number;
-  initialTotalInvested: number;
 }) => {
   const lastEntryRef = useRef<HTMLElement>(null);
   const [investmentEntries, setInvestmentEntries] = useState(
@@ -104,7 +102,6 @@ export const InvestmentCard = ({
                 entry={entry}
                 currency={currency}
                 initialBalance={initialBalance}
-                initialTotalInvested={initialTotalInvested}
               />
             </div>
           );
@@ -115,7 +112,6 @@ export const InvestmentCard = ({
                 entry={entry}
                 currency={currency}
                 initialBalance={initialBalance}
-                initialTotalInvested={initialTotalInvested}
               />
             </div>
           );
@@ -131,14 +127,12 @@ export const InvestmentCard = ({
 
 const InvestmentEntryItem = ({
   entry,
-  initialBalance,
-  initialTotalInvested,
   currency,
+  initialBalance,
 }: {
   entry: Investments;
-  initialBalance: number;
-  initialTotalInvested: number;
   currency: CurrencyType;
+  initialBalance: number;
 }) => {
   const transferEntry = entry.transferingFrom || entry.transferingTo;
   const transferText = entry.transferingFrom
@@ -208,7 +202,6 @@ const InvestmentEntryItem = ({
             {!entry.tradeBooks && entry.entryType === "out" ? (
               <InvestmentBookEntry
                 currency={currency}
-                initialBalance={initialBalance}
                 entryDetails={entryDetails}
               />
             ) : (
@@ -240,7 +233,6 @@ const InvestmentEntryItem = ({
             {!entry.tradeBooks && entry.entryType === "out" && (
               <InvestmentBookEntry
                 currency={currency}
-                initialBalance={initialBalance}
                 entryDetails={entryDetails}
               />
             )}

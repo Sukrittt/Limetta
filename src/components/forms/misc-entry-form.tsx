@@ -16,12 +16,10 @@ import { buttonVariants } from "@/components/ui/button";
 
 export const MiscEntryForm = ({
   onClose,
-  initialBalance,
   currency,
   entryType,
 }: {
   onClose: () => void;
-  initialBalance: number;
   currency: CurrencyType;
   entryType: "in" | "out";
 }) => {
@@ -85,7 +83,6 @@ export const MiscEntryForm = ({
       amount: parsedAmount,
       description,
       entryType,
-      initialBalance,
     });
   };
 

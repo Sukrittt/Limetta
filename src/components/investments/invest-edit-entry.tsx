@@ -16,9 +16,7 @@ export const InvestmentEditEntry = ({
   entryDetails,
   currency,
   tradeBooking,
-  initialTotalInvested,
 }: {
-  initialTotalInvested: number;
   entryDetails: EntryType;
   currency: CurrencyType;
   tradeBooking: boolean;
@@ -56,7 +54,6 @@ export const InvestmentEditEntry = ({
                 setDisabled={setDisabled}
                 tradeBooking={tradeBooking}
                 entryDetails={entryDetails}
-                initialTotalInvested={initialTotalInvested}
               />
             </>
           )}

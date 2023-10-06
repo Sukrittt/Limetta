@@ -139,12 +139,9 @@ export const TransferForm = ({
     setDisabled(true);
 
     transferAmount.mutate({
-      amount: parsedAmount,
-      investmentsBalance,
-      miscellaneousBalance,
-      savingsBalance,
-      from: fromAccount,
       to: toAccount,
+      from: fromAccount,
+      amount: parsedAmount,
     });
   };
 

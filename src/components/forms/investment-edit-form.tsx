@@ -22,13 +22,11 @@ export const InvestmentEditEntryForm = ({
   currency,
   entryDetails,
   tradeBooking,
-  initialTotalInvested,
   setDisabled,
 }: {
   onClose: () => void;
   currency: CurrencyType;
   tradeBooking: boolean;
-  initialTotalInvested: number;
   entryDetails: EntryType;
   setDisabled: (disabled: boolean) => void;
 }) => {
@@ -113,9 +111,7 @@ export const InvestmentEditEntryForm = ({
       entryType,
       tradeBooking,
       amount: parsedAmount,
-      initialTotalInvested,
       investId: entryDetails.entryId,
-      initialBalance: entryDetails.initialBalance,
     });
   };
 

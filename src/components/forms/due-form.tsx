@@ -16,13 +16,11 @@ import { buttonVariants } from "@/components/ui/button";
 
 export const DueForm = ({
   onClose,
-  initialBalance,
   currency,
   dueType,
 }: {
   onClose: () => void;
   currency: CurrencyType;
-  initialBalance: number;
   dueType: "receivable" | "payable";
 }) => {
   const router = useRouter();
@@ -94,7 +92,6 @@ export const DueForm = ({
       amount: parsedAmount,
       description,
       dueDate,
-      initialBalance,
       dueType,
     });
   };

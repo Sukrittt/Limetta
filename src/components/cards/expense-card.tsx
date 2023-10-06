@@ -51,11 +51,7 @@ export const ExpenseCard = ({
         ) : (
           <div className="hidden lg:flex justify-around text-xs items-center">
             <EditExpense expense={expense} />
-            <DeleteExpense
-              expenseId={expense.id}
-              expenseType={expense.type}
-              totalSpendings={expense.totalSpendings}
-            />
+            <DeleteExpense expenseId={expense.id} expenseType={expense.type} />
           </div>
         )}
       </CardContent>
@@ -79,7 +75,6 @@ export const ExpenseCard = ({
               <DeleteExpense
                 expenseId={expense.id}
                 expenseType={expense.type}
-                totalSpendings={expense.totalSpendings}
               />
             </div>
           )}

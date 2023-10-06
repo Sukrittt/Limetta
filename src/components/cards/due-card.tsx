@@ -22,19 +22,13 @@ import { DueEntryItemSkeleton } from "@/components/skeletons/infinite-cards";
 
 interface DueCardProps {
   initialDues: Dues[];
-  initialPayableBalance: number;
-  initialReceivableBalance: number;
   currency: CurrencyType;
-  miscBalance: number;
   savingBalance: number;
 }
 
 export const DueCard: FC<DueCardProps> = ({
   initialDues,
-  miscBalance,
   savingBalance,
-  initialPayableBalance,
-  initialReceivableBalance,
   currency,
 }) => {
   const lastEntryRef = useRef<HTMLElement>(null);
@@ -111,10 +105,7 @@ export const DueCard: FC<DueCardProps> = ({
               <DueEntryItem
                 entry={entry}
                 currency={currency}
-                miscBalance={miscBalance}
                 savingBalance={savingBalance}
-                initialPayableBalance={initialPayableBalance}
-                initialReceivableBalance={initialReceivableBalance}
               />
             </div>
           );
@@ -124,10 +115,7 @@ export const DueCard: FC<DueCardProps> = ({
               <DueEntryItem
                 entry={entry}
                 currency={currency}
-                miscBalance={miscBalance}
                 savingBalance={savingBalance}
-                initialPayableBalance={initialPayableBalance}
-                initialReceivableBalance={initialReceivableBalance}
               />
             </div>
           );
@@ -143,27 +131,19 @@ export const DueCard: FC<DueCardProps> = ({
 
 interface DueEntryProps {
   entry: Dues;
-  initialPayableBalance: number;
-  initialReceivableBalance: number;
-  miscBalance: number;
-  savingBalance: number;
   currency: CurrencyType;
+  savingBalance: number;
 }
 
 const DueEntryItem: FC<DueEntryProps> = ({
+  savingBalance,
   currency,
   entry,
-  miscBalance,
-  savingBalance,
-  initialPayableBalance,
-  initialReceivableBalance,
 }) => {
   const entryDetails = {
     entryId: entry.id,
     amount: entry.amount,
     description: entry.entryName,
-    duePayableBalance: initialPayableBalance,
-    dueReceivableBalance: initialReceivableBalance,
     dueType: entry.dueType,
     dueStatus: entry.dueStatus,
     dueDate: entry.dueDate,
@@ -246,22 +226,13 @@ const DueEntryItem: FC<DueEntryProps> = ({
           </span>
         </div>
         <div className="hidden lg:flex justify-around items-center text-xs col-span-2">
-          <DuePaid
-            entryDetails={entryDetails}
-            miscBalance={miscBalance}
-            savingBalance={savingBalance}
-          />
+          <DuePaid entryDetails={entryDetails} savingBalance={savingBalance} />
           <DueEditEntry
             currency={currency}
             entryDetails={entryDetails}
-            miscBalance={miscBalance}
             savingBalance={savingBalance}
           />
-          <DueDelete
-            entryDetails={entryDetails}
-            miscBalance={miscBalance}
-            savingBalance={savingBalance}
-          />
+          <DueDelete entryDetails={entryDetails} />
         </div>
       </CardContent>
       <Divider className="block lg:hidden" />
@@ -313,22 +284,13 @@ const DueEntryItem: FC<DueEntryProps> = ({
           )}
         </span>
         <div className="flex gap-x-4">
-          <DuePaid
-            entryDetails={entryDetails}
-            miscBalance={miscBalance}
-            savingBalance={savingBalance}
-          />
+          <DuePaid entryDetails={entryDetails} savingBalance={savingBalance} />
           <DueEditEntry
             currency={currency}
             entryDetails={entryDetails}
-            miscBalance={miscBalance}
             savingBalance={savingBalance}
           />
-          <DueDelete
-            entryDetails={entryDetails}
-            miscBalance={miscBalance}
-            savingBalance={savingBalance}
-          />
+          <DueDelete entryDetails={entryDetails} />
         </div>
       </CardFooter>
     </Card>

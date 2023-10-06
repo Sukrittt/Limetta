@@ -12,15 +12,13 @@ import { CurrencyType, ExtendedEntryType } from "@/types";
 import { DueEditForm } from "@/components/forms/due-edit-form";
 
 export const DueEditEntry = ({
-  entryDetails,
   currency,
-  miscBalance,
+  entryDetails,
   savingBalance,
 }: {
-  entryDetails: ExtendedEntryType;
-  currency: CurrencyType;
-  miscBalance: number;
   savingBalance: number;
+  currency: CurrencyType;
+  entryDetails: ExtendedEntryType;
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [disabled, setDisabled] = useState(false);
@@ -54,7 +52,6 @@ export const DueEditEntry = ({
                 currency={currency}
                 entry={entryDetails}
                 savingBalance={savingBalance}
-                miscBalance={miscBalance}
                 setDisabled={setDisabled}
               />
             </>

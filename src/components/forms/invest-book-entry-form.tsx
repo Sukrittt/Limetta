@@ -19,13 +19,11 @@ import { buttonVariants } from "@/components/ui/button";
 export const InvestBookEntryForm = ({
   onClose,
   currency,
-  initialBalance,
   entryDetails,
   setDisabled,
 }: {
   onClose: () => void;
   currency: CurrencyType;
-  initialBalance: number;
   entryDetails: EntryType;
   setDisabled: (disabled: boolean) => void;
 }) => {
@@ -103,7 +101,6 @@ export const InvestBookEntryForm = ({
       amount: parsedAmount,
       description,
       entryType: tradeStatus === "profit" ? "in" : "out",
-      initialBalance,
       tradeBooking: true,
       investedAmount: parseFloat(investedAmount.replace(/,/g, "")),
     });

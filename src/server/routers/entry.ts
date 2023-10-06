@@ -77,10 +77,27 @@ export const entryRouter = createTRPCRouter({
       z.object({
         expenseId: z.number(),
         expenseType: z.enum(["need", "want"]),
-        totalSpendings: z.number().positive(),
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const currentMonthBooks = await db
+        .select()
+        .from(books)
+        .where(
+          and(
+            eq(books.userId, ctx.userId),
+            sql`MONTH(books.createdAt) = MONTH(NOW())`,
+            sql`YEAR(books.createdAt) = YEAR(NOW())`
+          )
+        );
+
+      if (currentMonthBooks.length === 0) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "No such book found.",
+        });
+      }
+
       if (input.expenseType === "need") {
         const existingNeedEntry = await db
           .select()
@@ -113,7 +130,8 @@ export const entryRouter = createTRPCRouter({
             .update(books)
             .set({
               totalSpendings:
-                input.totalSpendings - existingNeedEntry[0].amount,
+                currentMonthBooks[0].totalSpendings -
+                existingNeedEntry[0].amount,
             })
             .where(eq(books.id, existingNeedEntry[0].bookId)),
           db.delete(needs).where(eq(needs.id, input.expenseId)),
@@ -152,7 +170,8 @@ export const entryRouter = createTRPCRouter({
             .update(books)
             .set({
               totalSpendings:
-                input.totalSpendings - existingWantEntry[0].amount,
+                currentMonthBooks[0].totalSpendings -
+                existingWantEntry[0].amount,
             })
             .where(eq(books.id, existingWantEntry[0].bookId)),
           db.delete(wants).where(eq(wants.id, input.expenseId)),
@@ -170,10 +189,27 @@ export const entryRouter = createTRPCRouter({
         expenseType: z.enum(["need", "want"]),
         amount: z.number().positive(),
         description: z.string().min(1).max(50),
-        totalSpendings: z.number().positive(),
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const currentMonthBooks = await db
+        .select()
+        .from(books)
+        .where(
+          and(
+            eq(books.userId, ctx.userId),
+            sql`MONTH(books.createdAt) = MONTH(NOW())`,
+            sql`YEAR(books.createdAt) = YEAR(NOW())`
+          )
+        );
+
+      if (currentMonthBooks.length === 0) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "No such book found.",
+        });
+      }
+
       if (input.initialExpenseType === "need") {
         const existingNeedEntry = await db
           .select()
@@ -202,7 +238,9 @@ export const entryRouter = createTRPCRouter({
         }
 
         const updatedSpendings =
-          input.totalSpendings - existingNeedEntry[0].amount + input.amount;
+          currentMonthBooks[0].totalSpendings -
+          existingNeedEntry[0].amount +
+          input.amount;
 
         await db
           .update(books)
@@ -256,7 +294,9 @@ export const entryRouter = createTRPCRouter({
         }
 
         const updatedSpendings =
-          input.totalSpendings - existingWantEntry[0].amount + input.amount;
+          currentMonthBooks[0].totalSpendings -
+          existingWantEntry[0].amount +
+          input.amount;
 
         await db
           .update(books)

@@ -28,11 +28,9 @@ export type ExtendedEntryType = Omit<
   EntryType,
   "entryType" | "initialBalance"
 > & {
+  dueDate: Date;
   dueStatus: "paid" | "pending";
   dueType: "payable" | "receivable";
-  duePayableBalance: number;
-  dueReceivableBalance: number;
-  dueDate: Date;
   transferAccountType?: "want" | "need" | "savings" | "miscellaneous" | null;
 };
 

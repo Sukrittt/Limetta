@@ -24,10 +24,8 @@ type AccountType = "want" | "need" | "savings" | "miscellaneous";
 
 export const DuePaid = ({
   entryDetails,
-  miscBalance,
   savingBalance,
 }: {
-  miscBalance: number;
   savingBalance: number;
   entryDetails: ExtendedEntryType;
 }) => {
@@ -59,11 +57,6 @@ export const DuePaid = ({
     },
   });
 
-  const calculatedDueBalance =
-    entryDetails.dueType === "payable"
-      ? entryDetails.duePayableBalance
-      : entryDetails.dueReceivableBalance;
-
   const markText = `Mark as ${
     entryDetails.dueStatus === "paid" ? "unpaid" : "paid"
   }`;
@@ -85,9 +78,6 @@ export const DuePaid = ({
 
     dueMarkPaidEntry.mutate({
       dueId: entryDetails.entryId,
-      initialDueBalance: calculatedDueBalance,
-      miscBalance,
-      savingBalance,
       accountTransferType:
         entryDetails.dueStatus === "pending" ? accountTypeSelected : null,
       updatedDueStatus:

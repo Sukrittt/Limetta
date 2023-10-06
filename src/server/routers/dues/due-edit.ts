@@ -12,6 +12,7 @@ import {
   users,
   wants,
 } from "@/db/schema";
+import { userRouter } from "@/server/routers/user";
 import { getMaxSpendLimitForSavingAmount } from "@/lib/utils";
 import { createTRPCRouter, privateProcedure } from "@/server/trpc";
 
@@ -25,13 +26,12 @@ export const DueEditRouter = createTRPCRouter({
         dueDate: z.date().min(new Date()),
         dueType: z.enum(["payable", "receivable"]),
         dueStatus: z.enum(["pending", "paid"]),
-        duePayableBalance: z.number(),
-        dueReceivableBalance: z.number(),
-        savingBalance: z.number(),
-        miscBalance: z.number(),
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const caller = userRouter.createCaller(ctx);
+      const currentUser = await caller.getCurrentUser();
+
       const existingDueEntry = await db
         .select()
         .from(dues)
@@ -73,7 +73,7 @@ export const DueEditRouter = createTRPCRouter({
                     .update(users)
                     .set({
                       miscellanousBalance:
-                        input.miscBalance +
+                        currentUser.miscellanousBalance +
                         existingMiscEntry[0].amount -
                         input.amount,
                     })
@@ -103,7 +103,7 @@ export const DueEditRouter = createTRPCRouter({
               if (existingSavingsEntry.length > 0) {
                 const maxLimitForSavingAccount =
                   getMaxSpendLimitForSavingAmount(
-                    input.savingBalance,
+                    currentUser.savingsBalance,
                     existingSavingsEntry[0].amount,
                     existingDueEntryData.dueType
                   );
@@ -120,7 +120,7 @@ export const DueEditRouter = createTRPCRouter({
                     .update(users)
                     .set({
                       savingsBalance:
-                        input.savingBalance +
+                        currentUser.savingsBalance +
                         existingSavingsEntry[0].amount -
                         input.amount,
                     })
@@ -234,7 +234,7 @@ export const DueEditRouter = createTRPCRouter({
                     .update(users)
                     .set({
                       miscellanousBalance:
-                        input.miscBalance -
+                        currentUser.miscellanousBalance -
                         existingMiscEntry[0].amount +
                         input.amount,
                     })
@@ -267,7 +267,7 @@ export const DueEditRouter = createTRPCRouter({
                     .update(users)
                     .set({
                       savingsBalance:
-                        input.savingBalance -
+                        currentUser.savingsBalance -
                         existingSavingsEntry[0].amount +
                         input.amount,
                     })
@@ -305,7 +305,7 @@ export const DueEditRouter = createTRPCRouter({
                     .update(users)
                     .set({
                       miscellanousBalance:
-                        input.miscBalance -
+                        currentUser.miscellanousBalance -
                         existingMiscEntry[0].amount -
                         input.amount,
                     })
@@ -337,7 +337,7 @@ export const DueEditRouter = createTRPCRouter({
               if (existingSavingsEntry.length > 0) {
                 const maxLimitForSavingAccount =
                   getMaxSpendLimitForSavingAmount(
-                    input.savingBalance,
+                    currentUser.savingsBalance,
                     existingSavingsEntry[0].amount,
                     existingDueEntryData.dueType
                   );
@@ -354,7 +354,7 @@ export const DueEditRouter = createTRPCRouter({
                     .update(users)
                     .set({
                       savingsBalance:
-                        input.savingBalance -
+                        currentUser.savingsBalance -
                         existingSavingsEntry[0].amount -
                         input.amount,
                     })
@@ -397,7 +397,7 @@ export const DueEditRouter = createTRPCRouter({
                     .update(users)
                     .set({
                       miscellanousBalance:
-                        input.miscBalance +
+                        currentUser.miscellanousBalance +
                         existingMiscEntry[0].amount +
                         input.amount,
                     })
@@ -432,7 +432,7 @@ export const DueEditRouter = createTRPCRouter({
                     .update(users)
                     .set({
                       savingsBalance:
-                        input.savingBalance +
+                        currentUser.savingsBalance +
                         existingSavingsEntry[0].amount +
                         input.amount,
                     })
@@ -467,9 +467,9 @@ export const DueEditRouter = createTRPCRouter({
             await db
               .update(users)
               .set({
-                duePayable: input.duePayableBalance + input.amount,
+                duePayable: currentUser.duePayable + input.amount,
                 dueReceivable:
-                  input.dueReceivableBalance - existingDueEntryData.amount,
+                  currentUser.dueReceivable - existingDueEntryData.amount,
               })
               .where(eq(users.id, ctx.userId));
           } else {
@@ -477,8 +477,8 @@ export const DueEditRouter = createTRPCRouter({
               .update(users)
               .set({
                 duePayable:
-                  input.duePayableBalance - existingDueEntryData.amount,
-                dueReceivable: input.dueReceivableBalance + input.amount,
+                  currentUser.duePayable - existingDueEntryData.amount,
+                dueReceivable: currentUser.dueReceivable + input.amount,
               })
               .where(eq(users.id, ctx.userId));
           }
@@ -488,7 +488,7 @@ export const DueEditRouter = createTRPCRouter({
               .update(users)
               .set({
                 duePayable:
-                  input.duePayableBalance -
+                  currentUser.duePayable -
                   existingDueEntryData.amount +
                   input.amount,
               })
@@ -498,7 +498,7 @@ export const DueEditRouter = createTRPCRouter({
               .update(users)
               .set({
                 dueReceivable:
-                  input.dueReceivableBalance -
+                  currentUser.dueReceivable -
                   existingDueEntryData.amount +
                   input.amount,
               })

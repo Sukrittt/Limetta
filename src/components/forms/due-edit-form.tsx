@@ -19,14 +19,12 @@ export const DueEditForm = ({
   onClose,
   currency,
   entry,
-  miscBalance,
   savingBalance,
   setDisabled,
 }: {
   onClose: () => void;
   currency: CurrencyType;
   entry: ExtendedEntryType;
-  miscBalance: number;
   savingBalance: number;
   setDisabled: (disabled: boolean) => void;
 }) => {
@@ -133,11 +131,7 @@ export const DueEditForm = ({
       amount: parsedAmount,
       description,
       dueDate: new Date(dueDate),
-      duePayableBalance: entry.duePayableBalance,
-      dueReceivableBalance: entry.dueReceivableBalance,
       dueStatus: entry.dueStatus,
-      savingBalance,
-      miscBalance,
       dueType,
     });
   };

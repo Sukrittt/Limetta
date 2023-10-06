@@ -33,12 +33,10 @@ const Dashboard = async () => {
     ...currentMonthEntries.needs.map((item) => ({
       ...item,
       type: "need" as const,
-      totalSpendings: currentMonthEntries.books[0].totalSpendings,
     })),
     ...currentMonthEntries.wants.map((item) => ({
       ...item,
       type: "want" as const,
-      totalSpendings: currentMonthEntries.books[0].totalSpendings,
     })),
   ];
   expenses.sort((a: any, b: any) => b.createdAt - a.createdAt);

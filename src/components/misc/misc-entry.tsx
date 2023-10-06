@@ -14,10 +14,8 @@ import { MiscEntryForm } from "@/components/forms/misc-entry-form";
 
 export const MiscEntry = ({
   entryType,
-  initialBalance,
   currency,
 }: {
-  initialBalance: number;
   currency: CurrencyType;
   entryType: "in" | "out";
 }) => {
@@ -59,7 +57,6 @@ export const MiscEntry = ({
                 onClose={onClose}
                 currency={currency}
                 entryType={entryType}
-                initialBalance={initialBalance}
               />
             </>
           )}

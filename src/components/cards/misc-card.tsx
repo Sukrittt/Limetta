@@ -17,13 +17,11 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { MiscEntryItemSkeleton } from "@/components/skeletons/infinite-cards";
 
 const MiscCard = ({
-  initialBalance,
   initialMiscEntries,
   currency,
 }: {
   initialMiscEntries: Miscellaneous[];
   currency: CurrencyType;
-  initialBalance: number;
 }) => {
   const lastEntryRef = useRef<HTMLElement>(null);
   const [miscEntries, setMiscEntries] = useState(initialMiscEntries);
@@ -94,21 +92,13 @@ const MiscCard = ({
         if (index === miscEntries.length - 1) {
           return (
             <div key={entry.id} ref={ref}>
-              <MiscEntryItem
-                entry={entry}
-                currency={currency}
-                initialBalance={initialBalance}
-              />
+              <MiscEntryItem entry={entry} currency={currency} />
             </div>
           );
         } else {
           return (
             <div key={entry.id}>
-              <MiscEntryItem
-                entry={entry}
-                currency={currency}
-                initialBalance={initialBalance}
-              />
+              <MiscEntryItem entry={entry} currency={currency} />
             </div>
           );
         }
@@ -125,11 +115,9 @@ export default MiscCard;
 
 const MiscEntryItem = ({
   entry,
-  initialBalance,
   currency,
 }: {
   entry: Miscellaneous;
-  initialBalance: number;
   currency: CurrencyType;
 }) => {
   const transferEntry = entry.transferingFrom || entry.transferingTo;
@@ -142,7 +130,6 @@ const MiscEntryItem = ({
     amount: entry.amount,
     description: entry.entryName,
     entryType: entry.entryType,
-    initialBalance,
   };
 
   return (

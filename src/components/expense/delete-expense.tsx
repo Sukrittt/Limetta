@@ -19,11 +19,9 @@ import { buttonVariants } from "@/components/ui/button";
 export const DeleteExpense = ({
   expenseId,
   expenseType,
-  totalSpendings,
 }: {
   expenseId: number;
   expenseType: "want" | "need";
-  totalSpendings: number;
 }) => {
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -97,7 +95,6 @@ export const DeleteExpense = ({
                     deleteEntry.mutate({
                       expenseId,
                       expenseType,
-                      totalSpendings,
                     })
                   }
                 >

@@ -25,12 +25,12 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
         accountTransferType: z
           .enum(["want", "need", "savings", "miscellaneous"])
           .nullable(),
-        initialDueBalance: z.number(),
-        miscBalance: z.number(),
-        savingBalance: z.number(),
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const caller = userRouter.createCaller(ctx);
+      const currentUser = await caller.getCurrentUser();
+
       const existingDueEntries = await db
         .select()
         .from(dues)
@@ -68,11 +68,11 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
               .update(users)
               .set({
                 miscellanousBalance:
-                  input.miscBalance - existingDueEntry.amount,
+                  currentUser.miscellanousBalance - existingDueEntry.amount,
               })
               .where(eq(users.id, ctx.userId));
           } else if (input.accountTransferType === "savings") {
-            if (existingDueEntry.amount > input.savingBalance) {
+            if (existingDueEntry.amount > currentUser.savingsBalance) {
               throw new TRPCError({
                 code: "BAD_REQUEST",
                 message: "Not enough saving balance",
@@ -92,7 +92,8 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
             await db
               .update(users)
               .set({
-                savingsBalance: input.savingBalance - existingDueEntry.amount,
+                savingsBalance:
+                  currentUser.savingsBalance - existingDueEntry.amount,
               })
               .where(eq(users.id, ctx.userId));
           } else {
@@ -112,9 +113,6 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
             let totalSpendings = 0;
 
             if (currentMonthBooks.length === 0) {
-              const caller = userRouter.createCaller(ctx);
-              const currentUser = await caller.getCurrentUser();
-
               const newlyCreatedBook = await db.insert(books).values({
                 userId: ctx.userId,
                 monthIncome: currentUser.monthlyIncome ?? 0,
@@ -161,7 +159,7 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
           await db
             .update(users)
             .set({
-              duePayable: input.initialDueBalance - existingDueEntry.amount,
+              duePayable: currentUser.duePayable - existingDueEntry.amount,
             })
             .where(eq(users.id, ctx.userId));
         } else {
@@ -185,7 +183,7 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
                   .update(users)
                   .set({
                     miscellanousBalance:
-                      input.miscBalance + existingDueEntry.amount,
+                      currentUser.miscellanousBalance + existingDueEntry.amount,
                   })
                   .where(eq(users.id, ctx.userId)),
                 db
@@ -209,7 +207,7 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
                   .update(users)
                   .set({
                     savingsBalance:
-                      input.savingBalance + existingDueEntry.amount,
+                      currentUser.savingsBalance + existingDueEntry.amount,
                   })
                   .where(eq(users.id, ctx.userId)),
                 db
@@ -283,7 +281,7 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
           await db
             .update(users)
             .set({
-              duePayable: input.initialDueBalance + existingDueEntry.amount,
+              duePayable: currentUser.duePayable + existingDueEntry.amount,
             })
             .where(eq(users.id, ctx.userId));
         }
@@ -316,7 +314,7 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
               .update(users)
               .set({
                 miscellanousBalance:
-                  input.miscBalance + existingDueEntry.amount,
+                  currentUser.miscellanousBalance + existingDueEntry.amount,
               })
               .where(eq(users.id, ctx.userId));
           } else if (input.accountTransferType === "savings") {
@@ -333,7 +331,8 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
             await db
               .update(users)
               .set({
-                savingsBalance: input.savingBalance + existingDueEntry.amount,
+                savingsBalance:
+                  currentUser.savingsBalance + existingDueEntry.amount,
               })
               .where(eq(users.id, ctx.userId));
           }
@@ -341,7 +340,8 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
           await db
             .update(users)
             .set({
-              dueReceivable: input.initialDueBalance - existingDueEntry.amount,
+              dueReceivable:
+                currentUser.dueReceivable - existingDueEntry.amount,
             })
             .where(eq(users.id, ctx.userId));
         } else {
@@ -365,7 +365,7 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
                   .update(users)
                   .set({
                     miscellanousBalance:
-                      input.miscBalance - existingDueEntry.amount,
+                      currentUser.miscellanousBalance - existingDueEntry.amount,
                   })
                   .where(eq(users.id, ctx.userId)),
                 db
@@ -389,7 +389,7 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
                   .update(users)
                   .set({
                     savingsBalance:
-                      input.savingBalance - existingDueEntry.amount,
+                      currentUser.savingsBalance - existingDueEntry.amount,
                   })
                   .where(eq(users.id, ctx.userId)),
                 db
@@ -404,7 +404,8 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
           await db
             .update(users)
             .set({
-              dueReceivable: input.initialDueBalance + existingDueEntry.amount,
+              dueReceivable:
+                currentUser.dueReceivable + existingDueEntry.amount,
             })
             .where(eq(users.id, ctx.userId));
         }

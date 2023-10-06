@@ -76,12 +76,10 @@ const Dues = async () => {
 
         <div className="flex flex-col gap-y-2 sm:flex-row sm:justify-center sm:gap-x-12 sm:items-center">
           <DuePayment
-            initialBalance={currentUser.duePayable}
             currency={currentUser.currency as CurrencyType}
             dueType="payable"
           />
           <DuePayment
-            initialBalance={currentUser.dueReceivable}
             currency={currentUser.currency as CurrencyType}
             dueType="receivable"
           />
@@ -91,12 +89,9 @@ const Dues = async () => {
       <ScrollShadow className="h-[calc(80vh-150px)] w-full no-scrollbar">
         <CardContent className="pt-8">
           <DueCard
-            currency={currentUser.currency as CurrencyType}
             initialDues={dueEntries}
             savingBalance={currentUser.savingsBalance}
-            miscBalance={currentUser.miscellanousBalance}
-            initialPayableBalance={currentUser.duePayable}
-            initialReceivableBalance={currentUser.dueReceivable}
+            currency={currentUser.currency as CurrencyType}
           />
         </CardContent>
       </ScrollShadow>

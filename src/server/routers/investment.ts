@@ -3,6 +3,7 @@ import { desc, eq } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 
 import { db } from "@/db";
+import { userRouter } from "./user";
 import { getUpdatedBalance } from "@/lib/utils";
 import { investments, users } from "@/db/schema";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
@@ -25,13 +26,14 @@ export const investmentRouter = createTRPCRouter({
         amount: z.number().positive(),
         description: z.string().min(1).max(100),
         entryType: z.enum(["in", "out"]),
-        initialBalance: z.number(),
         tradeBooking: z.boolean().optional().default(false),
-        initialTotalInvested: z.number().optional().default(0),
         investedAmount: z.number().optional().default(0),
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const caller = userRouter.createCaller(ctx);
+      const currentUser = await caller.getCurrentUser();
+
       if (input.tradeBooking) {
         await db.insert(investments).values({
           userId: ctx.userId,
@@ -45,7 +47,9 @@ export const investmentRouter = createTRPCRouter({
             .update(users)
             .set({
               investmentsBalance:
-                input.initialBalance + input.investedAmount + input.amount,
+                currentUser.investmentsBalance +
+                input.investedAmount +
+                input.amount,
             })
             .where(eq(users.id, ctx.userId));
         } else {
@@ -53,12 +57,14 @@ export const investmentRouter = createTRPCRouter({
             .update(users)
             .set({
               investmentsBalance:
-                input.initialBalance + input.investedAmount - input.amount,
+                currentUser.investmentsBalance +
+                input.investedAmount -
+                input.amount,
             })
             .where(eq(users.id, ctx.userId));
         }
       } else {
-        if (input.initialBalance < input.amount) {
+        if (input.amount > currentUser.investmentsBalance) {
           throw new TRPCError({
             code: "UNPROCESSABLE_CONTENT",
             message: "Amount is greater than balance",
@@ -68,8 +74,8 @@ export const investmentRouter = createTRPCRouter({
         await db
           .update(users)
           .set({
-            investmentsBalance: input.initialBalance - input.amount,
-            totalInvested: input.initialTotalInvested + input.amount,
+            investmentsBalance: currentUser.investmentsBalance - input.amount,
+            totalInvested: currentUser.totalInvested + input.amount,
           })
           .where(eq(users.id, ctx.userId));
       }
@@ -89,12 +95,13 @@ export const investmentRouter = createTRPCRouter({
         amount: z.number().positive(),
         description: z.string().min(1).max(100),
         entryType: z.enum(["in", "out"]),
-        initialBalance: z.number(),
         tradeBooking: z.boolean(),
-        initialTotalInvested: z.number(),
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const caller = userRouter.createCaller(ctx);
+      const currentUser = await caller.getCurrentUser();
+
       const existingInvestmentEntry = await db
         .select()
         .from(investments)
@@ -111,7 +118,7 @@ export const investmentRouter = createTRPCRouter({
 
       if (input.tradeBooking) {
         updatedBalance = getUpdatedBalance(
-          input.initialBalance,
+          currentUser.investmentsBalance,
           investmentEntry.amount,
           input.amount,
           input.entryType,
@@ -119,9 +126,11 @@ export const investmentRouter = createTRPCRouter({
         );
       } else {
         updatedBalance =
-          input.initialBalance + investmentEntry.amount - input.amount;
+          currentUser.investmentsBalance +
+          investmentEntry.amount -
+          input.amount;
         updatedTotalInvestedBalance =
-          input.initialTotalInvested - investmentEntry.amount + input.amount;
+          currentUser.totalInvested - investmentEntry.amount + input.amount;
       }
 
       const promises = [
@@ -149,14 +158,15 @@ export const investmentRouter = createTRPCRouter({
   deleteInvestmentEntry: privateProcedure
     .input(
       z.object({
-        initialBalance: z.number(),
-        initialTotalInvested: z.number(),
         tradeBooking: z.boolean(),
         entryType: z.enum(["in", "out"]),
         investId: z.number(),
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const caller = userRouter.createCaller(ctx);
+      const currentUser = await caller.getCurrentUser();
+
       const existingInvestmentEntry = await db
         .select()
         .from(investments)
@@ -173,14 +183,14 @@ export const investmentRouter = createTRPCRouter({
 
       if (input.entryType === "in") {
         updatedBalance =
-          input.initialBalance - existingInvestmentEntry[0].amount;
+          currentUser.investmentsBalance - existingInvestmentEntry[0].amount;
       } else {
         updatedBalance =
-          input.initialBalance + existingInvestmentEntry[0].amount;
+          currentUser.investmentsBalance + existingInvestmentEntry[0].amount;
 
         if (!input.tradeBooking) {
           updatedTotalInvestedBalance =
-            input.initialTotalInvested - existingInvestmentEntry[0].amount;
+            currentUser.totalInvested - existingInvestmentEntry[0].amount;
         }
       }
 

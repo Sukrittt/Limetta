@@ -13,11 +13,9 @@ import { DueForm } from "@/components/forms/due-form";
 import { buttonVariants } from "@/components/ui/button";
 
 export const DuePayment = ({
-  initialBalance,
   currency,
   dueType,
 }: {
-  initialBalance: number;
   currency: CurrencyType;
   dueType: "receivable" | "payable";
 }) => {
@@ -56,10 +54,9 @@ export const DuePayment = ({
                 {dueType === "receivable" ? "Due Receivable" : "Due Payable"}
               </ModalHeader>
               <DueForm
+                dueType={dueType}
                 onClose={onClose}
                 currency={currency}
-                initialBalance={initialBalance}
-                dueType={dueType}
               />
             </>
           )}

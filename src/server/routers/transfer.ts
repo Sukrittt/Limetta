@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 
 import { db } from "@/db";
+import { userRouter } from "@/server/routers/user";
 import { createTRPCRouter, privateProcedure } from "@/server/trpc";
 import { investments, miscellaneous, savings, users } from "@/db/schema";
 
@@ -11,14 +12,14 @@ export const TransferRouter = createTRPCRouter({
     .input(
       z.object({
         amount: z.number().positive(),
-        investmentsBalance: z.number(),
-        savingsBalance: z.number(),
-        miscellaneousBalance: z.number(),
         from: z.enum(["investments", "savings", "miscellaneous"]),
         to: z.enum(["investments", "savings", "miscellaneous"]),
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const caller = userRouter.createCaller(ctx);
+      const currentUser = await caller.getCurrentUser();
+
       //from operations
       if (input.from === "investments") {
         if (input.from === input.to) {
@@ -28,7 +29,7 @@ export const TransferRouter = createTRPCRouter({
           });
         }
 
-        if (input.amount > input.investmentsBalance) {
+        if (input.amount > currentUser.investmentsBalance) {
           throw new TRPCError({
             code: "BAD_REQUEST",
             message: "Insufficient funds",
@@ -46,7 +47,7 @@ export const TransferRouter = createTRPCRouter({
           db
             .update(users)
             .set({
-              investmentsBalance: input.investmentsBalance - input.amount,
+              investmentsBalance: currentUser.investmentsBalance - input.amount,
             })
             .where(eq(users.id, ctx.userId)),
         ];
@@ -60,7 +61,7 @@ export const TransferRouter = createTRPCRouter({
           });
         }
 
-        if (input.amount > input.savingsBalance) {
+        if (input.amount > currentUser.savingsBalance) {
           throw new TRPCError({
             code: "BAD_REQUEST",
             message: "Insufficient funds",
@@ -78,7 +79,7 @@ export const TransferRouter = createTRPCRouter({
           db
             .update(users)
             .set({
-              savingsBalance: input.savingsBalance - input.amount,
+              savingsBalance: currentUser.savingsBalance - input.amount,
             })
             .where(eq(users.id, ctx.userId)),
         ];
@@ -92,7 +93,7 @@ export const TransferRouter = createTRPCRouter({
           });
         }
 
-        if (input.amount > input.miscellaneousBalance) {
+        if (input.amount > currentUser.miscellanousBalance) {
           throw new TRPCError({
             code: "BAD_REQUEST",
             message: "Insufficient funds",
@@ -110,7 +111,8 @@ export const TransferRouter = createTRPCRouter({
           db
             .update(users)
             .set({
-              miscellanousBalance: input.miscellaneousBalance - input.amount,
+              miscellanousBalance:
+                currentUser.miscellanousBalance - input.amount,
             })
             .where(eq(users.id, ctx.userId)),
         ];
@@ -138,7 +140,7 @@ export const TransferRouter = createTRPCRouter({
           db
             .update(users)
             .set({
-              investmentsBalance: input.investmentsBalance + input.amount,
+              investmentsBalance: currentUser.investmentsBalance + input.amount,
             })
             .where(eq(users.id, ctx.userId)),
         ];
@@ -163,7 +165,7 @@ export const TransferRouter = createTRPCRouter({
           db
             .update(users)
             .set({
-              savingsBalance: input.savingsBalance + input.amount,
+              savingsBalance: currentUser.savingsBalance + input.amount,
             })
             .where(eq(users.id, ctx.userId)),
         ];
@@ -188,7 +190,8 @@ export const TransferRouter = createTRPCRouter({
           db
             .update(users)
             .set({
-              miscellanousBalance: input.miscellaneousBalance + input.amount,
+              miscellanousBalance:
+                currentUser.miscellanousBalance + input.amount,
             })
             .where(eq(users.id, ctx.userId)),
         ];

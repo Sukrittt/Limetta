@@ -19,12 +19,10 @@ export const InvestAddEntryForm = ({
   onClose,
   currency,
   initialBalance,
-  initialTotalInvested,
 }: {
   onClose: () => void;
   currency: CurrencyType;
   initialBalance: number;
-  initialTotalInvested: number;
 }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -100,8 +98,6 @@ export const InvestAddEntryForm = ({
       amount: parsedAmount,
       description,
       entryType: "out",
-      initialBalance,
-      initialTotalInvested,
     });
   };
 

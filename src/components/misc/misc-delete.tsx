@@ -98,7 +98,6 @@ export const MiscDeleteEntry = ({
                     deleteEntry.mutate({
                       entryType: entryDetails.entryType,
                       miscId: entryDetails.entryId,
-                      initialBalance: entryDetails.initialBalance,
                     })
                   }
                 >

@@ -78,7 +78,6 @@ export const EditExpenseForm = ({
       description,
       expenseType: expenseTypeSelected,
       initialExpenseType: expense.type,
-      totalSpendings: expense.totalSpendings,
     });
   };
 

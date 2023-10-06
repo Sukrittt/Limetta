@@ -83,7 +83,6 @@ const Miscellaneous = async () => {
           <MiscCard
             initialMiscEntries={miscEntries}
             currency={currentUser.currency as CurrencyType}
-            initialBalance={currentUser.miscellanousBalance}
           />
         </CardContent>
       </ScrollShadow>

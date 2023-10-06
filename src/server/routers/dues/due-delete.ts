@@ -12,6 +12,7 @@ import {
   users,
   wants,
 } from "@/db/schema";
+import { userRouter } from "@/server/routers/user";
 import { createTRPCRouter, privateProcedure } from "@/server/trpc";
 
 export const DueDeleteRouter = createTRPCRouter({
@@ -21,13 +22,12 @@ export const DueDeleteRouter = createTRPCRouter({
         dueId: z.number(),
         dueStatus: z.enum(["pending", "paid"]),
         dueType: z.enum(["payable", "receivable"]),
-        duePayableBalance: z.number(),
-        dueReceivableBalance: z.number(),
-        miscBalance: z.number(),
-        savingBalance: z.number(),
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const caller = userRouter.createCaller(ctx);
+      const currentUser = await caller.getCurrentUser();
+
       const existingDueEntry = await db
         .select()
         .from(dues)
@@ -55,18 +55,18 @@ export const DueDeleteRouter = createTRPCRouter({
         if (existingDueEntryData.dueType === "payable") {
           if (existingDueEntryData.transferAccountType === "miscellaneous") {
             updatedMiscBalance =
-              input.miscBalance + existingDueEntryData.amount;
+              currentUser.miscellanousBalance + existingDueEntryData.amount;
           } else if (existingDueEntryData.transferAccountType === "savings") {
             updatedSavingsBalance =
-              input.savingBalance + existingDueEntryData.amount;
+              currentUser.savingsBalance + existingDueEntryData.amount;
           }
         } else {
           if (existingDueEntryData.transferAccountType === "miscellaneous") {
             updatedMiscBalance =
-              input.miscBalance - existingDueEntryData.amount;
+              currentUser.miscellanousBalance - existingDueEntryData.amount;
           } else if (existingDueEntryData.transferAccountType === "savings") {
             updatedSavingsBalance =
-              input.savingBalance - existingDueEntryData.amount;
+              currentUser.savingsBalance - existingDueEntryData.amount;
           }
         }
 
@@ -188,7 +188,7 @@ export const DueDeleteRouter = createTRPCRouter({
           await db
             .update(users)
             .set({
-              duePayable: input.duePayableBalance - existingDueEntryData.amount,
+              duePayable: currentUser.duePayable - existingDueEntryData.amount,
             })
             .where(eq(users.id, ctx.userId));
         } else {
@@ -196,7 +196,7 @@ export const DueDeleteRouter = createTRPCRouter({
             .update(users)
             .set({
               dueReceivable:
-                input.dueReceivableBalance - existingDueEntryData.amount,
+                currentUser.dueReceivable - existingDueEntryData.amount,
             })
             .where(eq(users.id, ctx.userId));
         }

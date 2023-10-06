@@ -3,6 +3,7 @@ import { desc, eq } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 
 import { db } from "@/db";
+import { userRouter } from "./user";
 import { getUpdatedBalance } from "@/lib/utils";
 import { miscellaneous, users } from "@/db/schema";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
@@ -25,22 +26,24 @@ export const miscRouter = createTRPCRouter({
         amount: z.number().positive(),
         description: z.string().min(1).max(100),
         entryType: z.enum(["in", "out"]),
-        initialBalance: z.number(),
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const caller = userRouter.createCaller(ctx);
+      const currentUser = await caller.getCurrentUser();
+
       if (input.entryType === "in") {
         await db
           .update(users)
           .set({
-            miscellanousBalance: input.initialBalance + input.amount,
+            miscellanousBalance: currentUser.miscellanousBalance + input.amount,
           })
           .where(eq(users.id, ctx.userId));
       } else {
         await db
           .update(users)
           .set({
-            miscellanousBalance: input.initialBalance - input.amount,
+            miscellanousBalance: currentUser.miscellanousBalance - input.amount,
           })
           .where(eq(users.id, ctx.userId));
       }
@@ -59,10 +62,12 @@ export const miscRouter = createTRPCRouter({
         amount: z.number().positive(),
         description: z.string().min(1).max(100),
         entryType: z.enum(["in", "out"]),
-        initialBalance: z.number(),
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const caller = userRouter.createCaller(ctx);
+      const currentUser = await caller.getCurrentUser();
+
       const existingMiscEntry = await db
         .select()
         .from(miscellaneous)
@@ -77,7 +82,7 @@ export const miscRouter = createTRPCRouter({
       const miscEntry = existingMiscEntry[0]; // there should only be one entry with that id
 
       const updatedBalance = getUpdatedBalance(
-        input.initialBalance,
+        currentUser.miscellanousBalance,
         miscEntry.amount,
         input.amount,
         input.entryType,
@@ -107,12 +112,14 @@ export const miscRouter = createTRPCRouter({
   deleteMiscEntry: privateProcedure
     .input(
       z.object({
-        initialBalance: z.number(),
         entryType: z.enum(["in", "out"]),
         miscId: z.number(),
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const caller = userRouter.createCaller(ctx);
+      const currentUser = await caller.getCurrentUser();
+
       const existingMiscEntry = await db
         .select()
         .from(miscellaneous)
@@ -128,9 +135,11 @@ export const miscRouter = createTRPCRouter({
       let updatedBalance;
 
       if (input.entryType === "in") {
-        updatedBalance = input.initialBalance - existingMiscEntry[0].amount;
+        updatedBalance =
+          currentUser.miscellanousBalance - existingMiscEntry[0].amount;
       } else {
-        updatedBalance = input.initialBalance + existingMiscEntry[0].amount;
+        updatedBalance =
+          currentUser.miscellanousBalance + existingMiscEntry[0].amount;
       }
 
       const promises = [

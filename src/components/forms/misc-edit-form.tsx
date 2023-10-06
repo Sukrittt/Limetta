@@ -90,7 +90,6 @@ export const MiscEditForm = ({
       amount: parsedAmount,
       description,
       entryType,
-      initialBalance: entryDetails.initialBalance,
       miscId: entryDetails.entryId,
     });
   };

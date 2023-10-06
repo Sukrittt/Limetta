@@ -218,12 +218,10 @@ const InvestmentEntryItem = ({
               currency={currency}
               entryDetails={entryDetails}
               tradeBooking={entry.tradeBooks}
-              initialTotalInvested={initialTotalInvested}
             />
             <InvestmentDeleteEntry
               entryDetails={entryDetails}
               tradeBooking={entry.tradeBooks}
-              initialTotalInvested={initialTotalInvested}
             />
           </div>
         )}
@@ -250,12 +248,10 @@ const InvestmentEntryItem = ({
               currency={currency}
               entryDetails={entryDetails}
               tradeBooking={entry.tradeBooks}
-              initialTotalInvested={initialTotalInvested}
             />
             <InvestmentDeleteEntry
               entryDetails={entryDetails}
               tradeBooking={entry.tradeBooks}
-              initialTotalInvested={initialTotalInvested}
             />
           </div>
         )}

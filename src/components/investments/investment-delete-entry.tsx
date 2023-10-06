@@ -20,11 +20,9 @@ import { buttonVariants } from "@/components/ui/button";
 
 export const InvestmentDeleteEntry = ({
   entryDetails,
-  initialTotalInvested,
   tradeBooking,
 }: {
   entryDetails: EntryType;
-  initialTotalInvested: number;
   tradeBooking: boolean;
 }) => {
   const router = useRouter();
@@ -102,8 +100,6 @@ export const InvestmentDeleteEntry = ({
                     deleteEntry.mutate({
                       entryType: entryDetails.entryType,
                       investId: entryDetails.entryId,
-                      initialBalance: entryDetails.initialBalance,
-                      initialTotalInvested,
                       tradeBooking,
                     })
                   }

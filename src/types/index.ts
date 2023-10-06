@@ -20,7 +20,7 @@ export type EntryType = {
   amount: number;
   description: string;
   entryType: "in" | "out";
-  initialBalance: number;
+  initialBalance?: number;
 };
 
 export type ExtendedEntryType = Omit<

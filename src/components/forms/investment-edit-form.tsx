@@ -88,7 +88,7 @@ export const InvestmentEditEntryForm = ({
 
     const parsedAmount = parseFloat(amount.replace(/,/g, ""));
 
-    if (!tradeBooking && parsedAmount > entryDetails.initialBalance) {
+    if (!tradeBooking && parsedAmount > (entryDetails.initialBalance ?? 0)) {
       return toast({
         title: "Insufficient balance",
         description: "You don't have enough balance to make this investment.",

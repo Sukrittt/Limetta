@@ -7,7 +7,6 @@ export type ExpenseType = {
   amount: number;
   bookId: number;
   dueType?: "payable" | null;
-  totalSpendings: number;
 };
 
 export type Calculations = {

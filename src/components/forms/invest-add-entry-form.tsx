@@ -19,10 +19,12 @@ export const InvestAddEntryForm = ({
   onClose,
   currency,
   initialBalance,
+  setDisabled,
 }: {
   onClose: () => void;
   currency: CurrencyType;
   initialBalance: number;
+  setDisabled: (disabled: boolean) => void;
 }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -48,6 +50,7 @@ export const InvestAddEntryForm = ({
         title: "Entry added",
         description: "Your entry has been added successfully.",
       });
+      setDisabled(false);
       onClose();
     },
     onError: () => {
@@ -93,6 +96,8 @@ export const InvestAddEntryForm = ({
         variant: "destructive",
       });
     }
+
+    setDisabled(true);
 
     addInvestmentEntry.mutate({
       amount: parsedAmount,

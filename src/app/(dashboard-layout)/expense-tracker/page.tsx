@@ -144,7 +144,7 @@ const Dashboard = async () => {
               ) : (
                 <>
                   <div className="flex flex-col gap-y-1">
-                    <span className="font-semibold underline underline-offset-4 mb-1">
+                    <span className="font-semibold underline underline-offset-4 mb-1 text-primary">
                       Allotment
                     </span>
                     <div className="flex flex-col font-mono">
@@ -165,7 +165,7 @@ const Dashboard = async () => {
                     </div>
                   </div>
                   <div className="flex flex-col gap-y-1">
-                    <span className="font-semibold underline underline-offset-4 mb-1">
+                    <span className="font-semibold underline underline-offset-4 mb-1 text-primary">
                       Spendings
                     </span>
                     <div className="flex flex-col font-mono">
@@ -182,7 +182,7 @@ const Dashboard = async () => {
                     </div>
                   </div>
                   <div className="flex flex-col gap-y-1">
-                    <span className="font-semibold underline underline-offset-4 mb-1">
+                    <span className="font-semibold underline underline-offset-4 mb-1 text-primary">
                       Money Left
                     </span>
                     <div className="flex flex-col font-mono">
@@ -215,7 +215,7 @@ const Dashboard = async () => {
                     </div>
                   </div>
                   <div className="flex flex-col gap-y-1">
-                    <span className="font-semibold underline underline-offset-4 mb-1">
+                    <span className="font-semibold underline underline-offset-4 mb-1 text-primary">
                       Savings
                     </span>
                     <div className="flex flex-col font-mono">

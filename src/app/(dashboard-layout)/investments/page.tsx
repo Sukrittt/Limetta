@@ -78,7 +78,6 @@ const Investments = async () => {
         <div className="flex justify-center gap-x-12 items-center">
           <InvestAddEntry
             initialBalance={currentUser.investmentsBalance}
-            initialTotalInvested={currentUser.totalInvested}
             currency={currentUser.currency as CurrencyType}
           />
         </div>

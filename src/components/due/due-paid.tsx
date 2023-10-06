@@ -92,9 +92,9 @@ export const DuePaid = ({
       ) : (
         <span
           className={cn(
-            "cursor-pointer hover:text-primary hover:opacity-90 transition",
+            "cursor-pointer text-primary hover:opacity-90 transition",
             {
-              "hover:text-yellow-600": entryDetails.dueStatus === "paid",
+              "text-yellow-600": entryDetails.dueStatus === "paid",
             }
           )}
           onClick={onOpen}

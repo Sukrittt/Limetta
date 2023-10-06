@@ -45,7 +45,7 @@ const loading = () => {
         </div>
         <MobileSidebar />
         <div className="hidden xl:flex">
-          <Skeleton className="h-8 w-24 rounded-lg" />
+          <Skeleton className="h-10 w-28 rounded-xl" />
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 tracking-tight mt-2">

@@ -29,7 +29,7 @@ const loading = () => {
           </ToolTip>
         </div>
         <div className="absolute top-3 right-3">
-          <Skeleton className="h-8 w-24 rounded-lg" />
+          <Skeleton className="h-8 w-20 rounded-xl" />
         </div>
         <div className="flex flex-col items-center gap-y-2">
           <Skeleton className="h-10 w-28 rounded-lg" />

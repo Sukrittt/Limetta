@@ -28,7 +28,7 @@ const loading = () => {
           </ToolTip>
         </div>
         <div className="absolute top-3 right-3">
-          <Skeleton className="h-8 w-24 rounded-lg" />
+          <Skeleton className="h-8 w-20 rounded-xl" />
         </div>
         <div className="flex justify-around gap-4">
           <div className="flex flex-col items-center gap-y-2">

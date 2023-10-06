@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -6,6 +7,7 @@ import {
   useDisclosure,
 } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
+import { Spinner } from "@nextui-org/spinner";
 
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
@@ -14,20 +16,32 @@ import { InvestAddEntryForm } from "@/components/forms/invest-add-entry-form";
 
 export const InvestAddEntry = ({
   initialBalance,
-  initialTotalInvested,
   currency,
 }: {
   initialBalance: number;
-  initialTotalInvested: number;
   currency: CurrencyType;
 }) => {
+  const [disabled, setDisabled] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <>
-      <Button onPress={onOpen} className={cn(buttonVariants(), "rounded-full")}>
-        Add entry
-      </Button>
+      {disabled ? (
+        <Button
+          disabled={disabled}
+          className={cn(buttonVariants(), "rounded-full")}
+        >
+          <Spinner color="default" size="sm" />
+        </Button>
+      ) : (
+        <Button
+          onPress={onOpen}
+          className={cn(buttonVariants(), "rounded-full")}
+        >
+          Add entry
+        </Button>
+      )}
+
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -44,7 +58,7 @@ export const InvestAddEntry = ({
                 onClose={onClose}
                 currency={currency}
                 initialBalance={initialBalance}
-                initialTotalInvested={initialTotalInvested}
+                setDisabled={setDisabled}
               />
             </>
           )}

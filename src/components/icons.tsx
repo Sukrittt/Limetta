@@ -28,9 +28,7 @@ import {
   MoveLeft,
   ArrowDownToLine,
   CheckIcon,
-  Palette,
-  Sun,
-  Moon,
+  Palette
 } from "lucide-react";
 
 export const Icons = {
@@ -97,6 +95,4 @@ export const Icons = {
   download: ArrowDownToLine,
   check: CheckIcon,
   theme: Palette,
-  sun: Sun,
-  moon: Moon,
 };

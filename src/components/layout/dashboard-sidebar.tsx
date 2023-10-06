@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { accounts, settings, siteConfig } from "@/config";
 import { ThemeSelector } from "@/components/themes/theme-selector";
-import { ThemeModeChanger } from "@/components/themes/theme-mode-changer";
 
 export const DashboardSidebar = () => {
   const pathname = usePathname();
@@ -14,7 +13,8 @@ export const DashboardSidebar = () => {
   return (
     <div className="hidden xl:flex flex-col gap-y-8 px-5 pb-8 pt-3 xl:pt-6 md:py-8">
       <Link href="/" className="text-lg font-bold tracking-tight">
-        <span className="text-primary">B</span>alance<span className="text-primary">W</span>ise
+        <span className="text-primary">B</span>alance
+        <span className="text-primary">W</span>ise
       </Link>
 
       <div className="space-y-4 tracking-tight">
@@ -77,11 +77,8 @@ export const DashboardSidebar = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-4">
-        <div className="flex gap-x-4">
-          <ThemeModeChanger />
-          <ThemeSelector />
-        </div>
+      <div className="absolute bottom-6">
+        <ThemeSelector />
       </div>
     </div>
   );

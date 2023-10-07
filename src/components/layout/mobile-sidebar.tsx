@@ -9,6 +9,7 @@ import { Icons } from "@/components/icons";
 import { Logout } from "@/components/logout";
 import { Button } from "@/components/ui/button";
 import { accounts, settings, siteConfig } from "@/config";
+import { ThemeSelector } from "@/components/themes/theme-selector";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export const MobileSidebar = () => {
@@ -81,6 +82,10 @@ export const MobileSidebar = () => {
         <div className="pt-4 space-y-2">
           <Divider />
           <Logout />
+        </div>
+
+        <div className="absolute bottom-6">
+          <ThemeSelector />
         </div>
       </SheetContent>
     </Sheet>

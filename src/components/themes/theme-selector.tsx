@@ -11,6 +11,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { Icons } from "@/components/icons";
+import ToolTip from "@/components/ui/tool-tip";
 import { useConfig } from "@/hooks/use-config";
 import { FilterableTheme, Theme, ThemeNames, themes } from "@/themes";
 
@@ -38,8 +39,6 @@ export const ThemeSelector = () => {
   }, []);
 
   useEffect(() => {
-    if (!query) setFilteredThemes(initialThemes);
-
     const filtered = themes.filter((theme) =>
       theme.label.toLowerCase().includes(query.toLowerCase())
     );
@@ -47,16 +46,36 @@ export const ThemeSelector = () => {
     setFilteredThemes(filtered);
   }, [query]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setIsOpen((isOpen) => !isOpen);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <>
       {mounted ? (
-        <div
-          className="flex items-center text-xs text-muted-foreground gap-x-1 cursor-pointer hover:text-primary transition"
-          onClick={() => setIsOpen(true)}
+        <ToolTip
+          customComponent={
+            <span className="text-xs text-muted-foreground tracking-tighter font-mono">
+              ctrl + k
+            </span>
+          }
+          showArrow
         >
-          <Icons.theme className="h-3.5 w-3.5" />
-          <span>{config.theme}</span>
-        </div>
+          <div
+            className="flex items-center text-xs text-muted-foreground gap-x-1 cursor-pointer hover:text-primary transition"
+            onClick={() => setIsOpen(true)}
+          >
+            <Icons.theme className="h-3.5 w-3.5" />
+            <span>{config.theme}</span>
+          </div>
+        </ToolTip>
       ) : (
         <div className="grid place-items-center">
           <span className="text-xs text-muted-foreground">
@@ -76,7 +95,7 @@ export const ThemeSelector = () => {
             No themes found.
           </CommandEmpty>
           <CommandGroup heading="Themes">
-            {filteredThemes.reverse().map((theme) => (
+            {filteredThemes.map((theme) => (
               <CommandItem
                 key={theme.label}
                 className="flex items-center justify-between cursor-pointer"

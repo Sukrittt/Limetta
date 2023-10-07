@@ -38,6 +38,8 @@ export const DueEditEntry = ({
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
+        hideCloseButton={disabled}
+        isDismissable={!disabled}
         backdrop="blur"
         placement="center"
       >

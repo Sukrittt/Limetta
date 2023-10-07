@@ -66,8 +66,9 @@ export const MiscEntry = ({
       )}
       <Modal
         isOpen={isOpen}
-        isDismissable={!disabled}
         onOpenChange={onOpenChange}
+        isDismissable={!disabled}
+        hideCloseButton={disabled}
         backdrop="blur"
         placement="center"
       >

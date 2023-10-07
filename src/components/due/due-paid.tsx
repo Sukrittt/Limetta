@@ -106,6 +106,7 @@ export const DuePaid = ({
       <Modal
         isOpen={isOpen}
         isDismissable={!dueMarkPaidEntry.isLoading}
+        hideCloseButton={dueMarkPaidEntry.isLoading}
         onOpenChange={onOpenChange}
         backdrop="blur"
         placement="center"

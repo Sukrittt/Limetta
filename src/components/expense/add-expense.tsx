@@ -113,6 +113,7 @@ export const AddExpense: FC<AddExpenseProps> = ({
       <Modal
         isOpen={isOpen}
         isDismissable={!disabled}
+        hideCloseButton={disabled}
         onOpenChange={onOpenChange}
         backdrop="blur"
         placement="center"

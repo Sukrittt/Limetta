@@ -233,6 +233,7 @@ export const DueEditForm = ({
       <ModalFooter>
         <Button
           color="danger"
+          disabled={editDueEntry.isLoading}
           className={cn(
             buttonVariants({ size: "sm", variant: "ghost" }),
             "rounded-lg"

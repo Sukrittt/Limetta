@@ -65,6 +65,7 @@ export const InvestmentDeleteEntry = ({
       <Modal
         isOpen={isOpen}
         isDismissable={!deleteEntry.isLoading}
+        hideCloseButton={deleteEntry.isLoading}
         onOpenChange={onOpenChange}
         backdrop="blur"
         placement="center"

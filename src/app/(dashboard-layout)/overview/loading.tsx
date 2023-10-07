@@ -66,7 +66,7 @@ const loading = () => {
             <Skeleton className="h-full w-full" />
           </CardContent>
         </Card>
-        <Card className="col-span-5 lg:col-span-2 h-[410px] overflow-y-auto no-scrollbar">
+        <Card className="col-span-5 lg:col-span-2 h-[430px] overflow-y-auto no-scrollbar">
           <CardHeader>
             <CardTitle className="text-md">Total Monthly Expenses</CardTitle>
             <CardDescription>You have spent --- till now.</CardDescription>

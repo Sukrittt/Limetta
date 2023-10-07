@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { format } from "date-fns";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
@@ -14,6 +15,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { CurrencyType } from "@/types";
+import ToolTip from "@/components/ui/tool-tip";
 import { ExpenseOverview } from "@/components/expense-overview";
 import { MonthlyExpenseSheet } from "@/components/expense/mothly-expense-sheet";
 
@@ -90,9 +92,25 @@ const Overview = async () => {
         <h1 className="line-clamp-1 text-3xl font-bold tracking-tight py-1">
           Budget Overview
         </h1>
-        <p className="text-muted-foreground text-md">
-          Monthly Expense Summary for the Past Year
-        </p>
+        <div className="flex gap-x-1 items-center text-muted-foreground">
+          <p>Monthly Expense Summary for the Past Year</p>
+          <ToolTip
+            customComponent={
+              <p className="text-xs">
+                An overview of all the expenes you made in{" "}
+                <Link
+                  href="/expense-tracker"
+                  className="text-primary transition"
+                >
+                  expense tracker
+                </Link>
+                .
+              </p>
+            }
+          >
+            <Icons.info className="h-3 w-3 mt-[2px]" />
+          </ToolTip>
+        </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
         <Card>

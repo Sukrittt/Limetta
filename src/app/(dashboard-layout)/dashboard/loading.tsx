@@ -145,7 +145,7 @@ const loading = () => {
                       <account.icon className="h-4 w-4" />
                       {account.title}
                     </div>
-                    <Skeleton className="h-6 w-20 rounded-lg" />
+                    <Skeleton className="h-8 w-[88px] rounded-lg" />
                   </div>
                 ))}
               </div>

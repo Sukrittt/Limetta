@@ -193,11 +193,11 @@ const DueEntryItem: FC<DueEntryProps> = ({
             {transferAccountHref ? (
               <ToolTip
                 customComponent={
-                  <p className="text-sm py-1">
+                  <p className="text-xs">
                     Transferred to{" "}
                     <Link
                       href={`/${transferAccountHref}`}
-                      className="text-primary text-center text-xs underline underline-offset-4"
+                      className="text-primary"
                     >
                       {transferAccountHref}
                     </Link>
@@ -255,11 +255,11 @@ const DueEntryItem: FC<DueEntryProps> = ({
             {transferAccountHref ? (
               <ToolTip
                 customComponent={
-                  <p className="text-sm py-1">
+                  <p className="text-xs">
                     Transferred to{" "}
                     <Link
                       href={`/${transferAccountHref}`}
-                      className="text-primary text-center text-xs underline underline-offset-4"
+                      className="text-primary"
                     >
                       {transferAccountHref}
                     </Link>

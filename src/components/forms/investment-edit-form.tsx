@@ -272,6 +272,7 @@ export const InvestmentEditEntryForm = ({
       <ModalFooter>
         <Button
           color="danger"
+          disabled={updateInvestmentEntry.isLoading}
           className={cn(
             buttonVariants({ size: "sm", variant: "ghost" }),
             "rounded-lg"

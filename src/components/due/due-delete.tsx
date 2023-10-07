@@ -62,6 +62,7 @@ export const DueDelete = ({
       )}
       <Modal
         isOpen={isOpen}
+        isDismissable={!deleteEntry.isLoading}
         onOpenChange={onOpenChange}
         backdrop="blur"
         placement="center"
@@ -82,6 +83,7 @@ export const DueDelete = ({
                 <Button
                   color="danger"
                   variant="light"
+                  disabled={deleteEntry.isLoading}
                   className={cn(
                     buttonVariants({ size: "sm", variant: "ghost" }),
                     "rounded-lg"

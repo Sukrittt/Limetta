@@ -29,6 +29,7 @@ export const EditExpense = ({ expense }: { expense: ExpenseType }) => {
       )}
       <Modal
         isOpen={isOpen}
+        isDismissable={!disabled}
         onOpenChange={onOpenChange}
         backdrop="blur"
         placement="center"

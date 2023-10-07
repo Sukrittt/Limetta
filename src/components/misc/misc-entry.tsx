@@ -66,6 +66,7 @@ export const MiscEntry = ({
       )}
       <Modal
         isOpen={isOpen}
+        isDismissable={!disabled}
         onOpenChange={onOpenChange}
         backdrop="blur"
         placement="center"

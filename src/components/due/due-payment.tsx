@@ -65,6 +65,7 @@ export const DuePayment = ({
       )}
       <Modal
         isOpen={isOpen}
+        isDismissable={!disabled}
         onOpenChange={onOpenChange}
         backdrop="blur"
         placement="center"

@@ -62,6 +62,7 @@ export const MiscDeleteEntry = ({
       )}
       <Modal
         isOpen={isOpen}
+        isDismissable={!deleteEntry.isLoading}
         onOpenChange={onOpenChange}
         backdrop="blur"
         placement="center"
@@ -81,6 +82,7 @@ export const MiscDeleteEntry = ({
               <ModalFooter>
                 <Button
                   color="danger"
+                  disabled={deleteEntry.isLoading}
                   variant="light"
                   className={cn(
                     buttonVariants({ size: "sm", variant: "ghost" }),

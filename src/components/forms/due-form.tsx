@@ -171,6 +171,7 @@ export const DueForm = ({
       <ModalFooter>
         <Button
           color="danger"
+          disabled={addDueEntry.isLoading}
           className={cn(
             buttonVariants({ size: "sm", variant: "ghost" }),
             "rounded-lg"

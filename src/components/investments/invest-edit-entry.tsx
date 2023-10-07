@@ -38,6 +38,7 @@ export const InvestmentEditEntry = ({
       )}
       <Modal
         isOpen={isOpen}
+        isDismissable={!disabled}
         onOpenChange={onOpenChange}
         backdrop="blur"
         placement="center"

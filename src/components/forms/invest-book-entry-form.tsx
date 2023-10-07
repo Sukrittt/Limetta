@@ -290,6 +290,7 @@ export const InvestBookEntryForm = ({
       <ModalFooter>
         <Button
           color="danger"
+          disabled={addInvestmentEntry.isLoading}
           className={cn(
             buttonVariants({ size: "sm", variant: "ghost" }),
             "rounded-lg"

@@ -167,6 +167,7 @@ export const MiscEditForm = ({
       <ModalFooter>
         <Button
           color="danger"
+          disabled={updateMiscEntry.isLoading}
           className={cn(
             buttonVariants({ size: "sm", variant: "ghost" }),
             "rounded-lg"

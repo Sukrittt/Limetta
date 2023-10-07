@@ -44,6 +44,7 @@ export const InvestAddEntry = ({
 
       <Modal
         isOpen={isOpen}
+        isDismissable={!disabled}
         onOpenChange={onOpenChange}
         backdrop="blur"
         placement="center"

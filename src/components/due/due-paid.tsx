@@ -105,6 +105,7 @@ export const DuePaid = ({
 
       <Modal
         isOpen={isOpen}
+        isDismissable={!dueMarkPaidEntry.isLoading}
         onOpenChange={onOpenChange}
         backdrop="blur"
         placement="center"
@@ -176,6 +177,7 @@ export const DuePaid = ({
               <ModalFooter>
                 <Button
                   color="danger"
+                  disabled={dueMarkPaidEntry.isLoading}
                   variant="light"
                   className={cn(
                     buttonVariants({ size: "sm", variant: "ghost" }),

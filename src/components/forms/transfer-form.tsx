@@ -265,6 +265,7 @@ export const TransferForm = ({
       <ModalFooter>
         <Button
           color="danger"
+          disabled={transferAmount.isLoading}
           className={cn(
             buttonVariants({ size: "sm", variant: "ghost" }),
             "rounded-lg"

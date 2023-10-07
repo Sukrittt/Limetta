@@ -56,6 +56,7 @@ export const Transfer = ({
       )}
       <Modal
         isOpen={isOpen}
+        isDismissable={!disabled}
         onOpenChange={onOpenChange}
         backdrop="blur"
         placement="center"

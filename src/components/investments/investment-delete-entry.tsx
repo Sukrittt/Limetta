@@ -64,6 +64,7 @@ export const InvestmentDeleteEntry = ({
       )}
       <Modal
         isOpen={isOpen}
+        isDismissable={!deleteEntry.isLoading}
         onOpenChange={onOpenChange}
         backdrop="blur"
         placement="center"
@@ -83,6 +84,7 @@ export const InvestmentDeleteEntry = ({
               <ModalFooter>
                 <Button
                   color="danger"
+                  disabled={deleteEntry.isLoading}
                   variant="light"
                   className={cn(
                     buttonVariants({ size: "sm", variant: "ghost" }),

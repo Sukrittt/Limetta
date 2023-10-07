@@ -161,6 +161,7 @@ export const EditExpenseForm = ({
         <Button
           color="danger"
           variant="light"
+          disabled={editEntry.isLoading}
           className={cn(
             buttonVariants({ size: "sm", variant: "ghost" }),
             "rounded-lg"

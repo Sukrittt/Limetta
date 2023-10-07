@@ -159,6 +159,7 @@ export const MiscEntryForm = ({
             "rounded-lg"
           )}
           variant="light"
+          disabled={addMiscEntry.isLoading}
           onPress={onClose}
         >
           Close

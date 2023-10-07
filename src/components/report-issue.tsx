@@ -10,44 +10,21 @@ import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
 
 import { cn } from "@/lib/utils";
-import { CurrencyType } from "@/types";
 import { buttonVariants } from "@/components/ui/button";
-import { MiscEntryForm } from "@/components/forms/misc-entry-form";
+import { ReportIssueForm } from "@/components/forms/report-form";
 
-export const MiscEntry = ({
-  entryType,
-  currency,
-}: {
-  currency: CurrencyType;
-  entryType: "in" | "out";
-}) => {
+export const ReportIssue = () => {
   const [disabled, setDisabled] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <>
-      {entryType === "in" ? (
-        disabled ? (
-          <Button
-            disabled={disabled}
-            className={cn(buttonVariants(), "rounded-full")}
-          >
-            <Spinner color="default" size="sm" />
-          </Button>
-        ) : (
-          <Button
-            onPress={onOpen}
-            className={cn(buttonVariants(), "rounded-full")}
-          >
-            Income
-          </Button>
-        )
-      ) : disabled ? (
+      {disabled ? (
         <Button
           disabled={disabled}
           className={cn(
             buttonVariants({ variant: "secondary" }),
-            "rounded-full"
+            "rounded-full m-1"
           )}
         >
           <Spinner color="default" size="sm" />
@@ -57,10 +34,10 @@ export const MiscEntry = ({
           onPress={onOpen}
           className={cn(
             buttonVariants({ variant: "secondary" }),
-            "rounded-full"
+            "rounded-full m-1"
           )}
         >
-          Expense
+          Report an issue
         </Button>
       )}
       <Modal
@@ -74,15 +51,10 @@ export const MiscEntry = ({
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                {entryType === "in" ? "Add Income" : "Add Expense"}
+              <ModalHeader className="flex flex-col gap-1 pb-0">
+                Report an issue
               </ModalHeader>
-              <MiscEntryForm
-                onClose={onClose}
-                currency={currency}
-                entryType={entryType}
-                setDisabled={setDisabled}
-              />
+              <ReportIssueForm onClose={onClose} setDisabled={setDisabled} />
             </>
           )}
         </ModalContent>

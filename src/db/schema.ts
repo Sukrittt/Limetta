@@ -341,7 +341,7 @@ export const UserDueRelations = relations(users, ({ many }) => ({
 // Report an Issue
 export const reports = mysqlTable("reports", {
   id: serial("id").primaryKey(),
-  description: varchar("description", { length: 100 }).notNull(),
+  description: varchar("description", { length: 1000 }).notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
   createdAt: timestamp("createdAt").notNull().defaultNow(),
 });

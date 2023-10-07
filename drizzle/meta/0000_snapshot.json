@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "007df34f-8da4-4bd1-82e8-e8f9bc8fd22e",
+  "id": "bccbb78d-3229-449b-8378-3bb9cbacd759",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -499,7 +499,7 @@
         },
         "description": {
           "name": "description",
-          "type": "varchar(100)",
+          "type": "varchar(1000)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false

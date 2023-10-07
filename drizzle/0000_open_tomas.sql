@@ -78,7 +78,7 @@ CREATE TABLE `needs` (
 --> statement-breakpoint
 CREATE TABLE `reports` (
 	`id` serial AUTO_INCREMENT NOT NULL,
-	`description` varchar(100) NOT NULL,
+	`description` varchar(1000) NOT NULL,
 	`userId` varchar(255) NOT NULL,
 	`createdAt` timestamp NOT NULL DEFAULT (now()),
 	CONSTRAINT `reports_id` PRIMARY KEY(`id`)

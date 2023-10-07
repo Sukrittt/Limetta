@@ -88,7 +88,7 @@ export const AddExpense: FC<AddExpenseProps> = ({
           "rounded-lg tracking-tighter mr-2"
         )}
       >
-        {isLoading ? <Spinner color="default" size="sm" /> : "Download"}
+        {isLoading ? <Spinner color="default" size="sm" /> : "Export"}
       </Button>
       {disabled ? (
         <Button

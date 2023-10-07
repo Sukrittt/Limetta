@@ -15,7 +15,7 @@ const About = () => {
               <h1 className="line-clamp-1 text-3xl font-bold tracking-tight py-1">
                 About
               </h1>
-              <p className="text-muted-foreground text-md">
+              <p className="text-muted-foreground">
                 About the project and the author of the project.
               </p>
             </div>

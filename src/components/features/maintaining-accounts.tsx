@@ -1,10 +1,13 @@
 import { Icons } from "@/components/icons";
+import { Accounts } from "@/components/examples/accounts";
 
 export const MaintainingAccounts = () => {
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-2 py-12">
-      <div></div>
-      <div className="space-y-8">
+    <section className="grid grid-cols-1 gap-y-12 xl:grid-cols-2 py-12">
+      <div className="grid place-items-center sm:pr-8 order-2 xl:order-1">
+        <Accounts />
+      </div>
+      <div className="space-y-8 order-1 xl:order-2">
         <div className="flex flex-col gap-y-4">
           <h3 className="text-3xl font-[900] tracking-tight">
             Maintain multiple accounts and track your transactions

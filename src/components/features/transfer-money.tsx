@@ -1,8 +1,9 @@
 import { Icons } from "@/components/icons";
+import { Transfer } from "@/components/examples/transfer";
 
 export const TransferMoney = () => {
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-2 py-12">
+    <section className="grid grid-cols-1 xl:grid-cols-2 gap-y-12 py-12">
       <div className="space-y-8">
         <div className="flex flex-col gap-y-4">
           <h3 className="text-3xl font-[900] tracking-tight">
@@ -42,6 +43,9 @@ export const TransferMoney = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="grid place-items-center sm:px-8">
+        <Transfer />
       </div>
     </section>
   );

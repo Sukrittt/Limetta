@@ -1,8 +1,9 @@
 import { Icons } from "@/components/icons";
+import { Onboarding } from "@/components/examples/onboading";
 
 export const ExpenseTracker = () => {
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-2 py-12">
+    <section className="grid grid-cols-1 gap-y-12 xl:grid-cols-2 py-12">
       <div className="space-y-8">
         <div className="flex flex-col gap-y-4">
           <h3 className="text-3xl font-[900] tracking-tight">
@@ -15,7 +16,7 @@ export const ExpenseTracker = () => {
           </p>
         </div>
         <div className="space-y-8">
-          <div className="flex gap-x-4 relative">
+          <div className="flex flex-row gap-x-4 relative">
             <div className="bg-primary rounded-md absolute h-12 w-12 grid place-items-center">
               <Icons.customize className="h-6 w-6" />
             </div>
@@ -27,7 +28,7 @@ export const ExpenseTracker = () => {
               </p>
             </div>
           </div>
-          <div className="flex gap-x-4 relative">
+          <div className="flex flex-row gap-x-4 relative">
             <div className="bg-primary absolute rounded-md h-12 w-12 grid place-items-center">
               <Icons.overview className="h-6 w-6" />
             </div>
@@ -41,6 +42,9 @@ export const ExpenseTracker = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="grid place-items-center sm:px-8">
+        <Onboarding />
       </div>
     </section>
   );

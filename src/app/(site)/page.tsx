@@ -36,8 +36,8 @@ export default function Home() {
           Get Started
         </Button>
       </section>
-      <div className="flex flex-col justify-center py-12 gap-y-4">
-        <h3 className="text-3xl text-center font-extrabold tracking-tighter">
+      <div className="flex flex-col items-center justify-center py-12 gap-y-4">
+        <h3 className="text-4xl text-center font-extrabold tracking-tighter">
           Finance app built for students
         </h3>
         <Balancer className="text-muted-foreground text-center text-lg">

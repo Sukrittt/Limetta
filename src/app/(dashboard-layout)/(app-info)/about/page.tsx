@@ -1,7 +1,10 @@
 import Link from "next/link";
+import { Divider } from "@nextui-org/divider";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
-import { Divider } from "@nextui-org/divider";
+import { cn } from "@/lib/utils";
+import { Icons } from "@/components/icons";
+import { buttonVariants } from "@/components/ui/button";
 import { features, socials, techStack } from "@/config";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -89,6 +92,17 @@ const About = () => {
                 </li>
               ))}
             </ul>
+          </div>
+          <div className="w-full flex justify-end items-center">
+            <Link
+              href="/contact"
+              className={cn(
+                buttonVariants({ variant: "ghost", size: "sm" }),
+                "w-fit"
+              )}
+            >
+              Contact <Icons.right className="ml-2 h-4 w-4" />
+            </Link>
           </div>
         </CardContent>
       </ScrollShadow>

@@ -28,7 +28,8 @@ import {
   MoveLeft,
   ArrowDownToLine,
   CheckIcon,
-  Palette
+  Palette,
+  ChevronRight,
 } from "lucide-react";
 
 export const Icons = {
@@ -95,4 +96,5 @@ export const Icons = {
   download: ArrowDownToLine,
   check: CheckIcon,
   theme: Palette,
+  right: ChevronRight,
 };

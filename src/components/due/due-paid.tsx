@@ -104,6 +104,7 @@ export const DuePaid = ({
       )}
 
       <Modal
+        className="bg-card"
         isOpen={isOpen}
         isDismissable={!dueMarkPaidEntry.isLoading}
         hideCloseButton={dueMarkPaidEntry.isLoading}

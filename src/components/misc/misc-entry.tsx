@@ -64,6 +64,7 @@ export const MiscEntry = ({
         </Button>
       )}
       <Modal
+        className="bg-card"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         isDismissable={!disabled}

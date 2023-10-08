@@ -58,6 +58,7 @@ export const DeleteExpense = ({
         </span>
       )}
       <Modal
+        className="bg-card"
         isOpen={isOpen}
         isDismissable={!deleteEntry.isLoading}
         hideCloseButton={deleteEntry.isLoading}

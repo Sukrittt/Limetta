@@ -32,7 +32,7 @@ const Help = () => {
             a smoother financial journey.
           </p>
         </div>
-        <ScrollShadow className="grid gap-4 h-[calc(85vh-90px)] w-full no-scrollbar">
+        <ScrollShadow className="grid gap-4 h-[calc(85vh-90px)] w-full no-scrollbar pb-6">
           {faqs.map((faq, index) => (
             <Card key={index}>
               <CardContent className="py-3">

@@ -35,6 +35,7 @@ export const InvestmentBookEntry = ({
         </span>
       )}
       <Modal
+        className="bg-card"
         isOpen={isOpen}
         isDismissable={!disabled}
         hideCloseButton={disabled}

@@ -70,6 +70,7 @@ export const Transfer = ({
         </Button>
       )}
       <Modal
+        className="bg-card"
         isOpen={isOpen}
         isDismissable={!disabled}
         hideCloseButton={disabled}

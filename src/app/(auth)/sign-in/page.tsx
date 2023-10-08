@@ -19,12 +19,18 @@ const SignIn = () => {
             </div>
             <p className="text-xs text-muted-foreground text-center">
               By signing in, you agree to our{" "}
-              <Link href="/terms" className="text-primary">
+              <Link
+                href="/terms"
+                className="text-primary hover:underline underline-offset-2"
+              >
                 Terms of Service
               </Link>
               <br />
               and{" "}
-              <Link href="/privacy" className="text-primary">
+              <Link
+                href="/privacy"
+                className="text-primary hover:underline underline-offset-2"
+              >
                 Privacy Policy
               </Link>
               .

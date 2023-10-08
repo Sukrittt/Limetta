@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 import { db } from "@/db";
 import { dues } from "@/db/schema";
@@ -16,7 +16,7 @@ export const dueRouter = createTRPCRouter({
       .from(dues)
       .where(eq(dues.userId, ctx.userId))
       .limit(INFINITE_SCROLLING_PAGINATION_RESULTS)
-      .orderBy(dues.dueDate);
+      .orderBy(desc(dues.dueStatus), dues.dueDate);
 
     return miscTransactions;
   }),

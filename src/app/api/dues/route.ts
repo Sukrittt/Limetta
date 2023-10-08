@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 import { db } from "@/db";
 import { dues } from "@/db/schema";
@@ -33,7 +33,7 @@ export async function GET(req: Request) {
       .where(eq(dues.userId, session.user.id))
       .offset(offsetValue)
       .limit(INFINITE_SCROLLING_PAGINATION_RESULTS)
-      .orderBy(dues.dueDate);
+      .orderBy(desc(dues.dueStatus), dues.dueDate);
 
     return new Response(JSON.stringify(dueTransactions));
   } catch (error) {

@@ -30,7 +30,7 @@ export function DatePicker({ setValue, value }: DatePickerProps) {
         <Button
           className={cn(
             buttonVariants({ variant: "secondary" }),
-            "justify-start text-left font-normal rounded-xl",
+            "justify-start text-left font-normal rounded-xl bg-zinc-800",
             !date && "text-muted-foreground"
           )}
         >

@@ -1,59 +1,59 @@
 .dark .theme-cyberspace {
-  --content: 259, 51%, 65%;
+  --content: 259 51% 65%;
 
-  --background: 120, 8%, 10%;
-  --foreground: 153, 88%, 87%; 
+  --background: 120 8% 10%;
+  --foreground: 153 88% 87%; 
 
-  --muted: 150, 3%, 15%;
-  --muted-foreground: 259, 51%, 65%;
+  --muted: 150 3% 15%;
+  --muted-foreground: 259 51% 65%;
 
-  --popover: 258, 21%, 12%;
-  --popover-foreground: 153, 88%, 87%; 
+  --popover: 258 21% 12%;
+  --popover-foreground: 153 88% 87%; 
 
-  --card: 258, 21%, 12%;
-  --card-foreground: 153, 88%, 87%; 
+  --card: 258 21% 12%;
+  --card-foreground: 153 88% 87%; 
 
-  --border: 258, 51%, 25%;
-  --input: 258, 51%, 25%;
+  --border: 258 51% 25%;
+  --input: 258 51% 25%;
 
-  --primary: 156, 100%, 40%; 
-  --primary-foreground: 153, 88%, 87%;
+  --primary: 156 100% 40%; 
+  --primary-foreground: 153 88% 87%;
 
-  --secondary: 150, 3%, 15%;
-  --secondary-foreground: 156, 100%, 40%; 
+  --secondary: 150 3% 15%;
+  --secondary-foreground: 156 100% 40%; 
 
-  --accent: 150, 3%, 15%; 
-  --accent-foreground: 153, 88%, 87%;
+  --accent: 150 3% 15%; 
+  --accent-foreground: 153 88% 87%;
 
   --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 153, 88%, 87%;
+  --destructive-foreground: 153 88% 87%;
 
   --ring: 240 5.9% 10%;
   --radius: 0.5rem;
 }
 
 .dark .theme-creamsicle {
-  --content: 19, 100%, 56%;
+  --content: 19 100% 47%;
 
-  --background: 19, 100%, 71%; 
-  --foreground: 0, 0%, 98%; 
+  --background: 19 100% 71%; 
+  --foreground: 0 0% 98%; 
   
-  --muted: 19, 100%, 71%;
-  --muted-foreground: 19, 100%, 56%;
+  --muted: 19 100% 71%;
+  --muted-foreground: 19 100% 56%;
 
-  --popover: 19, 99%, 66%; 
-  --popover-foreground: 0, 0%, 98%; 
+  --popover: 19 99% 66%; 
+  --popover-foreground: 0 0% 98%; 
 
-  --card: 19, 99%, 66%; 
-  --card-foreground: 0, 0%, 98%; 
+  --card: 19 99% 66%; 
+  --card-foreground: 0 0% 98%; 
 
-  --border: 19, 100%, 71%;
-  --input: 19, 100%, 71%;
+  --border: 19 100% 71%;
+  --input: 19 100% 71%;
 
   --primary: 35 100% 75%; 
   --primary-foreground: 0 0% 98%;
 
-  --secondary: 19, 99%, 66%;
+  --secondary: 19 99% 66%;
   --secondary-foreground: 35 100% 75%; 
 
   --accent: 35 100% 75%; 
@@ -68,7 +68,7 @@
 
  
   .dark .theme-neutral {
-    --content: 0, 0%, 95%;
+    --content: 0 0% 95%;
 
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -100,8 +100,41 @@
     --ring: 0 0% 83.1%;
   }
  
+  .dark .theme-aurora {
+    --content: 340 27% 98%;
+
+    --background: 201 95% 8%;
+    --foreground: 152 100% 46%;
+ 
+    --muted: 191 41% 28%;
+    --muted-foreground: 0 0% 63.9%;
+ 
+    --popover: 201 95% 8%;
+    --popover-foreground: 202 100% 4%;
+ 
+    --card: 192 43% 9%;
+    --card-foreground: 340 27% 98%;
+ 
+    --border: 192 41% 15%;
+    --input: 192 41% 15%;
+ 
+    --primary: 152 100% 46%;
+    --primary-foreground: 0 85.7% 97.3%;
+ 
+    --secondary: 191 41% 28%;
+    --secondary-foreground: 202 100% 4%;
+ 
+    --accent: 191 41% 28%;
+    --accent-foreground: 202 100% 4%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 202 100% 4%;
+ 
+    --ring: 152 100% 46%;
+  }
+  
   .dark .theme-red {
-    --content: 0, 0%, 95%;
+    --content: 0 0% 95%;
 
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -134,7 +167,7 @@
   }
 
   .dark .theme-rose {
-    --content: 0, 0%, 95%;
+    --content: 0 0% 95%;
 
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
@@ -167,7 +200,7 @@
   }
  
   .dark .theme-orange {
-    --content: 0, 0%, 95%;
+    --content: 0 0% 95%;
 
     --background: 20 14.3% 4.1%;
     --foreground: 60 9.1% 97.8%;
@@ -200,7 +233,7 @@
   }
  
   .dark .theme-green {
-    --content: 0, 0%, 95%;
+    --content: 0 0% 95%;
 
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
@@ -233,7 +266,7 @@
   }
  
   .dark .theme-blue {
-    --content: 0, 0%, 95%;
+    --content: 0 0% 95%;
 
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -266,7 +299,7 @@
   }
  
   .dark .theme-yellow {
-    --content: 0, 0%, 95%;
+    --content: 0 0% 95%;
 
     --background: 20 14.3% 4.1%;
     --foreground: 60 9.1% 97.8%;
@@ -299,7 +332,7 @@
   }
  
   .dark .theme-violet {
-    --content: 0, 0%, 95%;
+    --content: 0 0% 95%;
 
     --background: 224 71.4% 4.1%;
     --foreground: 210 20% 98%;

@@ -90,7 +90,7 @@ export const DueCard = () => {
                   }
                 )}
               >
-                Mark as paid
+                {`Mark as ${entry.dueStatus === "paid" ? "pending" : "paid"}`}
               </span>
               <span className="cursor-pointer text-yellow-600 hover:opacity-90 transition">
                 Edit

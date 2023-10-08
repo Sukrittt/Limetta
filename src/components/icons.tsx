@@ -33,6 +33,7 @@ import {
   Instagram,
   Twitter,
   LayoutDashboard,
+  ChevronLeft,
 } from "lucide-react";
 
 export const Icons = {
@@ -100,6 +101,7 @@ export const Icons = {
   check: CheckIcon,
   theme: Palette,
   right: ChevronRight,
+  left: ChevronLeft,
   instagram: Instagram,
   twitter: Twitter,
   dashboard: LayoutDashboard,

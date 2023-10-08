@@ -5,8 +5,8 @@ import { buttonVariants } from "@/components/ui/button";
 
 export const Footer = () => {
   return (
-    <footer className="w-full border-t bg-background">
-      <div className="container flex items-center justify-between space-y-1 py-5 md:h-16 md:py-0">
+    <footer className="w-full py-4 bg-background border-t">
+      <div className="container flex flex-col md:flex-row gap-y-4 items-center md:justify-between space-y-1 py-5 md:h-16 md:py-0">
         <div className="text-center text-sm leading-loose text-muted-foreground">
           Created by{" "}
           <Link
@@ -19,6 +19,14 @@ export const Footer = () => {
             Sukrit
           </Link>
           .
+        </div>
+        <div className="flex gap-x-4 text-muted-foreground text-sm font-light">
+          <Link className="hover:underline underline-offset-4" href="/terms">
+            Terms of Service
+          </Link>
+          <Link className="hover:underline underline-offset-4" href="/privacy">
+            Privacy Policy
+          </Link>
         </div>
         <div className="flex items-center sm:space-x-1">
           <Link

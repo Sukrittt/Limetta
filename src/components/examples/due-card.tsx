@@ -78,7 +78,7 @@ export const DueCard = () => {
               Due date: {format(new Date(entry.dueDate), "dd MMM, yy")}
               {entry.dueStatus === "pending" &&
                 new Date(entry.dueDate) <= new Date() && (
-                  <span className="text-yellow-600">!</span>
+                  <span className="text-yellow-600 ml-1">!</span>
                 )}
             </span>
             <div className="flex gap-x-4">

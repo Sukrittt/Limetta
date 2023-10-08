@@ -17,12 +17,11 @@ const SignIn = () => {
   return (
     <div className="h-[100dvh] grid place-items-center px-4">
       <div className="space-y-8">
-        <div className="flex justify-center">
-          <SiteLogo className="text-3xl" />
-        </div>
-
         <Card>
           <CardContent className="pt-6 space-y-6">
+            <div className="flex justify-center">
+              <SiteLogo className="text-3xl" />
+            </div>
             <div className="xl:w-[400px]">
               <AuthForm />
             </div>

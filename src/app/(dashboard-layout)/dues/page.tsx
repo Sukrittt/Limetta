@@ -1,7 +1,9 @@
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Divider } from "@nextui-org/divider";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
+import { env } from "@/env.mjs";
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
 import { Icons } from "@/components/icons";
@@ -10,6 +12,15 @@ import { serverClient } from "@/trpc/server-client";
 import { DueCard } from "@/components/cards/due-card";
 import { Card, CardContent } from "@/components/ui/card";
 import { DuePayment } from "@/components/due/due-payment";
+
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
+  title: "Dues",
+  description:
+    "Streamline due management on our Dues page. Create, track, and settle dues while choosing where to allocate funds: miscellaneous account, savings, or current month's expenses.",
+};
 
 const Dues = async () => {
   const currentUser = await serverClient.user.getCurrentUser();

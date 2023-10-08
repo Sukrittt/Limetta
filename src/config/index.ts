@@ -3,7 +3,7 @@ import { Icons } from "@/components/icons";
 export const siteConfig = {
   name: "BalanceWise",
   description:
-    "Experience a smarter way to manage your finances with Balancewise, a cutting-edge application crafted on Next.js. Our mission is to empower you with effortless expense tracking and provide a comprehensive monthly budget overview. Gain control, make informed decisions, and pave the way to financial success, all in one user-friendly platform.",
+    "Elevate your financial management with Balancewise. Our user-friendly Next.js app simplifies expense tracking, offers multiple account management, easy money transfers, and efficient dues tracking. Take charge of your finances and make informed choices, all in one platform.",
   url: "https://balancewise.vercel.app",
 };
 

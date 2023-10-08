@@ -1,12 +1,21 @@
 import Link from "next/link";
+import { Metadata } from "next";
 import { Divider } from "@nextui-org/divider";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
+import { env } from "@/env.mjs";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { features, siteConfig, socials, techStack } from "@/config";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
+  title: "About",
+  description:
+    "Discover more about the application on our About page. Learn about our tech stack, explore key features, and connect with the author on social media for updates and insights.",
+};
 
 const About = () => {
   return (
@@ -24,8 +33,8 @@ const About = () => {
             </div>
             <Divider className="my-4" />
             <p className="font-light">
-              Experience a smarter way to manage your finances with{" "}
-              {siteConfig.name}, a cutting-edge application crafted on{" "}
+              Elevate your financial management with Balancewise. Our
+              user-friendly{" "}
               <Link
                 href="https://nextjs.org/"
                 target="_blank"
@@ -33,10 +42,10 @@ const About = () => {
               >
                 Next.js.
               </Link>{" "}
-              Our mission is to empower you with effortless expense tracking and
-              provide a comprehensive monthly budget overview. Gain control,
-              make informed decisions, and pave the way to financial success,
-              all in one user-friendly platform.
+              app simplifies expense tracking, offers multiple account
+              management, easy money transfers, and efficient dues tracking.
+              Take charge of your finances and make informed choices, all in one
+              platform.
             </p>
           </div>
 

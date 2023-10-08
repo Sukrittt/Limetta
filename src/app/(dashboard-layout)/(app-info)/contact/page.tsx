@@ -1,8 +1,17 @@
 import Link from "next/link";
+import { Metadata } from "next";
 import { Divider } from "@nextui-org/divider";
 
+import { env } from "@/env.mjs";
 import { contact, siteConfig } from "@/config";
 import { Card, CardContent } from "@/components/ui/card";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
+  title: "Contact",
+  description:
+    "Connect with the author and provide feedback or ask questions through our Contact page. Find the contact details you need to reach out for support or inquiries.",
+};
 
 const Contact = () => {
   return (

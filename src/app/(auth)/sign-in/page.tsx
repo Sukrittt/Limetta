@@ -1,8 +1,17 @@
 import Link from "next/link";
+import { Metadata } from "next";
 
+import { env } from "@/env.mjs";
 import { SiteLogo } from "@/components/site-logo";
 import AuthForm from "@/components/forms/auth-form";
 import { Card, CardContent } from "@/components/ui/card";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
+  title: "Sign in",
+  description:
+    "Sign in to access your financial dashboard. Manage your expenses, track savings, and stay in control of your finances with our user-friendly sign-in page.",
+};
 
 const SignIn = () => {
   return (

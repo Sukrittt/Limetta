@@ -18,7 +18,7 @@ const font = Montserrat({ subsets: ["latin"], weight: "500" });
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
   title: {
-    default: siteConfig.name,
+    default: `${siteConfig.name} - Manage Your Finances with Ease`,
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,

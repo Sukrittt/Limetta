@@ -13,9 +13,13 @@ export const SiteLogo = ({ className, ...props }: SiteLogoProps) => {
       )}
       {...props}
     >
-      <span className="text-primary group-hover:text-white transition">B</span>
+      <span className="text-primary group-hover:text-content transition">
+        B
+      </span>
       alance
-      <span className="text-primary group-hover:text-white transition">W</span>
+      <span className="text-primary group-hover:text-content transition">
+        W
+      </span>
       ise
     </Link>
   );

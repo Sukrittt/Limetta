@@ -1,7 +1,9 @@
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Divider } from "@nextui-org/divider";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
+import { env } from "@/env.mjs";
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
 import { Icons } from "@/components/icons";
@@ -13,6 +15,13 @@ import { InvestmentCard } from "@/components/cards/investment-card";
 import { InvestAddEntry } from "@/components/investments/invest-add-entry";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
+  title: "Investments",
+  description:
+    "Effortlessly manage your investment entries with our user-friendly Investments page. Stay organized and in control of your investments with ease.",
+};
 
 const Investments = async () => {
   const currentUser = await serverClient.user.getCurrentUser();

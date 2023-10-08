@@ -1,7 +1,9 @@
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Divider } from "@nextui-org/divider";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
+import { env } from "@/env.mjs";
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
 import { Icons } from "@/components/icons";
@@ -13,6 +15,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { MiscEntry } from "@/components/misc/misc-entry";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
+  title: "Miscellaneous",
+  description:
+    "Streamline your miscellaneous finances effortlessly on our Miscellaneous page. Easily record and track additional income and expenses that do not fit into your regular categories, providing a flexible approach to managing your financial transactions.",
+};
 
 const Miscellaneous = async () => {
   const currentUser = await serverClient.user.getCurrentUser();

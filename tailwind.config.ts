@@ -71,5 +71,16 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), nextui()],
+  plugins: [
+    require("tailwindcss-animate"),
+    nextui({
+      themes: {
+        dark: {
+          colors: {
+            focus: "hsl(0 0% 98%)",
+          },
+        },
+      },
+    }),
+  ],
 };

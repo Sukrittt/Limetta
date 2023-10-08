@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
+import { SiteLogo } from "@/components/site-logo";
 import { accounts, settings } from "@/config";
 import { ThemeSelector } from "@/components/themes/theme-selector";
 
@@ -12,10 +13,7 @@ export const DashboardSidebar = () => {
 
   return (
     <div className="hidden xl:flex flex-col gap-y-8 px-5 pb-8 pt-3 xl:pt-6 md:py-8">
-      <Link href="/" className="text-lg font-bold tracking-tight">
-        <span className="text-primary">B</span>alance
-        <span className="text-primary">W</span>ise
-      </Link>
+      <SiteLogo />
 
       <div className="space-y-4 tracking-tight">
         <div className="flex gap-x-2 items-center">

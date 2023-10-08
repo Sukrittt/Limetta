@@ -50,7 +50,10 @@ const AuthForm = () => {
     <div className="grid gap-y-4 tracking-tighter">
       <Button
         onClick={handleGoogleLogin}
-        className={cn(buttonVariants({ variant: "outline" }), "relative")}
+        className={cn(
+          buttonVariants({ variant: "ghost" }),
+          "relative bg-transparent border"
+        )}
         disabled={isLoading === "google"}
       >
         {isLoading === "google" ? (
@@ -62,7 +65,10 @@ const AuthForm = () => {
       </Button>
       <Button
         onClick={handleGithubLogin}
-        className={cn(buttonVariants({ variant: "outline" }), "relative")}
+        className={cn(
+          buttonVariants({ variant: "ghost" }),
+          "relative bg-transparent border"
+        )}
         disabled={isLoading === "github"}
       >
         {isLoading === "github" ? (

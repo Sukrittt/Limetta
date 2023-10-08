@@ -32,6 +32,7 @@ import {
   ChevronRight,
   Instagram,
   Twitter,
+  LayoutDashboard,
 } from "lucide-react";
 
 export const Icons = {
@@ -101,4 +102,5 @@ export const Icons = {
   right: ChevronRight,
   instagram: Instagram,
   twitter: Twitter,
+  dashboard: LayoutDashboard,
 };

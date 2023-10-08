@@ -4,7 +4,7 @@ import { Accounts } from "@/components/examples/accounts";
 export const MaintainingAccounts = () => {
   return (
     <section className="grid grid-cols-1 gap-y-12 xl:grid-cols-2 py-12">
-      <div className="grid place-items-center sm:pr-8 order-2 xl:order-1">
+      <div className="flex items-center sm:pr-8 order-2 xl:order-1">
         <Accounts />
       </div>
       <div className="space-y-8 order-1 xl:order-2">

@@ -51,7 +51,7 @@ const loading = () => {
             </CardTitle>
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 pt-6 lg:pb-0 lg:pt-3">
               <div className="flex flex-col gap-y-1">
-                <span className="font-semibold underline underline-offset-4 mb-1">
+                <span className="font-semibold underline underline-offset-4 mb-1 text-primary">
                   Allotment
                 </span>
                 <div className="flex flex-col font-mono">
@@ -62,7 +62,7 @@ const loading = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-y-1">
-                <span className="font-semibold underline underline-offset-4 mb-1">
+                <span className="font-semibold underline underline-offset-4 mb-1 text-primary">
                   Spendings
                 </span>
                 <div className="flex flex-col font-mono">
@@ -72,7 +72,7 @@ const loading = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-y-1">
-                <span className="font-semibold underline underline-offset-4 mb-1">
+                <span className="font-semibold underline underline-offset-4 mb-1 text-primary">
                   Money Left
                 </span>
                 <div className="flex flex-col font-mono">
@@ -81,7 +81,7 @@ const loading = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-y-1">
-                <span className="font-semibold underline underline-offset-4 mb-1">
+                <span className="font-semibold underline underline-offset-4 mb-1 text-primary">
                   Savings
                 </span>
                 <div className="flex flex-col font-mono">

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import { accounts, settings, siteConfig } from "@/config";
+import { accounts, settings } from "@/config";
 import { ThemeSelector } from "@/components/themes/theme-selector";
 
 export const DashboardSidebar = () => {

@@ -43,6 +43,11 @@ export const accountTypes = [
 
 export const accounts = [
   {
+    label: "Dashboard",
+    href: "/dashboard",
+    Icon: Icons.dashboard,
+  },
+  {
     label: "Expense Tracker",
     href: "/expense-tracker",
     Icon: Icons.wallet,

@@ -5,8 +5,8 @@ import { ScrollShadow } from "@nextui-org/scroll-shadow";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
-import { features, socials, techStack } from "@/config";
 import { Card, CardContent } from "@/components/ui/card";
+import { features, siteConfig, socials, techStack } from "@/config";
 
 const About = () => {
   return (
@@ -24,8 +24,8 @@ const About = () => {
             </div>
             <Divider className="my-4" />
             <p className="font-light">
-              Experience a smarter way to manage your finances with Balancewise,
-              a cutting-edge application crafted on{" "}
+              Experience a smarter way to manage your finances with{" "}
+              {siteConfig.name}, a cutting-edge application crafted on{" "}
               <Link
                 href="https://nextjs.org/"
                 target="_blank"

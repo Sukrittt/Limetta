@@ -44,7 +44,7 @@ export const TransferMoney = () => {
           </div>
         </div>
       </div>
-      <div className="grid place-items-center sm:px-8">
+      <div className="flex items-center justify-end sm:px-8">
         <Transfer />
       </div>
     </section>

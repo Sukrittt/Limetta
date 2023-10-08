@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const SignIn = () => {
   return (
-    <div className="h-[80vh] lg:h-screen grid place-items-center px-4">
+    <div className="h-screen grid place-items-center px-4">
       <div className="space-y-8">
         <Card>
           <CardContent className="pt-6 space-y-6">

@@ -11,6 +11,7 @@ import { Spinner } from "@nextui-org/spinner";
 
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
+import ToolTip from "@/components/ui/tool-tip";
 import { AccountType, CurrencyType } from "@/types";
 import { buttonVariants } from "@/components/ui/button";
 import { TransferForm } from "@/components/forms/transfer-form";
@@ -21,12 +22,14 @@ export const Transfer = ({
   investmentsBalance,
   miscellaneousBalance,
   savingsBalance,
+  showTooltip = false,
 }: {
   currency: CurrencyType;
   initialSelected: AccountType;
   savingsBalance: number;
   investmentsBalance: number;
   miscellaneousBalance: number;
+  showTooltip?: boolean;
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [disabled, setDisabled] = useState(false);
@@ -43,6 +46,18 @@ export const Transfer = ({
         >
           <Spinner color="default" size="sm" />
         </Button>
+      ) : showTooltip ? (
+        <ToolTip text="Transfer money" showArrow>
+          <Button
+            onClick={onOpen}
+            className={cn(
+              buttonVariants({ variant: "secondary", size: "sm" }),
+              "rounded-xl"
+            )}
+          >
+            <Icons.transfer className="h-4 w-4 cursor-pointer group-hover:text-primary transition" />
+          </Button>
+        </ToolTip>
       ) : (
         <Button
           onClick={onOpen}

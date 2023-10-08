@@ -49,6 +49,7 @@ const Savings = async () => {
         </div>
         <div className="absolute top-3 right-3">
           <Transfer
+            showTooltip
             currency={currentUser.currency as CurrencyType}
             initialSelected="savings"
             savingsBalance={currentUser.savingsBalance}

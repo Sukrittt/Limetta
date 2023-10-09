@@ -172,7 +172,7 @@ const Dashboard = async () => {
             </CardHeader>
           </CardTitle>
           <CardContent className="text-sm">
-            <ScrollShadow className="h-[calc(60vh-100px)] w-full no-scrollbar">
+            <ScrollShadow className="h-[calc(60vh-100px)] w-full no-scrollbar pb-3">
               <div className="flex flex-col gap-y-2">
                 {expenses.length === 0 ? (
                   <div className="flex flex-col items-center gap-y-1 pt-8 text-muted-foreground tracking-tight font-mono">

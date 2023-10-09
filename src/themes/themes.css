@@ -1,3 +1,37 @@
+.dark .theme-fire {
+  --content: 0 33% 31%;
+
+  --background: 0 100% 3%;
+  --foreground: 0 0% 95%; 
+
+  --muted: 0 49% 15%;
+  --muted-foreground: 0 33% 31%;
+
+  --popover: 0 52% 8%;
+  --popover-foreground: 0 27% 40%; 
+
+  --card: 0 52% 8%;
+  --card-foreground: 0 27% 40%; 
+
+  --border: 0 54% 13%;
+  --input: 0 54% 13%;
+
+  --primary: 0 81% 39%; 
+  --primary-foreground: 0 0% 95%;
+
+  --secondary: 0 49% 15%;
+  --secondary-foreground: 0 81% 39%;
+
+  --accent: 0 49% 15%; 
+  --accent-foreground: 0 27% 40%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 27% 40%;
+
+  --ring: 240 5.9% 10%;
+  --radius: 0.5rem;
+}
+
 .dark .theme-cyberspace {
   --content: 259 51% 65%;
 
@@ -110,7 +144,7 @@
     --muted-foreground: 0 0% 63.9%;
  
     --popover: 201 95% 8%;
-    --popover-foreground: 202 100% 4%;
+    --popover-foreground: 0 0% 95%;
  
     --card: 192 43% 9%;
     --card-foreground: 340 27% 98%;
@@ -142,8 +176,8 @@
     --muted: 13 25% 21%;
     --muted-foreground: 0 0% 63.9%;
  
-    --popover: 13 25% 21%;
-    --popover-foreground: 202 100% 4%;
+    --popover: 13 28% 16%;
+    --popover-foreground: 0 0% 95%;
  
     --card: 14 27% 25%;
     --card-foreground: 175 30% 61%;

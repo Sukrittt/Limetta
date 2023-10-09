@@ -21,6 +21,9 @@ module.exports = {
     extend: {
       colors: {
         content: "hsl(var(--content))",
+        "success-text": "hsl(var(--success-text))",
+        "warning-text": "hsl(var(--warning-text))",
+        "danger-text": "hsl(var(--danger-text))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

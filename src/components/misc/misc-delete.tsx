@@ -54,7 +54,7 @@ export const MiscDeleteEntry = ({
         <Spinner color="default" size="sm" className="h-5 w-5" />
       ) : (
         <span
-          className="cursor-pointer text-red-500 hover:opacity-90 transition"
+          className="cursor-pointer text-danger-text hover:opacity-90 transition"
           onClick={onOpen}
         >
           Delete

@@ -176,8 +176,8 @@ const DueEntryItem: FC<DueEntryProps> = ({
         <div className="hidden lg:flex items-center justify-center">
           <span
             className={cn("text-center text-xs", {
-              "text-red-500": entry.dueType === "payable",
-              "text-green-600": entry.dueType === "receivable",
+              "text-danger-text": entry.dueType === "payable",
+              "text-success-text": entry.dueType === "receivable",
             })}
           >
             {entry.dueType === "payable" ? "Payable" : "Receivable"}
@@ -186,8 +186,8 @@ const DueEntryItem: FC<DueEntryProps> = ({
         <div className="hidden lg:flex items-center justify-center">
           <span
             className={cn("text-center text-xs", {
-              "text-green-600": entry.dueStatus === "paid",
-              "text-yellow-600": entry.dueStatus === "pending",
+              "text-success-text": entry.dueStatus === "paid",
+              "text-warning-text": entry.dueStatus === "pending",
             })}
           >
             {transferAccountHref ? (
@@ -221,7 +221,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
             {entry.dueStatus === "pending" &&
               new Date(entry.dueDate) <= new Date() && (
                 <ToolTip text="Due date passed">
-                  <span className="ml-1 text-yellow-600">!</span>
+                  <span className="ml-1 text-warning-text">!</span>
                 </ToolTip>
               )}
           </span>
@@ -241,16 +241,16 @@ const DueEntryItem: FC<DueEntryProps> = ({
         <div className="flex gap-x-4">
           <span
             className={cn("text-center text-xs", {
-              "text-red-500": entry.dueType === "payable",
-              "text-green-600": entry.dueType === "receivable",
+              "text-danger-text": entry.dueType === "payable",
+              "text-success-text": entry.dueType === "receivable",
             })}
           >
             {entry.dueType === "payable" ? "Payable" : "Receivable"}
           </span>
           <span
             className={cn("text-center text-xs", {
-              "text-green-600": entry.dueStatus === "paid",
-              "text-yellow-600": entry.dueStatus === "pending",
+              "text-success-text": entry.dueStatus === "paid",
+              "text-warning-text": entry.dueStatus === "pending",
             })}
           >
             {transferAccountHref ? (
@@ -281,7 +281,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
         <span className="text-center text-xs">
           Due date: {format(new Date(entry.dueDate), "dd MMM, yy")}
           {new Date(entry.dueDate) <= new Date() && (
-            <span className="text-yellow-600 ml-1">!</span>
+            <span className="text-warning-text ml-1">!</span>
           )}
         </span>
         <div className="flex gap-x-4">

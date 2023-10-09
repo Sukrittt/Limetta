@@ -56,7 +56,7 @@ export const InvestmentDeleteEntry = ({
         <Spinner color="default" size="sm" className="h-5 w-5" />
       ) : (
         <span
-          className="cursor-pointer hover:text-red-500 hover:opacity-90 transition"
+          className="cursor-pointer hover:text-danger-text hover:opacity-90 transition"
           onClick={onOpen}
         >
           Delete

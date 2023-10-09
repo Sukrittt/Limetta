@@ -58,7 +58,7 @@ const Dues = async () => {
           <div className="flex flex-col items-center gap-y-2">
             <span
               className={cn("text-4xl", {
-                "text-red-500": currentUser.duePayable < 0,
+                "text-danger-text": currentUser.duePayable < 0,
               })}
             >
               <span>{currentUser.duePayable < 0 ? "-" : ""}</span>
@@ -72,7 +72,7 @@ const Dues = async () => {
           <div className="flex flex-col items-center gap-y-2">
             <span
               className={cn("text-4xl", {
-                "text-red-500": currentUser.dueReceivable < 0,
+                "text-danger-text": currentUser.dueReceivable < 0,
               })}
             >
               <span>{currentUser.dueReceivable < 0 ? "-" : ""}</span>

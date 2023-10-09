@@ -94,7 +94,7 @@ export const DuePaid = ({
           className={cn(
             "cursor-pointer text-primary hover:opacity-90 transition",
             {
-              "text-yellow-600": entryDetails.dueStatus === "paid",
+              "text-warning-text": entryDetails.dueStatus === "paid",
             }
           )}
           onClick={onOpen}

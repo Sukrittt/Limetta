@@ -160,8 +160,8 @@ const MiscEntryItem = ({
 
         <span
           className={cn("text-center col-span-2", {
-            "text-green-600": entry.entryType === "in",
-            "text-red-500": entry.entryType === "out",
+            "text-success-text": entry.entryType === "in",
+            "text-danger-text": entry.entryType === "out",
           })}
         >
           {entry.entryType === "in" ? "+" : "-"}

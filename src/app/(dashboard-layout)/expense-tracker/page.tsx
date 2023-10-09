@@ -190,7 +190,7 @@ const Dashboard = async () => {
                         Needs:{" "}
                         <span
                           className={cn({
-                            "text-red-500": needShare - needsTotal < 0,
+                            "text-danger-text": needShare - needsTotal < 0,
                           })}
                         >
                           <span>{needShare - needsTotal < 0 ? "-" : ""}</span>
@@ -203,7 +203,7 @@ const Dashboard = async () => {
                         Wants:{" "}
                         <span
                           className={cn({
-                            "text-red-500": wantShare - wantsTotal < 0,
+                            "text-danger-text": wantShare - wantsTotal < 0,
                           })}
                         >
                           <span>{wantShare - wantsTotal < 0 ? "-" : ""}</span>
@@ -223,7 +223,7 @@ const Dashboard = async () => {
                         Left for Spending:{" "}
                         <span
                           className={cn({
-                            "text-red-500":
+                            "text-danger-text":
                               needShare +
                                 wantShare -
                                 (needsTotal + wantsTotal) <
@@ -245,7 +245,7 @@ const Dashboard = async () => {
                         Total Savings:{" "}
                         <span
                           className={cn({
-                            "text-red-500":
+                            "text-danger-text":
                               currentMonthIncome - (needsTotal + wantsTotal) <
                               0,
                           })}

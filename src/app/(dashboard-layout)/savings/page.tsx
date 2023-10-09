@@ -60,7 +60,7 @@ const Savings = async () => {
         <div className="flex flex-col items-center gap-y-2">
           <span
             className={cn("text-5xl md:text-4xl", {
-              "text-red-500": currentUser.savingsBalance < 0,
+              "text-danger-text": currentUser.savingsBalance < 0,
             })}
           >
             <span>{currentUser.savingsBalance < 0 ? "-" : ""}</span>

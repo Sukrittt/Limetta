@@ -120,7 +120,7 @@ const loading = () => {
             <CardContent className="flex flex-col gap-y-2">
               <ExpenseTableSkeleton />
 
-              <div className="flex gap-x-2 text-xs tracking-tighter text-green-600">
+              <div className="flex gap-x-2 text-xs tracking-tighter text-success-text">
                 <span>Total Savings:</span>
                 <Skeleton className="h-4 w-8" />
               </div>

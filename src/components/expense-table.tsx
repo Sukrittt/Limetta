@@ -43,7 +43,7 @@ export const ExpenseTable: FC<ExpenseTableProps> = ({
           </TableCell>
           <TableCell
             className={cn({
-              "text-red-500": needsLeft < 0,
+              "text-danger-text": needsLeft < 0,
             })}
           >
             <span>{needsLeft < 0 ? "-" : ""}</span>
@@ -59,7 +59,7 @@ export const ExpenseTable: FC<ExpenseTableProps> = ({
           </TableCell>
           <TableCell
             className={cn({
-              "text-red-500": wantsLeft < 0,
+              "text-danger-text": wantsLeft < 0,
             })}
           >
             <span>{needsLeft < 0 ? "-" : ""}</span>

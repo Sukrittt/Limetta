@@ -21,7 +21,7 @@ export const EditExpense = ({ expense }: { expense: ExpenseType }) => {
         <Spinner color="default" size="sm" className="h-5 w-5" />
       ) : (
         <span
-          className="cursor-pointer text-yellow-600 hover:opacity-90 transition"
+          className="cursor-pointer text-warning-text hover:opacity-90 transition"
           onClick={onOpen}
         >
           Edit

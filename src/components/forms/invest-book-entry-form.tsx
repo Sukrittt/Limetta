@@ -271,7 +271,7 @@ export const InvestBookEntryForm = ({
                     </div>
                     <span
                       className={cn("text-xs tracking-tight text-primary", {
-                        "text-red-500": tradeStatus === "loss",
+                        "text-danger-text": tradeStatus === "loss",
                       })}
                     >
                       {`Total ${

@@ -140,7 +140,7 @@ const Dashboard = async () => {
             <CardContent className="flex flex-col gap-y-2">
               <span
                 className={cn("text-4xl font-bold tracking-wide", {
-                  "text-red-500": account.balance < 0,
+                  "text-danger-text": account.balance < 0,
                 })}
               >
                 <span>{account.balance < 0 ? "-" : ""}</span>
@@ -226,8 +226,8 @@ const Dashboard = async () => {
 
                   <span
                     className={cn("text-xs tracking-tighter", {
-                      "text-red-500": wantShare - wantsTotal < 0,
-                      "text-green-600": wantShare - wantsTotal > 0,
+                      "text-danger-text": wantShare - wantsTotal < 0,
+                      "text-success-text": wantShare - wantsTotal > 0,
                     })}
                   >
                     Total Savings: <span>{totalSavings < 0 ? "-" : ""}</span>

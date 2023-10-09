@@ -122,9 +122,9 @@ export const ThemeSelector = () => {
                         "primary-foreground"
                       ]
                     })`,
-                    "--theme-muted": `hsl(${
+                    "--theme-muted-foreground": `hsl(${
                       theme?.cssVars[mode === "dark" ? "dark" : "light"][
-                        "muted"
+                        "muted-foreground"
                       ]
                     })`,
                   } as React.CSSProperties
@@ -146,7 +146,7 @@ export const ThemeSelector = () => {
                 <div className="flex justify-center items-center py-1 px-2 h-5 bg-[--theme-background] gap-x-2 rounded-full">
                   <span className="rounded-full h-2 w-2 bg-[--theme-primary]" />
                   <span className="rounded-full h-2 w-2 bg-[--theme-primary-foreground]" />
-                  <span className="rounded-full h-2 w-2 bg-[--theme-muted]" />
+                  <span className="rounded-full h-2 w-2 bg-[--theme-muted-foreground]" />
                 </div>
               </CommandItem>
             ))}

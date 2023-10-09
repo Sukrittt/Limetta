@@ -239,7 +239,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
                 parseFloat(wantRatio) +
                 parseFloat(investmentRatio) !==
                 100 && (
-                <p className="text-red-500 text-xs tracking-tight mb-2">
+                <p className="text-danger-text text-xs tracking-tight mb-2">
                   Ratio must add up to 100%
                 </p>
               )}

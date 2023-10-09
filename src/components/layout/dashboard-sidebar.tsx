@@ -23,9 +23,12 @@ export const DashboardSidebar = () => {
         <div className="ml-4 flex flex-col gap-y-4 text-sm text-muted-foreground">
           {accounts.map((account, index) => (
             <Link
-              className={cn("hover:text-primary transition", {
-                "text-primary": pathname === account.href,
-              })}
+              className={cn(
+                "hover:text-primary transition focus:outline-none focus:text-primary",
+                {
+                  "text-primary": pathname === account.href,
+                }
+              )}
               href={account.href}
               key={index}
             >
@@ -47,9 +50,12 @@ export const DashboardSidebar = () => {
             setting.hardReload ? (
               <a
                 key={index}
-                className={cn("hover:text-primary transition", {
-                  "text-primary": pathname === setting.href,
-                })}
+                className={cn(
+                  "hover:text-primary transition focus:outline-none focus:text-primary",
+                  {
+                    "text-primary": pathname === setting.href,
+                  }
+                )}
                 href={setting.href}
               >
                 <div className="flex gap-x-2">
@@ -59,9 +65,12 @@ export const DashboardSidebar = () => {
               </a>
             ) : (
               <Link
-                className={cn("hover:text-primary transition", {
-                  "text-primary": pathname === setting.href,
-                })}
+                className={cn(
+                  "hover:text-primary transition focus:outline-none focus:text-primary",
+                  {
+                    "text-primary": pathname === setting.href,
+                  }
+                )}
                 href={setting.href}
                 key={index}
               >

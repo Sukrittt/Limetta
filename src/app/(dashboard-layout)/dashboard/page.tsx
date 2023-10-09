@@ -124,13 +124,13 @@ const Dashboard = async () => {
                 <div className="flex items-center justify-between text-muted-foreground">
                   <Link
                     href={account.href}
-                    className="hover:text-primary transition text-sm"
+                    className="hover:text-primary transition text-sm focus:outline-none focus:text-primary"
                   >
                     {account.title}
                   </Link>
                   <Link
                     href={account.href}
-                    className="hover:text-primary transition"
+                    className="hover:text-primary transition focus:outline-none focus:text-primary"
                   >
                     <account.icon className="h-4 w-4" />
                   </Link>
@@ -161,7 +161,10 @@ const Dashboard = async () => {
                 </span>
                 <Link
                   href="/expense-tracker"
-                  className={cn(buttonVariants({ variant: "link" }), "p-0")}
+                  className={cn(
+                    buttonVariants({ variant: "link" }),
+                    "p-0 focus:underline"
+                  )}
                 >
                   View in Detail
                 </Link>

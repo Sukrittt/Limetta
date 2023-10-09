@@ -1,3 +1,41 @@
+.dark .theme-husqy {
+  --content: 270, 100%, 59%;
+
+  --background: 0 0% 0%;
+  --foreground: 0 0% 95%;
+
+  --muted: 300 83% 10%;
+  --muted-foreground: 217.9 10.6% 64.9%;
+
+  --popover: 300, 100%, 6%;
+  --popover-foreground: 0 0% 95%; 
+
+  --card: 300, 100%, 6%;
+  --card-foreground: 0 0% 95%; 
+
+  --border: 300 83% 10%;
+  --input: 300 83% 10%;
+
+  --primary: 270, 100%, 77%;
+  --primary-foreground: 0 0% 95%;
+
+  --secondary: 300 83% 10%;
+  --secondary-foreground: 270, 100%, 77%;
+
+  --accent: 300 83% 10%; 
+  --accent-foreground: 0 0% 95%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 95%;
+
+  --success-text: 142, 69%, 58%;
+  --warning-text:47, 82%, 46%;
+  --danger-text: 360, 67%, 57%;
+  
+  --ring: 270, 100%, 77%;
+  --radius: 0.5rem;
+}
+
 .dark .theme-retrocast {
   --content: 54 88% 59%;
 

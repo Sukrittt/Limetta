@@ -111,7 +111,6 @@ export const AddExpense: FC<AddExpenseProps> = ({
       )}
 
       <Modal
-        className="bg-card"
         isOpen={isOpen}
         isDismissable={!disabled}
         hideCloseButton={disabled}

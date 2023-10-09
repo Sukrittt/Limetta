@@ -43,7 +43,6 @@ export const InvestAddEntry = ({
       )}
 
       <Modal
-        className="bg-card"
         isOpen={isOpen}
         hideCloseButton={disabled}
         isDismissable={!disabled}

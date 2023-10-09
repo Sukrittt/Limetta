@@ -36,7 +36,6 @@ export const DueEditEntry = ({
         </span>
       )}
       <Modal
-        className="bg-card"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         hideCloseButton={disabled}

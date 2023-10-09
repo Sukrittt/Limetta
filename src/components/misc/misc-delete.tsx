@@ -61,7 +61,6 @@ export const MiscDeleteEntry = ({
         </span>
       )}
       <Modal
-        className="bg-card"
         isOpen={isOpen}
         isDismissable={!deleteEntry.isLoading}
         hideCloseButton={deleteEntry.isLoading}

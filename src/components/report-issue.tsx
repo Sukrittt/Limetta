@@ -41,7 +41,6 @@ export const ReportIssue = () => {
         </Button>
       )}
       <Modal
-        className="bg-card"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         isDismissable={!disabled}

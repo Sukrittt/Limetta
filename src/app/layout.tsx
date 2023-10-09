@@ -37,6 +37,15 @@ export const metadata: Metadata = {
     "Expense Tracker",
     "Budget",
     "Money",
+    "Transactions",
+    "Dashboard",
+    "Transfer",
+    "Finance",
+    "Savings",
+    "Investments",
+    "Miscellaneous",
+    "Dues",
+    "Custom Theme",
   ],
   authors: [
     {

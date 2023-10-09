@@ -30,21 +30,15 @@ export const ThemeSelector = () => {
     };
   };
 
-  let initialThemes: FilterableTheme[] = themes.map(mapToFilterableTheme);
-
-  const [filteredThemes, setFilteredThemes] = useState(initialThemes);
+  let filteredThemes: FilterableTheme[] = themes
+    .map(mapToFilterableTheme)
+    .sort((a, b) => {
+      return a.label.localeCompare(b.label);
+    });
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  useEffect(() => {
-    const filtered = themes.filter((theme) =>
-      theme.label.toLowerCase().includes(query.toLowerCase())
-    );
-
-    setFilteredThemes(filtered);
-  }, [query]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -56,6 +50,18 @@ export const ThemeSelector = () => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
+
+  const surpriseMe = () => {
+    const randomTheme =
+      filteredThemes[Math.floor(Math.random() * filteredThemes.length)];
+    setConfig({
+      ...config,
+      theme: randomTheme.name as ThemeNames,
+    });
+
+    setIsOpen(false);
+    setQuery("");
+  };
 
   return (
     <>
@@ -90,7 +96,13 @@ export const ThemeSelector = () => {
           value={query}
           onValueChange={setQuery}
         />
-        <CommandList>
+        <CommandList className="relative">
+          <span
+            onClick={surpriseMe}
+            className="absolute right-3 top-[10px] text-xs text-muted-foreground hover:text-content transition cursor-pointer"
+          >
+            Suprise me 🎉
+          </span>
           <CommandEmpty className="py-6 text-center text-sm">
             No themes found.
           </CommandEmpty>

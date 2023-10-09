@@ -1,3 +1,40 @@
+.dark .theme-matrix {
+  --content: 115, 100%, 90%;
+
+  --background: 0, 0%, 0%;
+  --foreground: 115, 100%, 90%;
+
+  --muted: 114 92% 14%;
+  --muted-foreground: 240 5% 64.9%;
+
+  --popover: 114, 100%, 6%;
+  --popover-foreground: 115, 100%, 90%; 
+
+  --card: 114, 100%, 6%;
+  --card-foreground: 115, 100%, 90%; 
+
+  --border: 114 92% 14%;
+  --input: 114 92% 14%;
+
+  --primary: 115, 100%, 50%;
+  --primary-foreground: 115, 100%, 90%;
+
+  --secondary: 114 92% 14%;
+  --secondary-foreground: 115, 100%, 90%;
+
+  --accent: 114 92% 14%; 
+  --accent-foreground: 115, 100%, 90%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 115, 100%, 90%;
+
+  --success-text: 142, 76%, 36%;
+  --warning-text: 39, 81%, 45%;
+  --danger-text: 360, 67%, 57%;
+  
+  --ring: 115, 100%, 50%;
+  --radius: 0.5rem;
+}
 .dark .theme-darling {
   --content: 0, 100%, 32%;
 

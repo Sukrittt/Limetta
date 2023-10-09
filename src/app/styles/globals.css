@@ -9,7 +9,7 @@
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply min-h-screen no-scrollbar;
+    @apply no-scrollbar;
   }
 }
 

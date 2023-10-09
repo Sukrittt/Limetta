@@ -66,7 +66,7 @@ export const Onboarding = () => {
   }, [ratioSelected]);
 
   return (
-    <Card className="bg-[#1c1917]">
+    <Card className="bg-[#1c1917] text-white">
       <CardHeader>
         <CardTitle className="text-center">
           Financial Setup: Let&rsquo;s Get Started
@@ -139,7 +139,7 @@ export const Onboarding = () => {
         </div>
 
         {ratioSelected === "custom" && (
-          <NextUICard>
+          <NextUICard className="text-white">
             <NextUIBody>
               {parseFloat(needRatio) +
                 parseFloat(wantRatio) +
@@ -192,7 +192,7 @@ export const Onboarding = () => {
         )}
       </CardContent>
       <CardFooter className="flex flex-col gap-y-2 items-start w-full">
-        <NextUICard className="w-full">
+        <NextUICard className="w-full text-white">
           <NextUIBody className="py-2">
             <div className="flex justify-around gap-2 tracking-tight font-mono text-sm flex-wrap">
               <span>

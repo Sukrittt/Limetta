@@ -75,7 +75,7 @@ export const Transfer = () => {
   };
 
   return (
-    <NextUICard className="px-3 py-2 w-full md:w-[500px]">
+    <NextUICard className="px-3 py-2 w-full md:w-[500px] text-white">
       <NextUIHeader className="text-left tracking-tight font-semibold text-lg">
         Transfer your money
       </NextUIHeader>

@@ -30,7 +30,7 @@ export const DueCard = () => {
   return (
     <div className="flex flex-col gap-y-8 w-full sm:w-[500px]">
       {entries.map((entry, index) => (
-        <Card key={index}>
+        <Card key={index} className="bg-[#1c1917]">
           <CardContent className="grid grid-cols-5 px-4 sm:px-6 py-3">
             <span className="col-span-4 break-words">{entry.name}</span>
             <span className="text-center">

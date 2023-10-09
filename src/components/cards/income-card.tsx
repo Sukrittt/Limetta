@@ -157,7 +157,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
   }, [ratioSelected]);
 
   return (
-    <Card>
+    <Card className="bg-[#1c1917]">
       <CardHeader>
         <CardTitle className="text-center">{title}</CardTitle>
       </CardHeader>

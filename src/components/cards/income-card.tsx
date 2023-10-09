@@ -157,7 +157,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
   }, [ratioSelected]);
 
   return (
-    <Card className="bg-[#1c1917]">
+    <Card className="bg-[#1c1917] text-white">
       <CardHeader>
         <CardTitle className="text-center">{title}</CardTitle>
       </CardHeader>
@@ -224,16 +224,16 @@ export const IncomeCard: FC<IncomeCardProps> = ({
               value="default"
               description="Continue with the standard ratio."
             >
-              50-30-20
+              <span className="text-white">50-30-20</span>
             </Radio>
             <Radio value="custom" description="Customize my ratio.">
-              Custom
+              <span className="text-white">Custom</span>
             </Radio>
           </RadioGroup>
         </div>
 
         {ratioSelected === "custom" && (
-          <NextUICard>
+          <NextUICard className="text-white">
             <NextUIBody>
               {parseFloat(needRatio) +
                 parseFloat(wantRatio) +
@@ -286,7 +286,7 @@ export const IncomeCard: FC<IncomeCardProps> = ({
         )}
       </CardContent>
       <CardFooter className="flex flex-col gap-y-2 items-start w-full">
-        <NextUICard className="w-full">
+        <NextUICard className="w-full text-white">
           <NextUIBody className="py-2">
             <div className="flex justify-around gap-2 tracking-tight font-mono text-sm flex-wrap">
               <span>

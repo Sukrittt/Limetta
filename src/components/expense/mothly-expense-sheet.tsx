@@ -154,7 +154,7 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
             </p>
           ) : (
             expenses.map((expense, index) => (
-              <div key={index} className="grid grid-cols-4">
+              <div key={index} className="grid grid-cols-4 text-content">
                 <div className="flex items-center col-span-3">
                   <span className="text-sm break-words">
                     {expense.description}

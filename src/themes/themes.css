@@ -1,3 +1,41 @@
+.dark .theme-darling {
+  --content: 0, 100%, 32%;
+
+  --background: 354, 96%, 89%;
+  --foreground: 0, 100%, 32%;
+
+  --muted: 357 67% 70%;
+  --muted-foreground: 240 3.8% 46.1%;
+
+  --popover: 357, 68%, 84%;
+  --popover-foreground: 0, 100%, 32%; 
+
+  --card: 357, 68%, 84%;
+  --card-foreground: 0, 100%, 32%; 
+
+  --border: 357 69% 75%;
+  --input: 357 69% 75%;
+
+  --primary: 0, 0%, 95%;
+  --primary-foreground: 0, 100%, 32%;
+
+  --secondary: 357 67% 70%;
+  --secondary-foreground: 0, 100%, 32%;
+
+  --accent: 357 67% 70%; 
+  --accent-foreground: 0, 100%, 32%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0, 100%, 32%;
+
+  --success-text: 142, 76%, 36%;
+  --warning-text: 39, 81%, 45%;
+  --danger-text: 360, 67%, 57%;
+  
+  --ring: 0, 0%, 95%;
+  --radius: 0.5rem;
+}
+
 .dark .theme-husqy {
   --content: 270, 100%, 59%;
 
@@ -67,7 +105,7 @@
   --destructive-foreground: 0 0% 95%;
 
   --success-text: 142, 69%, 58%;
-  --warning-text:47, 82%, 46%;
+  --warning-text: 47, 82%, 46%;
   --danger-text: 360, 67%, 57%;
   
   --ring: 183 58% 70%;

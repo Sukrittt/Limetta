@@ -1,3 +1,41 @@
+.dark .theme-dark {
+  --content: 0, 0%, 27%;
+
+  --background: 0, 0%, 7%;
+  --foreground: 0, 0%, 27%;
+
+  --muted: 0 1% 16%;
+  --muted-foreground: 0, 0%, 27%;
+
+  --popover: 0, 0%, 10%;
+  --popover-foreground: 0, 0%, 27%; 
+
+  --card: 0, 0%, 10%;
+  --card-foreground: 0, 0%, 27%; 
+
+  --border: 0 1% 16%;
+  --input: 0 1% 16%;
+
+  --primary: 0, 0%, 93%;
+  --primary-foreground: 0, 0%, 27%;
+
+  --secondary: 0 1% 16%;
+  --secondary-foreground: 0, 0%, 27%;
+
+  --accent: 0 1% 16%; 
+  --accent-foreground: 0, 0%, 27%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0, 0%, 27%;
+
+  --success-text: 142, 76%, 36%;
+  --warning-text: 43, 83%, 40%;
+  --danger-text: 360, 67%, 57%;
+  
+  --ring: 0, 0%, 93%;
+  --radius: 0.5rem;
+}
+
 .dark .theme-honey {
   --content: 39, 100%, 33%;
 
@@ -35,6 +73,7 @@
   --ring: 57, 100%, 64%;
   --radius: 0.5rem;
 }
+
 .dark .theme-matrix {
   --content: 115, 100%, 90%;
 

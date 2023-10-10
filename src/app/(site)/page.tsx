@@ -19,6 +19,10 @@ export default function Home() {
         aria-labelledby="hero-heading"
         className="mx-auto flex w-full max-w-[64rem] flex-col items-center justify-center gap-4 pb-8 text-center pt-10 sm:pt-20 lg:pb-10"
       >
+        <Balancer className="bg-secondary rounded-lg py-1 px-3 tracking-tight text-sm">
+          <span className="mr-2">🎉</span>Exciting News: Theme Customization is
+          Now Live!
+        </Balancer>
         <Balancer className="font-bold leading-tight tracking-tight text-5xl sm:text-7xl lg:text-8xl lg:leading-[1.1]">
           Your <span className="font-mono text-primary">Financial</span>{" "}
           Wellness Starts Here

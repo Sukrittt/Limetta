@@ -581,6 +581,37 @@ export const themes = [
       },
     },
   },
+  {
+    name: "earthsong",
+    label: "Earth Song",
+    activeColor: {
+      dark: "122, 30%, 45%",
+    },
+    cssVars: {
+      dark: {
+        background: "30, 11%, 15%",
+        foreground: "39, 91%, 57%",
+        card: "36, 9%, 10%",
+        "card-foreground": "39, 91%, 57%",
+        popover: "36, 9%, 10%",
+        "popover-foreground": "39, 91%, 57%",
+        primary: "122, 30%, 45%",
+        "primary-foreground": "39, 91%, 57%",
+        secondary: "36 9% 15%",
+        "secondary-foreground": "270, 100%, 77%",
+        muted: "36 9% 15%",
+        "muted-foreground": "240 3.8% 46.1%",
+        accent: "36 9% 15%",
+        "accent-foreground": "39, 91%, 57%",
+        destructive: "0 84.2% 60.2%",
+        "destructive-foreground": "39, 91%, 57%",
+        border: "36 9% 15%",
+        input: "36 9% 15%",
+        ring: "122, 30%, 45%",
+        radius: "0.5rem",
+      },
+    },
+  },
 ] as const;
 
 export type Theme = (typeof themes)[number];

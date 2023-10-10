@@ -1,3 +1,41 @@
+.dark .theme-earthsong {
+  --content: 39, 91%, 57%;
+
+  --background: 30, 11%, 15%;
+  --foreground: 39, 91%, 57%;
+
+  --muted: 36 9% 15%;
+  --muted-foreground: 38, 50%, 29%;
+
+  --popover: 36, 9%, 10%;
+  --popover-foreground: 39, 91%, 57%; 
+
+  --card: 36, 9%, 10%;
+  --card-foreground: 39, 91%, 57%; 
+
+  --border: 36 9% 15%;
+  --input: 36 9% 15%;
+
+  --primary: 122 30% 45%;
+  --primary-foreground: 39, 91%, 57%;
+
+  --secondary: 36 9% 15%;
+  --secondary-foreground: 39, 91%, 57%;
+
+  --accent: 36 9% 15%; 
+  --accent-foreground: 39, 91%, 57%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 39, 91%, 57%;
+
+  --success-text: 142, 76%, 36%;
+  --warning-text: 43, 83%, 40%;
+  --danger-text: 360, 67%, 57%;
+  
+  --ring: 122, 30%, 45%;
+  --radius: 0.5rem;
+}
+
 .dark .theme-dark {
   --content: 0, 0%, 27%;
 
@@ -16,7 +54,7 @@
   --border: 0 1% 16%;
   --input: 0 1% 16%;
 
-  --primary: 0, 0%, 93%;
+  --primary: 0 0% 93%;
   --primary-foreground: 0, 0%, 27%;
 
   --secondary: 0 1% 16%;
@@ -54,7 +92,7 @@
   --border: 42 85% 48%;
   --input: 42 85% 48%;
 
-  --primary: 57, 100%, 64%;
+  --primary: 57 100% 64%;
   --primary-foreground: 39, 100%, 33%;
 
   --secondary: 42 85% 48%;
@@ -92,7 +130,7 @@
   --border: 114 92% 14%;
   --input: 114 92% 14%;
 
-  --primary: 115, 100%, 50%;
+  --primary: 115 100% 50%;
   --primary-foreground: 115, 100%, 90%;
 
   --secondary: 114 92% 14%;
@@ -130,7 +168,7 @@
   --border: 357 69% 75%;
   --input: 357 69% 75%;
 
-  --primary: 0, 0%, 95%;
+  --primary: 0 0% 95%;
   --primary-foreground: 0, 100%, 32%;
 
   --secondary: 357 67% 70%;
@@ -168,7 +206,7 @@
   --border: 300 83% 10%;
   --input: 300 83% 10%;
 
-  --primary: 270, 100%, 77%;
+  --primary: 270 100% 77%;
   --primary-foreground: 0 0% 95%;
 
   --secondary: 300 83% 10%;

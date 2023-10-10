@@ -645,7 +645,7 @@ export const themes = [
   },
   {
     name: "evil-eye",
-    label: "Evil eye",
+    label: "Evil Eye",
     activeColor: {
       dark: "37 45% 94%",
     },

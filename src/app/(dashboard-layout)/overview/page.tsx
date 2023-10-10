@@ -163,14 +163,14 @@ const Overview = async () => {
           </CardContent>
         </Card>
         <Card className="col-span-5 lg:col-span-2">
-          <ScrollShadow className="h-[410px] w-full no-scrollbar">
-            <CardHeader>
-              <CardTitle className="text-md">Total Monthly Expenses</CardTitle>
-              <CardDescription>
-                You have spent {currentUser.currency}
-                {totalSpent} till now.
-              </CardDescription>
-            </CardHeader>
+          <CardHeader>
+            <CardTitle className="text-md">Total Monthly Expenses</CardTitle>
+            <CardDescription>
+              You have spent {currentUser.currency}
+              {totalSpent} till now.
+            </CardDescription>
+          </CardHeader>
+          <ScrollShadow className="h-[320px] w-full no-scrollbar pb-6">
             <CardContent className="flex flex-col gap-y-2 pb-6 lg:py-0 px-3">
               {expenseData.length === 0 ? (
                 <div className="flex flex-col items-center justify-center min-h-[320px]">

@@ -1,3 +1,5 @@
+import { ScrollShadow } from "@nextui-org/scroll-shadow";
+
 import {
   Card,
   CardContent,
@@ -66,22 +68,24 @@ const loading = () => {
             <Skeleton className="h-full w-full" />
           </CardContent>
         </Card>
-        <Card className="col-span-5 lg:col-span-2 h-[430px] overflow-y-auto no-scrollbar">
+        <Card className="col-span-5 lg:col-span-2 overflow-y-auto no-scrollbar">
           <CardHeader>
             <CardTitle className="text-md">Total Monthly Expenses</CardTitle>
             <CardDescription>You have spent --- till now.</CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col gap-y-2 pb-6 lg:py-0 px-3">
-            {Array.from({ length: 12 }).map((_, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between hover:bg-muted rounded-lg transtion p-3 cursor-pointer border"
-              >
-                <Skeleton className="h-4 w-1/3" />
-                <Skeleton className="h-4 w-8" />
-              </div>
-            ))}
-          </CardContent>
+          <ScrollShadow className="h-[320px] w-full no-scrollbar pb-6">
+            <CardContent className="flex flex-col gap-y-2 pb-6 lg:py-0 px-3">
+              {Array.from({ length: 12 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between hover:bg-muted rounded-lg transtion p-3 cursor-pointer border"
+                >
+                  <Skeleton className="h-4 w-1/3" />
+                  <Skeleton className="h-4 w-8" />
+                </div>
+              ))}
+            </CardContent>
+          </ScrollShadow>
         </Card>
       </div>
     </div>

@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
 
 import {
   CommandDialog,
@@ -17,7 +16,6 @@ import { FilterableTheme, Theme, ThemeNames, themes } from "@/themes";
 
 export const ThemeSelector = () => {
   const [config, setConfig] = useConfig();
-  const { resolvedTheme: mode } = useTheme();
 
   const [mounted, setMounted] = useState(false);
 
@@ -121,24 +119,10 @@ export const ThemeSelector = () => {
                 }}
                 style={
                   {
-                    "--theme-primary": `hsl(${
-                      theme?.activeColor[mode === "dark" ? "dark" : "light"]
-                    })`,
-                    "--theme-background": `hsl(${
-                      theme?.cssVars[mode === "dark" ? "dark" : "light"][
-                        "background"
-                      ]
-                    })`,
-                    "--theme-primary-foreground": `hsl(${
-                      theme?.cssVars[mode === "dark" ? "dark" : "light"][
-                        "primary-foreground"
-                      ]
-                    })`,
-                    "--theme-muted-foreground": `hsl(${
-                      theme?.cssVars[mode === "dark" ? "dark" : "light"][
-                        "muted-foreground"
-                      ]
-                    })`,
+                    "--theme-primary": `hsl(${theme?.activeColor["dark"]})`,
+                    "--theme-background": `hsl(${theme?.cssVars["dark"]["background"]})`,
+                    "--theme-primary-foreground": `hsl(${theme?.cssVars["dark"]["primary-foreground"]})`,
+                    "--theme-muted-foreground": `hsl(${theme?.cssVars["dark"]["muted-foreground"]})`,
                   } as React.CSSProperties
                 }
               >

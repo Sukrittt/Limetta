@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { useTheme } from "next-themes";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 import { cn } from "@/lib/utils";
@@ -16,7 +15,6 @@ export const ExpenseOverview = ({
   data: { name: string; total: number }[];
   currency: CurrencyType;
 }) => {
-  const { theme: mode } = useTheme();
   const [config] = useConfig();
 
   const theme = themes.find((theme) => theme.name === config.theme);
@@ -60,9 +58,7 @@ export const ExpenseOverview = ({
             {
               fill: "var(--theme-primary)",
               opacity: 1,
-              "--theme-primary": `hsl(${
-                theme?.cssVars[mode === "dark" ? "dark" : "light"].primary
-              })`,
+              "--theme-primary": `hsl(${theme?.cssVars["dark"].primary})`,
             } as React.CSSProperties
           }
           radius={[4, 4, 0, 0]}

@@ -643,6 +643,37 @@ export const themes = [
       },
     },
   },
+  {
+    name: "evil-eye",
+    label: "Evil eye",
+    activeColor: {
+      dark: "37 45% 94%",
+    },
+    cssVars: {
+      dark: {
+        background: "199, 100%, 38%",
+        foreground: "203, 41%, 71%",
+        card: "203, 88%, 40%",
+        "card-foreground": "203, 41%, 71%",
+        popover: "203, 88%, 40%",
+        "popover-foreground": "203, 41%, 71%",
+        primary: "37 45% 94%",
+        "primary-foreground": "199, 100%, 38%",
+        secondary: "203 90% 35%",
+        "secondary-foreground": "203, 41%, 71%",
+        muted: "203 90% 35%",
+        "muted-foreground": "207, 99%, 31%",
+        accent: "203 90% 35%",
+        "accent-foreground": "203, 41%, 71%",
+        destructive: "0 84.2% 60.2%",
+        "destructive-foreground": "203, 41%, 71%",
+        border: "203 90% 35%",
+        input: "203 90% 35%",
+        ring: "37 45% 94%",
+        radius: "0.5rem",
+      },
+    },
+  },
 ] as const;
 
 export type Theme = (typeof themes)[number];

@@ -612,6 +612,37 @@ export const themes = [
       },
     },
   },
+  {
+    name: "watermelon",
+    label: "Watermelon",
+    activeColor: {
+      dark: "356 57% 62%",
+    },
+    cssVars: {
+      dark: {
+        background: "159, 37%, 19%",
+        foreground: "35, 15%, 77%",
+        card: "160, 36%, 22%",
+        "card-foreground": "35, 15%, 77%",
+        popover: "160, 36%, 22%",
+        "popover-foreground": "35, 15%, 77%",
+        primary: "356 57% 62%",
+        "primary-foreground": "35, 15%, 77%",
+        secondary: "161 37% 30%",
+        "secondary-foreground": "270, 100%, 77%",
+        muted: "161 37% 30%",
+        "muted-foreground": "159, 33%, 36%",
+        accent: "161 37% 30%",
+        "accent-foreground": "35, 15%, 77%",
+        destructive: "0 84.2% 60.2%",
+        "destructive-foreground": "35, 15%, 77%",
+        border: "161 37% 30%",
+        input: "161 37% 30%",
+        ring: "356 57% 62%",
+        radius: "0.5rem",
+      },
+    },
+  },
 ] as const;
 
 export type Theme = (typeof themes)[number];

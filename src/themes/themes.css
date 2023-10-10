@@ -1,3 +1,41 @@
+.dark .theme-watermelon {
+  --content: 35, 15%, 77%;
+
+  --background: 159, 37%, 19%;
+  --foreground: 35, 15%, 77%;
+
+  --muted: 161 37% 30%;
+  --muted-foreground: 159, 33%, 36%;
+
+  --popover: 160, 36%, 22%;
+  --popover-foreground: 35, 15%, 77%; 
+
+  --card: 160, 36%, 22%;
+  --card-foreground: 35, 15%, 77%; 
+
+  --border: 161 37% 30%;
+  --input: 161 37% 30%;
+
+  --primary: 356 57% 62%;
+  --primary-foreground: 35, 15%, 77%;
+
+  --secondary: 161 37% 30%;
+  --secondary-foreground: 35, 15%, 77%;
+
+  --accent: 161 37% 30%; 
+  --accent-foreground: 35, 15%, 77%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 35, 15%, 77%;
+
+  --success-text: 142, 76%, 36%;
+  --warning-text: 43, 83%, 40%;
+  --danger-text: 360, 67%, 57%;
+  
+  --ring: 356, 57%, 62%;
+  --radius: 0.5rem;
+}
+
 .dark .theme-earthsong {
   --content: 39, 91%, 57%;
 

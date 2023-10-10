@@ -1,3 +1,40 @@
+.dark .theme-honey {
+  --content: 39, 100%, 33%;
+
+  --background: 42, 100%, 47%;
+  --foreground: 39, 100%, 33%;
+
+  --muted: 42 85% 48%;
+  --muted-foreground: 39, 100%, 33%;
+
+  --popover: 42, 100%, 44%;
+  --popover-foreground: 39, 100%, 33%; 
+
+  --card: 42, 100%, 44%;
+  --card-foreground: 39, 100%, 33%; 
+
+  --border: 42 85% 48%;
+  --input: 42 85% 48%;
+
+  --primary: 57, 100%, 64%;
+  --primary-foreground: 39, 100%, 33%;
+
+  --secondary: 42 85% 48%;
+  --secondary-foreground: 39, 100%, 33%;
+
+  --accent: 42 85% 48%; 
+  --accent-foreground: 39, 100%, 33%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 39, 100%, 33%;
+
+  --success-text: 142, 76%, 36%;
+  --warning-text: 46, 96%, 54%;
+  --danger-text: 360, 67%, 57%;
+  
+  --ring: 57, 100%, 64%;
+  --radius: 0.5rem;
+}
 .dark .theme-matrix {
   --content: 115, 100%, 90%;
 
@@ -35,6 +72,7 @@
   --ring: 115, 100%, 50%;
   --radius: 0.5rem;
 }
+
 .dark .theme-darling {
   --content: 0, 100%, 32%;
 

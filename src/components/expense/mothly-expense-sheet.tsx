@@ -118,7 +118,7 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
         {children}
       </SheetTrigger>
       <SheetContent className="overflow-y-auto no-scrollbar">
-        <SheetHeader className="mt-2 sm:mt-0">
+        <SheetHeader className="mt-2 sm:mt-0 text-left">
           <SheetTitle>{`${expenseData.month} expenses`}</SheetTitle>
           <SheetDescription>
             {`You spent a total of ${currency}${expenseData.total} this month.`}
@@ -156,7 +156,7 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
             expenses.map((expense, index) => (
               <div key={index} className="grid grid-cols-4 text-content">
                 <div className="flex items-center col-span-3">
-                  <span className="text-sm break-words">
+                  <span className="text-sm break-words pr-4 sm:pr-2">
                     {expense.description}
                   </span>
                 </div>

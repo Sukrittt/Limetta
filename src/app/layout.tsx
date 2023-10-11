@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  manifest: "/manifest.json",
   themeColor: [{ media: "(prefers-color-scheme: dark)", color: "black" }],
   keywords: [
     "Next.js",

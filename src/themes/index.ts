@@ -705,6 +705,37 @@ export const themes = [
       },
     },
   },
+  {
+    name: "bliss",
+    label: "Bliss",
+    activeColor: {
+      dark: "15, 57%, 86%",
+    },
+    cssVars: {
+      dark: {
+        background: "180, 1%, 15%",
+        foreground: "8, 7%, 42%",
+        card: "20, 3%, 20%",
+        "card-foreground": "8, 7%, 42%",
+        popover: "20, 3%, 20%",
+        "popover-foreground": "8, 7%, 42%",
+        primary: "15, 57%, 86%",
+        "primary-foreground": "8, 7%, 42%",
+        secondary: "180 1% 18%",
+        "secondary-foreground": "8, 7%, 42%",
+        muted: "180 1% 18%",
+        "muted-foreground": "8, 8%, 37%",
+        accent: "180 1% 18%",
+        "accent-foreground": "8, 7%, 42%",
+        destructive: "0 84.2% 60.2%",
+        "destructive-foreground": "8, 7%, 42%",
+        border: "180 1% 18%",
+        input: "180 1% 18%",
+        ring: "15, 57%, 86%",
+        radius: "0.5rem",
+      },
+    },
+  },
 ] as const;
 
 export type Theme = (typeof themes)[number];

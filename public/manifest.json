@@ -1,11 +1,11 @@
 {
-    "theme_color": "#22c55e",
+    "theme_color": "#0c0a09",
     "background_color": "#0c0a09",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "BalanceWise",
-    "short_name": "BalanceWise | Elevate your financial management",
+    "name": "BalanceWise | Elevate your financial management",
+    "short_name": "BalanceWise",
     "description": "Elevate your financial management with BalanceWise.",
     "icons": [
         {

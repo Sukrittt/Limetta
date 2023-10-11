@@ -129,13 +129,13 @@ const Dashboard = async () => {
       </div>
       <div className="col-span-7 lg:col-span-2">
         <Card>
-          <ScrollShadow className="lg:h-[calc(100vh-100px)] w-full no-scrollbar">
-            <CardTitle>
-              <CardHeader className="text-center py-5">
-                Expense Insights
-              </CardHeader>
-              <Divider />
-            </CardTitle>
+          <CardTitle>
+            <CardHeader className="text-center py-5">
+              Expense Insights
+            </CardHeader>
+            <Divider />
+          </CardTitle>
+          <ScrollShadow className="lg:h-[calc(90vh-95px)] w-full no-scrollbar">
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 pt-6 lg:pb-0 lg:pt-3">
               {currentMonthEntries.books.length === 0 ? (
                 <p className="pt-4 text-muted-foreground tracking-tighter text-center font-mono">

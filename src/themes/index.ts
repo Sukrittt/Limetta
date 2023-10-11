@@ -798,6 +798,37 @@ export const themes = [
       },
     },
   },
+  {
+    name: "menthol",
+    label: "Menthol",
+    activeColor: {
+      dark: "0, 0%, 100%",
+    },
+    cssVars: {
+      dark: {
+        background: "164, 100%, 38%",
+        foreground: "154, 62%, 25%",
+        card: "161, 77%, 39%",
+        "card-foreground": "154, 62%, 25%",
+        popover: "161, 77%, 39%",
+        "popover-foreground": "154, 62%, 25%",
+        primary: "0, 0%, 100%",
+        "primary-foreground": "154, 62%, 25%",
+        secondary: "161 69% 45%",
+        "secondary-foreground": "154, 62%, 25%",
+        muted: "161 69% 45%",
+        "muted-foreground": "154, 57%, 33%",
+        accent: "161 69% 45%",
+        "accent-foreground": "154, 62%, 25%",
+        destructive: "0 84.2% 60.2%",
+        "destructive-foreground": "154, 62%, 25%",
+        border: "161 69% 45%",
+        input: "161 69% 45%",
+        ring: "0, 0%, 100%",
+        radius: "0.5rem",
+      },
+    },
+  },
 ] as const;
 
 export type Theme = (typeof themes)[number];

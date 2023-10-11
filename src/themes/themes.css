@@ -1,10 +1,48 @@
+.dark .theme-menthol {
+  --content: 154, 62%, 25%;
+
+  --background: 164, 100%, 38%;
+  --foreground: 154, 62%, 25%;
+
+  --muted: 161 69% 45%;
+  --muted-foreground: 154, 57%, 33%;
+
+  --popover: 161, 77%, 39%;
+  --popover-foreground: 154, 62%, 25%; 
+
+  --card: 161, 77%, 39%;
+  --card-foreground: 154, 62%, 25%; 
+
+  --border: 161 69% 45%;
+  --input: 161 69% 45%;
+
+  --primary: 0 0% 100%;
+  --primary-foreground: 154, 62%, 25%;
+
+  --secondary: 161 69% 45%;
+  --secondary-foreground: 154, 62%, 25%;
+
+  --accent: 161 69% 45%; 
+  --accent-foreground: 154, 62%, 25%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 95%;
+
+  --success-text: 142, 69%, 58%;
+  --warning-text: 46, 96%, 54%;
+  --danger-text: 2, 85%, 61%;
+  
+  --ring: 0 0% 100%;
+  --radius: 0.5rem;
+}
+
 .dark .theme-leather {
   --content: 20, 50%, 30%;
 
   --background: 21, 40%, 47%;
   --foreground: 20, 50%, 30%;
 
-  --muted: 21, 40%, 45%;
+  --muted: 21 40% 45%;
   --muted-foreground: 20, 39%, 34%;
 
   --popover: 21, 42%, 43%;
@@ -13,8 +51,8 @@
   --card: 21, 42%, 43%;
   --card-foreground: 20, 50%, 30%; 
 
-  --border: 21, 40%, 45%;
-  --input: 21, 40%, 45%;
+  --border: 21 40% 45%;
+  --input: 21 40% 45%;
 
   --primary: 36 100% 87%;
   --primary-foreground: 20, 50%, 30%;
@@ -22,7 +60,7 @@
   --secondary: 21 40% 45%;
   --secondary-foreground: 20, 50%, 30%;
 
-  --accent: 21, 40%, 45%; 
+  --accent: 21 40% 45%; 
   --accent-foreground: 20, 50%, 30%;
 
   --destructive: 0 84.2% 60.2%;
@@ -42,7 +80,7 @@
   --background: 99, 31%, 28%;
   --foreground: 52, 61%, 82%;
 
-  --muted: 99, 31%, 23%;
+  --muted: 99 31% 23%;
   --muted-foreground: 53, 21%, 66%;
 
   --popover: 98, 31%, 24%;
@@ -51,8 +89,8 @@
   --card: 98, 31%, 24%;
   --card-foreground: 52, 61%, 82%; 
 
-  --border: 99, 31%, 23%;
-  --input: 99, 31%, 23%;
+  --border: 99 31% 23%;
+  --input: 99 31% 23%;
 
   --primary: 98 32% 45%;
   --primary-foreground: 52, 61%, 82%;
@@ -60,7 +98,7 @@
   --secondary: 99 31% 26%;
   --secondary-foreground: 52, 61%, 82%;
 
-  --accent: 99, 31%, 23%; 
+  --accent: 99 31% 23%; 
   --accent-foreground: 52, 61%, 82%;
 
   --destructive: 0 84.2% 60.2%;

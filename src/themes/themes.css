@@ -1,3 +1,41 @@
+.dark .theme-hedge {
+  --content: 52, 61%, 82%;
+
+  --background: 99, 31%, 28%;
+  --foreground: 52, 61%, 82%;
+
+  --muted: 99, 31%, 23%;
+  --muted-foreground: 53, 21%, 66%;
+
+  --popover: 98, 31%, 24%;
+  --popover-foreground: 52, 61%, 82%; 
+
+  --card: 98, 31%, 24%;
+  --card-foreground: 52, 61%, 82%; 
+
+  --border: 99, 31%, 23%;
+  --input: 99, 31%, 23%;
+
+  --primary: 98 32% 45%;
+  --primary-foreground: 52, 61%, 82%;
+
+  --secondary: 99 31% 26%;
+  --secondary-foreground: 52, 61%, 82%;
+
+  --accent: 99, 31%, 23%; 
+  --accent-foreground: 52, 61%, 82%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 52, 61%, 82%;
+
+  --success-text: 142, 76%, 36%;
+  --warning-text: 43, 83%, 40%;
+  --danger-text: 360, 67%, 57%;
+  
+  --ring: 98 32% 45%;
+  --radius: 0.5rem;
+}
+
 .dark .theme-bliss {
   --content: 8, 7%, 42%;
 

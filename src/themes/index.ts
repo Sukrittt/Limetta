@@ -736,6 +736,37 @@ export const themes = [
       },
     },
   },
+  {
+    name: "hedge",
+    label: "Hedge",
+    activeColor: {
+      dark: "98, 32%, 45%",
+    },
+    cssVars: {
+      dark: {
+        background: "99, 31%, 28%",
+        foreground: "52, 61%, 82%",
+        card: "98, 31%, 24%",
+        "card-foreground": "52, 61%, 82%",
+        popover: "98, 31%, 24%",
+        "popover-foreground": "52, 61%, 82%",
+        primary: "98, 32%, 45%",
+        "primary-foreground": "52, 61%, 82%",
+        secondary: "99, 31%, 23%",
+        "secondary-foreground": "52, 61%, 82%",
+        muted: "99, 31%, 23%",
+        "muted-foreground": "53, 21%, 66%",
+        accent: "99, 31%, 23%",
+        "accent-foreground": "52, 61%, 82%",
+        destructive: "0 84.2% 60.2%",
+        "destructive-foreground": "52, 61%, 82%",
+        border: "99, 31%, 23%",
+        input: "99, 31%, 23%",
+        ring: "98, 32%, 45%",
+        radius: "0.5rem",
+      },
+    },
+  },
 ] as const;
 
 export type Theme = (typeof themes)[number];

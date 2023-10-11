@@ -829,6 +829,37 @@ export const themes = [
       },
     },
   },
+  {
+    name: "passion-fruit",
+    label: "Passion Fruit",
+    activeColor: {
+      dark: "347, 79%, 80%",
+    },
+    cssVars: {
+      dark: {
+        background: "338, 58%, 31%",
+        foreground: "248, 20%, 65%",
+        card: "331, 37%, 37%",
+        "card-foreground": "248, 20%, 65%",
+        popover: "331, 37%, 37%",
+        "popover-foreground": "248, 20%, 65%",
+        primary: "347, 79%, 80%",
+        "primary-foreground": "248, 14%, 37%",
+        secondary: "331 38% 32%",
+        "secondary-foreground": "248, 20%, 65%",
+        muted: "331 38% 32%",
+        "muted-foreground": "248, 17%, 79%",
+        accent: "331 38% 32%",
+        "accent-foreground": "248, 20%, 65%",
+        destructive: "0 84.2% 60.2%",
+        "destructive-foreground": "248, 20%, 65%",
+        border: "331 38% 32%",
+        input: "331 38% 32%",
+        ring: "347, 79%, 80%",
+        radius: "0.5rem",
+      },
+    },
+  },
 ] as const;
 
 export type Theme = (typeof themes)[number];

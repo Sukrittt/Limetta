@@ -767,6 +767,37 @@ export const themes = [
       },
     },
   },
+  {
+    name: "leather",
+    label: "Leather",
+    activeColor: {
+      dark: "36, 100%, 87%",
+    },
+    cssVars: {
+      dark: {
+        background: "21, 40%, 47%",
+        foreground: "20, 50%, 30%",
+        card: "21, 42%, 43%",
+        "card-foreground": "20, 50%, 30%",
+        popover: "21, 42%, 43%",
+        "popover-foreground": "20, 50%, 30%",
+        primary: "36, 100%, 87%",
+        "primary-foreground": "20, 50%, 30%",
+        secondary: "21, 40%, 45%",
+        "secondary-foreground": "20, 50%, 30%",
+        muted: "21, 40%, 45%",
+        "muted-foreground": "20, 39%, 34%",
+        accent: "21, 40%, 45%",
+        "accent-foreground": "20, 50%, 30%",
+        destructive: "0 84.2% 60.2%",
+        "destructive-foreground": "20, 50%, 30%",
+        border: "21, 40%, 45%",
+        input: "21, 40%, 45%",
+        ring: "36, 100%, 87%",
+        radius: "0.5rem",
+      },
+    },
+  },
 ] as const;
 
 export type Theme = (typeof themes)[number];

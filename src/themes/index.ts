@@ -674,6 +674,37 @@ export const themes = [
       },
     },
   },
+  {
+    name: "9009",
+    label: "9009",
+    activeColor: {
+      dark: "180, 6%, 3%",
+    },
+    cssVars: {
+      dark: {
+        background: "45, 26%, 91%",
+        foreground: "48, 10%, 44%",
+        card: "47, 17%, 79%",
+        "card-foreground": "48, 10%, 44%",
+        popover: "47, 17%, 79%",
+        "popover-foreground": "48, 10%, 44%",
+        primary: "180, 6%, 3%",
+        "primary-foreground": "48, 10%, 44%",
+        secondary: "47 12% 70%",
+        "secondary-foreground": "48, 10%, 44%",
+        muted: "47 12% 70%",
+        "muted-foreground": "48, 11%, 55%",
+        accent: "47 12% 70%",
+        "accent-foreground": "48, 10%, 44%",
+        destructive: "0 84.2% 60.2%",
+        "destructive-foreground": "48, 10%, 44%",
+        border: "47 12% 70%",
+        input: "47 12% 70%",
+        ring: "180, 6%, 3%",
+        radius: "0.5rem",
+      },
+    },
+  },
 ] as const;
 
 export type Theme = (typeof themes)[number];

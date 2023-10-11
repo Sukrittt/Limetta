@@ -860,6 +860,37 @@ export const themes = [
       },
     },
   },
+  {
+    name: "red-dragon",
+    label: "Red Dragon",
+    activeColor: {
+      dark: "2, 100%, 60%",
+    },
+    cssVars: {
+      dark: {
+        background: "356, 41%, 7%",
+        foreground: "40, 76%, 52%",
+        card: "353, 47%, 4%",
+        "card-foreground": "40, 76%, 52%",
+        popover: "353, 47%, 4%",
+        "popover-foreground": "40, 76%, 52%",
+        primary: "2, 100%, 60%",
+        "primary-foreground": "40, 76%, 52%",
+        secondary: "348 39% 9%",
+        "secondary-foreground": "40, 76%, 52%",
+        muted: "348 39% 9%",
+        "muted-foreground": "195, 3%, 30%",
+        accent: "348 39% 9%",
+        "accent-foreground": "40, 76%, 52%",
+        destructive: "0 84.2% 60.2%",
+        "destructive-foreground": "40, 76%, 52%",
+        border: "348 39% 9%",
+        input: "348 39% 9%",
+        ring: "2, 100%, 60%",
+        radius: "0.5rem",
+      },
+    },
+  },
 ] as const;
 
 export type Theme = (typeof themes)[number];

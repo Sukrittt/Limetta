@@ -12,9 +12,9 @@ export const GoBack = () => {
 
   return (
     <div className="flex xl:hidden justify-between items-center">
-      <div className="border rounded-full relative h-9 w-9">
-        <Icons.back
-          className="h-6 w-6 absolute left-1.5 top-1.5"
+      <div className="border rounded-xl relative h-9 w-9">
+        <Icons.left
+          className="h-6 w-6 absolute left-1 top-1.5"
           onClick={() => router.back()}
         />
         <span className="sr-only">Go Back</span>

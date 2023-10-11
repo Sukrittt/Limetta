@@ -8,6 +8,7 @@ import { Divider } from "@nextui-org/divider";
 import { Icons } from "@/components/icons";
 import { Logout } from "@/components/logout";
 import { Button } from "@/components/ui/button";
+import { SiteLogo } from "@/components/site-logo";
 import { accounts, settings, siteConfig } from "@/config";
 import { ThemeSelector } from "@/components/themes/theme-selector";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -35,9 +36,7 @@ export const MobileSidebar = () => {
         side="right"
         className="flex flex-col gap-y-4 pl-3 w-[250px] md:w-[300px]"
       >
-        <Link href="/" className="font-bold text-xl tracking-tight">
-          {siteConfig.name}
-        </Link>
+        <SiteLogo />
 
         <div className="space-y-4 tracking-tight pt-2">
           <div className="flex gap-x-2 items-center">

@@ -92,7 +92,7 @@ export const DuePaid = ({
       ) : (
         <span
           className={cn(
-            "cursor-pointer text-primary hover:opacity-90 transition",
+            "cursor-pointer text-primary hover:opacity-90 transition py-1 px-2 lg:p-0 bg-secondary lg:bg-transparent rounded-md lg:rounded-none",
             {
               "text-warning-text": entryDetails.dueStatus === "paid",
             }

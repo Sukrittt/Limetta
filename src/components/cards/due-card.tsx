@@ -90,13 +90,13 @@ export const DueCard: FC<DueCardProps> = ({
 
   return (
     <div className="flex flex-col gap-y-2 text-sm">
-      <div className="grid grid-cols-5 lg:grid-cols-9 px-4 sm:px-6">
+      <div className="grid grid-cols-5 lg:grid-cols-9 px-4 sm:px-6 font-semibold">
         <span className="hidden lg:block">Date & Time</span>
         <span className="col-span-4 lg:col-span-2">Details</span>
         <span className="text-center">Amount</span>
         <span className="hidden lg:block text-center">Type</span>
         <span className="hidden lg:block text-center">Status</span>
-        <span className="hidden lg:block text-center">Due date</span>
+        <span className="hidden lg:block text-center">Due Date</span>
       </div>
       {miscEntries.map((entry, index) => {
         if (index === miscEntries.length - 1) {
@@ -205,13 +205,10 @@ const DueEntryItem: FC<DueEntryProps> = ({
                 }
                 showArrow
               >
-                <div className="flex gap-x-1">
-                  <span>Paid</span>
-                  <Icons.info className="w-3 h-3 mt-[2px] text-muted-foreground" />
-                </div>
+                <Icons.check2 className="h-4 w-4" />
               </ToolTip>
             ) : (
-              "Pending"
+              <Icons.alert2 className="h-4 w-4" />
             )}
           </span>
         </div>
@@ -221,7 +218,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
             {entry.dueStatus === "pending" &&
               new Date(entry.dueDate) <= new Date() && (
                 <ToolTip text="Due date passed">
-                  <span className="ml-1 text-warning-text">!</span>
+                  <span className="ml-1 text-danger-text">!</span>
                 </ToolTip>
               )}
           </span>
@@ -238,7 +235,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
       </CardContent>
       <Divider className="block lg:hidden" />
       <CardFooter className="text-xs px-4 sm:px-6 pb-3 flex flex-col items-start pt-3 gap-y-2 lg:hidden">
-        <div className="flex gap-x-4">
+        <div className="flex justify-between w-full">
           <span
             className={cn("text-center text-xs", {
               "text-danger-text": entry.dueType === "payable",
@@ -247,6 +244,24 @@ const DueEntryItem: FC<DueEntryProps> = ({
           >
             {entry.dueType === "payable" ? "Payable" : "Receivable"}
           </span>
+          <DuePaid entryDetails={entryDetails} savingBalance={savingBalance} />
+        </div>
+        <span className="text-center text-xs">
+          <span className="text-muted-foreground">Due by:</span>{" "}
+          {format(new Date(entry.dueDate), "dd MMM, yy")}
+          {new Date(entry.dueDate) <= new Date() && (
+            <span className="text-danger-text ml-1">!</span>
+          )}
+        </span>
+        <div className="flex items-center justify-between w-full">
+          <div className="flex gap-x-4">
+            <DueEditEntry
+              currency={currency}
+              entryDetails={entryDetails}
+              savingBalance={savingBalance}
+            />
+            <DueDelete entryDetails={entryDetails} />
+          </div>
           <span
             className={cn("text-center text-xs", {
               "text-success-text": entry.dueStatus === "paid",
@@ -268,30 +283,12 @@ const DueEntryItem: FC<DueEntryProps> = ({
                 }
                 showArrow
               >
-                <div className="flex gap-x-1">
-                  <span>Paid</span>
-                  <Icons.info className="w-3 h-3 mt-[2px] text-muted-foreground" />
-                </div>
+                <Icons.check2 className="h-4 w-4" />
               </ToolTip>
             ) : (
-              "Pending"
+              <Icons.alert2 className="h-4 w-4" />
             )}
           </span>
-        </div>
-        <span className="text-center text-xs">
-          Due date: {format(new Date(entry.dueDate), "dd MMM, yy")}
-          {new Date(entry.dueDate) <= new Date() && (
-            <span className="text-warning-text ml-1">!</span>
-          )}
-        </span>
-        <div className="flex gap-x-4">
-          <DuePaid entryDetails={entryDetails} savingBalance={savingBalance} />
-          <DueEditEntry
-            currency={currency}
-            entryDetails={entryDetails}
-            savingBalance={savingBalance}
-          />
-          <DueDelete entryDetails={entryDetails} />
         </div>
       </CardFooter>
     </Card>

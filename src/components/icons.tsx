@@ -34,6 +34,8 @@ import {
   Twitter,
   LayoutDashboard,
   ChevronLeft,
+  CheckCircle2,
+  AlertCircle,
 } from "lucide-react";
 
 export const Icons = {
@@ -99,10 +101,12 @@ export const Icons = {
   back: MoveLeft,
   download: ArrowDownToLine,
   check: CheckIcon,
+  check2: CheckCircle2,
   theme: Palette,
   right: ChevronRight,
   left: ChevronLeft,
   instagram: Instagram,
   twitter: Twitter,
   dashboard: LayoutDashboard,
+  alert2: AlertCircle,
 };

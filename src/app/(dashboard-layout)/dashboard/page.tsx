@@ -80,6 +80,7 @@ const Dashboard = async () => {
   const accountDetails = [
     {
       title: "Savings Account",
+      shortTitle: "Savings",
       href: "/savings",
       balance: currentUser.savingsBalance,
       type: "savings" as const,
@@ -87,6 +88,7 @@ const Dashboard = async () => {
     },
     {
       title: "Investments Account",
+      shortTitle: "Investments",
       href: "/investments",
       balance: currentUser.investmentsBalance,
       type: "investments" as const,
@@ -94,10 +96,22 @@ const Dashboard = async () => {
     },
     {
       title: "Miscellaneous Account",
+      shortTitle: "Miscellaneous",
       href: "/miscellaneous",
       balance: currentUser.miscellanousBalance,
       type: "miscellaneous" as const,
       icon: Icons.siren,
+    },
+  ];
+
+  const updatedAccountDetails = [
+    ...accountDetails,
+    {
+      title: "Due Payable",
+      shortTitle: "Due Payable",
+      href: "/dues",
+      balance: currentUser.duePayable,
+      icon: Icons.due,
     },
   ];
 
@@ -116,30 +130,36 @@ const Dashboard = async () => {
           <Logout />
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 tracking-tight mt-2">
-        {accountDetails.map((account, index) => (
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 tracking-tight mt-2">
+        {updatedAccountDetails.map((account, index) => (
           <Card key={index}>
             <CardTitle>
-              <CardHeader className="py-4 font-normal">
+              <CardHeader className="px-4 pt-3 pb-2 xl:py-4 xl:px-6 font-normal">
                 <div className="flex items-center justify-between text-muted-foreground">
                   <Link
                     href={account.href}
-                    className="hover:text-primary transition text-sm focus:outline-none focus:text-primary"
+                    className="hidden lg:block hover:text-primary transition text-sm focus:outline-none focus:text-primary"
                   >
                     {account.title}
                   </Link>
                   <Link
                     href={account.href}
-                    className="hover:text-primary transition focus:outline-none focus:text-primary"
+                    className="lg:hidden hover:text-primary transition text-sm focus:outline-none focus:text-primary"
+                  >
+                    {account.shortTitle}
+                  </Link>
+                  <Link
+                    href={account.href}
+                    className="hidden lg:block hover:text-primary transition focus:outline-none focus:text-primary"
                   >
                     <account.icon className="h-4 w-4" />
                   </Link>
                 </div>
               </CardHeader>
             </CardTitle>
-            <CardContent className="flex flex-col gap-y-2">
+            <CardContent className="flex flex-col gap-y-2 px-4 pb-3 xl:px-6 xl:pb-6">
               <span
-                className={cn("text-4xl font-bold tracking-wide", {
+                className={cn("text-lg xl:text-4xl font-bold tracking-wide", {
                   "text-danger-text": account.balance < 0,
                 })}
               >
@@ -181,7 +201,7 @@ const Dashboard = async () => {
                   </div>
                 ) : (
                   <div className="flex flex-col gap-y-2">
-                    <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6">
+                    <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6 font-semibold">
                       <span className="hidden lg:block">Date & Time</span>
                       <span className="col-span-2 sm:col-span-3">Details</span>
                       <span className="text-center">Needs</span>

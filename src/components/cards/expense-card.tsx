@@ -4,6 +4,7 @@ import { format } from "date-fns";
 
 import { ExpenseType } from "@/types";
 import { CurrencyType } from "@/types";
+import { Badge } from "@/components/ui/badge";
 import { EditExpense } from "@/components/expense/edit-expense";
 import { DeleteExpense } from "@/components/expense/delete-expense";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -16,7 +17,7 @@ export const ExpenseCard = ({
   currency: CurrencyType;
 }) => {
   return (
-    <Card className="bg-transparent">
+    <Card className="bg-transparent relative">
       <CardContent className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 gap-y-2 px-4 sm:px-6 py-3">
         <div className="hidden lg:flex items-center col-span-2 lg:col-span-1">
           <span className="text-xs tracking-tighter">
@@ -34,12 +35,16 @@ export const ExpenseCard = ({
         {expense.type === "need" ? (
           <span className="text-center">{`${currency}${expense.amount.toLocaleString()}`}</span>
         ) : (
-          <span className="text-center">-</span>
+          <span className="text-center text-muted-foreground font-mono text-xs">
+            N/A
+          </span>
         )}
         {expense.type === "want" ? (
           <span className="text-center">{`${currency}${expense.amount.toLocaleString()}`}</span>
         ) : (
-          <span className="text-center">-</span>
+          <span className="text-center text-muted-foreground font-mono text-xs">
+            N/A
+          </span>
         )}
         {expense.dueType ? (
           <Link
@@ -56,30 +61,27 @@ export const ExpenseCard = ({
         )}
       </CardContent>
       <CardFooter className="py-3 px-4 sm:px-6 lg:hidden">
-        <div className="flex justify-between w-full text-xs items-center">
-          <div className="flex items-center">
-            <span className="text-xs tracking-tighter">
-              {format(expense.createdAt, "dd MMM '·' h:mm a")}
-            </span>
-          </div>
-          {expense.dueType ? (
+        {expense.dueType ? (
+          <div className="flex justify-end w-full text-xs items-center">
             <Link
               href="/dues"
               className="text-primary text-center text-xs underline underline-offset-4"
             >
               Dues
             </Link>
-          ) : (
-            <div className="flex gap-x-4">
-              <EditExpense expense={expense} />
-              <DeleteExpense
-                expenseId={expense.id}
-                expenseType={expense.type}
-              />
-            </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="flex justify-around w-full text-xs items-center">
+            <EditExpense expense={expense} />
+            <DeleteExpense expenseId={expense.id} expenseType={expense.type} />
+          </div>
+        )}
       </CardFooter>
+      <Badge className="lg:hidden absolute -bottom-[22px] bg-secondary text-white rounded-t-none rounded-b-lg right-2">
+        <span className="text-[10px] font-normal tracking-tighter">
+          {format(expense.createdAt, "dd MMM '·' h:mm a")}
+        </span>
+      </Badge>
     </Card>
   );
 };

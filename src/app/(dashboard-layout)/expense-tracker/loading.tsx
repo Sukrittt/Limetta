@@ -22,7 +22,7 @@ const loading = () => {
               <Skeleton className="h-8 w-20 rounded-lg" />
               <Skeleton className="h-8 w-20 rounded-lg" />
             </div>
-            <ScrollShadow className="h-[calc(80vh-115px)] w-full no-scrollbar">
+            <ScrollShadow className="h-[calc(80vh-200px)] lg:h-[calc(80vh-115px)] w-full no-scrollbar">
               <div className="flex flex-col gap-y-2">
                 <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6">
                   <span className="hidden lg:block">Date & Time</span>
@@ -54,30 +54,55 @@ const loading = () => {
                 <span className="font-semibold underline underline-offset-4 mb-1 text-primary">
                   Allotment
                 </span>
-                <div className="flex flex-col font-mono">
-                  <span>Needs: ---</span>
-                  <span>Wants: ---</span>
-                  <span>Investments: ---</span>
-                  <span>Monthly Income: ---</span>
+                <div className="flex gap-x-4 font-mono">
+                  <div className="flex flex-col">
+                    <span>Needs: ---</span>
+                    <span>Wants: ---</span>
+                    <span>Investments: ---</span>
+                  </div>
+                  <div className="flex gap-x-2">
+                    <span className="text-6xl pt-px text-muted-foreground">{`}`}</span>
+
+                    <div className="flex items-center">
+                      <span>---</span>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col gap-y-1">
                 <span className="font-semibold underline underline-offset-4 mb-1 text-primary">
                   Spendings
                 </span>
-                <div className="flex flex-col font-mono">
-                  <span>Needs: ---</span>
-                  <span>Wants: ---</span>
-                  <span>Total Spendings: ---</span>
+                <div className="flex gap-x-4 font-mono">
+                  <div className="flex flex-col">
+                    <span>Needs: ---</span>
+                    <span>Wants: ---</span>
+                  </div>
+                  <div className="flex gap-x-2">
+                    <span className="text-4xl pt-px text-muted-foreground">{`}`}</span>
+
+                    <div className="flex items-center">
+                      <span>---</span>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col gap-y-1">
                 <span className="font-semibold underline underline-offset-4 mb-1 text-primary">
                   Money Left
                 </span>
-                <div className="flex flex-col font-mono">
-                  <span>Needs: ---</span>
-                  <span>Wants: ---</span>
+                <div className="flex gap-x-4 font-mono">
+                  <div className="flex flex-col">
+                    <span>Needs: ---</span>
+                    <span>Wants: ---</span>
+                  </div>
+                  <div className="flex gap-x-2">
+                    <span className="text-4xl pt-px text-muted-foreground">{`}`}</span>
+
+                    <div className="flex items-center">
+                      <span>---</span>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col gap-y-1">
@@ -85,7 +110,6 @@ const loading = () => {
                   Savings
                 </span>
                 <div className="flex flex-col font-mono">
-                  <span>Left for Spending: ---</span>
                   <span>Total Savings: ---</span>
                 </div>
               </div>

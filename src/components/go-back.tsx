@@ -8,7 +8,7 @@ export const GoBack = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  if (pathname === "/dashboard") return;
+  if (pathname === "/dashboard" || pathname === "/expense-tracker") return;
 
   return (
     <div className="flex xl:hidden justify-between items-center">

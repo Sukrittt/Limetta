@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Divider } from "@nextui-org/divider";
@@ -6,10 +7,12 @@ import { ScrollShadow } from "@nextui-org/scroll-shadow";
 import { env } from "@/env.mjs";
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
+import { Icons } from "@/components/icons";
 import { getAuthSession } from "@/lib/auth";
 import { serverClient } from "@/trpc/server-client";
 import { AddExpense } from "@/components/expense/add-expense";
 import { ExpenseCard } from "@/components/cards/expense-card";
+import { MobileSidebar } from "@/components/layout/mobile-sidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const dynamic = "force-dynamic";
@@ -82,11 +85,22 @@ const Dashboard = async () => {
       <div className="col-span-7 lg:col-span-5">
         <Card>
           <CardTitle>
-            <CardHeader className="text-center text-2xl md:text-3xl py-4">{`${currentMonth} Entries`}</CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between xl:block py-4">
+              <Link
+                href="/dashboard"
+                className="xl:hidden border rounded-xl relative h-9 w-9"
+              >
+                <Icons.left className="h-6 w-6 absolute left-1 top-1.5" />
+                <span className="sr-only">Go Back</span>
+              </Link>
+              <h1 className="hidden sm:block text-center text-2xl md:text-3xl">{`${currentMonth} Entries`}</h1>
+              <h1 className="sm:hidden text-center text-2xl md:text-3xl">{`${currentMonth}`}</h1>
+              <MobileSidebar />
+            </CardHeader>
             <Divider />
           </CardTitle>
           <CardContent className="space-y-2 text-sm tracking-tight pt-6 md:pt-3">
-            <div className="flex justify-end pb-6 md:pb-3">
+            <div className="flex justify-between xl:justify-end pb-6 md:pb-3">
               <AddExpense
                 currency={currentUser.currency as CurrencyType}
                 expenses={expenses}
@@ -98,7 +112,7 @@ const Dashboard = async () => {
                 }}
               />
             </div>
-            <ScrollShadow className="h-[calc(80vh-115px)] w-full no-scrollbar">
+            <ScrollShadow className="h-[calc(80vh-200px)] lg:h-[calc(80vh-115px)] w-full no-scrollbar">
               {expenses.length === 0 ? (
                 <div className="flex flex-col items-center gap-y-1 pt-4 text-muted-foreground tracking-tight font-mono">
                   <p>No entries added Yet!</p>
@@ -106,13 +120,13 @@ const Dashboard = async () => {
                 </div>
               ) : (
                 <div className="flex flex-col gap-y-2">
-                  <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6">
+                  <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6 font-semibold">
                     <span className="hidden lg:block">Date & Time</span>
                     <span className="col-span-2 sm:col-span-3">Details</span>
                     <span className="text-center">Needs</span>
                     <span className="text-center">Wants</span>
                   </div>
-                  <div className="pb-4 flex flex-col gap-y-2">
+                  <div className="pb-4 flex flex-col gap-y-8 lg:gap-y-2">
                     {expenses.map((expense) => (
                       <ExpenseCard
                         key={expense.createdAt.toString()}
@@ -147,71 +161,114 @@ const Dashboard = async () => {
                     <span className="font-semibold underline underline-offset-4 mb-1 text-primary">
                       Allotment
                     </span>
-                    <div className="flex flex-col font-mono">
-                      <span>
-                        Needs: {`${currentUser.currency}${needShare}`}
-                      </span>
-                      <span>
-                        Wants: {`${currentUser.currency}${wantShare}`}
-                      </span>
-                      <span>
-                        Investments:{" "}
-                        {`${currentUser.currency}${investmentShare}`}
-                      </span>
-                      <span>
-                        Monthly Income:{" "}
-                        {`${currentUser.currency}${currentMonthIncome}`}
-                      </span>
+                    <div className="flex gap-x-4 font-mono">
+                      <div className="flex flex-col">
+                        <span>
+                          Needs: {`${currentUser.currency}${needShare}`}
+                        </span>
+                        <span>
+                          Wants: {`${currentUser.currency}${wantShare}`}
+                        </span>
+                        <span>
+                          Investments:{" "}
+                          {`${currentUser.currency}${investmentShare}`}
+                        </span>
+                      </div>
+                      <div className="flex gap-x-2">
+                        <span className="text-6xl pt-px text-muted-foreground">{`}`}</span>
+
+                        <div className="flex items-center">
+                          <span>
+                            {`${currentUser.currency}${currentMonthIncome}`}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div className="flex flex-col gap-y-1">
                     <span className="font-semibold underline underline-offset-4 mb-1 text-primary">
                       Spendings
                     </span>
-                    <div className="flex flex-col font-mono">
-                      <span>
-                        Needs: {`${currentUser.currency}${needsTotal}`}
-                      </span>
-                      <span>
-                        Wants: {`${currentUser.currency}${wantsTotal}`}
-                      </span>
-                      <span>
-                        Total Spendings:{" "}
-                        {`${currentUser.currency}${currentMonthEntries.books[0].totalSpendings}`}
-                      </span>
+                    <div className="flex gap-x-4 font-mono">
+                      <div className="flex flex-col">
+                        <span>
+                          Needs: {`${currentUser.currency}${needsTotal}`}
+                        </span>
+                        <span>
+                          Wants: {`${currentUser.currency}${wantsTotal}`}
+                        </span>
+                      </div>
+                      <div className="flex gap-x-2">
+                        <span className="text-4xl pt-px text-muted-foreground">{`}`}</span>
+
+                        <div className="flex items-center">
+                          <span>
+                            {`${currentUser.currency}${currentMonthEntries.books[0].totalSpendings}`}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div className="flex flex-col gap-y-1">
                     <span className="font-semibold underline underline-offset-4 mb-1 text-primary">
                       Money Left
                     </span>
-                    <div className="flex flex-col font-mono">
-                      <span>
-                        Needs:{" "}
-                        <span
-                          className={cn({
-                            "text-danger-text": needShare - needsTotal < 0,
-                          })}
-                        >
-                          <span>{needShare - needsTotal < 0 ? "-" : ""}</span>
-                          {`${currentUser.currency}${Math.abs(
-                            needShare - needsTotal
-                          )}`}
+                    <div className="flex gap-x-4 font-mono">
+                      <div className="flex flex-col">
+                        <span>
+                          Needs:{" "}
+                          <span
+                            className={cn({
+                              "text-danger-text": needShare - needsTotal < 0,
+                            })}
+                          >
+                            <span>{needShare - needsTotal < 0 ? "-" : ""}</span>
+                            {`${currentUser.currency}${Math.abs(
+                              needShare - needsTotal
+                            )}`}
+                          </span>
                         </span>
-                      </span>
-                      <span>
-                        Wants:{" "}
-                        <span
-                          className={cn({
-                            "text-danger-text": wantShare - wantsTotal < 0,
-                          })}
-                        >
-                          <span>{wantShare - wantsTotal < 0 ? "-" : ""}</span>
-                          {`${currentUser.currency}${Math.abs(
-                            wantShare - wantsTotal
-                          )}`}
+                        <span>
+                          Wants:{" "}
+                          <span
+                            className={cn({
+                              "text-danger-text": wantShare - wantsTotal < 0,
+                            })}
+                          >
+                            <span>{wantShare - wantsTotal < 0 ? "-" : ""}</span>
+                            {`${currentUser.currency}${Math.abs(
+                              wantShare - wantsTotal
+                            )}`}
+                          </span>
                         </span>
-                      </span>
+                      </div>
+                      <div className="flex gap-x-2">
+                        <span className="text-4xl pt-px text-muted-foreground">{`}`}</span>
+
+                        <div className="flex items-center">
+                          <span
+                            className={cn({
+                              "text-danger-text":
+                                needShare +
+                                  wantShare -
+                                  (needsTotal + wantsTotal) <
+                                0,
+                            })}
+                          >
+                            <span>
+                              {needShare +
+                                wantShare -
+                                (needsTotal + wantsTotal) <
+                              0
+                                ? "-"
+                                : ""}
+                            </span>
+                            {`${currentUser.currency}${Math.abs(
+                              needShare + wantShare - (needsTotal + wantsTotal)
+                            )}`}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div className="flex flex-col gap-y-1">
@@ -219,28 +276,6 @@ const Dashboard = async () => {
                       Savings
                     </span>
                     <div className="flex flex-col font-mono">
-                      <span>
-                        Left for Spending:{" "}
-                        <span
-                          className={cn({
-                            "text-danger-text":
-                              needShare +
-                                wantShare -
-                                (needsTotal + wantsTotal) <
-                              0,
-                          })}
-                        >
-                          <span>
-                            {needShare + wantShare - (needsTotal + wantsTotal) <
-                            0
-                              ? "-"
-                              : ""}
-                          </span>
-                          {`${currentUser.currency}${Math.abs(
-                            needShare + wantShare - (needsTotal + wantsTotal)
-                          )}`}
-                        </span>
-                      </span>
                       <span>
                         Total Savings:{" "}
                         <span

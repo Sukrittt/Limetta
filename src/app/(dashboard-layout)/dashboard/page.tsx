@@ -207,13 +207,15 @@ const Dashboard = async () => {
                       <span className="text-center">Needs</span>
                       <span className="text-center">Wants</span>
                     </div>
-                    {expenses.map((expense) => (
-                      <ExpenseCard
-                        key={expense.createdAt.toString()}
-                        expense={expense}
-                        currency={currentUser.currency as CurrencyType}
-                      />
-                    ))}
+                    <div className="flex flex-col gap-y-8 lg:gap-y-2">
+                      {expenses.map((expense) => (
+                        <ExpenseCard
+                          key={expense.createdAt.toString()}
+                          expense={expense}
+                          currency={currentUser.currency as CurrencyType}
+                        />
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>

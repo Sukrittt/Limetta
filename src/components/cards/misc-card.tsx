@@ -83,7 +83,7 @@ const MiscCard = ({
 
   return (
     <div className="flex flex-col gap-y-2 text-sm">
-      <div className="grid grid-cols-7 px-4 sm:px-6">
+      <div className="grid grid-cols-7 px-4 sm:px-6 font-semibold">
         <span className="hidden lg:block">Date & Time</span>
         <span className="col-span-5 lg:col-span-3">Details</span>
         <span className="text-center col-span-2">Amount</span>

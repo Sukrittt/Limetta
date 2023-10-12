@@ -22,7 +22,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
       <div className="h-full">
         <DashboardSidebar />
       </div>
-      <Shell className="items-start h-full px-6 md:px-8">
+      <Shell className="items-start h-full py-4 md:py-8 px-6 md:px-8">
         <div className="space-y-4">
           <GoBack />
           {children}

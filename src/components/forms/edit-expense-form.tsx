@@ -12,6 +12,7 @@ import { ExpenseType } from "@/types";
 import { toast } from "@/hooks/use-toast";
 import { Button } from "@nextui-org/button";
 import { Label } from "@/components/ui/label";
+import { DatePicker } from "@/components/date-picker";
 import { buttonVariants } from "@/components/ui/button";
 
 export const EditExpenseForm = ({
@@ -24,8 +25,13 @@ export const EditExpenseForm = ({
   setDisabled: (disabled: boolean) => void;
 }) => {
   const router = useRouter();
+
   const [amount, setAmount] = useState(expense.amount.toLocaleString());
   const [description, setDescription] = useState(expense.description);
+  const [entryDate, setEntryDate] = useState<Date | undefined>(
+    expense.createdAt
+  );
+
   const [expenseTypeSelected, setExpenseTypeSelected] = useState(expense.type);
   const [inputValidationState, setInputValidationState] = useState<
     "valid" | "invalid"
@@ -59,6 +65,14 @@ export const EditExpenseForm = ({
       });
     }
 
+    if (!entryDate) {
+      return toast({
+        title: "Entry date is required",
+        description: "Please select a valid entry date.",
+        variant: "destructive",
+      });
+    }
+
     if (!parseFloat(amount)) {
       return toast({
         title: "Amount is invalid",
@@ -78,6 +92,7 @@ export const EditExpenseForm = ({
       description,
       expenseType: expenseTypeSelected,
       initialExpenseType: expense.type,
+      entryDate,
     });
   };
 
@@ -139,6 +154,25 @@ export const EditExpenseForm = ({
               }}
             />
           </div>
+
+          <div className="flex flex-col gap-y-2">
+            <Label>Date</Label>
+            <DatePicker
+              value={entryDate}
+              setValue={setEntryDate}
+              disabled={[
+                {
+                  before: new Date(
+                    new Date().getFullYear(),
+                    new Date().getMonth(),
+                    1
+                  ),
+                },
+                { after: new Date() },
+              ]}
+            />
+          </div>
+
           <div>
             <RadioGroup
               orientation="horizontal"

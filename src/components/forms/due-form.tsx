@@ -164,7 +164,11 @@ export const DueForm = ({
 
           <div className="flex flex-col gap-y-2">
             <Label>Due Date</Label>
-            <DatePicker value={dueDate} setValue={setDueDate} />
+            <DatePicker
+              value={dueDate}
+              setValue={setDueDate}
+              disabled={[{ before: new Date() }, new Date()]}
+            />
           </div>
         </form>
       </ModalBody>

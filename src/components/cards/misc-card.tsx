@@ -130,6 +130,7 @@ const MiscEntryItem = ({
     amount: entry.amount,
     description: entry.entryName,
     entryType: entry.entryType,
+    createdAt: entry.createdAt,
   };
 
   return (

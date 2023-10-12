@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { Button } from "@nextui-org/button";
+import { Matcher } from "react-day-picker";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/popover";
 
@@ -13,9 +14,10 @@ import { buttonVariants } from "@/components/ui/button";
 interface DatePickerProps {
   value: Date | undefined;
   setValue: (date: Date | undefined) => void;
+  disabled?: Matcher[];
 }
 
-export function DatePicker({ setValue, value }: DatePickerProps) {
+export function DatePicker({ setValue, value, disabled }: DatePickerProps) {
   const [date, setDate] = useState<Date>();
 
   useEffect(() => {
@@ -49,6 +51,7 @@ export function DatePicker({ setValue, value }: DatePickerProps) {
           selected={date}
           onSelect={setDate}
           initialFocus
+          disabled={disabled}
         />
       </PopoverContent>
     </Popover>

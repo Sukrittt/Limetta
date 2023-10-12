@@ -26,6 +26,7 @@ export const miscRouter = createTRPCRouter({
         amount: z.number().positive(),
         description: z.string().min(1).max(100),
         entryType: z.enum(["in", "out"]),
+        entryDate: z.date(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -53,6 +54,7 @@ export const miscRouter = createTRPCRouter({
         amount: input.amount,
         entryName: input.description,
         entryType: input.entryType,
+        createdAt: input.entryDate,
       });
     }),
   editMiscEntry: privateProcedure
@@ -62,6 +64,7 @@ export const miscRouter = createTRPCRouter({
         amount: z.number().positive(),
         description: z.string().min(1).max(100),
         entryType: z.enum(["in", "out"]),
+        entryDate: z.date(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -102,7 +105,7 @@ export const miscRouter = createTRPCRouter({
             amount: input.amount,
             entryName: input.description,
             entryType: input.entryType,
-            createdAt: miscEntry.createdAt,
+            createdAt: input.entryDate,
           })
           .where(eq(miscellaneous.id, input.miscId)),
       ];

@@ -14,6 +14,7 @@ export const entryRouter = createTRPCRouter({
         expenseType: z.enum(["need", "want"]),
         amount: z.number().positive(),
         description: z.string().min(1).max(50),
+        entryDate: z.date(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -62,6 +63,7 @@ export const entryRouter = createTRPCRouter({
           description: input.description,
           bookId,
           userId: ctx.userId,
+          createdAt: input.entryDate,
         });
       } else if (input.expenseType === "want") {
         await db.insert(wants).values({
@@ -69,6 +71,7 @@ export const entryRouter = createTRPCRouter({
           description: input.description,
           bookId,
           userId: ctx.userId,
+          createdAt: input.entryDate,
         });
       }
     }),
@@ -189,6 +192,7 @@ export const entryRouter = createTRPCRouter({
         expenseType: z.enum(["need", "want"]),
         amount: z.number().positive(),
         description: z.string().min(1).max(50),
+        entryDate: z.date(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -255,7 +259,7 @@ export const entryRouter = createTRPCRouter({
               description: input.description,
               bookId: input.bookId,
               userId: ctx.userId,
-              createdAt: existingNeedEntry[0].createdAt,
+              createdAt: input.entryDate,
             }),
           ];
 
@@ -263,7 +267,11 @@ export const entryRouter = createTRPCRouter({
         } else {
           await db
             .update(needs)
-            .set({ amount: input.amount, description: input.description })
+            .set({
+              amount: input.amount,
+              description: input.description,
+              createdAt: input.entryDate,
+            })
             .where(eq(needs.id, input.expenseId));
         }
       } else if (input.initialExpenseType === "want") {
@@ -312,7 +320,7 @@ export const entryRouter = createTRPCRouter({
               description: input.description,
               bookId: input.bookId,
               userId: ctx.userId,
-              createdAt: existingWantEntry[0].createdAt,
+              createdAt: input.entryDate,
             }),
           ];
 
@@ -320,7 +328,11 @@ export const entryRouter = createTRPCRouter({
         } else {
           await db
             .update(wants)
-            .set({ amount: input.amount, description: input.description })
+            .set({
+              amount: input.amount,
+              description: input.description,
+              createdAt: input.entryDate,
+            })
             .where(eq(wants.id, input.expenseId));
         }
       }

@@ -21,6 +21,7 @@ export type EntryType = {
   description: string;
   entryType: "in" | "out";
   initialBalance?: number;
+  createdAt: Date;
 };
 
 export type ExtendedEntryType = Omit<

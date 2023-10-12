@@ -14,15 +14,14 @@ function Calendar({
   classNames,
   showOutsideDays = true,
   fixedWeeks = true,
+  disabled,
   ...props
 }: CalendarProps) {
-  const disabledDays = [{ before: new Date() }, new Date()];
-
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
       fixedWeeks={fixedWeeks}
-      disabled={disabledDays}
+      disabled={disabled}
       className={cn("p-3", className)}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",

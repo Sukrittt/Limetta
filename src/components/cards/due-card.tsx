@@ -148,6 +148,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
     dueStatus: entry.dueStatus,
     dueDate: entry.dueDate,
     transferAccountType: entry.transferAccountType,
+    createdAt: entry.createdAt,
   };
 
   const transferAccountHref =

@@ -14,6 +14,7 @@ import { trpc } from "@/trpc/client";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { EntryType, CurrencyType } from "@/types";
+import { DatePicker } from "@/components/date-picker";
 import { buttonVariants } from "@/components/ui/button";
 
 export const InvestBookEntryForm = ({
@@ -32,6 +33,9 @@ export const InvestBookEntryForm = ({
 
   const [amount, setAmount] = useState<string | null>(null);
   const [description, setDescription] = useState(entryDetails.description);
+  const [entryDate, setEntryDate] = useState<Date | undefined>(
+    new Date(entryDetails.createdAt)
+  );
   const [tradeStatus, setTradeStatus] = useState<"profit" | "loss">("profit");
 
   const [inputValidationState, setInputValidationState] = useState<
@@ -77,6 +81,14 @@ export const InvestBookEntryForm = ({
       });
     }
 
+    if (!entryDate) {
+      return toast({
+        title: "Entry date is required",
+        description: "Please select a valid entry date.",
+        variant: "destructive",
+      });
+    }
+
     if (description.length === 0 || description.length > 100) {
       return toast({
         title: "Description is too long/short",
@@ -103,6 +115,7 @@ export const InvestBookEntryForm = ({
       entryType: tradeStatus === "profit" ? "in" : "out",
       tradeBooking: true,
       investedAmount: parseFloat(investedAmount.replace(/,/g, "")),
+      entryDate,
     });
   };
 
@@ -167,6 +180,20 @@ export const InvestBookEntryForm = ({
                   </span>
                 </div>
               }
+            />
+          </div>
+
+          <div className="flex flex-col gap-y-2">
+            <Label>
+              Date{" "}
+              <span className="text-sm text-muted-foreground tracking-tighter">
+                (optional)
+              </span>
+            </Label>
+            <DatePicker
+              value={entryDate}
+              setValue={setEntryDate}
+              disabled={[{ after: new Date() }]}
             />
           </div>
 

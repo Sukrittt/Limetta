@@ -13,6 +13,7 @@ import { trpc } from "@/trpc/client";
 import { CurrencyType } from "@/types";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
+import { DatePicker } from "@/components/date-picker";
 import { buttonVariants } from "@/components/ui/button";
 
 export const InvestAddEntryForm = ({
@@ -31,6 +32,8 @@ export const InvestAddEntryForm = ({
 
   const [amount, setAmount] = useState<string | null>(null);
   const [description, setDescription] = useState("");
+  const [entryDate, setEntryDate] = useState<Date | undefined>(new Date());
+
   const [inputValidationState, setInputValidationState] = useState<
     "valid" | "invalid"
   >("valid");
@@ -71,6 +74,14 @@ export const InvestAddEntryForm = ({
       });
     }
 
+    if (!entryDate) {
+      return toast({
+        title: "Entry date is required",
+        description: "Please select a valid entry date.",
+        variant: "destructive",
+      });
+    }
+
     const parsedAmount = parseFloat(amount.replace(/,/g, ""));
 
     if (parsedAmount > initialBalance) {
@@ -103,6 +114,7 @@ export const InvestAddEntryForm = ({
       amount: parsedAmount,
       description,
       entryType: "out",
+      entryDate,
     });
   };
 
@@ -149,6 +161,20 @@ export const InvestAddEntryForm = ({
                   handleSubmit();
                 }
               }}
+            />
+          </div>
+
+          <div className="flex flex-col gap-y-2">
+            <Label>
+              Date{" "}
+              <span className="text-sm text-muted-foreground tracking-tighter">
+                (optional)
+              </span>
+            </Label>
+            <DatePicker
+              value={entryDate}
+              setValue={setEntryDate}
+              disabled={[{ after: new Date() }]}
             />
           </div>
 

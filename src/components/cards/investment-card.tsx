@@ -145,6 +145,7 @@ const InvestmentEntryItem = ({
     description: entry.entryName,
     entryType: entry.entryType,
     initialBalance,
+    createdAt: entry.createdAt,
   };
 
   const getCustomizedDescription = (entry: Investments) => {

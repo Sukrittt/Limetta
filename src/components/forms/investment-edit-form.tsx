@@ -5,6 +5,7 @@ import { Button } from "@nextui-org/button";
 import { Tabs, Tab } from "@nextui-org/tabs";
 import { Spinner } from "@nextui-org/spinner";
 import { RadioGroup, Radio } from "@nextui-org/radio";
+import { DatePicker } from "@/components/date-picker";
 import { useQueryClient } from "@tanstack/react-query";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
@@ -36,6 +37,9 @@ export const InvestmentEditEntryForm = ({
   const [amount, setAmount] = useState(entryDetails.amount.toLocaleString());
   const [description, setDescription] = useState(entryDetails.description);
   const [entryType, setEntryType] = useState(entryDetails.entryType);
+  const [entryDate, setEntryDate] = useState<Date | undefined>(
+    new Date(entryDetails.createdAt)
+  );
 
   const [tabSelected, setTabSelected] = useState<"default" | "custom">(
     "default"
@@ -78,6 +82,14 @@ export const InvestmentEditEntryForm = ({
       });
     }
 
+    if (!entryDate) {
+      return toast({
+        title: "Entry date is required",
+        description: "Please select a valid entry date.",
+        variant: "destructive",
+      });
+    }
+
     if (description.length === 0 || description.length > 100) {
       return toast({
         title: "Description is too long/short",
@@ -115,6 +127,7 @@ export const InvestmentEditEntryForm = ({
       tradeBooking,
       amount: parsedAmount,
       investId: entryDetails.entryId,
+      entryDate,
     });
   };
 
@@ -160,6 +173,20 @@ export const InvestmentEditEntryForm = ({
                   handleSubmit();
                 }
               }}
+            />
+          </div>
+
+          <div className="flex flex-col gap-y-2">
+            <Label>
+              Date{" "}
+              <span className="text-sm text-muted-foreground tracking-tighter">
+                (optional)
+              </span>
+            </Label>
+            <DatePicker
+              value={entryDate}
+              setValue={setEntryDate}
+              disabled={[{ after: new Date() }]}
             />
           </div>
 

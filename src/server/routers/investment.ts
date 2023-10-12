@@ -28,6 +28,7 @@ export const investmentRouter = createTRPCRouter({
         entryType: z.enum(["in", "out"]),
         tradeBooking: z.boolean().optional().default(false),
         investedAmount: z.number().optional().default(0),
+        entryDate: z.date(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -40,6 +41,7 @@ export const investmentRouter = createTRPCRouter({
           amount: input.investedAmount,
           entryName: input.description,
           entryType: input.entryType,
+          createdAt: input.entryDate,
         });
 
         if (input.entryType === "in") {
@@ -86,6 +88,7 @@ export const investmentRouter = createTRPCRouter({
         entryName: input.description,
         entryType: input.entryType,
         tradeBooks: input.tradeBooking,
+        createdAt: input.entryDate,
       });
     }),
   editInvestmentEntry: privateProcedure
@@ -96,6 +99,7 @@ export const investmentRouter = createTRPCRouter({
         description: z.string().min(1).max(100),
         entryType: z.enum(["in", "out"]),
         tradeBooking: z.boolean(),
+        entryDate: z.date(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -147,7 +151,7 @@ export const investmentRouter = createTRPCRouter({
             amount: input.amount,
             entryName: input.description,
             entryType: input.entryType,
-            createdAt: investmentEntry.createdAt,
+            createdAt: input.entryDate,
             tradeBooks: input.tradeBooking,
           })
           .where(eq(investments.id, input.investId)),

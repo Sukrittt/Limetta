@@ -12,6 +12,7 @@ import { trpc } from "@/trpc/client";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { EntryType, CurrencyType } from "@/types";
+import { DatePicker } from "@/components/date-picker";
 import { buttonVariants } from "@/components/ui/button";
 
 export const MiscEditForm = ({
@@ -31,6 +32,9 @@ export const MiscEditForm = ({
   const [amount, setAmount] = useState(entryDetails.amount.toLocaleString());
   const [description, setDescription] = useState(entryDetails.description);
   const [entryType, setEntryType] = useState(entryDetails.entryType);
+  const [entryDate, setEntryDate] = useState<Date | undefined>(
+    new Date(entryDetails.createdAt)
+  );
 
   const [inputValidationState, setInputValidationState] = useState<
     "valid" | "invalid"
@@ -66,6 +70,14 @@ export const MiscEditForm = ({
       });
     }
 
+    if (!entryDate) {
+      return toast({
+        title: "Entry date is required",
+        description: "Please select a valid entry date.",
+        variant: "destructive",
+      });
+    }
+
     if (description.length === 0 || description.length > 100) {
       return toast({
         title: "Description is too long/short",
@@ -91,6 +103,7 @@ export const MiscEditForm = ({
       description,
       entryType,
       miscId: entryDetails.entryId,
+      entryDate,
     });
   };
 
@@ -152,6 +165,21 @@ export const MiscEditForm = ({
               }}
             />
           </div>
+
+          <div className="flex flex-col gap-y-2">
+            <Label>
+              Date{" "}
+              <span className="text-sm text-muted-foreground tracking-tighter">
+                (optional)
+              </span>
+            </Label>
+            <DatePicker
+              value={entryDate}
+              setValue={setEntryDate}
+              disabled={[{ after: new Date() }]}
+            />
+          </div>
+
           <div>
             <RadioGroup
               orientation="horizontal"

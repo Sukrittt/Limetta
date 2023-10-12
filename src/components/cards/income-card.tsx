@@ -164,14 +164,12 @@ export const IncomeCard: FC<IncomeCardProps> = ({
       <CardContent className="flex flex-col gap-y-4 relative">
         <div className="flex gap-x-1.5 items-center">
           <Label>Monthly Income</Label>
-          <div className="hidden lg:block">
-            <ToolTip
-              text="To allocate your budget between needs, wants and investments."
-              showArrow
-            >
-              <Icons.info className="h-3 w-3 mt-[2px] text-muted-foreground" />
-            </ToolTip>
-          </div>
+          <ToolTip
+            text="To allocate your budget between needs, wants and investments."
+            showArrow
+          >
+            <Icons.info className="h-3 w-3 mt-[2px] text-muted-foreground" />
+          </ToolTip>
         </div>
         <Select
           label="Currency"

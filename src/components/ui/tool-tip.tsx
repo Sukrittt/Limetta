@@ -21,7 +21,7 @@ export default function ToolTip({
 
   return (
     <Tooltip content={content} showArrow={showArrow}>
-      {children}
+      <div className="hidden xl:block">{children}</div>
     </Tooltip>
   );
 }

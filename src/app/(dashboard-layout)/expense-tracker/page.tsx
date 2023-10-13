@@ -225,7 +225,7 @@ const Dashboard = async () => {
                             <span>{needShare - needsTotal < 0 ? "-" : ""}</span>
                             {`${currentUser.currency}${Math.abs(
                               needShare - needsTotal
-                            )}`}
+                            ).toFixed(2)}`}
                           </span>
                         </span>
                         <span>
@@ -238,7 +238,7 @@ const Dashboard = async () => {
                             <span>{wantShare - wantsTotal < 0 ? "-" : ""}</span>
                             {`${currentUser.currency}${Math.abs(
                               wantShare - wantsTotal
-                            )}`}
+                            ).toFixed(2)}`}
                           </span>
                         </span>
                       </div>
@@ -265,7 +265,7 @@ const Dashboard = async () => {
                             </span>
                             {`${currentUser.currency}${Math.abs(
                               needShare + wantShare - (needsTotal + wantsTotal)
-                            )}`}
+                            ).toFixed(2)}`}
                           </span>
                         </div>
                       </div>
@@ -292,7 +292,7 @@ const Dashboard = async () => {
                           </span>
                           {`${currentUser.currency}${Math.abs(
                             currentMonthIncome - (needsTotal + wantsTotal)
-                          )}`}
+                          ).toFixed(2)}`}
                         </span>
                       </span>
                     </div>

@@ -1,17 +1,20 @@
 "use client";
 import { ReactNode } from "react";
 import { Tooltip } from "@nextui-org/tooltip";
+import { cn } from "@/lib/utils";
 
 export default function ToolTip({
   children,
   text,
   showArrow = false,
   customComponent,
+  disableForMobile = true,
 }: {
   children: ReactNode;
   text?: string;
   showArrow?: boolean;
   customComponent?: ReactNode;
+  disableForMobile?: boolean;
 }) {
   const content = customComponent ? (
     customComponent
@@ -21,7 +24,13 @@ export default function ToolTip({
 
   return (
     <Tooltip content={content} showArrow={showArrow}>
-      <div className="hidden xl:block">{children}</div>
+      <div
+        className={cn("xl:block", {
+          hidden: disableForMobile,
+        })}
+      >
+        {children}
+      </div>
     </Tooltip>
   );
 }

@@ -193,6 +193,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
           >
             {transferAccountHref ? (
               <ToolTip
+                disableForMobile={false}
                 customComponent={
                   <p className="text-xs">
                     Transferred to{" "}
@@ -216,13 +217,13 @@ const DueEntryItem: FC<DueEntryProps> = ({
         <div className="hidden lg:flex items-center justify-center">
           <span className="text-center text-xs">
             {format(new Date(entry.dueDate), "dd MMM, yy")}
-            {entry.dueStatus === "pending" &&
-              new Date(entry.dueDate) <= new Date() && (
-                <ToolTip text="Due date passed">
-                  <span className="ml-1 text-danger-text">!</span>
-                </ToolTip>
-              )}
           </span>
+          {entry.dueStatus === "pending" &&
+            new Date(entry.dueDate) <= new Date() && (
+              <ToolTip text="Due date passed">
+                <span className="ml-1 text-danger-text">!</span>
+              </ToolTip>
+            )}
         </div>
         <div className="hidden lg:flex justify-around items-center text-xs col-span-2">
           <DuePaid entryDetails={entryDetails} savingBalance={savingBalance} />
@@ -247,13 +248,17 @@ const DueEntryItem: FC<DueEntryProps> = ({
           </span>
           <DuePaid entryDetails={entryDetails} savingBalance={savingBalance} />
         </div>
-        <span className="text-center text-xs">
-          <span className="text-muted-foreground">Due by:</span>{" "}
-          {format(new Date(entry.dueDate), "dd MMM, yy")}
+        <div className="flex items-center">
+          <span className="text-center text-xs">
+            <span className="text-muted-foreground">Due by:</span>{" "}
+            {format(new Date(entry.dueDate), "dd MMM, yy")}
+          </span>
           {new Date(entry.dueDate) <= new Date() && (
-            <span className="text-danger-text ml-1">!</span>
+            <ToolTip text="Due date passed" disableForMobile={false}>
+              <span className="ml-1 text-danger-text">!</span>
+            </ToolTip>
           )}
-        </span>
+        </div>
         <div className="flex items-center justify-between w-full">
           <div className="flex gap-x-4">
             <DueEditEntry
@@ -271,6 +276,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
           >
             {transferAccountHref ? (
               <ToolTip
+                disableForMobile={false}
                 customComponent={
                   <p className="text-xs">
                     Transferred to{" "}

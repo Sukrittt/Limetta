@@ -18,7 +18,7 @@ export const DashboardSidebar = () => {
       <div className="space-y-4 tracking-tight">
         <div className="flex gap-x-2 items-center">
           <div className="h-3 w-3 rounded-sm bg-primary" />
-          <h1 className="text-sm">Main menu</h1>
+          <h1 className="text-sm">Main Menu</h1>
         </div>
         <div className="ml-4 flex flex-col gap-y-4 text-sm text-muted-foreground">
           {accounts.map((account, index) => (

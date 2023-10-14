@@ -107,11 +107,11 @@ const Dashboard = async () => {
   const updatedAccountDetails = [
     ...accountDetails,
     {
-      title: "Due Payable",
-      shortTitle: "Due Payable",
-      href: "/dues",
-      balance: currentUser.duePayable,
-      icon: Icons.due,
+      title: `${currentMonth} Savings`,
+      shortTitle: `${currentMonth} Savings`,
+      href: "/expense-tracker",
+      balance: totalSavings,
+      icon: Icons.coins,
     },
   ];
 

@@ -42,10 +42,10 @@ const loading = () => {
   const updatedAccountDetails = [
     ...accountDetails,
     {
-      title: "Due Payable",
-      shortTitle: "Due Payable",
-      href: "/dues",
-      icon: Icons.due,
+      title: `${currentMonth} Savings`,
+      shortTitle: `${currentMonth} Savings`,
+      href: "/expense-tracker",
+      icon: Icons.coins,
     },
   ];
 

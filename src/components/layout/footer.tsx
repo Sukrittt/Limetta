@@ -8,7 +8,7 @@ export const Footer = () => {
     <footer className="w-full py-2 sm:py-4 bg-background border-t">
       <div className="container flex flex-col md:flex-row gap-y-4 items-center md:justify-between space-y-1 py-5 md:h-16 md:py-0">
         <div className="text-center text-sm leading-loose text-muted-foreground">
-          Created by{" "}
+          Founded by{" "}
           <Link
             aria-label="Sukrit's github profile"
             href="https://github.com/Sukrittt"

@@ -22,9 +22,7 @@ const Help = () => {
       <div className="grid items-center gap-8">
         <div className="grid gap-1">
           <div className="flex justify-between">
-            <h1 className="line-clamp-1 text-3xl font-bold tracking-tight">
-              Help
-            </h1>
+            <h1 className="text-3xl font-bold tracking-tight">Help</h1>
             <ReportIssue />
           </div>
           <p className="text-muted-foreground">

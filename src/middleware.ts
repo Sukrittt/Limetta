@@ -32,6 +32,7 @@ export const config = {
     "/dues",
     "/customize",
     "/overview",
+    "/about",
     "/help",
     "/sign-in",
   ],

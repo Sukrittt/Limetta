@@ -192,10 +192,12 @@ const Dashboard = async () => {
                     <div className="flex gap-x-4 font-mono">
                       <div className="flex flex-col">
                         <span>
-                          Needs: {`${currentUser.currency}${needsTotal}`}
+                          Needs:{" "}
+                          {`${currentUser.currency}${needsTotal.toFixed(2)}`}
                         </span>
                         <span>
-                          Wants: {`${currentUser.currency}${wantsTotal}`}
+                          Wants:{" "}
+                          {`${currentUser.currency}${wantsTotal.toFixed(2)}`}
                         </span>
                       </div>
                       <div className="flex gap-x-2">

@@ -18,21 +18,34 @@ const loading = () => {
   const accountDetails = [
     {
       title: "Savings Account",
+      shortTitle: "Savings",
       href: "/savings",
       type: "savings" as const,
       icon: Icons.piggy,
     },
     {
       title: "Investments Account",
+      shortTitle: "Investments",
       href: "/investments",
       type: "investments" as const,
       icon: Icons.investments,
     },
     {
       title: "Miscellaneous Account",
+      shortTitle: "Miscellaneous",
       href: "/miscellaneous",
       type: "miscellaneous" as const,
       icon: Icons.siren,
+    },
+  ];
+
+  const updatedAccountDetails = [
+    ...accountDetails,
+    {
+      title: "Due Payable",
+      shortTitle: "Due Payable",
+      href: "/dues",
+      icon: Icons.due,
     },
   ];
 
@@ -40,7 +53,7 @@ const loading = () => {
     <div className="flex flex-col gap-y-4">
       <div className="flex items-center justify-between">
         <div className="space-y-1">
-          <Skeleton className="h-8 w-36 rounded-lg" />
+          <Skeleton className="h-7 sm:h-8 w-36 sm:w-40 rounded-lg" />
           <p className="text-muted-foreground text-sm">Welcome Back!</p>
         </div>
         <MobileSidebar />
@@ -48,29 +61,35 @@ const loading = () => {
           <Skeleton className="h-10 w-28 rounded-xl" />
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 tracking-tight mt-2">
-        {accountDetails.map((account, index) => (
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 tracking-tight mt-2">
+        {updatedAccountDetails.map((account, index) => (
           <Card key={index}>
             <CardTitle>
-              <CardHeader className="py-4 font-normal">
+              <CardHeader className="px-4 pt-3 pb-2 xl:py-4 xl:px-6 font-normal">
                 <div className="flex items-center justify-between text-muted-foreground">
                   <Link
                     href={account.href}
-                    className="hover:text-primary transition text-sm"
+                    className="hidden lg:block hover:text-primary transition text-sm focus:outline-none focus:text-primary"
                   >
                     {account.title}
                   </Link>
                   <Link
                     href={account.href}
-                    className="hover:text-primary transition"
+                    className="lg:hidden hover:text-primary transition text-sm focus:outline-none focus:text-primary"
+                  >
+                    {account.shortTitle}
+                  </Link>
+                  <Link
+                    href={account.href}
+                    className="hidden lg:block hover:text-primary transition focus:outline-none focus:text-primary"
                   >
                     <account.icon className="h-4 w-4" />
                   </Link>
                 </div>
               </CardHeader>
             </CardTitle>
-            <CardContent className="flex flex-col gap-y-2">
-              <Skeleton className="h-10 w-28" />
+            <CardContent className="flex flex-col gap-y-2 px-4 pb-3 xl:px-6 xl:pb-6">
+              <Skeleton className="h-7 xl:h-10 w-28" />
             </CardContent>
           </Card>
         ))}

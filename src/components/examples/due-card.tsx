@@ -39,7 +39,7 @@ export const DueCard = () => {
           </CardContent>
           <Divider className="block" />
           <CardFooter className="text-xs px-4 sm:px-6 pb-3 flex flex-col items-start pt-3 gap-y-2">
-            <div className="flex gap-x-4">
+            <div className="flex justify-between items-center w-full">
               <span
                 className={cn("text-center text-xs", {
                   "text-danger-text": entry.dueType === "payable",
@@ -48,6 +48,34 @@ export const DueCard = () => {
               >
                 {entry.dueType === "payable" ? "Payable" : "Receivable"}
               </span>
+              <span
+                className={cn(
+                  "cursor-pointer text-primary hover:opacity-90 transition bg-secondary rounded-md py-1 px-2",
+                  {
+                    "text-warning-text": entry.dueStatus === "paid",
+                  }
+                )}
+              >
+                {`Mark as ${entry.dueStatus === "paid" ? "pending" : "paid"}`}
+              </span>
+            </div>
+            <span className="text-center text-xs">
+              <span className="text-muted-foreground">Due by:</span>{" "}
+              {format(new Date(entry.dueDate), "dd MMM, yy")}
+              {entry.dueStatus === "pending" &&
+                new Date(entry.dueDate) <= new Date() && (
+                  <span className="text-danger-text ml-1">!</span>
+                )}
+            </span>
+            <div className="flex justify-between w-full items-center">
+              <div className="flex gap-x-4">
+                <span className="cursor-pointer text-warning-text hover:opacity-90 transition">
+                  Edit
+                </span>
+                <span className="cursor-pointer text-danger-text hover:opacity-90 transition">
+                  Delete
+                </span>
+              </div>
               <span
                 className={cn("text-center text-xs", {
                   "text-success-text": entry.dueStatus === "paid",
@@ -64,39 +92,11 @@ export const DueCard = () => {
                     }
                     showArrow
                   >
-                    <div className="flex gap-x-1">
-                      <span>Paid</span>
-                      <Icons.info className="w-3 h-3 mt-[2px] text-muted-foreground" />
-                    </div>
+                    <Icons.check2 className="h-4 w-4" />
                   </ToolTip>
                 ) : (
-                  "Pending"
+                  <Icons.alert2 className="h-4 w-4" />
                 )}
-              </span>
-            </div>
-            <span className="text-center text-xs">
-              Due date: {format(new Date(entry.dueDate), "dd MMM, yy")}
-              {entry.dueStatus === "pending" &&
-                new Date(entry.dueDate) <= new Date() && (
-                  <span className="text-warning-text ml-1">!</span>
-                )}
-            </span>
-            <div className="flex gap-x-4">
-              <span
-                className={cn(
-                  "cursor-pointer text-primary hover:opacity-90 transition",
-                  {
-                    "text-warning-text": entry.dueStatus === "paid",
-                  }
-                )}
-              >
-                {`Mark as ${entry.dueStatus === "paid" ? "pending" : "paid"}`}
-              </span>
-              <span className="cursor-pointer text-warning-text hover:opacity-90 transition">
-                Edit
-              </span>
-              <span className="cursor-pointer text-danger-text hover:opacity-90 transition">
-                Delete
               </span>
             </div>
           </CardFooter>

@@ -4,6 +4,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import { format } from "date-fns";
+import Balancer from "react-wrap-balancer";
 import { Divider } from "@nextui-org/divider";
 import { useIntersection } from "@mantine/hooks";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -82,9 +83,11 @@ export const DueCard: FC<DueCardProps> = ({
 
   if (miscEntries.length === 0) {
     return (
-      <p className="mt-2 text-sm text-center tracking-tight text-muted-foreground">
-        Your dues will appear here.
-      </p>
+      <div className="flex justify-center">
+        <Balancer className="mt-2 text-sm text-center tracking-tight text-muted-foreground">
+          Your dues will appear here.
+        </Balancer>
+      </div>
     );
   }
 

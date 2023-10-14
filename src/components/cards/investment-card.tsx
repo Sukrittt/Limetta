@@ -1,9 +1,10 @@
 "use client";
-import Link from "next/link";
 import axios from "axios";
+import Link from "next/link";
 import { format } from "date-fns";
-import { useEffect, useRef, useState } from "react";
+import Balancer from "react-wrap-balancer";
 import { useIntersection } from "@mantine/hooks";
+import { useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { cn } from "@/lib/utils";
@@ -81,9 +82,11 @@ export const InvestmentCard = ({
 
   if (investmentEntries.length === 0) {
     return (
-      <p className="mt-2 text-sm text-center tracking-tight text-muted-foreground">
-        Your transactions will appear here.
-      </p>
+      <div className="flex justify-center">
+        <Balancer className="mt-2 text-sm text-center tracking-tight text-muted-foreground">
+          Your transactions will appear here.
+        </Balancer>
+      </div>
     );
   }
 

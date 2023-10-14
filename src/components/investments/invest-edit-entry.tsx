@@ -42,7 +42,7 @@ export const InvestmentEditEntry = ({
         hideCloseButton={disabled}
         onOpenChange={onOpenChange}
         backdrop="blur"
-        placement="center"
+        placement="top-center"
       >
         <ModalContent>
           {(onClose) => (

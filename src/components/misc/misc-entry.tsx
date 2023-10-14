@@ -69,7 +69,7 @@ export const MiscEntry = ({
         isDismissable={!disabled}
         hideCloseButton={disabled}
         backdrop="blur"
-        placement="center"
+        placement="top-center"
       >
         <ModalContent>
           {(onClose) => (

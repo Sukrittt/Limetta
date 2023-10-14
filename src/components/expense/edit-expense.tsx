@@ -33,7 +33,7 @@ export const EditExpense = ({ expense }: { expense: ExpenseType }) => {
         hideCloseButton={disabled}
         onOpenChange={onOpenChange}
         backdrop="blur"
-        placement="center"
+        placement="top-center"
       >
         <ModalContent>
           {(onClose) => (

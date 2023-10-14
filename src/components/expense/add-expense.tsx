@@ -116,7 +116,7 @@ export const AddExpense: FC<AddExpenseProps> = ({
         hideCloseButton={disabled}
         onOpenChange={onOpenChange}
         backdrop="blur"
-        placement="center"
+        placement="top-center"
       >
         <ModalContent>
           {(onClose) => (

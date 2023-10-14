@@ -48,7 +48,7 @@ export const InvestAddEntry = ({
         isDismissable={!disabled}
         onOpenChange={onOpenChange}
         backdrop="blur"
-        placement="center"
+        placement="top-center"
       >
         <ModalContent>
           {(onClose) => (

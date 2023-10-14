@@ -75,7 +75,7 @@ export const Transfer = ({
         hideCloseButton={disabled}
         onOpenChange={onOpenChange}
         backdrop="blur"
-        placement="center"
+        placement="top-center"
       >
         <ModalContent>
           {(onClose) => (

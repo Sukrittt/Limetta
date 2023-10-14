@@ -40,7 +40,7 @@ export const InvestmentBookEntry = ({
         hideCloseButton={disabled}
         onOpenChange={onOpenChange}
         backdrop="blur"
-        placement="center"
+        placement="top-center"
       >
         <ModalContent>
           {(onClose) => (

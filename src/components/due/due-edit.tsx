@@ -41,7 +41,7 @@ export const DueEditEntry = ({
         hideCloseButton={disabled}
         isDismissable={!disabled}
         backdrop="blur"
-        placement="center"
+        placement="top-center"
       >
         <ModalContent>
           {(onClose) => (

@@ -46,7 +46,7 @@ const loading = () => {
         </div>
 
         <div className="flex justify-center gap-x-12 items-center">
-          <Skeleton className="h-8 md:h-10 rounded-full w-full md:w-24" />
+          <Skeleton className="h-[42px] rounded-full w-full md:w-24" />
         </div>
       </CardContent>
       <Divider />

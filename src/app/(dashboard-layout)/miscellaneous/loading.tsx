@@ -38,8 +38,8 @@ const loading = () => {
           </p>
         </div>
         <div className="flex flex-col sm:flex-row gap-y-2 sm:justify-center sm:gap-x-12 sm:items-center">
-          <Skeleton className="h-10 w-full sm:w-24 rounded-full" />
-          <Skeleton className="h-10 w-full sm:w-24 rounded-full" />
+          <Skeleton className="h-[42px] w-full sm:w-24 rounded-full" />
+          <Skeleton className="h-[42px] w-full sm:w-24 rounded-full" />
         </div>
       </CardContent>
       <Divider />

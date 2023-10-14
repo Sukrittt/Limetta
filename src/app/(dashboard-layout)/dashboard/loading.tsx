@@ -7,7 +7,7 @@ import ToolTip from "@/components/ui/tool-tip";
 import { Skeleton } from "@/components/ui/skeleton";
 import { buttonVariants } from "@/components/ui/button";
 import { MobileSidebar } from "@/components/layout/mobile-sidebar";
-import { ExpenseCardSkelton } from "@/components/skeletons/expense-card";
+import { ExpenseCardSkeleton } from "@/components/skeletons/expense-card";
 import { ExpenseTableSkeleton } from "@/components/skeletons/expense-table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -120,9 +120,11 @@ const loading = () => {
                   <span className="text-center">Needs</span>
                   <span className="text-center">Wants</span>
                 </div>
-                {Array.from({ length: 7 }).map((_, index) => (
-                  <ExpenseCardSkelton key={index} />
-                ))}
+                <div className="flex flex-col gap-y-8 lg:gap-y-2">
+                  {Array.from({ length: 15 }).map((_, index) => (
+                    <ExpenseCardSkeleton key={index} />
+                  ))}
+                </div>
               </div>
             </ScrollShadow>
           </CardContent>

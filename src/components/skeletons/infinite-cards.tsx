@@ -92,11 +92,11 @@ export const MiscEntryItemSkeleton = () => {
 export const DueEntryItemSkeleton = () => {
   return (
     <Card>
-      <CardContent className="grid grid-cols-5 lg:grid-cols-9 px-4 sm:px-6 py-3">
+      <CardContent className="grid grid-cols-5 lg:grid-cols-9 items-center px-4 sm:px-6 py-3">
         <div className="hidden lg:flex items-center">
           <Skeleton className="h-4 w-3/4" />
         </div>
-        <div className="col-span-4 lg:col-span-2 break-words">
+        <div className="col-span-4 lg:col-span-2 break-words py-[2px]">
           <Skeleton className="h-4 w-3/4" />
         </div>
 
@@ -107,7 +107,7 @@ export const DueEntryItemSkeleton = () => {
           <Skeleton className="h-4 w-12" />
         </div>
         <div className="hidden lg:flex items-center justify-center">
-          <Skeleton className="h-4 w-12" />
+          <Skeleton className="h-4 w-4 rounded-full" />
         </div>
         <div className="hidden lg:flex items-center justify-center">
           <Skeleton className="h-4 w-12" />
@@ -120,18 +120,18 @@ export const DueEntryItemSkeleton = () => {
       </CardContent>
       <Divider className="block lg:hidden" />
       <CardFooter className="text-xs px-4 sm:px-6 pb-3 flex flex-col items-start pt-3 gap-y-2 lg:hidden">
-        <div className="flex gap-x-4">
+        <div className="flex items-center justify-between w-full">
           <Skeleton className="h-4 w-12" />
-          <Skeleton className="h-4 w-12" />
+          <Skeleton className="h-5 w-20" />
         </div>
-        <span className="flex justify-center">
-          {/* Due date: {format(new Date(entry.dueDate), "dd MMM, yy")} */}
-          <Skeleton className="h-4 w-12" />
-        </span>
-        <div className="flex gap-x-4">
-          <Skeleton className="h-4 w-12" />
-          <Skeleton className="h-4 w-12" />
-          <Skeleton className="h-4 w-12" />
+        <Skeleton className="h-4 w-28" />
+        <div className="flex items-center justify-between w-full">
+          <div className="flex gap-x-4">
+            <Skeleton className="h-4 w-12" />
+            <Skeleton className="h-4 w-12" />
+          </div>
+
+          <Skeleton className="h-4 w-4 rounded-full" />
         </div>
       </CardFooter>
     </Card>

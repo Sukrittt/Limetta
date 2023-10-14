@@ -18,7 +18,7 @@ export const ExpenseCard = ({
 }) => {
   return (
     <Card className="bg-transparent relative">
-      <CardContent className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 gap-y-2 px-4 sm:px-6 py-3">
+      <CardContent className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 items-center gap-y-2 px-4 sm:px-6 py-3">
         <div className="hidden lg:flex items-center col-span-2 lg:col-span-1">
           <span className="text-xs tracking-tighter">
             {format(expense.createdAt, "dd MMM '·' h:mm a")}
@@ -77,7 +77,7 @@ export const ExpenseCard = ({
           </div>
         )}
       </CardFooter>
-      <Badge className="lg:hidden absolute -bottom-[22px] bg-secondary text-white rounded-t-none rounded-b-lg right-2">
+      <Badge className="lg:hidden absolute -bottom-[22px] bg-secondary text-white rounded-t-none rounded-b-lg right-3">
         <span className="text-[10px] font-normal tracking-tighter">
           {format(expense.createdAt, "dd MMM '·' h:mm a")}
         </span>

@@ -163,7 +163,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
 
   return (
     <Card>
-      <CardContent className="grid grid-cols-5 lg:grid-cols-9 px-4 sm:px-6 py-3">
+      <CardContent className="grid grid-cols-5 lg:grid-cols-9 items-center px-4 sm:px-6 py-3">
         <div className="hidden lg:flex items-center">
           <span className="text-xs tracking-tighter">
             {format(new Date(entry.createdAt), "dd MMM '·' h:mm a")}
@@ -240,7 +240,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
       </CardContent>
       <Divider className="block lg:hidden" />
       <CardFooter className="text-xs px-4 sm:px-6 pb-3 flex flex-col items-start pt-3 gap-y-2 lg:hidden">
-        <div className="flex justify-between w-full">
+        <div className="flex items-center justify-between w-full">
           <span
             className={cn("text-center text-xs", {
               "text-danger-text": entry.dueType === "payable",

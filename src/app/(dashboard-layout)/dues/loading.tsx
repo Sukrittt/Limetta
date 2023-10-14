@@ -36,7 +36,6 @@ const loading = () => {
         <div className="flex justify-between sm:justify-around">
           <div className="flex flex-col items-center gap-y-1 sm:gap-y-2">
             <Skeleton className="h-7 md:h-10 w-28 rounded-lg" />
-
             <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
               Due Payable
             </p>
@@ -50,8 +49,8 @@ const loading = () => {
         </div>
 
         <div className="flex flex-col gap-y-2 sm:flex-row sm:justify-center sm:gap-x-12 sm:items-center">
-          <Skeleton className="h-10 w-full sm:w-24 rounded-full" />
-          <Skeleton className="h-10 w-full sm:w-24 rounded-full" />
+          <Skeleton className="h-[42px] w-full sm:w-24 rounded-full" />
+          <Skeleton className="h-[42px] w-full sm:w-24 rounded-full" />
         </div>
       </CardContent>
       <Divider />
@@ -64,7 +63,7 @@ const loading = () => {
               <span className="text-center">Amount</span>
               <span className="hidden lg:block text-center">Type</span>
               <span className="hidden lg:block text-center">Status</span>
-              <span className="hidden lg:block text-center">Due date</span>
+              <span className="hidden lg:block text-center">Due Date</span>
             </div>
             {Array.from({ length: 15 }).map((_, index) => (
               <DueEntryItemSkeleton key={index} />

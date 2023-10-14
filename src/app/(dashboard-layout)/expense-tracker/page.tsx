@@ -93,8 +93,8 @@ const Dashboard = async () => {
                 <Icons.left className="h-6 w-6 absolute left-1 top-1.5" />
                 <span className="sr-only">Go Back</span>
               </Link>
-              <h1 className="hidden sm:block text-center text-2xl md:text-3xl">{`${currentMonth} Entries`}</h1>
-              <h1 className="sm:hidden text-center text-2xl md:text-3xl">{`${currentMonth}`}</h1>
+              <h1 className="hidden sm:block text-center">{`${currentMonth} Entries`}</h1>
+              <h1 className="sm:hidden text-center">{`${currentMonth}`}</h1>
               <MobileSidebar />
             </CardHeader>
             <Divider />
@@ -112,7 +112,7 @@ const Dashboard = async () => {
                 }}
               />
             </div>
-            <ScrollShadow className="h-[calc(80vh-200px)] lg:h-[calc(80vh-115px)] w-full no-scrollbar">
+            <ScrollShadow className="h-[calc(80vh-200px)] lg:h-[calc(80vh-100px)] w-full no-scrollbar">
               {expenses.length === 0 ? (
                 <div className="flex flex-col items-center gap-y-1 pt-4 text-muted-foreground tracking-tight font-mono">
                   <p>No entries added Yet!</p>
@@ -144,12 +144,12 @@ const Dashboard = async () => {
       <div className="col-span-7 lg:col-span-2">
         <Card>
           <CardTitle>
-            <CardHeader className="text-center py-5">
+            <CardHeader className="text-center py-4 text-2xl">
               Expense Insights
             </CardHeader>
             <Divider />
           </CardTitle>
-          <ScrollShadow className="lg:h-[calc(90vh-95px)] w-full no-scrollbar">
+          <ScrollShadow className="lg:h-[calc(90vh-80px)] w-full no-scrollbar">
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 pt-6 lg:pb-0 lg:pt-3">
               {currentMonthEntries.books.length === 0 ? (
                 <p className="pt-4 text-muted-foreground tracking-tighter text-center font-mono">

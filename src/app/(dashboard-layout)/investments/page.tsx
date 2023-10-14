@@ -25,10 +25,11 @@ export const metadata: Metadata = {
 
 const Investments = async () => {
   const currentUser = await serverClient.user.getCurrentUser();
-  const investmentEntries =
-    await serverClient.investments.getInvestmentEntries();
 
   if (!currentUser.monthlyIncome) redirect("/onboarding");
+
+  const investmentEntries =
+    await serverClient.investments.getInvestmentEntries();
 
   return (
     <Card>
@@ -59,10 +60,10 @@ const Investments = async () => {
             miscellaneousBalance={currentUser.miscellanousBalance}
           />
         </div>
-        <div className="flex justify-around gap-4">
-          <div className="flex flex-col items-center gap-y-2">
+        <div className="flex justify-between sm:justify-around gap-4 pt-6 md:pt-0">
+          <div className="flex flex-col items-center gap-y-1 sm:gap-y-2">
             <span
-              className={cn("text-5xl md:text-4xl", {
+              className={cn("text-2xl md:text-4xl", {
                 "text-danger-text": currentUser.investmentsBalance < 0,
               })}
             >
@@ -70,16 +71,16 @@ const Investments = async () => {
               <span>{currentUser.currency}</span>
               {Math.abs(currentUser.investmentsBalance).toLocaleString()}
             </span>
-            <p className="text-sm text-muted-foreground tracking-tight">
+            <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
               Investments Balance
             </p>
           </div>
-          <div className="hidden md:flex flex-col items-center gap-y-2">
-            <span className="text-4xl">
+          <div className="flex flex-col items-center gap-y-1 sm:gap-y-2">
+            <span className="text-2xl md:text-4xl">
               <span>{currentUser.currency}</span>
               {Math.abs(currentUser.totalInvested).toLocaleString()}
             </span>
-            <p className="text-sm text-muted-foreground tracking-tight">
+            <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
               Total Invested
             </p>
           </div>

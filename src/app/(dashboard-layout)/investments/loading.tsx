@@ -30,23 +30,23 @@ const loading = () => {
         <div className="absolute top-3 right-3">
           <Skeleton className="h-8 w-20 rounded-xl" />
         </div>
-        <div className="flex justify-around gap-4">
-          <div className="flex flex-col items-center gap-y-2">
-            <Skeleton className="h-10 w-28 rounded-lg" />
-            <p className="text-sm text-muted-foreground tracking-tight">
+        <div className="flex justify-between sm:justify-around gap-4 pt-6 md:pt-0">
+          <div className="flex flex-col items-center gap-y-1 sm:gap-y-2">
+            <Skeleton className="h-7 md:h-10 w-28 rounded-lg" />
+            <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
               Investments Balance
             </p>
           </div>
-          <div className="hidden md:flex flex-col items-center gap-y-2">
-            <Skeleton className="h-10 w-28 rounded-lg" />
-            <p className="text-sm text-muted-foreground tracking-tight">
+          <div className="flex flex-col items-center gap-y-1 sm:gap-y-2">
+            <Skeleton className="h-7 md:h-10 w-28 rounded-lg" />
+            <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
               Total Invested
             </p>
           </div>
         </div>
 
         <div className="flex justify-center gap-x-12 items-center">
-          <Skeleton className="h-10 w-24 rounded-full" />
+          <Skeleton className="h-8 md:h-10 rounded-full w-full md:w-24" />
         </div>
       </CardContent>
       <Divider />

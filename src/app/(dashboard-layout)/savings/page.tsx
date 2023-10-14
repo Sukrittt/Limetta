@@ -57,9 +57,9 @@ const Savings = async () => {
             miscellaneousBalance={currentUser.miscellanousBalance}
           />
         </div>
-        <div className="flex flex-col items-center gap-y-2">
+        <div className="flex flex-col items-center gap-y-1 sm:gap-y-2 pt-6 md:pt-0">
           <span
-            className={cn("text-5xl md:text-4xl", {
+            className={cn("text-2xl md:text-4xl", {
               "text-danger-text": currentUser.savingsBalance < 0,
             })}
           >
@@ -67,7 +67,7 @@ const Savings = async () => {
             <span>{currentUser.currency}</span>
             {Math.abs(currentUser.savingsBalance).toLocaleString()}
           </span>
-          <p className="text-sm text-muted-foreground tracking-tight">
+          <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
             Savings Balance
           </p>
         </div>

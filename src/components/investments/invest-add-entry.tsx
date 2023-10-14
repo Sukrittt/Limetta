@@ -29,14 +29,14 @@ export const InvestAddEntry = ({
       {disabled ? (
         <Button
           disabled={disabled}
-          className={cn(buttonVariants(), "rounded-full")}
+          className={cn(buttonVariants(), "rounded-full w-full md:w-fit")}
         >
           <Spinner color="default" size="sm" />
         </Button>
       ) : (
         <Button
           onPress={onOpen}
-          className={cn(buttonVariants(), "rounded-full")}
+          className={cn(buttonVariants(), "rounded-full w-full md:w-fit")}
         >
           Add entry
         </Button>

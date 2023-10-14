@@ -71,6 +71,7 @@ export const ThemeSelector = () => {
             </span>
           }
           showArrow
+          disableForMobile={false}
         >
           <div
             className="flex items-center text-xs text-muted-foreground gap-x-1 cursor-pointer hover:text-primary transition"

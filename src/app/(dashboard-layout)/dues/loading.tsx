@@ -34,17 +34,16 @@ const loading = () => {
           </ToolTip>
         </div>
         <div className="flex justify-between sm:justify-around">
-          <div className="flex flex-col items-center gap-y-2">
-            <Skeleton className="h-10 w-28 rounded-lg" />
+          <div className="flex flex-col items-center gap-y-1 sm:gap-y-2">
+            <Skeleton className="h-7 md:h-10 w-28 rounded-lg" />
 
-            <p className="text-sm text-muted-foreground tracking-tight">
+            <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
               Due Payable
             </p>
           </div>
-          <div className="flex flex-col items-center gap-y-2">
-            <Skeleton className="h-10 w-28 rounded-lg" />
-
-            <p className="text-sm text-muted-foreground tracking-tight">
+          <div className="flex flex-col items-center gap-y-1 sm:gap-y-2">
+            <Skeleton className="h-7 md:h-10 w-28 rounded-lg" />
+            <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
               Due Receivable
             </p>
           </div>

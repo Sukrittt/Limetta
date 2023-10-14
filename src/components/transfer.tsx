@@ -47,7 +47,7 @@ export const Transfer = ({
           <Spinner color="default" size="sm" />
         </Button>
       ) : showTooltip ? (
-        <ToolTip text="Transfer money" showArrow>
+        <ToolTip text="Transfer money" showArrow disableForMobile={false}>
           <Button
             onClick={onOpen}
             className={cn(

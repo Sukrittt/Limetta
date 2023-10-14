@@ -55,9 +55,9 @@ const Dues = async () => {
           </ToolTip>
         </div>
         <div className="flex justify-between sm:justify-around">
-          <div className="flex flex-col items-center gap-y-2">
+          <div className="flex flex-col items-center gap-y-1 sm:gap-y-2">
             <span
-              className={cn("text-4xl", {
+              className={cn("text-2xl md:text-4xl", {
                 "text-danger-text": currentUser.duePayable < 0,
               })}
             >
@@ -65,13 +65,13 @@ const Dues = async () => {
               <span>{currentUser.currency}</span>
               {Math.abs(currentUser.duePayable).toLocaleString()}
             </span>
-            <p className="text-sm text-muted-foreground tracking-tight">
+            <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
               Due Payable
             </p>
           </div>
-          <div className="flex flex-col items-center gap-y-2">
+          <div className="flex flex-col items-center gap-y-1 sm:gap-y-2">
             <span
-              className={cn("text-4xl", {
+              className={cn("text-2xl md:text-4xl", {
                 "text-danger-text": currentUser.dueReceivable < 0,
               })}
             >
@@ -79,7 +79,7 @@ const Dues = async () => {
               <span>{currentUser.currency}</span>
               {Math.abs(currentUser.dueReceivable).toLocaleString()}
             </span>
-            <p className="text-sm text-muted-foreground tracking-tight">
+            <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
               Due Receivable
             </p>
           </div>

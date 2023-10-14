@@ -2,6 +2,7 @@
 import Link from "next/link";
 import axios from "axios";
 import { format } from "date-fns";
+import Balancer from "react-wrap-balancer";
 import { useIntersection } from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -74,9 +75,11 @@ const SavingsCard = ({
 
   if (savingsEntries.length === 0) {
     return (
-      <p className="mt-2 text-sm text-center tracking-tight text-muted-foreground">
-        Your monthly savings and money transfers will appear here.
-      </p>
+      <div className="flex justify-center">
+        <Balancer className="mt-2 text-sm text-center tracking-tight text-muted-foreground">
+          Your monthly savings and money transfers will appear here.
+        </Balancer>
+      </div>
     );
   }
 

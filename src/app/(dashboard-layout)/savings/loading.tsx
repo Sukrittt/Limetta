@@ -29,9 +29,9 @@ const loading = () => {
         <div className="absolute top-3 right-3">
           <Skeleton className="h-8 w-20 rounded-xl" />
         </div>
-        <div className="flex flex-col items-center gap-y-2">
-          <Skeleton className="h-10 w-28 rounded-lg" />
-          <p className="text-sm text-muted-foreground tracking-tight">
+        <div className="flex flex-col items-center gap-y-1 sm:gap-y-2 pt-6 md:pt-0">
+          <Skeleton className="h-7 md:h-10 w-28 rounded-lg" />
+          <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
             Savings Balance
           </p>
         </div>

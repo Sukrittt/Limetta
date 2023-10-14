@@ -127,6 +127,7 @@ export const MiscEntryForm = ({
               autoFocus
               placeholder="Eg: 500"
               value={amount ?? ""}
+              disabled={addMiscEntry.isLoading}
               onChange={(e) => setAmount(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
@@ -153,6 +154,7 @@ export const MiscEntryForm = ({
             <Input
               placeholder={`Eg: ${entryType === "in" ? "Freelance" : "Rent"}`}
               value={description}
+              disabled={addMiscEntry.isLoading}
               onChange={(e) => setDescription(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {

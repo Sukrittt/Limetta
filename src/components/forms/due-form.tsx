@@ -125,6 +125,7 @@ export const DueForm = ({
               autoFocus
               placeholder="Eg: 1000"
               value={amount ?? ""}
+              disabled={addDueEntry.isLoading}
               onChange={(e) => setAmount(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
@@ -153,6 +154,7 @@ export const DueForm = ({
                 dueType === "payable" ? "to" : "from"
               } XYZ`}
               value={description}
+              disabled={addDueEntry.isLoading}
               onChange={(e) => setDescription(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {

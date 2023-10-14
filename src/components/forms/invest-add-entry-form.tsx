@@ -153,6 +153,7 @@ export const InvestAddEntryForm = ({
             <Label>Investment Name</Label>
             <Input
               autoFocus
+              disabled={addInvestmentEntry.isLoading}
               placeholder="Eg: Reliance Industries"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -195,6 +196,7 @@ export const InvestAddEntryForm = ({
                       <Label>Total Invested</Label>
                       <Input
                         placeholder="Eg: 5000"
+                        disabled={addInvestmentEntry.isLoading}
                         value={amount ?? ""}
                         onChange={(e) => setAmount(e.target.value)}
                         onKeyDown={(e) => {
@@ -233,6 +235,7 @@ export const InvestAddEntryForm = ({
                         <Input
                           autoFocus
                           placeholder="Eg: 500"
+                          disabled={addInvestmentEntry.isLoading}
                           value={sharePrice ?? ""}
                           onChange={(e) => setSharePrice(e.target.value)}
                           onKeyDown={(e) => {
@@ -254,6 +257,7 @@ export const InvestAddEntryForm = ({
                         <Input
                           placeholder="Eg: 10"
                           value={quantity ?? ""}
+                          disabled={addInvestmentEntry.isLoading}
                           onChange={(e) => setQuantity(e.target.value)}
                           onKeyDown={(e) => {
                             if (e.key === "Enter") {

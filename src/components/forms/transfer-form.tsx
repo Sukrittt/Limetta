@@ -220,6 +220,7 @@ export const TransferForm = ({
               <Label>Amount</Label>
               <Input
                 autoFocus
+                disabled={transferAmount.isLoading}
                 placeholder={`Eg: ${
                   transferableAmount > 0 ? transferableAmount : "1000"
                 }`}

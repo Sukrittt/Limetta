@@ -167,6 +167,7 @@ export const InvestmentEditEntryForm = ({
             <Input
               placeholder="Eg: Reliance Industries"
               value={description}
+              disabled={updateInvestmentEntry.isLoading}
               onChange={(e) => setDescription(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
@@ -224,6 +225,7 @@ export const InvestmentEditEntryForm = ({
                       <Input
                         placeholder="Eg: 5000"
                         value={amount ?? ""}
+                        disabled={updateInvestmentEntry.isLoading}
                         onChange={(e) => setAmount(e.target.value)}
                         onKeyDown={(e) => {
                           if (e.key === "Enter") {
@@ -258,6 +260,7 @@ export const InvestmentEditEntryForm = ({
                           placeholder="Eg: 2000"
                           value={sharePrice ?? ""}
                           onChange={(e) => setSharePrice(e.target.value)}
+                          disabled={updateInvestmentEntry.isLoading}
                           onKeyDown={(e) => {
                             if (e.key === "Enter") {
                               handleSubmit();
@@ -277,6 +280,7 @@ export const InvestmentEditEntryForm = ({
                         <Input
                           placeholder="Eg: 10"
                           value={quantity ?? ""}
+                          disabled={updateInvestmentEntry.isLoading}
                           onChange={(e) => setQuantity(e.target.value)}
                           onKeyDown={(e) => {
                             if (e.key === "Enter") {

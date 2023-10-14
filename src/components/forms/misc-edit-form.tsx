@@ -130,6 +130,7 @@ export const MiscEditForm = ({
             <Input
               autoFocus
               placeholder="Eg: 500"
+              disabled={updateMiscEntry.isLoading}
               value={amount ?? ""}
               onChange={(e) => setAmount(e.target.value)}
               onKeyDown={(e) => {
@@ -156,6 +157,7 @@ export const MiscEditForm = ({
             <Label>Income Description</Label>
             <Input
               placeholder="Eg: Freelance"
+              disabled={updateMiscEntry.isLoading}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               onKeyDown={(e) => {

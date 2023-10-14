@@ -152,6 +152,7 @@ export const InvestBookEntryForm = ({
             <Input
               autoFocus
               placeholder="Eg: Reliance Industries"
+              disabled={addInvestmentEntry.isLoading}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               onKeyDown={(e) => {
@@ -167,6 +168,7 @@ export const InvestBookEntryForm = ({
             <Input
               placeholder="Eg: 2000"
               value={investedAmount ?? ""}
+              disabled={addInvestmentEntry.isLoading}
               onChange={(e) => setInvestedAmount(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
@@ -235,6 +237,7 @@ export const InvestBookEntryForm = ({
                         placeholder="Eg: 5000"
                         value={amount ?? ""}
                         onChange={(e) => setAmount(e.target.value)}
+                        disabled={addInvestmentEntry.isLoading}
                         onKeyDown={(e) => {
                           if (e.key === "Enter") {
                             handleSubmit();
@@ -267,6 +270,7 @@ export const InvestBookEntryForm = ({
                           autoFocus
                           placeholder="Eg: 500"
                           value={sharePrice ?? ""}
+                          disabled={addInvestmentEntry.isLoading}
                           onChange={(e) => setSharePrice(e.target.value)}
                           onKeyDown={(e) => {
                             if (e.key === "Enter") {
@@ -287,6 +291,7 @@ export const InvestBookEntryForm = ({
                         <Input
                           placeholder="Eg: 10"
                           value={quantity ?? ""}
+                          disabled={addInvestmentEntry.isLoading}
                           onChange={(e) => setQuantity(e.target.value)}
                           onKeyDown={(e) => {
                             if (e.key === "Enter") {

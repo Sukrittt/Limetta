@@ -126,6 +126,7 @@ export const AddExpenseForm = ({
               autoFocus
               placeholder="Eg: 20"
               value={amount ?? ""}
+              disabled={addEntry.isLoading}
               onChange={(e) => setAmount(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
@@ -152,6 +153,7 @@ export const AddExpenseForm = ({
             <Input
               placeholder="Eg: Coffee"
               value={description}
+              disabled={addEntry.isLoading}
               onChange={(e) => setDescription(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {

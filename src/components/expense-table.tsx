@@ -62,7 +62,7 @@ export const ExpenseTable: FC<ExpenseTableProps> = ({
               "text-danger-text": wantsLeft < 0,
             })}
           >
-            <span>{needsLeft < 0 ? "-" : ""}</span>
+            <span>{wantsLeft < 0 ? "-" : ""}</span>
             {currency}
             {Math.abs(wantsLeft).toLocaleString()}
           </TableCell>

@@ -10,6 +10,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
 import { Investments } from "@/db/schema";
+import { Badge } from "@/components/ui/badge";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { InvestmentBookEntry } from "@/components/investments/invest-book-entry";
@@ -97,29 +98,31 @@ export const InvestmentCard = ({
         <span className="col-span-5 lg:col-span-3">Details</span>
         <span className="text-center col-span-2">Amount</span>
       </div>
-      {investmentEntries.map((entry, index) => {
-        if (index === investmentEntries.length - 1) {
-          return (
-            <div key={entry.id} ref={ref}>
-              <InvestmentEntryItem
-                entry={entry}
-                currency={currency}
-                initialBalance={initialBalance}
-              />
-            </div>
-          );
-        } else {
-          return (
-            <div key={entry.id}>
-              <InvestmentEntryItem
-                entry={entry}
-                currency={currency}
-                initialBalance={initialBalance}
-              />
-            </div>
-          );
-        }
-      })}
+      <div className="flex flex-col gap-y-8 lg:gap-y-2 pb-6">
+        {investmentEntries.map((entry, index) => {
+          if (index === investmentEntries.length - 1) {
+            return (
+              <div key={entry.id} ref={ref}>
+                <InvestmentEntryItem
+                  entry={entry}
+                  currency={currency}
+                  initialBalance={initialBalance}
+                />
+              </div>
+            );
+          } else {
+            return (
+              <div key={entry.id}>
+                <InvestmentEntryItem
+                  entry={entry}
+                  currency={currency}
+                  initialBalance={initialBalance}
+                />
+              </div>
+            );
+          }
+        })}
+      </div>
       {isFetchingNextPage &&
         Array.from({ length: 3 }).map((_, index) => (
           <InvestmentEntryItemSkeleton key={index} />
@@ -165,7 +168,7 @@ const InvestmentEntryItem = ({
   const customDescription = getCustomizedDescription(entry);
 
   return (
-    <Card>
+    <Card className="relative">
       <CardContent className="grid grid-cols-7 lg:grid-cols-8 px-4 sm:px-6 py-3">
         <div className="hidden lg:flex items-center">
           <span className="text-xs tracking-tighter">
@@ -252,6 +255,11 @@ const InvestmentEntryItem = ({
           </div>
         )}
       </CardFooter>
+      <Badge className="lg:hidden absolute -bottom-[22px] bg-secondary text-white rounded-t-none rounded-b-lg right-3">
+        <span className="text-[10px] font-normal tracking-tighter">
+          {format(new Date(entry.createdAt), "dd MMM '·' h:mm a")}
+        </span>
+      </Badge>
     </Card>
   );
 };

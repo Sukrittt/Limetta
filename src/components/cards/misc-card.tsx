@@ -11,6 +11,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
 import { Miscellaneous } from "@/db/schema";
+import { Badge } from "@/components/ui/badge";
 import { MiscEditEntry } from "@/components/misc/misc-edit";
 import { MiscDeleteEntry } from "@/components/misc/misc-delete";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
@@ -91,21 +92,23 @@ const MiscCard = ({
         <span className="col-span-5 lg:col-span-3">Details</span>
         <span className="text-center col-span-2">Amount</span>
       </div>
-      {miscEntries.map((entry, index) => {
-        if (index === miscEntries.length - 1) {
-          return (
-            <div key={entry.id} ref={ref}>
-              <MiscEntryItem entry={entry} currency={currency} />
-            </div>
-          );
-        } else {
-          return (
-            <div key={entry.id}>
-              <MiscEntryItem entry={entry} currency={currency} />
-            </div>
-          );
-        }
-      })}
+      <div className="flex flex-col gap-y-8 lg:gap-y-2 pb-6">
+        {miscEntries.map((entry, index) => {
+          if (index === miscEntries.length - 1) {
+            return (
+              <div key={entry.id} ref={ref}>
+                <MiscEntryItem entry={entry} currency={currency} />
+              </div>
+            );
+          } else {
+            return (
+              <div key={entry.id}>
+                <MiscEntryItem entry={entry} currency={currency} />
+              </div>
+            );
+          }
+        })}
+      </div>
       {isFetchingNextPage &&
         Array.from({ length: 3 }).map((_, index) => (
           <MiscEntryItemSkeleton key={index} />
@@ -137,7 +140,7 @@ const MiscEntryItem = ({
   };
 
   return (
-    <Card>
+    <Card className="relative">
       <CardContent className="grid grid-cols-7 px-4 sm:px-6 py-3">
         <div className="hidden lg:block items-center">
           <span className="text-xs tracking-tighter">
@@ -217,6 +220,11 @@ const MiscEntryItem = ({
           </div>
         )}
       </CardFooter>
+      <Badge className="lg:hidden absolute -bottom-[22px] bg-secondary text-white rounded-t-none rounded-b-lg right-3">
+        <span className="text-[10px] font-normal tracking-tighter">
+          {format(new Date(entry.createdAt), "dd MMM '·' h:mm a")}
+        </span>
+      </Badge>
     </Card>
   );
 };

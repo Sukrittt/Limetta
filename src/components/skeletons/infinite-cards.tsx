@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 export const InvestmentEntryItemSkeleton = () => {
   return (
-    <Card>
+    <Card className="relative">
       <CardContent className="grid grid-cols-7 lg:grid-cols-8 px-4 sm:px-6 py-3">
         <div className="hidden lg:flex items-center">
           <Skeleton className="h-4 w-3/4" />
@@ -30,13 +30,14 @@ export const InvestmentEntryItemSkeleton = () => {
           <Skeleton className="h-4 w-12" />
         </div>
       </CardFooter>
+      <Skeleton className="lg:hidden absolute -bottom-[16px] rounded-t-none rounded-b-lg right-3 h-4 w-20" />
     </Card>
   );
 };
 
 export const SavingsEntryItemSkeleton = () => {
   return (
-    <Card>
+    <Card className="relative">
       <CardContent className="grid grid-cols-7 px-4 sm:px-6 py-3">
         <div className="hidden lg:block items-center">
           <Skeleton className="h-4 w-3/4" />
@@ -53,16 +54,16 @@ export const SavingsEntryItemSkeleton = () => {
         </div>
       </CardContent>
       <CardFooter className="text-xs px-4 sm:px-6 pb-3 flex gap-x-4 lg:hidden">
-        <Skeleton className="h-4 w-12" />
-        <Skeleton className="h-4 w-12" />
+        <Skeleton className="h-4 w-16" />
       </CardFooter>
+      <Skeleton className="lg:hidden absolute -bottom-[16px] rounded-t-none rounded-b-lg right-3 h-4 w-20" />
     </Card>
   );
 };
 
 export const MiscEntryItemSkeleton = () => {
   return (
-    <Card>
+    <Card className="relative">
       <CardContent className="grid grid-cols-7 px-4 sm:px-6 py-3">
         <div className="hidden lg:block items-center">
           <Skeleton className="h-4 w-3/4" />
@@ -85,6 +86,7 @@ export const MiscEntryItemSkeleton = () => {
           <Skeleton className="h-4 w-12" />
         </div>
       </CardFooter>
+      <Skeleton className="lg:hidden absolute -bottom-[16px] rounded-t-none rounded-b-lg right-3 h-4 w-20" />
     </Card>
   );
 };

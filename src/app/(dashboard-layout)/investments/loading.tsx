@@ -58,9 +58,11 @@ const loading = () => {
               <span className="col-span-5 lg:col-span-3">Details</span>
               <span className="text-center col-span-2">Amount</span>
             </div>
-            {Array.from({ length: 15 }).map((_, index) => (
-              <InvestmentEntryItemSkeleton key={index} />
-            ))}
+            <div className="flex flex-col gap-y-8 lg:gap-y-2 pb-6">
+              {Array.from({ length: 15 }).map((_, index) => (
+                <InvestmentEntryItemSkeleton key={index} />
+              ))}
+            </div>
           </div>
         </CardContent>
       </ScrollShadow>

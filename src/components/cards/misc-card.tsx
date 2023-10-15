@@ -108,11 +108,11 @@ const MiscCard = ({
             );
           }
         })}
+        {isFetchingNextPage &&
+          Array.from({ length: 3 }).map((_, index) => (
+            <MiscEntryItemSkeleton key={index} />
+          ))}
       </div>
-      {isFetchingNextPage &&
-        Array.from({ length: 3 }).map((_, index) => (
-          <MiscEntryItemSkeleton key={index} />
-        ))}
     </div>
   );
 };

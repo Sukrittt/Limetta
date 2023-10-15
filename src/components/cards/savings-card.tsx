@@ -107,11 +107,11 @@ const SavingsCard = ({
             );
           }
         })}
+        {isFetchingNextPage &&
+          Array.from({ length: 3 }).map((_, index) => (
+            <SavingsEntryItemSkeleton key={index} />
+          ))}
       </div>
-      {isFetchingNextPage &&
-        Array.from({ length: 3 }).map((_, index) => (
-          <SavingsEntryItemSkeleton key={index} />
-        ))}
     </div>
   );
 };

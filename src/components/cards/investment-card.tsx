@@ -122,11 +122,11 @@ export const InvestmentCard = ({
             );
           }
         })}
+        {isFetchingNextPage &&
+          Array.from({ length: 3 }).map((_, index) => (
+            <InvestmentEntryItemSkeleton key={index} />
+          ))}
       </div>
-      {isFetchingNextPage &&
-        Array.from({ length: 3 }).map((_, index) => (
-          <InvestmentEntryItemSkeleton key={index} />
-        ))}
     </div>
   );
 };

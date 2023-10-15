@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import {
@@ -8,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Icons } from "@/components/icons";
+import ToolTip from "@/components/ui/tool-tip";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const loading = () => {
@@ -33,12 +35,28 @@ const loading = () => {
   return (
     <div className="tracking-tight grid gap-4">
       <div className="space-y-2 -mt-2">
-        <h1 className="line-clamp-1 text-3xl font-bold tracking-tight py-1">
+        <h1 className="line-clamp-1 text-3xl font-bold tracking-tight">
           Budget Overview
         </h1>
-        <p className="text-muted-foreground text-md">
-          Monthly Expense Summary for the Past Year
-        </p>
+        <div className="flex gap-x-1 items-center text-muted-foreground">
+          <p>Monthly Expense Summary for the Past Year</p>
+          <ToolTip
+            customComponent={
+              <p className="text-xs">
+                An overview of all the expenes you made in{" "}
+                <Link
+                  href="/expense-tracker"
+                  className="text-primary transition"
+                >
+                  expense tracker
+                </Link>
+                .
+              </p>
+            }
+          >
+            <Icons.info className="h-3 w-3 mt-[2px]" />
+          </ToolTip>
+        </div>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
         {dashboardTabs.map((tab, index) => (

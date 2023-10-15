@@ -112,7 +112,7 @@ const Overview = async () => {
   return (
     <div className="grid gap-4">
       <div className="space-y-2 -mt-2">
-        <h1 className="line-clamp-1 text-3xl font-bold tracking-tight py-1">
+        <h1 className="line-clamp-1 text-3xl font-bold tracking-tight">
           Budget Overview
         </h1>
         <div className="flex gap-x-1 items-center text-muted-foreground">
@@ -145,9 +145,9 @@ const Overview = async () => {
               <tab.icon className="w-4 h-4 hidden sm:block" />
             </CardHeader>
             <CardContent className="px-4 pb-3 xl:px-6 xl:pb-6">
-              <p className="font-mono text-lg text-muted-foreground">
+              <span className="text-lg xl:text-xl font-bold tracking-wide">
                 {tab.data}
-              </p>
+              </span>
             </CardContent>
           </Card>
         ))}

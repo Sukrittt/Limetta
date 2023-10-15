@@ -86,6 +86,29 @@ const Overview = async () => {
 
   const totalSpent = data.reduce((acc, obj) => acc + obj.total, 0);
 
+  const dashboardTabs = [
+    {
+      label: "Needs",
+      data: `${currentUser.currency}${totalNeeds.toLocaleString()}`,
+      icon: Icons.needs,
+    },
+    {
+      label: "Wants",
+      data: `${currentUser.currency}${totalWants.toLocaleString()}`,
+      icon: Icons.wants,
+    },
+    {
+      label: "Timeframe",
+      data: userBooks.length.toLocaleString(),
+      icon: Icons.streaks,
+    },
+    {
+      label: "Total Entries",
+      data: `${currentUser.currency}${totalEntries.toLocaleString()}`,
+      icon: Icons.entries,
+    },
+  ];
+
   return (
     <div className="grid gap-4">
       <div className="space-y-2 -mt-2">
@@ -112,43 +135,22 @@ const Overview = async () => {
           </ToolTip>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
-        <Card>
-          <CardHeader className="flex flex-row justify-between items-center pb-2">
-            <CardTitle className="text-md">Needs</CardTitle>
-            <Icons.needs className="w-4 h-4" />
-          </CardHeader>
-          <CardContent>
-            <p className="font-mono text-lg text-muted-foreground">{`${currentUser.currency}${totalNeeds}`}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row justify-between items-center pb-2">
-            <CardTitle className="text-md">Wants</CardTitle>
-            <Icons.wants className="w-4 h-4" />
-          </CardHeader>
-          <CardContent>
-            <p className="font-mono text-lg text-muted-foreground">{`${currentUser.currency}${totalWants}`}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row justify-between items-center pb-2">
-            <CardTitle className="text-md">Months Recorded</CardTitle>
-            <Icons.streaks className="w-4 h-4" />
-          </CardHeader>
-          <CardContent>
-            <p className="font-mono text-lg text-muted-foreground">{`${userBooks.length}`}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row justify-between items-center pb-2">
-            <CardTitle className="text-md">Total Entries</CardTitle>
-            <Icons.entries className="h-4 w-4" />
-          </CardHeader>
-          <CardContent>
-            <p className="font-mono text-lg text-muted-foreground">{`${totalEntries}`}</p>
-          </CardContent>
-        </Card>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
+        {dashboardTabs.map((tab, index) => (
+          <Card key={index}>
+            <CardHeader className="flex flex-row justify-between items-center px-4 pt-3 pb-2 xl:py-4 xl:px-6">
+              <CardTitle className="text-sm sm:text-base">
+                {tab.label}
+              </CardTitle>
+              <tab.icon className="w-4 h-4 hidden sm:block" />
+            </CardHeader>
+            <CardContent className="px-4 pb-3 xl:px-6 xl:pb-6">
+              <p className="font-mono text-lg text-muted-foreground">
+                {tab.data}
+              </p>
+            </CardContent>
+          </Card>
+        ))}
       </div>
       <div className="grid grid-cols-5 gap-4">
         <Card className="col-span-5 lg:col-span-3">

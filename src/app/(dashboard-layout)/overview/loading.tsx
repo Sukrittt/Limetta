@@ -11,6 +11,25 @@ import { Icons } from "@/components/icons";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const loading = () => {
+  const dashboardTabs = [
+    {
+      label: "Needs",
+      icon: Icons.needs,
+    },
+    {
+      label: "Wants",
+      icon: Icons.wants,
+    },
+    {
+      label: "Timeframe",
+      icon: Icons.streaks,
+    },
+    {
+      label: "Total Entries",
+      icon: Icons.entries,
+    },
+  ];
+
   return (
     <div className="tracking-tight grid gap-4">
       <div className="space-y-2 -mt-2">
@@ -21,43 +40,20 @@ const loading = () => {
           Monthly Expense Summary for the Past Year
         </p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
-        <Card>
-          <CardHeader className="flex flex-row justify-between items-center pb-2">
-            <CardTitle className="text-md">Needs</CardTitle>
-            <Icons.needs className="w-4 h-4" />
-          </CardHeader>
-          <CardContent>
-            <Skeleton className="h-4 w-10" />
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row justify-between items-center pb-2">
-            <CardTitle className="text-md">Wants</CardTitle>
-            <Icons.wants className="w-4 h-4" />
-          </CardHeader>
-          <CardContent>
-            <Skeleton className="h-4 w-10" />
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row justify-between items-center pb-2">
-            <CardTitle className="text-md">Months Recorded</CardTitle>
-            <Icons.streaks className="w-4 h-4" />
-          </CardHeader>
-          <CardContent>
-            <Skeleton className="h-4 w-10" />
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row justify-between items-center pb-2">
-            <CardTitle className="text-md">Total Entries</CardTitle>
-            <Icons.entries className="h-4 w-4" />
-          </CardHeader>
-          <CardContent>
-            <Skeleton className="h-4 w-10" />
-          </CardContent>
-        </Card>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
+        {dashboardTabs.map((tab, index) => (
+          <Card key={index}>
+            <CardHeader className="flex flex-row justify-between items-center px-4 pt-3 pb-2 xl:py-4 xl:px-6">
+              <CardTitle className="text-sm sm:text-base">
+                {tab.label}
+              </CardTitle>
+              <tab.icon className="w-4 h-4 hidden sm:block" />
+            </CardHeader>
+            <CardContent className="px-4 pb-3 xl:px-6 xl:pb-6">
+              <Skeleton className="h-5 w-16" />
+            </CardContent>
+          </Card>
+        ))}
       </div>
       <div className="grid grid-cols-5 gap-4">
         <Card className="col-span-5 lg:col-span-3">

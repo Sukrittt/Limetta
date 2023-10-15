@@ -205,7 +205,11 @@ const Dashboard = async () => {
 
                         <div className="flex items-center">
                           <span>
-                            {`${currentUser.currency}${currentMonthEntries.books[0].totalSpendings}`}
+                            {`${
+                              currentUser.currency
+                            }${currentMonthEntries.books[0].totalSpendings.toFixed(
+                              2
+                            )}`}
                           </span>
                         </div>
                       </div>

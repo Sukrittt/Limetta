@@ -124,6 +124,19 @@ export const useFaqs = () => {
       ),
     },
     {
+      question:
+        "Q: Can I use this application as a Mobile/Desktop Application?",
+      answer: (
+        <p>
+          Yes, you can! For mobile devices, simply click &rsquo;Install
+          App&rsquo; to add it to your home screen. If you&rsquo;re on desktop,
+          you can install the application by clicking the install icon in the
+          top right corner of your browser. Enjoy a seamless experience on both
+          mobile and desktop platforms.
+        </p>
+      ),
+    },
+    {
       question: "Q: What if I have more questions or need assistance?",
       answer: (
         <p>

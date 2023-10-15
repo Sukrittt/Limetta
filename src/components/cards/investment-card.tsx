@@ -98,7 +98,7 @@ export const InvestmentCard = ({
         <span className="col-span-5 lg:col-span-3">Details</span>
         <span className="text-center col-span-2">Amount</span>
       </div>
-      <div className="flex flex-col gap-y-8 lg:gap-y-2 pb-6">
+      <div className="flex flex-col gap-y-8 lg:gap-y-2 pb-8">
         {investmentEntries.map((entry, index) => {
           if (index === investmentEntries.length - 1) {
             return (

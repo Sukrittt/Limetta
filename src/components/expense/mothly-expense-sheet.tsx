@@ -124,7 +124,7 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
             {`You spent a total of ${currency}${expenseData.total} this month.`}
           </SheetDescription>
           <div className="flex justify-end">
-            <ToolTip text="Export excel" showArrow>
+            <ToolTip text="Export excel" showArrow disableForMobile={false}>
               <Button
                 onClick={() => downloadEntries()}
                 disabled={isLoading}

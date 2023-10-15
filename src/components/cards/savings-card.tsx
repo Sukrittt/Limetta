@@ -91,7 +91,7 @@ const SavingsCard = ({
         <span className="col-span-5 lg:col-span-3">Details</span>
         <span className="text-center col-span-2">Amount</span>
       </div>
-      <div className="flex flex-col gap-y-8 lg:gap-y-2 pb-6">
+      <div className="flex flex-col gap-y-8 lg:gap-y-2 pb-8">
         {savingsEntries.map((entry, index) => {
           if (index === savingsEntries.length - 1) {
             return (

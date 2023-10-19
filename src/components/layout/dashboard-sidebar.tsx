@@ -32,7 +32,7 @@ export const DashboardSidebar = () => {
               href={account.href}
               key={index}
             >
-              <div className="flex gap-x-2">
+              <div className="flex gap-x-2 items-center">
                 <account.Icon className="h-4 w-4" />
                 {account.label}
               </div>

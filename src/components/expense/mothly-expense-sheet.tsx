@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
 import { Divider } from "@nextui-org/divider";
+import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { Books, Needs, Wants } from "@/db/schema";
 import { cn, createDownloadUrl } from "@/lib/utils";
@@ -117,7 +118,7 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
       <SheetTrigger className="focus:outline-none rounded-lg focus-visible:ring-2 focus-visible:ring-neutral-800">
         {children}
       </SheetTrigger>
-      <SheetContent className="overflow-y-auto no-scrollbar">
+      <SheetContent>
         <SheetHeader className="mt-2 sm:mt-0 text-left">
           <SheetTitle>{`${expenseData.month} expenses`}</SheetTitle>
           <SheetDescription>
@@ -148,25 +149,27 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
             <span>Amount</span>
           </div>
           <Divider />
-          {expenses.length === 0 ? (
-            <p className="font-mono mt-2 text-center text-sm text-muted-foreground">
-              No expenses recorded for this month.
-            </p>
-          ) : (
-            expenses.map((expense, index) => (
-              <div key={index} className="grid grid-cols-4 text-content">
-                <div className="flex items-center col-span-3">
-                  <span className="text-sm break-words pr-4 sm:pr-2">
-                    {expense.description}
-                  </span>
+          <ScrollShadow className="h-[calc(80vh-100px)] flex flex-col gap-y-4 w-full no-scrollbar pb-12 lg:pb-6">
+            {expenses.length === 0 ? (
+              <p className="font-mono mt-2 text-center text-sm text-muted-foreground">
+                No expenses recorded for this month.
+              </p>
+            ) : (
+              expenses.map((expense, index) => (
+                <div key={index} className="grid grid-cols-4 text-content">
+                  <div className="flex items-center col-span-3">
+                    <span className="text-sm break-words pr-4 sm:pr-2">
+                      {expense.description}
+                    </span>
+                  </div>
+                  <div className="flex gap-x-1 justify-end items-center">
+                    <span className="font-mono">{`${currency}${expense.amount}`}</span>
+                    <span className="text-xs">{`(${expense.type})`}</span>
+                  </div>
                 </div>
-                <div className="flex gap-x-1 justify-end items-center">
-                  <span className="font-mono">{`${currency}${expense.amount}`}</span>
-                  <span className="text-xs">{`(${expense.type})`}</span>
-                </div>
-              </div>
-            ))
-          )}
+              ))
+            )}
+          </ScrollShadow>
         </div>
       </SheetContent>
     </Sheet>

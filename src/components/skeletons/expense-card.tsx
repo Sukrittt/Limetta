@@ -33,7 +33,7 @@ export const ExpenseCardSkeleton = () => {
           <Skeleton className="h-4 w-10" />
         </div>
       </CardFooter>
-      <Skeleton className="lg:hidden absolute -bottom-[17px] rounded-t-none rounded-b-lg right-3 h-4 w-20" />
+      <Skeleton className="lg:hidden absolute -bottom-[16px] rounded-t-none rounded-b-lg right-4 h-4 w-20" />
     </Card>
   );
 };

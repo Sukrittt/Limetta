@@ -77,7 +77,7 @@ export const ExpenseCard = ({
           </div>
         )}
       </CardFooter>
-      <Badge className="lg:hidden absolute -bottom-[22px] bg-secondary text-white rounded-t-none rounded-b-lg right-3">
+      <Badge className="lg:hidden absolute -bottom-[22px] bg-secondary text-white rounded-t-none rounded-b-lg right-4">
         <span className="text-[10px] font-normal tracking-tighter">
           {format(expense.createdAt, "dd MMM '·' h:mm a")}
         </span>

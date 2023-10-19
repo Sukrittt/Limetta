@@ -139,6 +139,19 @@ export const features = [
   "Tailwind CSS for styling",
 ];
 
+export const credits = [
+  {
+    name: "Bhargav Sadineni",
+    role: "Entrepreneur and Tester",
+    social: "https://www.linkedin.com/in/bhargav-sadieni-830892204",
+  },
+  // {
+  //   name: "Agamjot Singh",
+  //   role: "Entrepreneur, Innovator and Tester",
+  //   social: "https://www.linkedin.com/in/bhargav-sadieni-830892204",
+  // },
+];
+
 export const socials = [
   {
     id: 1,

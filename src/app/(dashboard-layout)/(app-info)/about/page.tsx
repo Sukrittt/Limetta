@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { features, siteConfig, socials, techStack } from "@/config";
+import { features, socials, techStack, credits } from "@/config";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
@@ -18,6 +18,8 @@ export const metadata: Metadata = {
 };
 
 const About = () => {
+  const linkStyle = "underline font-medium tracking-tight underline-offset-4";
+
   return (
     <Card>
       <ScrollShadow className="h-[calc(100vh-120px)] xl:h-[calc(100vh-90px)] w-full no-scrollbar">
@@ -38,7 +40,7 @@ const About = () => {
               <Link
                 href="https://nextjs.org/"
                 target="_blank"
-                className="underline font-medium tracking-tight underline-offset-4"
+                className={linkStyle}
               >
                 Next.js.
               </Link>{" "}
@@ -57,11 +59,7 @@ const About = () => {
             <ul className="space-y-2 mx-5 mt-2">
               {techStack.map((tech, index) => (
                 <li key={index} className="list-disc">
-                  <Link
-                    href={tech.url}
-                    target="_blank"
-                    className="underline font-medium tracking-tight underline-offset-4"
-                  >
+                  <Link href={tech.url} target="_blank" className={linkStyle}>
                     {tech.name}
                   </Link>
                 </li>
@@ -84,6 +82,25 @@ const About = () => {
           </div>
 
           <div>
+            <h1 className="text-xl font-semibold tracking-tight">Credits</h1>
+            <Divider className="mt-2 mb-4" />
+            <ul className="space-y-2 mx-5 mt-2">
+              {credits.map((credit, index) => (
+                <li key={index} className="list-disc">
+                  <Link
+                    className={linkStyle}
+                    target="_blank"
+                    href={credit.social}
+                  >
+                    {credit.name}
+                  </Link>{" "}
+                  - {credit.role}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
             <h1 className="text-xl font-semibold tracking-tight">
               About the author
             </h1>
@@ -94,7 +111,7 @@ const About = () => {
                   <Link
                     href={social.href}
                     target="_blank"
-                    className="underline font-medium tracking-tight underline-offset-4"
+                    className={linkStyle}
                   >
                     {social.label}
                   </Link>

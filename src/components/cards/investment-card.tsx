@@ -84,7 +84,7 @@ export const InvestmentCard = ({
 
   if (investmentEntries.length === 0) {
     return (
-      <div className="flex justify-center">
+      <div className="flex justify-center h-[calc(80vh-150px)] lg:h-[calc(80vh-210px)]">
         <Balancer className="mt-2 text-sm text-center tracking-tight text-muted-foreground">
           Your transactions will appear here.
         </Balancer>

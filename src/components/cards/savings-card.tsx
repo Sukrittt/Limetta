@@ -77,7 +77,7 @@ const SavingsCard = ({
 
   if (savingsEntries.length === 0) {
     return (
-      <div className="flex justify-center">
+      <div className="flex justify-center h-[calc(80vh-150px)] lg:h-[calc(80vh-130px)]">
         <Balancer className="mt-2 text-sm text-center tracking-tight text-muted-foreground">
           Your monthly savings and money transfers will appear here.
         </Balancer>

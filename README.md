@@ -1,7 +1,7 @@
-# [BalanceWise](https://balance-wise.vercel.app)
-Elevate your financial management with BalanceWise. Our user-friendly Next.js app simplifies expense tracking, offers multiple account management, easy money transfers, and efficient dues tracking. Take charge of your finances and make informed choices, all in one platform.
+# [Limetta](https://dub.sh/limetta)
+Elevate your financial management with Limetta. Our user-friendly Next.js app simplifies expense tracking, offers multiple account management, easy money transfers, and efficient dues tracking. Take charge of your finances and make informed choices, all in one platform.
 
-[![BalanceWise](./public/images/homepage-snapshot.png)](https://balance-wise.vercel.app)
+[![BalanceWise](./public/images/homepage-snapshot.png)](https://dub.sh/limetta)
 
 ## Tech Stack
 

@@ -4,13 +4,13 @@ import { redirect } from "next/navigation";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { env } from "@/env.mjs";
-import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
 import { Icons } from "@/components/icons";
 import { Logout } from "@/components/logout";
 import ToolTip from "@/components/ui/tool-tip";
 import { Transfer } from "@/components/transfer";
 import { serverClient } from "@/trpc/server-client";
+import { cn, getDaysLeftInMonth } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { ExpenseTable } from "@/components/expense-table";
 import { ExpenseCard } from "@/components/cards/expense-card";
@@ -246,16 +246,21 @@ const Dashboard = async () => {
                     wantsLeft={wantShare - wantsTotal}
                   />
 
-                  <span
-                    className={cn("text-xs tracking-tighter", {
-                      "text-danger-text": wantShare - wantsTotal < 0,
-                      "text-success-text": wantShare - wantsTotal > 0,
-                    })}
-                  >
-                    Total Savings: <span>{totalSavings < 0 ? "-" : ""}</span>
-                    {currentUser.currency}
-                    {totalSavings.toLocaleString()}
-                  </span>
+                  <div className="flex items-center justify-between text-xs tracking-tighter">
+                    <span
+                      className={cn({
+                        "text-danger-text": wantShare - wantsTotal < 0,
+                        "text-success-text": wantShare - wantsTotal > 0,
+                      })}
+                    >
+                      Total Savings: <span>{totalSavings < 0 ? "-" : ""}</span>
+                      {currentUser.currency}
+                      {totalSavings.toLocaleString()}{" "}
+                    </span>
+                    <span className="text-muted-foreground">
+                      {getDaysLeftInMonth()} days left
+                    </span>
+                  </div>
                 </>
               )}
             </CardContent>

@@ -36,6 +36,7 @@ import {
   ChevronLeft,
   CheckCircle2,
   AlertCircle,
+  ExternalLink,
 } from "lucide-react";
 
 export const Icons = {
@@ -109,4 +110,5 @@ export const Icons = {
   twitter: Twitter,
   dashboard: LayoutDashboard,
   alert2: AlertCircle,
+  link: ExternalLink,
 };

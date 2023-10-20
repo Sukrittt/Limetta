@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
-import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
-import ToolTip from "@/components/ui/tool-tip";
 import { Skeleton } from "@/components/ui/skeleton";
+import { cn, getDaysLeftInMonth } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { MobileSidebar } from "@/components/layout/mobile-sidebar";
 import { ExpenseCardSkeleton } from "@/components/skeletons/expense-card";
@@ -21,21 +20,21 @@ const loading = () => {
       shortTitle: "Savings",
       href: "/savings",
       type: "savings" as const,
-      icon: Icons.piggy,
+      icon: Icons.transfer,
     },
     {
       title: "Investments Account",
       shortTitle: "Investments",
       href: "/investments",
       type: "investments" as const,
-      icon: Icons.investments,
+      icon: Icons.transfer,
     },
     {
       title: "Miscellaneous Account",
       shortTitle: "Miscellaneous",
       href: "/miscellaneous",
       type: "miscellaneous" as const,
-      icon: Icons.siren,
+      icon: Icons.transfer,
     },
   ];
 
@@ -45,7 +44,7 @@ const loading = () => {
       title: `${currentMonth} Savings`,
       shortTitle: `${currentMonth} Savings`,
       href: "/expense-tracker",
-      icon: Icons.coins,
+      icon: Icons.link,
     },
   ];
 
@@ -129,7 +128,7 @@ const loading = () => {
             </div>
           </CardContent>
         </Card>
-        <div className="col-span-6 lg:col-span-2 grid grid-cols-1 gap-4">
+        <div className="col-span-6 lg:col-span-2 flex flex-col gap-y-4">
           <Card>
             <CardTitle>
               <CardHeader className="py-4 font-normal">
@@ -141,34 +140,14 @@ const loading = () => {
             <CardContent className="flex flex-col gap-y-2">
               <ExpenseTableSkeleton />
 
-              <div className="flex gap-x-2 text-xs tracking-tighter text-success-text">
-                <span>Total Savings:</span>
-                <Skeleton className="h-4 w-8" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardTitle>
-              <CardHeader className="py-4 font-normal text-muted-foreground">
-                <div className="flex items-center gap-x-1">
-                  <span className="text-sm">Transfer</span>
-                  <ToolTip text="Transfer money between accounts.">
-                    <Icons.info className="h-3 w-3 cursor-pointer mt-[2px]" />
-                  </ToolTip>
+              <div className="flex items-center justify-between text-xs tracking-tighter">
+                <div className="flex gap-x-2 text-success-text">
+                  <span>Total Savings:</span>
+                  <Skeleton className="h-4 w-8" />
                 </div>
-              </CardHeader>
-            </CardTitle>
-            <CardContent className="space-y-2">
-              <div className="flex flex-col gap-y-2">
-                {accountDetails.map((account, index) => (
-                  <div key={index} className="grid grid-cols-4 items-center">
-                    <div className="flex items-center gap-x-3 col-span-3 text-sm">
-                      <account.icon className="h-4 w-4" />
-                      {account.title}
-                    </div>
-                    <Skeleton className="h-8 w-[88px] rounded-lg" />
-                  </div>
-                ))}
+                <span className="text-muted-foreground">
+                  Days Left: {getDaysLeftInMonth()}
+                </span>
               </div>
             </CardContent>
           </Card>

@@ -7,7 +7,6 @@ import { env } from "@/env.mjs";
 import { CurrencyType } from "@/types";
 import { Icons } from "@/components/icons";
 import { Logout } from "@/components/logout";
-import ToolTip from "@/components/ui/tool-tip";
 import { Transfer } from "@/components/transfer";
 import { serverClient } from "@/trpc/server-client";
 import { cn, getDaysLeftInMonth } from "@/lib/utils";
@@ -84,7 +83,6 @@ const Dashboard = async () => {
       href: "/savings",
       balance: currentUser.savingsBalance,
       type: "savings" as const,
-      icon: Icons.piggy,
     },
     {
       title: "Investments Account",
@@ -92,7 +90,6 @@ const Dashboard = async () => {
       href: "/investments",
       balance: currentUser.investmentsBalance,
       type: "investments" as const,
-      icon: Icons.investments,
     },
     {
       title: "Miscellaneous Account",
@@ -100,7 +97,6 @@ const Dashboard = async () => {
       href: "/miscellaneous",
       balance: currentUser.miscellanousBalance,
       type: "miscellaneous" as const,
-      icon: Icons.siren,
     },
   ];
 
@@ -111,7 +107,7 @@ const Dashboard = async () => {
       shortTitle: `${currentMonth} Savings`,
       href: "/expense-tracker",
       balance: totalSavings,
-      icon: Icons.coins,
+      type: null,
     },
   ];
 
@@ -148,12 +144,24 @@ const Dashboard = async () => {
                   >
                     {account.shortTitle}
                   </Link>
-                  <Link
-                    href={account.href}
-                    className="hidden lg:block hover:text-primary transition focus:outline-none focus:text-primary"
-                  >
-                    <account.icon className="h-4 w-4" />
-                  </Link>
+                  {account.type ? (
+                    <Transfer
+                      currency={currentUser.currency as CurrencyType}
+                      initialSelected={account.type}
+                      savingsBalance={currentUser.savingsBalance}
+                      investmentsBalance={currentUser.investmentsBalance}
+                      miscellaneousBalance={currentUser.miscellanousBalance}
+                      showTooltip
+                      showIcon
+                    />
+                  ) : (
+                    <Link
+                      href={account.href}
+                      className="hover:text-primary transition focus:outline-none focus:text-primary"
+                    >
+                      <Icons.link className="h-4 w-4" />
+                    </Link>
+                  )}
                 </div>
               </CardHeader>
             </CardTitle>
@@ -222,10 +230,10 @@ const Dashboard = async () => {
             </div>
           </CardContent>
         </Card>
-        <div className="col-span-6 lg:col-span-2 grid grid-cols-1 gap-4">
+        <div className="col-span-6 lg:col-span-2 flex flex-col gap-y-4">
           <Card>
             <CardTitle>
-              <CardHeader className="py-4 font-normal">
+              <CardHeader className="pb-4 font-normal">
                 <span className="text-sm text-muted-foreground">
                   {currentMonth} Overview
                 </span>
@@ -263,37 +271,6 @@ const Dashboard = async () => {
                   </div>
                 </>
               )}
-            </CardContent>
-          </Card>
-          <Card>
-            <CardTitle>
-              <CardHeader className="py-4 font-normal text-muted-foreground">
-                <div className="flex items-center gap-x-1">
-                  <span className="text-sm">Transfer</span>
-                  <ToolTip text="Transfer money between accounts." showArrow>
-                    <Icons.info className="h-3 w-3 mt-[2px]" />
-                  </ToolTip>
-                </div>
-              </CardHeader>
-            </CardTitle>
-            <CardContent className="space-y-2">
-              <div className="flex flex-col gap-y-2">
-                {accountDetails.map((account, index) => (
-                  <div key={index} className="grid grid-cols-4 items-center">
-                    <div className="flex items-center gap-x-3 col-span-3 text-sm">
-                      <account.icon className="h-4 w-4" />
-                      {account.title}
-                    </div>
-                    <Transfer
-                      currency={currentUser.currency as CurrencyType}
-                      initialSelected={account.type}
-                      savingsBalance={currentUser.savingsBalance}
-                      investmentsBalance={currentUser.investmentsBalance}
-                      miscellaneousBalance={currentUser.miscellanousBalance}
-                    />
-                  </div>
-                ))}
-              </div>
             </CardContent>
           </Card>
         </div>

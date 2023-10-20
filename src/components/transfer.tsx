@@ -23,6 +23,7 @@ export const Transfer = ({
   miscellaneousBalance,
   savingsBalance,
   showTooltip = false,
+  showIcon = false,
 }: {
   currency: CurrencyType;
   initialSelected: AccountType;
@@ -30,6 +31,7 @@ export const Transfer = ({
   investmentsBalance: number;
   miscellaneousBalance: number;
   showTooltip?: boolean;
+  showIcon?: boolean;
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [disabled, setDisabled] = useState(false);
@@ -47,17 +49,31 @@ export const Transfer = ({
           <Spinner color="default" size="sm" />
         </Button>
       ) : showTooltip ? (
-        <ToolTip text="Transfer money" showArrow disableForMobile={false}>
-          <Button
-            onClick={onOpen}
-            className={cn(
-              buttonVariants({ variant: "secondary", size: "sm" }),
-              "rounded-xl"
-            )}
-          >
-            <Icons.transfer className="h-4 w-4 cursor-pointer group-hover:text-primary transition" />
-          </Button>
-        </ToolTip>
+        showIcon ? (
+          <ToolTip text="Transfer money" showArrow disableForMobile={false}>
+            <Icons.transfer
+              onClick={onOpen}
+              className="h-4 w-4 cursor-pointer hover:text-primary transition"
+            />
+          </ToolTip>
+        ) : (
+          <ToolTip text="Transfer money" showArrow disableForMobile={false}>
+            <Button
+              onClick={onOpen}
+              className={cn(
+                buttonVariants({ variant: "secondary", size: "sm" }),
+                "rounded-xl"
+              )}
+            >
+              <Icons.transfer className="h-4 w-4 cursor-pointer group-hover:text-primary transition" />
+            </Button>
+          </ToolTip>
+        )
+      ) : showIcon ? (
+        <Icons.transfer
+          onClick={onOpen}
+          className="h-4 w-4 cursor-pointer hover:text-primary transition"
+        />
       ) : (
         <Button
           onClick={onOpen}

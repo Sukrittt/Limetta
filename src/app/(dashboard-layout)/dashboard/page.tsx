@@ -192,21 +192,21 @@ const Dashboard = async () => {
             </CardHeader>
           </CardTitle>
           <CardContent className="text-sm">
-            <ScrollShadow className="h-[calc(60vh-100px)] w-full no-scrollbar pb-12 lg:pb-6">
-              <div className="flex flex-col gap-y-2">
-                {expenses.length === 0 ? (
-                  <div className="flex flex-col items-center gap-y-1 pt-8 text-muted-foreground tracking-tight font-mono">
-                    <p>No entries added Yet!</p>
-                    <p>Add your first entry of the month.</p>
+            <div className="flex flex-col gap-y-2">
+              {expenses.length === 0 ? (
+                <div className="flex flex-col items-center gap-y-1 pt-8 text-muted-foreground tracking-tight font-mono">
+                  <p>No entries added Yet!</p>
+                  <p>Add your first entry of the month.</p>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-y-2">
+                  <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6 font-semibold">
+                    <span className="hidden lg:block">Date & Time</span>
+                    <span className="col-span-2 sm:col-span-3">Details</span>
+                    <span className="text-center">Needs</span>
+                    <span className="text-center">Wants</span>
                   </div>
-                ) : (
-                  <div className="flex flex-col gap-y-2">
-                    <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6 font-semibold">
-                      <span className="hidden lg:block">Date & Time</span>
-                      <span className="col-span-2 sm:col-span-3">Details</span>
-                      <span className="text-center">Needs</span>
-                      <span className="text-center">Wants</span>
-                    </div>
+                  <ScrollShadow className="h-[calc(60vh-120px)] w-full no-scrollbar pb-12 lg:pb-6">
                     <div className="flex flex-col gap-y-8 lg:gap-y-2">
                       {expenses.map((expense) => (
                         <ExpenseCard
@@ -216,10 +216,10 @@ const Dashboard = async () => {
                         />
                       ))}
                     </div>
-                  </div>
-                )}
-              </div>
-            </ScrollShadow>
+                  </ScrollShadow>
+                </div>
+              )}
+            </div>
           </CardContent>
         </Card>
         <div className="col-span-6 lg:col-span-2 grid grid-cols-1 gap-4">

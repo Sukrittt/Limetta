@@ -258,7 +258,7 @@ const Dashboard = async () => {
                       {totalSavings.toLocaleString()}{" "}
                     </span>
                     <span className="text-muted-foreground">
-                      {getDaysLeftInMonth()} days left
+                      Days Left: {getDaysLeftInMonth()}
                     </span>
                   </div>
                 </>

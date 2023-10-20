@@ -139,42 +139,20 @@ export const features = [
   "Tailwind CSS for styling",
 ];
 
-export const credits = [
+export const team = [
+  {
+    name: "Sukrit Saha",
+    role: "Founding engineer and Developer",
+    social: "https://www.linkedin.com/in/sukrit-saha-b6117a242",
+  },
   {
     name: "Bhargav Sadineni",
-    role: "Entrepreneur and Tester",
+    role: "Marketing Head, Entrepreneur and Tester",
     social: "https://www.linkedin.com/in/bhargav-sadieni-830892204",
   },
-  // {
-  //   name: "Agamjot Singh",
-  //   role: "Entrepreneur, Innovator and Tester",
-  //   social: "https://www.linkedin.com/in/bhargav-sadieni-830892204",
-  // },
 ];
 
-export const socials = [
-  {
-    id: 1,
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/sukrit-saha-b6117a242/",
-  },
-  {
-    id: 2,
-    label: "GitHub",
-    href: "https://github.com/Sukrittt",
-  },
-  {
-    id: 3,
-    label: "Twitter",
-    href: "https://twitter.com/SukritSaha11",
-  },
-  {
-    id: 4,
-    label: "Instagram",
-    href: "https://www.instagram.com/sukrit_04/",
-  },
-];
-
+//TODO: Limetta insta handle, email, twitter
 export const contact = [
   {
     id: 1,
@@ -184,12 +162,6 @@ export const contact = [
   },
   {
     id: 2,
-    label: "Phone",
-    linkLabel: "+91 8240849936",
-    href: "tel:+918240849936",
-  },
-  {
-    id: 3,
     label: "Twitter",
     linkLabel: "@SukritSaha11",
     href: "https://twitter.com/SukritSaha11",

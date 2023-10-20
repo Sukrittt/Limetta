@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { features, socials, techStack, credits } from "@/config";
+import { features, techStack, team } from "@/config";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
@@ -82,43 +82,24 @@ const About = () => {
           </div>
 
           <div>
-            <h1 className="text-xl font-semibold tracking-tight">Credits</h1>
+            <h1 className="text-xl font-semibold tracking-tight">Team</h1>
             <Divider className="mt-2 mb-4" />
             <ul className="space-y-2 mx-5 mt-2">
-              {credits.map((credit, index) => (
+              {team.map((members, index) => (
                 <li key={index} className="list-disc">
                   <Link
                     className={linkStyle}
                     target="_blank"
-                    href={credit.social}
+                    href={members.social}
                   >
-                    {credit.name}
+                    {members.name}
                   </Link>{" "}
-                  - {credit.role}
+                  - {members.role}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div>
-            <h1 className="text-xl font-semibold tracking-tight">
-              About the author
-            </h1>
-            <Divider className="mt-2 mb-4" />
-            <ul className="space-y-2 mx-5 mt-2">
-              {socials.map((social) => (
-                <li key={social.id} className="list-disc">
-                  <Link
-                    href={social.href}
-                    target="_blank"
-                    className={linkStyle}
-                  >
-                    {social.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
           <div className="w-full flex justify-end items-center">
             <Link
               href="/contact"

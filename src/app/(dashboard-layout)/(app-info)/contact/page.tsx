@@ -32,7 +32,7 @@ const Contact = () => {
 
         <div>
           <h1 className="text-xl font-semibold tracking-tight">
-            Contact Information
+            Contact Information (WIP)
           </h1>
           <Divider className="my-2" />
           <ul className="space-y-2 mt-4">

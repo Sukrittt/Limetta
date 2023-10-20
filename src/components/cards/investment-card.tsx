@@ -6,6 +6,7 @@ import Balancer from "react-wrap-balancer";
 import { useIntersection } from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
@@ -98,35 +99,37 @@ export const InvestmentCard = ({
         <span className="col-span-5 lg:col-span-3">Details</span>
         <span className="text-center col-span-2">Amount</span>
       </div>
-      <div className="flex flex-col gap-y-8 lg:gap-y-2 pb-8">
-        {investmentEntries.map((entry, index) => {
-          if (index === investmentEntries.length - 1) {
-            return (
-              <div key={entry.id} ref={ref}>
-                <InvestmentEntryItem
-                  entry={entry}
-                  currency={currency}
-                  initialBalance={initialBalance}
-                />
-              </div>
-            );
-          } else {
-            return (
-              <div key={entry.id}>
-                <InvestmentEntryItem
-                  entry={entry}
-                  currency={currency}
-                  initialBalance={initialBalance}
-                />
-              </div>
-            );
-          }
-        })}
-        {isFetchingNextPage &&
-          Array.from({ length: 3 }).map((_, index) => (
-            <InvestmentEntryItemSkeleton key={index} />
-          ))}
-      </div>
+      <ScrollShadow className="h-[calc(80vh-150px)] lg:h-[calc(80vh-235px)] w-full no-scrollbar">
+        <div className="flex flex-col gap-y-8 lg:gap-y-2 pb-8">
+          {investmentEntries.map((entry, index) => {
+            if (index === investmentEntries.length - 1) {
+              return (
+                <div key={entry.id} ref={ref}>
+                  <InvestmentEntryItem
+                    entry={entry}
+                    currency={currency}
+                    initialBalance={initialBalance}
+                  />
+                </div>
+              );
+            } else {
+              return (
+                <div key={entry.id}>
+                  <InvestmentEntryItem
+                    entry={entry}
+                    currency={currency}
+                    initialBalance={initialBalance}
+                  />
+                </div>
+              );
+            }
+          })}
+          {isFetchingNextPage &&
+            Array.from({ length: 3 }).map((_, index) => (
+              <InvestmentEntryItemSkeleton key={index} />
+            ))}
+        </div>
+      </ScrollShadow>
     </div>
   );
 };

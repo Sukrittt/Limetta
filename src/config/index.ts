@@ -53,14 +53,14 @@ export const accounts = [
     Icon: Icons.wallet,
   },
   {
-    label: "Investments",
-    href: "/investments",
-    Icon: Icons.investments,
-  },
-  {
     label: "Savings",
     href: "/savings",
     Icon: Icons.piggy,
+  },
+  {
+    label: "Investments",
+    href: "/investments",
+    Icon: Icons.investments,
   },
   {
     label: "Miscellaneous",

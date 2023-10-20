@@ -54,23 +54,23 @@ const loading = () => {
         </div>
       </CardContent>
       <Divider />
-      <ScrollShadow className="h-[calc(80vh-150px)] w-full no-scrollbar">
-        <CardContent className="pt-8">
-          <div className="flex flex-col gap-y-2 text-sm">
-            <div className="grid grid-cols-5 lg:grid-cols-9 px-4 sm:px-6">
-              <span className="hidden lg:block">Date & Time</span>
-              <span className="col-span-4 lg:col-span-2">Details</span>
-              <span className="text-center">Amount</span>
-              <span className="hidden lg:block text-center">Type</span>
-              <span className="hidden lg:block text-center">Status</span>
-              <span className="hidden lg:block text-center">Due Date</span>
-            </div>
+      <CardContent className="pt-8">
+        <div className="flex flex-col gap-y-2 text-sm">
+          <div className="grid grid-cols-5 lg:grid-cols-9 px-4 sm:px-6">
+            <span className="hidden lg:block">Date & Time</span>
+            <span className="col-span-4 lg:col-span-2">Details</span>
+            <span className="text-center">Amount</span>
+            <span className="hidden lg:block text-center">Type</span>
+            <span className="hidden lg:block text-center">Status</span>
+            <span className="hidden lg:block text-center">Due Date</span>
+          </div>
+          <ScrollShadow className="h-[calc(80vh-150px)] lg:h-[calc(80vh-235px)] flex flex-col gap-y-2 w-full no-scrollbar pb-8">
             {Array.from({ length: 15 }).map((_, index) => (
               <DueEntryItemSkeleton key={index} />
             ))}
-          </div>
-        </CardContent>
-      </ScrollShadow>
+          </ScrollShadow>
+        </div>
+      </CardContent>
     </Card>
   );
 };

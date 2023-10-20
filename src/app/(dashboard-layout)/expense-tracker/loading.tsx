@@ -36,21 +36,21 @@ const loading = () => {
               <Skeleton className="h-8 w-20 rounded-lg" />
               <Skeleton className="h-8 w-20 rounded-lg" />
             </div>
-            <ScrollShadow className="h-[calc(80vh-200px)] lg:h-[calc(80vh-100px)] w-full no-scrollbar">
-              <div className="flex flex-col gap-y-2">
-                <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6">
-                  <span className="hidden lg:block">Date & Time</span>
-                  <span className="col-span-2 sm:col-span-3">Details</span>
-                  <span className="text-center">Needs</span>
-                  <span className="text-center">Wants</span>
-                </div>
+            <div className="flex flex-col gap-y-2">
+              <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6">
+                <span className="hidden lg:block">Date & Time</span>
+                <span className="col-span-2 sm:col-span-3">Details</span>
+                <span className="text-center">Needs</span>
+                <span className="text-center">Wants</span>
+              </div>
+              <ScrollShadow className="h-[calc(80vh-200px)] lg:h-[calc(80vh-120px)] pb-8 w-full no-scrollbar">
                 <div className="flex flex-col gap-y-8 lg:gap-y-2">
                   {Array.from({ length: 15 }).map((_, index) => (
                     <ExpenseCardSkeleton key={index} />
                   ))}
                 </div>
-              </div>
-            </ScrollShadow>
+              </ScrollShadow>
+            </div>
           </CardContent>
         </Card>
       </div>

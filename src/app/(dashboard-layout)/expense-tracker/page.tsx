@@ -28,6 +28,8 @@ const Dashboard = async () => {
   const session = await getAuthSession();
   const currentUser = await serverClient.user.getCurrentUser();
 
+  if (!currentUser || !session) redirect("/sign-in");
+
   if (!currentUser.monthlyIncome) redirect("/onboarding");
 
   const currentMonthEntries = await serverClient.books.getCurrentMonthBooks();
@@ -55,8 +57,6 @@ const Dashboard = async () => {
     (acc, item) => acc + item.amount,
     0
   );
-
-  if (!currentUser || !session) redirect("/sign-in");
 
   const currentMonthIncome =
     currentMonthEntries.books.length > 0
@@ -112,21 +112,21 @@ const Dashboard = async () => {
                 }}
               />
             </div>
-            <ScrollShadow className="h-[calc(80vh-200px)] lg:h-[calc(80vh-100px)] w-full no-scrollbar">
-              {expenses.length === 0 ? (
-                <div className="flex flex-col items-center gap-y-1 pt-4 text-muted-foreground tracking-tight font-mono">
-                  <p>No entries added Yet!</p>
-                  <p>Add your first entry of the month.</p>
+            {expenses.length === 0 ? (
+              <div className="flex flex-col items-center gap-y-1 pt-4 text-muted-foreground tracking-tight font-mono">
+                <p>No entries added Yet!</p>
+                <p>Add your first entry of the month.</p>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-y-2">
+                <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6 font-semibold">
+                  <span className="hidden lg:block">Date & Time</span>
+                  <span className="col-span-2 sm:col-span-3">Details</span>
+                  <span className="text-center">Needs</span>
+                  <span className="text-center">Wants</span>
                 </div>
-              ) : (
-                <div className="flex flex-col gap-y-2">
-                  <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 px-4 sm:px-6 font-semibold">
-                    <span className="hidden lg:block">Date & Time</span>
-                    <span className="col-span-2 sm:col-span-3">Details</span>
-                    <span className="text-center">Needs</span>
-                    <span className="text-center">Wants</span>
-                  </div>
-                  <div className="pb-4 flex flex-col gap-y-8 lg:gap-y-2">
+                <ScrollShadow className="h-[calc(80vh-200px)] lg:h-[calc(80vh-120px)] pb-8 w-full no-scrollbar">
+                  <div className="flex flex-col gap-y-8 lg:gap-y-2">
                     {expenses.map((expense) => (
                       <ExpenseCard
                         key={expense.createdAt.toString()}
@@ -135,9 +135,9 @@ const Dashboard = async () => {
                       />
                     ))}
                   </div>
-                </div>
-              )}
-            </ScrollShadow>
+                </ScrollShadow>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

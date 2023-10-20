@@ -94,15 +94,13 @@ const Investments = async () => {
         </div>
       </CardContent>
       <Divider />
-      <ScrollShadow className="h-[calc(80vh-150px)] w-full no-scrollbar">
-        <CardContent className="pt-8">
-          <InvestmentCard
-            initialInvestmentEntries={investmentEntries}
-            currency={currentUser.currency as CurrencyType}
-            initialBalance={currentUser.investmentsBalance}
-          />
-        </CardContent>
-      </ScrollShadow>
+      <CardContent className="pt-8">
+        <InvestmentCard
+          initialInvestmentEntries={investmentEntries}
+          currency={currentUser.currency as CurrencyType}
+          initialBalance={currentUser.investmentsBalance}
+        />
+      </CardContent>
     </Card>
   );
 };

@@ -8,6 +8,7 @@ import Balancer from "react-wrap-balancer";
 import { Divider } from "@nextui-org/divider";
 import { useIntersection } from "@mantine/hooks";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { cn } from "@/lib/utils";
 import { Dues } from "@/db/schema";
@@ -33,7 +34,7 @@ export const DueCard: FC<DueCardProps> = ({
   currency,
 }) => {
   const lastEntryRef = useRef<HTMLElement>(null);
-  const [miscEntries, setMiscEntries] = useState(initialDues);
+  const [dueEntries, setDueEntries] = useState(initialDues);
 
   const [noNewData, setNoNewData] = useState(false);
 
@@ -70,7 +71,7 @@ export const DueCard: FC<DueCardProps> = ({
       setNoNewData(true);
     }
 
-    setMiscEntries(data?.pages.flatMap((page) => page) ?? initialDues);
+    setDueEntries(data?.pages.flatMap((page) => page) ?? initialDues);
   }, [data, initialDues, isFetching]);
 
   useEffect(() => {
@@ -81,7 +82,7 @@ export const DueCard: FC<DueCardProps> = ({
     }
   }, [entry, fetchNextPage, initialDues, noNewData]);
 
-  if (miscEntries.length === 0) {
+  if (dueEntries.length === 0) {
     return (
       <div className="flex justify-center">
         <Balancer className="mt-2 text-sm text-center tracking-tight text-muted-foreground">
@@ -101,33 +102,35 @@ export const DueCard: FC<DueCardProps> = ({
         <span className="hidden lg:block text-center">Status</span>
         <span className="hidden lg:block text-center">Due Date</span>
       </div>
-      {miscEntries.map((entry, index) => {
-        if (index === miscEntries.length - 1) {
-          return (
-            <div key={entry.id} ref={ref}>
-              <DueEntryItem
-                entry={entry}
-                currency={currency}
-                savingBalance={savingBalance}
-              />
-            </div>
-          );
-        } else {
-          return (
-            <div key={entry.id}>
-              <DueEntryItem
-                entry={entry}
-                currency={currency}
-                savingBalance={savingBalance}
-              />
-            </div>
-          );
-        }
-      })}
-      {isFetchingNextPage &&
-        Array.from({ length: 3 }).map((_, index) => (
-          <DueEntryItemSkeleton key={index} />
-        ))}
+      <ScrollShadow className="h-[calc(80vh-150px)] lg:h-[calc(80vh-235px)] flex flex-col gap-y-2 pb-8 w-full no-scrollbar">
+        {dueEntries.map((entry, index) => {
+          if (index === dueEntries.length - 1) {
+            return (
+              <div key={entry.id} ref={ref}>
+                <DueEntryItem
+                  entry={entry}
+                  currency={currency}
+                  savingBalance={savingBalance}
+                />
+              </div>
+            );
+          } else {
+            return (
+              <div key={entry.id}>
+                <DueEntryItem
+                  entry={entry}
+                  currency={currency}
+                  savingBalance={savingBalance}
+                />
+              </div>
+            );
+          }
+        })}
+        {isFetchingNextPage &&
+          Array.from({ length: 3 }).map((_, index) => (
+            <DueEntryItemSkeleton key={index} />
+          ))}
+      </ScrollShadow>
     </div>
   );
 };

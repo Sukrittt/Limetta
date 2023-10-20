@@ -50,22 +50,22 @@ const loading = () => {
         </div>
       </CardContent>
       <Divider />
-      <ScrollShadow className="h-[calc(80vh-150px)] w-full no-scrollbar">
-        <CardContent className="pt-8">
-          <div className="flex flex-col gap-y-2 text-sm">
-            <div className="grid grid-cols-7 lg:grid-cols-8 px-4 sm:px-6">
-              <span className="hidden lg:block">Date & Time</span>
-              <span className="col-span-5 lg:col-span-3">Details</span>
-              <span className="text-center col-span-2">Amount</span>
-            </div>
+      <CardContent className="pt-8">
+        <div className="flex flex-col gap-y-2 text-sm">
+          <div className="grid grid-cols-7 lg:grid-cols-8 px-4 sm:px-6">
+            <span className="hidden lg:block">Date & Time</span>
+            <span className="col-span-5 lg:col-span-3">Details</span>
+            <span className="text-center col-span-2">Amount</span>
+          </div>
+          <ScrollShadow className="h-[calc(80vh-150px)] lg:h-[calc(80vh-235px)] w-full no-scrollbar">
             <div className="flex flex-col gap-y-8 lg:gap-y-2 pb-8">
               {Array.from({ length: 15 }).map((_, index) => (
                 <InvestmentEntryItemSkeleton key={index} />
               ))}
             </div>
-          </div>
-        </CardContent>
-      </ScrollShadow>
+          </ScrollShadow>
+        </div>
+      </CardContent>
     </Card>
   );
 };

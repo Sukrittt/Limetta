@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Divider } from "@nextui-org/divider";
-import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { env } from "@/env.mjs";
 import { cn } from "@/lib/utils";
@@ -73,14 +72,12 @@ const Savings = async () => {
         </div>
       </CardContent>
       <Divider />
-      <ScrollShadow className="h-[calc(100vh-220px)] w-full no-scrollbar">
-        <CardContent className=" pt-8">
-          <SavingsCard
-            initialSavingsEntries={savingsEntries}
-            currency={currentUser.currency as CurrencyType}
-          />
-        </CardContent>
-      </ScrollShadow>
+      <CardContent className=" pt-8">
+        <SavingsCard
+          initialSavingsEntries={savingsEntries}
+          currency={currentUser.currency as CurrencyType}
+        />
+      </CardContent>
     </Card>
   );
 };

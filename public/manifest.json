@@ -4,9 +4,9 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "BalanceWise",
-    "short_name": "Balance Wise",
-    "description": "Elevate your financial management with BalanceWise.",
+    "name": "Limetta",
+    "short_name": "Limetta",
+    "description": "Elevate your financial management with Limetta.",
     "icons": [
         {
             "src": "/icon-192x192.png",

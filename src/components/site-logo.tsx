@@ -8,19 +8,12 @@ export const SiteLogo = ({ className, ...props }: SiteLogoProps) => {
     <Link
       href="/"
       className={cn(
-        "text-lg font-bold tracking-tight group hover:text-primary focus:text-primary transition focus:outline-none",
+        "text-xl font-bold tracking-tight group hover:text-primary focus:text-primary transition focus:outline-none",
         className
       )}
       {...props}
     >
-      <span className="text-primary group-hover:text-content group-focus:text-content transition">
-        B
-      </span>
-      alance
-      <span className="text-primary group-hover:text-content group-focus:text-content transition">
-        W
-      </span>
-      ise
+      Limetta
     </Link>
   );
 };

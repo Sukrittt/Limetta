@@ -4,7 +4,7 @@ export const siteConfig = {
   name: "Limetta",
   description:
     "Elevate your financial management with Limetta. Our user-friendly Next.js app simplifies expense tracking, offers multiple account management, easy money transfers, and efficient dues tracking. Take charge of your finances and make informed choices, all in one platform.",
-  url: "https://balancewise.vercel.app",
+  url: "https://limetta.vercel.app",
 };
 
 export const currencies = [

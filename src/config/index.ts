@@ -142,7 +142,7 @@ export const features = [
 export const team = [
   {
     name: "Sukrit Saha",
-    role: "Founding engineer and Developer",
+    role: "Founding Engineer and Developer",
     social: "https://www.linkedin.com/in/sukrit-saha-b6117a242",
   },
   {

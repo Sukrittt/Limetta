@@ -53,7 +53,7 @@ export const Transfer = ({
           <ToolTip text="Transfer money" showArrow disableForMobile={false}>
             <Icons.transfer
               onClick={onOpen}
-              className="h-4 w-4 cursor-pointer hover:text-primary transition"
+              className="h-3 w-3 md:h-4 md:w-4 cursor-pointer hover:text-primary transition"
             />
           </ToolTip>
         ) : (
@@ -72,7 +72,7 @@ export const Transfer = ({
       ) : showIcon ? (
         <Icons.transfer
           onClick={onOpen}
-          className="h-4 w-4 cursor-pointer hover:text-primary transition"
+          className="h-3 w-3 md:h-4 md:w-4 cursor-pointer hover:text-primary transition"
         />
       ) : (
         <Button

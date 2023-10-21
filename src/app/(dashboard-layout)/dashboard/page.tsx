@@ -159,7 +159,7 @@ const Dashboard = async () => {
                       href={account.href}
                       className="hover:text-primary transition focus:outline-none focus:text-primary"
                     >
-                      <Icons.link className="h-4 w-4" />
+                      <Icons.link className="h-3 w-3 md:h-4 md:w-4" />
                     </Link>
                   )}
                 </div>
@@ -256,9 +256,8 @@ const Dashboard = async () => {
 
                   <div className="flex items-center justify-between text-xs tracking-tighter">
                     <span
-                      className={cn({
-                        "text-danger-text": wantShare - wantsTotal < 0,
-                        "text-success-text": wantShare - wantsTotal > 0,
+                      className={cn("text-success-text", {
+                        "text-danger-text": totalSavings < 0,
                       })}
                     >
                       Total Savings: <span>{totalSavings < 0 ? "-" : ""}</span>

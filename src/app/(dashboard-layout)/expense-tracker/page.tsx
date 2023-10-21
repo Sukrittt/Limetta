@@ -125,7 +125,7 @@ const Dashboard = async () => {
                   <span className="text-center">Needs</span>
                   <span className="text-center">Wants</span>
                 </div>
-                <ScrollShadow className="h-[calc(80vh-200px)] lg:h-[calc(80vh-120px)] pb-8 w-full no-scrollbar">
+                <ScrollShadow className="h-[calc(80vh-200px)] lg:h-[calc(80vh-120px)] pb-12 lg:pb-8 w-full no-scrollbar">
                   <div className="flex flex-col gap-y-8 lg:gap-y-2">
                     {expenses.map((expense) => (
                       <ExpenseCard

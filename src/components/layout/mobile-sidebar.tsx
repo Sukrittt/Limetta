@@ -5,11 +5,12 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Divider } from "@nextui-org/divider";
 
+import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 import { Logout } from "@/components/logout";
+import { accounts, settings } from "@/config";
 import { Button } from "@/components/ui/button";
 import { SiteLogo } from "@/components/site-logo";
-import { accounts, settings, siteConfig } from "@/config";
 import { ThemeSelector } from "@/components/themes/theme-selector";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
@@ -46,11 +47,13 @@ export const MobileSidebar = () => {
           <div className="ml-4 flex flex-col gap-y-4 text-sm text-muted-foreground">
             {accounts.map((account, index) => (
               <Link
-                className="hover:text-primary transition"
+                className={cn("hover:text-primary transition", {
+                  "text-primary": pathname === account.href,
+                })}
                 href={account.href}
                 key={index}
               >
-                <div className="flex gap-x-2">
+                <div className="flex gap-x-2 items-center">
                   <account.Icon className="h-4 w-4" />
                   {account.label}
                 </div>

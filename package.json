@@ -15,6 +15,7 @@
   "dependencies": {
     "@auth/core": "^0.13.0",
     "@auth/drizzle-adapter": "^0.3.2",
+    "@ctrl/react-adsense": "^1.7.0",
     "@mantine/hooks": "^7.0.2",
     "@nextui-org/react": "^2.1.10",
     "@planetscale/database": "^1.11.0",

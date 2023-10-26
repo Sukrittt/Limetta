@@ -259,11 +259,12 @@ const DueEntryItem: FC<DueEntryProps> = ({
             <span className="text-muted-foreground">Due by:</span>{" "}
             {format(new Date(entry.dueDate), "dd MMM, yy")}
           </span>
-          {new Date(entry.dueDate) <= new Date() && (
-            <ToolTip text="Due date passed" disableForMobile={false}>
-              <span className="ml-1 text-danger-text">!</span>
-            </ToolTip>
-          )}
+          {entry.dueStatus === "pending" &&
+            new Date(entry.dueDate) <= new Date() && (
+              <ToolTip text="Due date passed" disableForMobile={false}>
+                <span className="ml-1 text-danger-text">!</span>
+              </ToolTip>
+            )}
         </div>
         <div className="flex items-center justify-between w-full">
           <div className="flex gap-x-4">

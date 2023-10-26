@@ -152,7 +152,7 @@ const SavingsEntryItem = ({
               {entry.entryName}{" "}
               {entry.dueType && (
                 <span className="text-xs text-muted-foreground font-mono">{`(due ${
-                  entry.dueType === "payable" ? "paid" : "recieved"
+                  entry.dueType === "payable" ? "paid" : "received"
                 })`}</span>
               )}
             </p>

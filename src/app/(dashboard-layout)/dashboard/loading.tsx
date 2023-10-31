@@ -3,7 +3,7 @@ import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { Icons } from "@/components/icons";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn, getDaysLeftInMonth } from "@/lib/utils";
+import { cn, getTimeLeftInMonth } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { MobileSidebar } from "@/components/layout/mobile-sidebar";
 import { ExpenseCardSkeleton } from "@/components/skeletons/expense-card";
@@ -146,7 +146,7 @@ const loading = () => {
                   <Skeleton className="h-4 w-8" />
                 </div>
                 <span className="text-muted-foreground">
-                  Days Left: {getDaysLeftInMonth()}
+                  {getTimeLeftInMonth()}
                 </span>
               </div>
             </CardContent>

@@ -9,7 +9,7 @@ import { Icons } from "@/components/icons";
 import { Logout } from "@/components/logout";
 import { Transfer } from "@/components/transfer";
 import { serverClient } from "@/trpc/server-client";
-import { cn, getDaysLeftInMonth } from "@/lib/utils";
+import { cn, getTimeLeftInMonth } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { ExpenseTable } from "@/components/expense-table";
 import { ExpenseCard } from "@/components/cards/expense-card";
@@ -265,7 +265,7 @@ const Dashboard = async () => {
                       {totalSavings.toLocaleString()}{" "}
                     </span>
                     <span className="text-muted-foreground">
-                      Days Left: {getDaysLeftInMonth()}
+                      {getTimeLeftInMonth()}
                     </span>
                   </div>
                 </>

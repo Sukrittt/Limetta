@@ -60,15 +60,21 @@ export const getMaxSpendLimitForSavingAmount = (
   return balance - entryAmount;
 };
 
-export const getDaysLeftInMonth = () => {
+export const getTimeLeftInMonth = () => {
   const currentDate = new Date();
-
   const currentMonth = currentDate.getMonth() + 1;
   const currentYear = currentDate.getFullYear();
-
   const lastDayOfMonth = new Date(currentYear, currentMonth, 0);
-
   const daysLeft = lastDayOfMonth.getDate() - currentDate.getDate();
 
-  return daysLeft;
+  if (daysLeft === 0) {
+    const hoursLeft = 23 - currentDate.getHours();
+    if (hoursLeft === 0) {
+      const minutesLeft = 59 - currentDate.getMinutes();
+      return `${minutesLeft} minutes left`;
+    }
+    return `${hoursLeft} hours left`;
+  }
+
+  return `${daysLeft} days left`;
 };

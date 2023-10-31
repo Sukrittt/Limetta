@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { Button } from "@nextui-org/button";
 import { Spinner } from "@nextui-org/spinner";
 import { Divider } from "@nextui-org/divider";
+import { useMutation } from "@tanstack/react-query";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { Books, Needs, Wants } from "@/db/schema";
@@ -23,7 +24,6 @@ import { toast } from "@/hooks/use-toast";
 import { Icons } from "@/components/icons";
 import ToolTip from "@/components/ui/tool-tip";
 import { ExcelDataType } from "@/lib/validators";
-import { useMutation } from "@tanstack/react-query";
 
 type ExpenseType = {
   books: Books[];
@@ -113,6 +113,8 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
     },
   });
 
+  const currentMonth = format(new Date(), "MMMM yyyy");
+
   return (
     <Sheet>
       <SheetTrigger className="focus:outline-none rounded-lg focus-visible:ring-2 focus-visible:ring-neutral-800">
@@ -122,7 +124,30 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
         <SheetHeader className="mt-2 sm:mt-0 text-left">
           <SheetTitle>{`${expenseData.month} expenses`}</SheetTitle>
           <SheetDescription>
-            {`You spent a total of ${currency}${expenseData.total} this month.`}
+            {totalSaved < 0 ? (
+              <>
+                You have exceeded your budget for this month by{" "}
+                <span className="font-semibold text-danger-text">
+                  {currency}
+                  {totalSaved}
+                </span>{" "}
+              </>
+            ) : (
+              <>
+                Your savings for this month{" "}
+                {currentMonth === expenseData.month ? "is" : "was"}{" "}
+                <span className="font-semibold text-success-text">
+                  {currency}
+                  {Math.max(totalSaved, 0)}
+                </span>{" "}
+              </>
+            )}
+            and you spent a total of{" "}
+            <span className="font-semibold">
+              {currency}
+              {expenseData.total}
+            </span>{" "}
+            this month.
           </SheetDescription>
           <div className="flex justify-end">
             <ToolTip text="Export excel" showArrow disableForMobile={false}>

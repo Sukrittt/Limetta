@@ -37,7 +37,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Adsense client="ca-pub-8077170936021776" slot="7259870550" />
+      <Adsense client="ca-pub-8448763122793144" slot="7259870550" />
       <ThemeProvider
         attribute="class"
         defaultTheme="dark"

@@ -4,13 +4,14 @@ import { redirect } from "next/navigation";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 import { env } from "@/env.mjs";
+import { cn } from "@/lib/utils";
 import { CurrencyType } from "@/types";
 import { Icons } from "@/components/icons";
 import { Logout } from "@/components/logout";
 import { Transfer } from "@/components/transfer";
 import { serverClient } from "@/trpc/server-client";
-import { cn, getTimeLeftInMonth } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { DaysLeftInMonth } from "@/components/days-left";
 import { ExpenseTable } from "@/components/expense-table";
 import { ExpenseCard } from "@/components/cards/expense-card";
 import { MobileSidebar } from "@/components/layout/mobile-sidebar";
@@ -264,9 +265,7 @@ const Dashboard = async () => {
                       {currentUser.currency}
                       {totalSavings.toLocaleString()}{" "}
                     </span>
-                    <span className="text-muted-foreground">
-                      {getTimeLeftInMonth()}
-                    </span>
+                    <DaysLeftInMonth />
                   </div>
                 </>
               )}

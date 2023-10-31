@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
+import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn, getTimeLeftInMonth } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { DaysLeftInMonth } from "@/components/days-left";
 import { MobileSidebar } from "@/components/layout/mobile-sidebar";
 import { ExpenseCardSkeleton } from "@/components/skeletons/expense-card";
 import { ExpenseTableSkeleton } from "@/components/skeletons/expense-table";
@@ -145,9 +146,7 @@ const loading = () => {
                   <span>Total Savings:</span>
                   <Skeleton className="h-4 w-8" />
                 </div>
-                <span className="text-muted-foreground">
-                  {getTimeLeftInMonth()}
-                </span>
+                <DaysLeftInMonth />
               </div>
             </CardContent>
           </Card>

@@ -42,7 +42,9 @@ export async function GET() {
       if (existingSavingEntry.length > 0) return;
 
       const user = await db
-        .select()
+        .select({
+          savingsBalance: users.savingsBalance,
+        })
         .from(users)
         .where(eq(users.id, book.userId));
 

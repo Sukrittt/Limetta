@@ -102,7 +102,7 @@ export const DueCard: FC<DueCardProps> = ({
         <span className="hidden lg:block text-center">Status</span>
         <span className="hidden lg:block text-center">Due Date</span>
       </div>
-      <ScrollShadow className="h-[calc(80vh-150px)] lg:h-[calc(80vh-235px)] flex flex-col gap-y-2 pb-8 w-full no-scrollbar">
+      <ScrollShadow className="h-[calc(80vh-150px)] lg:h-[calc(80vh-235px)] flex flex-col gap-y-2 pb-12 w-full no-scrollbar">
         {dueEntries.map((entry, index) => {
           if (index === dueEntries.length - 1) {
             return (

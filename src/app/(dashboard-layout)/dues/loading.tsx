@@ -64,7 +64,7 @@ const loading = () => {
             <span className="hidden lg:block text-center">Status</span>
             <span className="hidden lg:block text-center">Due Date</span>
           </div>
-          <ScrollShadow className="h-[calc(80vh-150px)] lg:h-[calc(80vh-235px)] flex flex-col gap-y-2 w-full no-scrollbar pb-8">
+          <ScrollShadow className="h-[calc(80vh-150px)] lg:h-[calc(80vh-235px)] flex flex-col gap-y-2 w-full no-scrollbar pb-12">
             {Array.from({ length: 15 }).map((_, index) => (
               <DueEntryItemSkeleton key={index} />
             ))}

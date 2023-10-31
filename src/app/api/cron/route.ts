@@ -46,14 +46,11 @@ export async function GET() {
         .from(users)
         .where(eq(users.id, book.userId));
 
-      const overboundAmount = Math.min(totalSavings, 0);
-
       const promises = [
         db
           .update(users)
           .set({
             savingsBalance: user[0].savingsBalance + totalSavings,
-            miscellanousBalance: user[0].miscellanousBalance - overboundAmount, //incase user spends more than their monthly income
           })
           .where(eq(users.id, book.userId)),
         db.insert(savings).values({

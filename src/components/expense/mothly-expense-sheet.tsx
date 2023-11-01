@@ -93,7 +93,7 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
 
       const fileName = `${format(
         expenseData.books[0].createdAt,
-        "MMMM_yyyy"
+        "MMMM yyyy"
       )}.xlsx`;
 
       createDownloadUrl(blob, fileName);
@@ -129,7 +129,7 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
                 You have exceeded your budget for this month by{" "}
                 <span className="font-semibold text-danger-text">
                   {currency}
-                  {totalSaved}
+                  {Math.abs(totalSaved)}
                 </span>{" "}
               </>
             ) : (

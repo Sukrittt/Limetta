@@ -52,7 +52,7 @@ export async function GET() {
         db
           .update(users)
           .set({
-            savingsBalance: user[0].savingsBalance + totalSavings,
+            savingsBalance: user[0].savingsBalance + Math.max(totalSavings, 0),
           })
           .where(eq(users.id, book.userId)),
         db.insert(savings).values({

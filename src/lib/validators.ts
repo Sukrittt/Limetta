@@ -13,6 +13,7 @@ export const validation = z.object({
     needsTotal: z.number(),
     wantsTotal: z.number(),
     totalSaved: z.number(),
+    monthIncome: z.number(),
   }),
 });
 

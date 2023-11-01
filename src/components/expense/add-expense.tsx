@@ -47,6 +47,7 @@ export const AddExpense: FC<AddExpenseProps> = ({
           needsTotal: calculations.needsTotal,
           wantsTotal: calculations.wantsTotal,
           totalSaved: calculations.totalSaved,
+          monthIncome: calculations.monthIncome,
         },
       };
 

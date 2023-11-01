@@ -80,6 +80,7 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
           needsTotal,
           wantsTotal,
           totalSaved,
+          monthIncome: expenseData.books[0].monthIncome,
         },
       };
 

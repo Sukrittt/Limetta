@@ -107,11 +107,8 @@ const Dashboard = async () => {
                 calculations={{
                   needsTotal,
                   wantsTotal,
-                  totalSaved:
-                    currentMonthEntries.books.length > 0
-                      ? currentMonthEntries.books[0].monthIncome -
-                        (needsTotal + wantsTotal)
-                      : 0,
+                  monthIncome: currentMonthIncome,
+                  totalSaved: currentMonthIncome - (needsTotal + wantsTotal),
                 }}
               />
             </div>

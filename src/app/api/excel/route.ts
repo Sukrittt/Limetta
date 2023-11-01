@@ -1,5 +1,6 @@
 import { z } from "zod";
 import excel from "exceljs";
+
 import { validation } from "@/lib/validators";
 
 export async function POST(req: Request) {
@@ -33,6 +34,7 @@ export async function POST(req: Request) {
     const totalSpent = calculations.needsTotal + calculations.wantsTotal;
 
     worksheet.addRow([]);
+    worksheet.addRow(["", "", "Month Income", calculations.monthIncome]);
     worksheet.addRow(["", "", "Needs Total", calculations.needsTotal]);
     worksheet.addRow(["", "", "Wants Total", calculations.wantsTotal]);
     worksheet.addRow(["", "", "Total Spent", totalSpent]);

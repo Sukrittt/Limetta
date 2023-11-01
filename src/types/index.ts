@@ -13,6 +13,7 @@ export type Calculations = {
   needsTotal: number;
   wantsTotal: number;
   totalSaved: number;
+  monthIncome: number;
 };
 
 export type EntryType = {

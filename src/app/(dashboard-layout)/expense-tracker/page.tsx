@@ -108,13 +108,15 @@ const Dashboard = async () => {
                   needsTotal,
                   wantsTotal,
                   totalSaved:
-                    currentMonthEntries.books[0].monthIncome -
-                    (needsTotal + wantsTotal),
+                    currentMonthEntries.books.length > 0
+                      ? currentMonthEntries.books[0].monthIncome -
+                        (needsTotal + wantsTotal)
+                      : 0,
                 }}
               />
             </div>
             {expenses.length === 0 ? (
-              <div className="flex flex-col items-center gap-y-1 pt-4 text-muted-foreground tracking-tight font-mono">
+              <div className="h-[calc(80vh-200px)] lg:h-[calc(80vh-95px)] flex flex-col items-center gap-y-1 pt-4 text-muted-foreground tracking-tight font-mono">
                 <p>No entries added Yet!</p>
                 <p>Add your first entry of the month.</p>
               </div>
@@ -153,7 +155,7 @@ const Dashboard = async () => {
           <ScrollShadow className="lg:h-[calc(90vh-80px)] w-full no-scrollbar">
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 pt-6 lg:pb-0 lg:pt-3">
               {currentMonthEntries.books.length === 0 ? (
-                <p className="pt-4 text-muted-foreground tracking-tighter text-center font-mono">
+                <p className="py-4 text-muted-foreground tracking-tighter text-center font-mono">
                   Start adding entires to get more insights.
                 </p>
               ) : (

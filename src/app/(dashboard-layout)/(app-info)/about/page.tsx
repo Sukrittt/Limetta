@@ -30,7 +30,7 @@ const About = () => {
                 About
               </h1>
               <p className="text-muted-foreground">
-                About the project and the author of the project.
+                About the project and its team members.
               </p>
             </div>
             <Divider className="my-4" />

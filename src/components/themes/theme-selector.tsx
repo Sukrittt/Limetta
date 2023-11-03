@@ -34,6 +34,19 @@ export const ThemeSelector = () => {
       return a.label.localeCompare(b.label);
     });
 
+  const selectedTheme = filteredThemes.find(
+    (theme) => theme.name === config.theme
+  )!;
+
+  const nonSelectedThemes = filteredThemes.filter(
+    (theme) => theme.name !== selectedTheme.name
+  );
+
+  let preferredThemes: FilterableTheme[] = [
+    selectedTheme,
+    ...nonSelectedThemes,
+  ];
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -51,7 +64,7 @@ export const ThemeSelector = () => {
 
   const surpriseMe = () => {
     const randomTheme =
-      filteredThemes[Math.floor(Math.random() * filteredThemes.length)];
+      preferredThemes[Math.floor(Math.random() * preferredThemes.length)];
     setConfig({
       ...config,
       theme: randomTheme.name as ThemeNames,
@@ -106,7 +119,7 @@ export const ThemeSelector = () => {
             No themes found.
           </CommandEmpty>
           <CommandGroup heading="Themes">
-            {filteredThemes.map((theme) => (
+            {preferredThemes.map((theme) => (
               <CommandItem
                 key={theme.label}
                 className="flex items-center justify-between cursor-pointer"

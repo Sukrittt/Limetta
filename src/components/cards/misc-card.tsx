@@ -143,7 +143,7 @@ const MiscEntryItem = ({
   };
 
   return (
-    <Card className="relative">
+    <Card className="relative bg-background">
       <CardContent className="grid grid-cols-7 px-4 sm:px-6 py-3">
         <div className="hidden lg:block items-center">
           <span className="text-xs tracking-tighter">

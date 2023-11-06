@@ -153,7 +153,7 @@ const Dashboard = async () => {
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 pt-6 lg:pb-0 lg:pt-3">
               {currentMonthEntries.books.length === 0 ? (
                 <p className="py-4 text-muted-foreground tracking-tighter text-center font-mono">
-                  Start adding entires to get more insights.
+                  Start adding entries to get more insights.
                 </p>
               ) : (
                 <>

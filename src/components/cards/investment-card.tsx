@@ -171,7 +171,7 @@ const InvestmentEntryItem = ({
   const customDescription = getCustomizedDescription(entry);
 
   return (
-    <Card className="relative">
+    <Card className="relative bg-background">
       <CardContent className="grid grid-cols-7 lg:grid-cols-8 px-4 sm:px-6 py-3">
         <div className="hidden lg:flex items-center">
           <span className="text-xs tracking-tighter">

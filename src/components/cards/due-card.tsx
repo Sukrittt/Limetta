@@ -165,7 +165,7 @@ const DueEntryItem: FC<DueEntryProps> = ({
       : "expense-tracker");
 
   return (
-    <Card>
+    <Card className="bg-background">
       <CardContent className="grid grid-cols-5 lg:grid-cols-9 items-center px-4 sm:px-6 py-3">
         <div className="hidden lg:flex items-center">
           <span className="text-xs tracking-tighter">

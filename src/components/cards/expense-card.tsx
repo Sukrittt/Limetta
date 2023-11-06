@@ -17,7 +17,7 @@ export const ExpenseCard = ({
   currency: CurrencyType;
 }) => {
   return (
-    <Card className="bg-transparent relative">
+    <Card className="bg-background relative">
       <CardContent className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-7 items-center gap-y-2 px-4 sm:px-6 py-3">
         <div className="hidden lg:flex items-center col-span-2 lg:col-span-1">
           <span className="text-xs tracking-tighter">

@@ -1025,7 +1025,7 @@
   --muted: 12 6.5% 15.1%;
   --muted-foreground: 24 5.4% 63.9%;
 
-  --popover: 20 14.3% 4.1%;
+  --popover: 70 8% 15%;
   --popover-foreground: 60 9.1% 97.8%;
 
   --card: 72 8% 12%; 
@@ -1054,9 +1054,9 @@
 }
 
 .dark .theme-violet {
-  --content: 0 0% 95%;
+  --content: 207 22% 90%;
 
-  --background: 224 71.4% 4.1%;
+  --background: 236 33% 16%;
   --foreground: 210 20% 98%;
 
   --muted: 215 27.9% 16.9%;

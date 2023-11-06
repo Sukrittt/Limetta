@@ -249,7 +249,7 @@ export const themes = [
     },
     cssVars: {
       dark: {
-        background: "224 71.4% 4.1%",
+        background: "236 33% 16%",
         foreground: "210 20% 98%",
         card: "224 71.4% 4.1%",
         "card-foreground": "210 20% 98%",

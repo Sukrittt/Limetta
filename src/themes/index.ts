@@ -67,7 +67,7 @@ export const themes = [
     },
     cssVars: {
       dark: {
-        background: "20 14.3% 4.1%",
+        background: "120 100% 4%",
         foreground: "0 0% 95%",
         popover: "0 0% 9%",
         "popover-foreground": "0 0% 95%",

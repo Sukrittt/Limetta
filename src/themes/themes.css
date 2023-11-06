@@ -871,25 +871,25 @@
 .dark .theme-rose {
   --content: 0 0% 95%;
 
-  --background: 20 14.3% 4.1%;
+  --background: 120 100% 4%;
   --foreground: 0 0% 95%;
 
-  --muted: 0 0% 15%;
+  --muted: 352 80% 10%;
   --muted-foreground: 240 5% 64.9%;
 
-  --popover: 0 0% 9%;
+  --popover: 352 80% 10%;
   --popover-foreground: 0 0% 95%;
 
-  --card: 24 9.8% 10%;
+  --card: 352 78% 15%;
   --card-foreground: 0 0% 95%;
 
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
+  --border: 352 80% 10%;
+  --input: 352 80% 10%;
 
   --primary: 346.8 77.2% 49.8%;
   --primary-foreground: 355.7 100% 97.3%;
 
-  --secondary: 240 3.7% 15.9%;
+  --secondary: 352 80% 10%;
   --secondary-foreground: 0 0% 98%;
 
   --accent: 12 6.5% 15.1%;

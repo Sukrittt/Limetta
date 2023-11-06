@@ -834,28 +834,28 @@
 .dark .theme-red {
   --content: 0 0% 95%;
 
-  --background: 0 0% 3.9%;
+  --background: 353 61% 32%;
   --foreground: 0 0% 98%;
 
-  --muted: 0 0% 14.9%;
+  --muted: 353 61% 27%;
   --muted-foreground: 0 0% 63.9%;
 
-  --popover: 0 0% 3.9%;
+  --popover: 353, 61%, 32%;
   --popover-foreground: 0 0% 98%;
 
-  --card: 0 0% 3.9%;
+  --card: 354 60% 29%;
   --card-foreground: 0 0% 98%;
 
-  --border: 0 0% 14.9%;
-  --input: 0 0% 14.9%;
+  --border: 353 61% 27%;
+  --input: 353 61% 27%;
 
   --primary: 0 72.2% 50.6%;
   --primary-foreground: 0 85.7% 97.3%;
 
-  --secondary: 0 0% 14.9%;
+  --secondary: 353 61% 27%;
   --secondary-foreground: 0 0% 98%;
 
-  --accent: 0 0% 14.9%;
+  --accent: 353 61% 27%;
   --accent-foreground: 0 0% 98%;
 
   --destructive: 0 62.8% 30.6%;

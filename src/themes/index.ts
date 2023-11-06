@@ -37,7 +37,7 @@ export const themes = [
     },
     cssVars: {
       dark: {
-        background: "0 0% 3.9%",
+        background: "353 61% 32%",
         foreground: "0 0% 98%",
         card: "0 0% 3.9%",
         "card-foreground": "0 0% 98%",

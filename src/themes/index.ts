@@ -212,14 +212,14 @@ export const themes = [
     },
   },
   {
-    name: "yellow",
-    label: "Yellow",
+    name: "monokai",
+    label: "Monokai",
     activeColor: {
       dark: "47.9 95.8% 53.1%",
     },
     cssVars: {
       dark: {
-        background: "20 14.3% 4.1%",
+        background: "70 8% 15%",
         foreground: "60 9.1% 97.8%",
         card: "20 14.3% 4.1%",
         "card-foreground": "60 9.1% 97.8%",

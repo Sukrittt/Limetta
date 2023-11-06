@@ -1016,10 +1016,10 @@
   --ring: 224.3 76.3% 48%;
 }
 
-.dark .theme-yellow {
+.dark .theme-monokai {
   --content: 0 0% 95%;
 
-  --background: 20 14.3% 4.1%;
+  --background: 70 8% 15%;
   --foreground: 60 9.1% 97.8%;
 
   --muted: 12 6.5% 15.1%;
@@ -1028,7 +1028,7 @@
   --popover: 20 14.3% 4.1%;
   --popover-foreground: 60 9.1% 97.8%;
 
-  --card: 20 14.3% 4.1%;
+  --card: 72 8% 12%; 
   --card-foreground: 60 9.1% 97.8%;
 
   --border: 12 6.5% 15.1%;

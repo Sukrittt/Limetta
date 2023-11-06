@@ -183,6 +183,7 @@
   --muted: 180 1% 18%;
   --muted-foreground: 8, 8%, 37%;
 
+  --popover: 180 1% 15%;
   --popover-foreground: 8, 7%, 42%; 
 
   --card: 20 14% 4%;
@@ -925,9 +926,10 @@
 
 }
 
-.dark .theme-green {
+.dark .theme-our-theme {
   --content: 0 0% 95%;
 
+  --background: 20 14% 4%;
   --foreground: 0 0% 95%;
 
   --muted: 0 0% 15%;

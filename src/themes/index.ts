@@ -120,8 +120,8 @@ export const themes = [
     },
   },
   {
-    name: "green",
-    label: "Green",
+    name: "our-theme",
+    label: "Our Theme",
     activeColor: {
       dark: "142.1 70.6% 45.3%",
     },

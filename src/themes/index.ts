@@ -440,7 +440,7 @@ export const themes = [
         "card-foreground": "0 0% 95%",
         popover: "300, 100%, 6%",
         "popover-foreground": "0 0% 95%",
-        primary: "270, 100%, 77%",
+        primary: "270 100% 77%",
         "primary-foreground": "0 0% 95%",
         secondary: "300 83% 10%",
         "secondary-foreground": "270, 100%, 77%",

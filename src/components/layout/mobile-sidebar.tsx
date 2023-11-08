@@ -37,7 +37,7 @@ export const MobileSidebar = () => {
         side="right"
         className="flex flex-col gap-y-4 pl-3 w-[250px] md:w-[300px]"
       >
-        <SiteLogo />
+        <SiteLogo className="h-6" />
 
         <div className="space-y-4 tracking-tight pt-2">
           <div className="flex gap-x-2 items-center">

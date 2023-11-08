@@ -1,9 +1,54 @@
-import { cn } from "@/lib/utils";
+"use client";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
-interface SiteLogoProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {}
+import { cn } from "@/lib/utils";
+import { Icons } from "@/components/icons";
+import { useConfig } from "@/hooks/use-config";
+import { themes } from "@/themes";
 
-export const SiteLogo = ({ className, ...props }: SiteLogoProps) => {
+interface SiteLogoProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  icon?: boolean;
+}
+
+export const SiteLogo = ({
+  className,
+  icon = false,
+  ...props
+}: SiteLogoProps) => {
+  const [config] = useConfig();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  const selectedTheme = themes.find((theme) => theme.name === config.theme)!;
+
+  if (!mounted) {
+    return (
+      <Link
+        href="/"
+        className={cn(
+          "text-xl font-bold tracking-tight group hover:text-primary focus:text-primary transition focus:outline-none",
+          className
+        )}
+        {...props}
+      >
+        Limetta
+      </Link>
+    );
+  }
+
+  if (icon) {
+    return (
+      <Icons.siteIcon
+        primaryColor={`hsl(${selectedTheme?.cssVars["dark"]["primary"]})`}
+        secondaryColor="#423f3e"
+        textColor={`hsl(${selectedTheme?.cssVars["dark"]["primary"]})`}
+        className={cn("h-8", className)}
+      />
+    );
+  }
+
   return (
     <Link
       href="/"
@@ -13,7 +58,12 @@ export const SiteLogo = ({ className, ...props }: SiteLogoProps) => {
       )}
       {...props}
     >
-      Limetta
+      <Icons.siteLogo
+        primaryColor={`hsl(${selectedTheme?.cssVars["dark"]["primary"]})`}
+        secondaryColor="#423f3e"
+        textColor={`hsl(${selectedTheme?.cssVars["dark"]["primary"]})`}
+        className={cn("h-8", className)}
+      />
     </Link>
   );
 };

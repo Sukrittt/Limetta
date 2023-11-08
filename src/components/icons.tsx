@@ -256,7 +256,7 @@ export const Icons = {
 };
 
 type ExtendedSiteLogoProps = LucideProps & {
-  textColor: string;
-  primaryColor: string;
-  secondaryColor: string;
+  textColor?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
 };

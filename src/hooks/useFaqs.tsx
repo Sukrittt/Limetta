@@ -21,7 +21,7 @@ export const useFaqs = () => {
       question: "Q: When and where can I see my savings of the current month?",
       answer: (
         <p>
-          On the 1st or 2nd day of the next month, your previous month&rsquo;s
+          On the 1st or 2nd day of the next month, your current month&rsquo;s
           savings will be automatically transferred to your{" "}
           <Link href="/savings" className={linkStyle}>
             savings account

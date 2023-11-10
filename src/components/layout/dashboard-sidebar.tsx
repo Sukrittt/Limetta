@@ -13,7 +13,7 @@ export const DashboardSidebar = () => {
 
   return (
     <div className="hidden xl:flex flex-col gap-y-8 px-5 pb-8 pt-3 xl:pt-6 md:py-8">
-      <SiteLogo />
+      <SiteLogo className="h-6" />
 
       <div className="space-y-4 tracking-tight">
         <div className="flex gap-x-2 items-center">

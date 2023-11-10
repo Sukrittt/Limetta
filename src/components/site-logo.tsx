@@ -7,15 +7,9 @@ import { Icons } from "@/components/icons";
 import { useConfig } from "@/hooks/use-config";
 import { themes } from "@/themes";
 
-interface SiteLogoProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  icon?: boolean;
-}
+interface SiteLogoProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {}
 
-export const SiteLogo = ({
-  className,
-  icon = false,
-  ...props
-}: SiteLogoProps) => {
+export const SiteLogo = ({ className, ...props }: SiteLogoProps) => {
   const [config] = useConfig();
   const [mounted, setMounted] = useState(false);
 
@@ -35,17 +29,6 @@ export const SiteLogo = ({
       >
         Limetta
       </Link>
-    );
-  }
-
-  if (icon) {
-    return (
-      <Icons.siteIcon
-        primaryColor={`hsl(${selectedTheme?.cssVars["dark"]["primary"]})`}
-        secondaryColor="#423f3e"
-        textColor={`hsl(${selectedTheme?.cssVars["dark"]["primary"]})`}
-        className={cn("h-8", className)}
-      />
     );
   }
 

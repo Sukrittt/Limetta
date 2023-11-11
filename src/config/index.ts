@@ -139,6 +139,14 @@ export const features = [
   "Tailwind CSS for styling",
 ];
 
+export const credits = [
+  {
+    name: "Agamjot Kaur Dua",
+    role: "For desiging the logo for Limetta.",
+    social: "https://www.linkedin.com/in/agamjot-kaur-dua-3a694a28b",
+  },
+];
+
 export const team = [
   {
     name: "Sukrit Saha",

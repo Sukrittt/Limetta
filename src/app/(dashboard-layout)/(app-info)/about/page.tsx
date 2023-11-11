@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { features, techStack, team } from "@/config";
+import { features, techStack, team, credits } from "@/config";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
@@ -76,6 +76,25 @@ const About = () => {
               {features.map((feature, index) => (
                 <li key={index} className="list-disc">
                   {feature}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h1 className="text-xl font-semibold tracking-tight">Credits</h1>
+            <Divider className="mt-2 mb-4" />
+            <ul className="space-y-2 mx-5 mt-2">
+              {credits.map((person, index) => (
+                <li key={index} className="list-disc">
+                  <Link
+                    className={linkStyle}
+                    target="_blank"
+                    href={person.social}
+                  >
+                    {person.name}
+                  </Link>{" "}
+                  - {person.role}
                 </li>
               ))}
             </ul>

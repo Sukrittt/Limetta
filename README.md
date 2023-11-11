@@ -1,7 +1,7 @@
-# [Limetta](https://dub.sh/limetta)
+# [Limetta](https://limetta.in)
 Elevate your financial management with Limetta. Our user-friendly Next.js app simplifies expense tracking, offers multiple account management, easy money transfers, and efficient dues tracking. Take charge of your finances and make informed choices, all in one platform.
 
-[![BalanceWise](./public/images/homepage-snapshot.png)](https://dub.sh/limetta)
+[![Limetta](./public/images/homepage-snapshot.png)](https://limetta.in)
 
 ## Tech Stack
 
@@ -27,7 +27,7 @@ Elevate your financial management with Limetta. Our user-friendly Next.js app si
 1. Clone the repository
 
 ```bash
-git clone https://github.com/Sukrittt/balance-wise.git
+https://github.com/Sukrittt/Limetta.git
 ```
 
 2. Install dependencies using pnpm

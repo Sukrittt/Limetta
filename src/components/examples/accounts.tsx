@@ -32,7 +32,7 @@ export const Accounts = () => {
           })}
           key={index}
         >
-          <Card className="w-[300px] bg-[#1c1917] text-white">
+          <Card className="w-[300px] bg-[#1c1917] border-[#27272a] text-white">
             <CardTitle>
               <CardHeader className="py-4 font-normal">
                 <div className="flex items-center justify-between text-muted-foreground">

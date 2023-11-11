@@ -66,7 +66,7 @@ export const Onboarding = () => {
   }, [ratioSelected]);
 
   return (
-    <Card className="bg-[#1c1917] text-white">
+    <Card className="bg-[#1c1917] border-[#27272a] text-white">
       <CardHeader>
         <CardTitle className="text-center">
           Financial Setup: Let&rsquo;s Get Started

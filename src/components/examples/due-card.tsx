@@ -30,7 +30,7 @@ export const DueCard = () => {
   return (
     <div className="flex flex-col gap-y-8 w-full sm:w-[500px]">
       {entries.map((entry, index) => (
-        <Card key={index} className="bg-[#1c1917]">
+        <Card key={index} className="bg-[#1c1917] border-[#27272a]">
           <CardContent className="grid grid-cols-5 px-4 sm:px-6 py-3">
             <span className="col-span-4 break-words">{entry.name}</span>
             <span className="text-center">
@@ -50,7 +50,7 @@ export const DueCard = () => {
               </span>
               <span
                 className={cn(
-                  "cursor-pointer text-primary hover:opacity-90 transition bg-secondary rounded-md py-1 px-2",
+                  "cursor-pointer text-primary hover:opacity-90 transition bg-[#27272a] rounded-md py-1 px-2",
                   {
                     "text-warning-text": entry.dueStatus === "paid",
                   }

@@ -28,7 +28,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     trpc.createClient({
       links: [
         httpBatchLink({
-          url: "https:/limetta.in/api/trpc",
+          url: "https://limetta.in/api/trpc",
         }),
       ],
       transformer: superjson,

@@ -30,7 +30,7 @@ export const Footer = () => {
         </div>
         <div className="flex items-center sm:space-x-1">
           <Link
-            href="https://github.com/Sukrittt/Otaku-Sphere"
+            href="https://github.com/Sukrittt/Limetta"
             target="_blank"
             rel="noreferrer"
             className={buttonVariants({
@@ -44,7 +44,7 @@ export const Footer = () => {
             </div>
           </Link>
           <Link
-            href="https://twitter.com/SphereOtaku"
+            href="https://twitter.com/SukritSaha11"
             target="_blank"
             rel="noreferrer"
             className={buttonVariants({
@@ -55,20 +55,6 @@ export const Footer = () => {
             <div>
               <Icons.twitter className="h-4 w-4" aria-hidden="true" />
               <span className="sr-only">Twitter</span>
-            </div>
-          </Link>
-          <Link
-            href="https://www.instagram.com/otaku.sphere/"
-            target="_blank"
-            rel="noreferrer"
-            className={buttonVariants({
-              size: "icon",
-              variant: "ghost",
-            })}
-          >
-            <div>
-              <Icons.instagram className="h-4 w-4" aria-hidden="true" />
-              <span className="sr-only">Instagram</span>
             </div>
           </Link>
         </div>

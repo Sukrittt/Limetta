@@ -181,7 +181,7 @@ const Overview = async () => {
                   </p>
                 </div>
               ) : (
-                expenseData.map((expense, index) => (
+                expenseData.reverse().map((expense, index) => (
                   <MonthlyExpenseSheet
                     key={index}
                     expenseData={expense}

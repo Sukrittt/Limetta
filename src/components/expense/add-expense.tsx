@@ -14,6 +14,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import { CurrencyType } from "@/types";
 import { toast } from "@/hooks/use-toast";
+import ToolTip from "@/components/ui/tool-tip";
 import { ExcelDataType } from "@/lib/validators";
 import { cn, createDownloadUrl } from "@/lib/utils";
 import { Calculations, ExpenseType } from "@/types";
@@ -80,17 +81,19 @@ export const AddExpense: FC<AddExpenseProps> = ({
 
   return (
     <>
-      <Button
-        onClick={() => downloadEntries()}
-        disabled={isLoading}
-        color="primary"
-        className={cn(
-          buttonVariants({ size: "sm", variant: "secondary" }),
-          "rounded-lg tracking-tighter mr-2"
-        )}
-      >
-        {isLoading ? <Spinner color="default" size="sm" /> : "Export"}
-      </Button>
+      <ToolTip text="Export excel" showArrow disableForMobile={false}>
+        <Button
+          onClick={() => downloadEntries()}
+          disabled={isLoading}
+          color="primary"
+          className={cn(
+            buttonVariants({ size: "sm", variant: "secondary" }),
+            "rounded-lg tracking-tighter mr-2"
+          )}
+        >
+          {isLoading ? <Spinner color="default" size="sm" /> : "Export"}
+        </Button>
+      </ToolTip>
       {disabled ? (
         <Button
           disabled={disabled}

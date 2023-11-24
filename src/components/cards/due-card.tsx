@@ -202,7 +202,9 @@ const DueEntryItem: FC<DueEntryProps> = ({
                 disableForMobile={false}
                 customComponent={
                   <p className="text-xs">
-                    Transferred to{" "}
+                    {entry.dueType === "payable"
+                      ? "Deducted from"
+                      : "Transferred to"}{" "}
                     <Link
                       href={`/${transferAccountHref}`}
                       className="text-primary"

@@ -65,15 +65,25 @@ const Overview = async () => {
     userBooks.length === 0
       ? []
       : userBooks.map((obj) => {
-          const totalWantEntries = obj.wants.reduce((acc) => acc + 1, 0);
-          const totalNeedEntries = obj.needs.reduce((acc) => acc + 1, 0);
+          const totalWantEntries = obj.wants.length;
+          const totalNeedEntries = obj.needs.length;
 
-          totalEntries = totalWantEntries + totalNeedEntries;
+          totalEntries += totalWantEntries + totalNeedEntries;
 
-          totalWants = obj.wants.reduce((acc, need) => acc + need.amount, 0);
-          totalNeeds = obj.needs.reduce((acc, want) => acc + want.amount, 0);
+          const eachMonthTotalWants = obj.wants.reduce(
+            (acc, want) => acc + want.amount,
+            0
+          );
 
-          const totalExpenses = totalWants + totalNeeds;
+          const eachMonthTotalNeeds = obj.needs.reduce(
+            (acc, need) => acc + need.amount,
+            0
+          );
+
+          totalWants += eachMonthTotalWants;
+          totalNeeds += eachMonthTotalNeeds;
+
+          const totalExpenses = eachMonthTotalWants + eachMonthTotalNeeds;
 
           const month = format(obj.books[0].createdAt, "MMMM yyyy");
 

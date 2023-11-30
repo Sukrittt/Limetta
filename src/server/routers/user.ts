@@ -30,31 +30,34 @@ export const userRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      await db
-        .update(books)
-        .set({
-          monthIncome: input.monthlyIncome,
-          needsPercentage: input.needsPercentage,
-          wantsPercentage: input.wantsPercentage,
-          investmentsPercentage: input.investmentsPercentage,
-        })
-        .where(
-          and(
-            eq(books.userId, ctx.userId),
-            sql`MONTH(books.createdAt) = MONTH(NOW())`,
-            sql`YEAR(books.createdAt) = YEAR(NOW())`
-          )
-        );
+      const promises = [
+        db
+          .update(books)
+          .set({
+            monthIncome: input.monthlyIncome,
+            needsPercentage: input.needsPercentage,
+            wantsPercentage: input.wantsPercentage,
+            investmentsPercentage: input.investmentsPercentage,
+          })
+          .where(
+            and(
+              eq(books.userId, ctx.userId),
+              sql`MONTH(books.createdAt) = MONTH(NOW())`,
+              sql`YEAR(books.createdAt) = YEAR(NOW())`
+            )
+          ),
+        db
+          .update(users)
+          .set({
+            monthlyIncome: input.monthlyIncome,
+            needsPercentage: input.needsPercentage,
+            wantsPercentage: input.wantsPercentage,
+            investmentsPercentage: input.investmentsPercentage,
+            currency: input.currency,
+          })
+          .where(eq(users.id, ctx.userId)),
+      ];
 
-      await db
-        .update(users)
-        .set({
-          monthlyIncome: input.monthlyIncome,
-          needsPercentage: input.needsPercentage,
-          wantsPercentage: input.wantsPercentage,
-          investmentsPercentage: input.investmentsPercentage,
-          currency: input.currency,
-        })
-        .where(eq(users.id, ctx.userId));
+      await Promise.all(promises);
     }),
 });

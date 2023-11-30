@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Icons } from "@/components/icons";
 import { Card as NextUICard, CardBody as NextUIBody } from "@nextui-org/card";
 
 export const IncomeCardSkeleton = ({
@@ -68,12 +67,6 @@ export const IncomeCardSkeleton = ({
             </div>
           </NextUIBody>
         </NextUICard>
-        {!onBoarding && (
-          <div className="flex items-center gap-x-1 mt-4 justify-end w-full text-xs text-muted-foreground">
-            <Icons.info className="h-3 w-3" />
-            <p>Expense tracker changes will take effect starting next month.</p>
-          </div>
-        )}
 
         <Skeleton className="h-8 w-full mt-4" />
       </CardFooter>

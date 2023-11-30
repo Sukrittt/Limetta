@@ -1,8 +1,6 @@
 # [Limetta](https://limetta.in)
 Elevate your financial management with Limetta. Our user-friendly Next.js app simplifies expense tracking, offers multiple account management, easy money transfers, and efficient dues tracking. Take charge of your finances and make informed choices, all in one platform.
 
-[![Limetta](./public/images/homepage-snapshot.png)](https://limetta.in)
-
 ## Tech Stack
 
 - **Framework:** [Next.js](https://nextjs.org)

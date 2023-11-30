@@ -74,6 +74,8 @@ export const getTimeLeftInMonth = () => {
       return `${minutesLeft} minutes left`;
     }
     return `${hoursLeft} hours left`;
+  }else if(daysLeft === 1){
+     return `${daysLeft} day left`;
   }
 
   return `${daysLeft} days left`;

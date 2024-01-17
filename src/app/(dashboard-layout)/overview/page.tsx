@@ -114,7 +114,7 @@ const Overview = async () => {
     },
     {
       label: "Total Entries",
-      data: `${currentUser.currency}${totalEntries.toLocaleString()}`,
+      data: `${totalEntries.toLocaleString()}`,
       icon: Icons.entries,
     },
   ];

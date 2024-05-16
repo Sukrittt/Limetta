@@ -42,9 +42,12 @@ export const DuePaid = ({
       router.refresh();
       queryClient.resetQueries(["dues-entries"]);
 
+      const updatedDueStatus =
+        entryDetails.dueStatus === "paid" ? "pending" : "paid";
+
       toast({
-        title: `Entry marked as ${entryDetails.dueStatus}.`,
-        description: `Your entry has been marked as ${entryDetails.dueStatus}.`,
+        title: `Entry marked as ${updatedDueStatus}.`,
+        description: `Your entry has been marked as ${updatedDueStatus}.`,
       });
       onClose();
     },

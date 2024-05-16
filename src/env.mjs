@@ -8,9 +8,6 @@ export const env = createEnv({
    */
   server: {
     DATABASE_URL: z.string(),
-    DATABASE_HOST: z.string(),
-    DATABASE_USERNAME: z.string(),
-    DATABASE_PASSWORD: z.string(),
     NODE_ENV: z.enum(["development", "test", "production"]),
     NEXTAUTH_SECRET: z.string(),
     GOOGLE_CLIENT_ID: z.string(),
@@ -36,9 +33,6 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
     DATABASE_URL: process.env.DATABASE_URL,
-    DATABASE_HOST: process.env.DATABASE_HOST,
-    DATABASE_USERNAME: process.env.DATABASE_USERNAME,
-    DATABASE_PASSWORD: process.env.DATABASE_PASSWORD,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,

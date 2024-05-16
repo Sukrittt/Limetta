@@ -99,7 +99,7 @@ export const DueEditForm = ({
 
     const maxLimitForSavingAccount = getMaxSpendLimitForSavingAmount(
       savingBalance,
-      entry.amount,
+      parseFloat(entry.amount),
       entry.dueType
     );
 

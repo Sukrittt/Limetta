@@ -72,16 +72,17 @@ export const DueEditRouter = createTRPCRouter({
                   db
                     .update(users)
                     .set({
-                      miscellanousBalance:
-                        currentUser.miscellanousBalance +
-                        existingMiscEntry[0].amount -
-                        input.amount,
+                      miscellanousBalance: (
+                        parseFloat(currentUser.miscellanousBalance) +
+                        parseFloat(existingMiscEntry[0].amount) -
+                        input.amount
+                      ).toString(),
                     })
                     .where(eq(users.id, ctx.userId)),
                   db
                     .update(miscellaneous)
                     .set({
-                      amount: input.amount,
+                      amount: input.amount.toString(),
                       entryName: input.description,
                     })
                     .where(
@@ -103,8 +104,8 @@ export const DueEditRouter = createTRPCRouter({
               if (existingSavingsEntry.length > 0) {
                 const maxLimitForSavingAccount =
                   getMaxSpendLimitForSavingAmount(
-                    currentUser.savingsBalance,
-                    existingSavingsEntry[0].amount,
+                    parseFloat(currentUser.savingsBalance),
+                    parseFloat(existingSavingsEntry[0].amount),
                     existingDueEntryData.dueType
                   );
 
@@ -119,16 +120,17 @@ export const DueEditRouter = createTRPCRouter({
                   db
                     .update(users)
                     .set({
-                      savingsBalance:
-                        currentUser.savingsBalance +
-                        existingSavingsEntry[0].amount -
-                        input.amount,
+                      savingsBalance: (
+                        parseFloat(currentUser.savingsBalance) +
+                        parseFloat(existingSavingsEntry[0].amount) -
+                        input.amount
+                      ).toString(),
                     })
                     .where(eq(users.id, ctx.userId)),
                   db
                     .update(savings)
                     .set({
-                      amount: input.amount,
+                      amount: input.amount.toString(),
                       entryName: input.description,
                     })
                     .where(
@@ -154,7 +156,7 @@ export const DueEditRouter = createTRPCRouter({
                   await db
                     .update(needs)
                     .set({
-                      amount: input.amount,
+                      amount: input.amount.toString(),
                       description: input.description,
                       createdAt: existingNeedEntry[0].createdAt,
                     })
@@ -176,7 +178,7 @@ export const DueEditRouter = createTRPCRouter({
                   await db
                     .update(wants)
                     .set({
-                      amount: input.amount,
+                      amount: input.amount.toString(),
                       description: input.description,
                       createdAt: existingWantEntry[0].createdAt,
                     })
@@ -195,8 +197,8 @@ export const DueEditRouter = createTRPCRouter({
                   .where(
                     and(
                       eq(books.userId, ctx.userId),
-                      sql`MONTH(books.createdAt) = MONTH(${paymentDate})`,
-                      sql`YEAR(books.createdAt) = YEAR(${paymentDate})`
+                      sql`EXTRACT(MONTH FROM books."createdAt") = EXTRACT(MONTH FROM ${paymentDate})`,
+                      sql`EXTRACT(YEAR FROM books."createdAt") = EXTRACT(YEAR FROM ${paymentDate})`
                     )
                   );
 
@@ -210,10 +212,11 @@ export const DueEditRouter = createTRPCRouter({
                 await db
                   .update(books)
                   .set({
-                    totalSpendings:
-                      currentMonthBooks[0].totalSpendings -
-                      existingDueEntryData.amount +
-                      input.amount,
+                    totalSpendings: (
+                      parseFloat(currentMonthBooks[0].totalSpendings) -
+                      parseFloat(existingDueEntryData.amount) +
+                      input.amount
+                    ).toString(),
                   })
                   .where(eq(books.id, currentMonthBooks[0].id));
               }
@@ -233,16 +236,17 @@ export const DueEditRouter = createTRPCRouter({
                   db
                     .update(users)
                     .set({
-                      miscellanousBalance:
-                        currentUser.miscellanousBalance -
-                        existingMiscEntry[0].amount +
-                        input.amount,
+                      miscellanousBalance: (
+                        parseFloat(currentUser.miscellanousBalance) -
+                        parseFloat(existingMiscEntry[0].amount) +
+                        input.amount
+                      ).toString(),
                     })
                     .where(eq(users.id, ctx.userId)),
                   db
                     .update(miscellaneous)
                     .set({
-                      amount: input.amount,
+                      amount: input.amount.toString(),
                       entryName: input.description,
                     })
                     .where(
@@ -266,16 +270,17 @@ export const DueEditRouter = createTRPCRouter({
                   db
                     .update(users)
                     .set({
-                      savingsBalance:
-                        currentUser.savingsBalance -
-                        existingSavingsEntry[0].amount +
-                        input.amount,
+                      savingsBalance: (
+                        parseFloat(currentUser.savingsBalance) -
+                        parseFloat(existingSavingsEntry[0].amount) +
+                        input.amount
+                      ).toString(),
                     })
                     .where(eq(users.id, ctx.userId)),
                   db
                     .update(savings)
                     .set({
-                      amount: input.amount,
+                      amount: input.amount.toString(),
                       entryName: input.description,
                     })
                     .where(
@@ -304,16 +309,17 @@ export const DueEditRouter = createTRPCRouter({
                   db
                     .update(users)
                     .set({
-                      miscellanousBalance:
-                        currentUser.miscellanousBalance -
-                        existingMiscEntry[0].amount -
-                        input.amount,
+                      miscellanousBalance: (
+                        parseFloat(currentUser.miscellanousBalance) -
+                        parseFloat(existingMiscEntry[0].amount) -
+                        input.amount
+                      ).toString(),
                     })
                     .where(eq(users.id, ctx.userId)),
                   db
                     .update(miscellaneous)
                     .set({
-                      amount: input.amount,
+                      amount: input.amount.toString(),
                       entryName: input.description,
                       dueType: "payable",
                       entryType: "out",
@@ -337,8 +343,8 @@ export const DueEditRouter = createTRPCRouter({
               if (existingSavingsEntry.length > 0) {
                 const maxLimitForSavingAccount =
                   getMaxSpendLimitForSavingAmount(
-                    currentUser.savingsBalance,
-                    existingSavingsEntry[0].amount,
+                    parseFloat(currentUser.savingsBalance),
+                    parseFloat(existingSavingsEntry[0].amount),
                     existingDueEntryData.dueType
                   );
 
@@ -353,16 +359,17 @@ export const DueEditRouter = createTRPCRouter({
                   db
                     .update(users)
                     .set({
-                      savingsBalance:
-                        currentUser.savingsBalance -
-                        existingSavingsEntry[0].amount -
-                        input.amount,
+                      savingsBalance: (
+                        parseFloat(currentUser.savingsBalance) -
+                        parseFloat(existingSavingsEntry[0].amount) -
+                        input.amount
+                      ).toString(),
                     })
                     .where(eq(users.id, ctx.userId)),
                   db
                     .update(savings)
                     .set({
-                      amount: input.amount,
+                      amount: input.amount.toString(),
                       entryName: input.description,
                       dueType: "payable",
                       entryType: "out",
@@ -396,16 +403,17 @@ export const DueEditRouter = createTRPCRouter({
                   db
                     .update(users)
                     .set({
-                      miscellanousBalance:
-                        currentUser.miscellanousBalance +
-                        existingMiscEntry[0].amount +
-                        input.amount,
+                      miscellanousBalance: (
+                        parseFloat(currentUser.miscellanousBalance) +
+                        parseFloat(existingMiscEntry[0].amount) +
+                        input.amount
+                      ).toString(),
                     })
                     .where(eq(users.id, ctx.userId)),
                   db
                     .update(miscellaneous)
                     .set({
-                      amount: input.amount,
+                      amount: input.amount.toString(),
                       entryName: input.description,
                       dueType: "receivable",
                       entryType: "in",
@@ -431,16 +439,17 @@ export const DueEditRouter = createTRPCRouter({
                   db
                     .update(users)
                     .set({
-                      savingsBalance:
-                        currentUser.savingsBalance +
-                        existingSavingsEntry[0].amount +
-                        input.amount,
+                      savingsBalance: (
+                        parseFloat(currentUser.savingsBalance) +
+                        parseFloat(existingSavingsEntry[0].amount) +
+                        input.amount
+                      ).toString(),
                     })
                     .where(eq(users.id, ctx.userId)),
                   db
                     .update(savings)
                     .set({
-                      amount: input.amount,
+                      amount: input.amount.toString(),
                       entryName: input.description,
                       dueType: "receivable",
                       entryType: "in",
@@ -467,18 +476,26 @@ export const DueEditRouter = createTRPCRouter({
             await db
               .update(users)
               .set({
-                duePayable: currentUser.duePayable + input.amount,
-                dueReceivable:
-                  currentUser.dueReceivable - existingDueEntryData.amount,
+                duePayable: (
+                  parseFloat(currentUser.duePayable) + input.amount
+                ).toString(),
+                dueReceivable: (
+                  parseFloat(currentUser.dueReceivable) -
+                  parseFloat(existingDueEntryData.amount)
+                ).toString(),
               })
               .where(eq(users.id, ctx.userId));
           } else {
             await db
               .update(users)
               .set({
-                duePayable:
-                  currentUser.duePayable - existingDueEntryData.amount,
-                dueReceivable: currentUser.dueReceivable + input.amount,
+                duePayable: (
+                  parseFloat(currentUser.duePayable) -
+                  parseFloat(existingDueEntryData.amount)
+                ).toString(),
+                dueReceivable: (
+                  parseFloat(currentUser.dueReceivable) + input.amount
+                ).toString(),
               })
               .where(eq(users.id, ctx.userId));
           }
@@ -487,20 +504,22 @@ export const DueEditRouter = createTRPCRouter({
             await db
               .update(users)
               .set({
-                duePayable:
-                  currentUser.duePayable -
-                  existingDueEntryData.amount +
-                  input.amount,
+                duePayable: (
+                  parseFloat(currentUser.duePayable) -
+                  parseFloat(existingDueEntryData.amount) +
+                  input.amount
+                ).toString(),
               })
               .where(eq(users.id, ctx.userId));
           } else {
             await db
               .update(users)
               .set({
-                dueReceivable:
-                  currentUser.dueReceivable -
-                  existingDueEntryData.amount +
-                  input.amount,
+                dueReceivable: (
+                  parseFloat(currentUser.dueReceivable) -
+                  parseFloat(existingDueEntryData.amount) +
+                  input.amount
+                ).toString(),
               })
               .where(eq(users.id, ctx.userId));
           }
@@ -510,7 +529,7 @@ export const DueEditRouter = createTRPCRouter({
       await db
         .update(dues)
         .set({
-          amount: input.amount,
+          amount: input.amount.toString(),
           entryName: input.description,
           dueDate: input.dueDate,
           dueType: input.dueType,

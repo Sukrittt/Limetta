@@ -122,8 +122,8 @@ export const techStack = [
     url: "https://orm.drizzle.team/",
   },
   {
-    name: "PlanetScale",
-    url: "https://planetscale.com/",
+    name: "Supabase",
+    url: "https://supabase.com",
   },
   {
     name: "NextAuth",
@@ -134,7 +134,7 @@ export const techStack = [
 export const features = [
   "Authentication with NextAuth",
   "Type-safe API with tRPC",
-  "Database with PlanetScale",
+  "Database with Supabase",
   "ORM with Drizzle",
   "Tailwind CSS for styling",
 ];

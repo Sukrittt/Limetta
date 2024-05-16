@@ -38,7 +38,7 @@ export const investmentRouter = createTRPCRouter({
       if (input.tradeBooking) {
         await db.insert(investments).values({
           userId: ctx.userId,
-          amount: input.investedAmount,
+          amount: input.investedAmount.toString(),
           entryName: input.description,
           entryType: input.entryType,
           createdAt: input.entryDate,
@@ -58,15 +58,16 @@ export const investmentRouter = createTRPCRouter({
           await db
             .update(users)
             .set({
-              investmentsBalance:
-                currentUser.investmentsBalance +
+              investmentsBalance: (
+                parseFloat(currentUser.investmentsBalance) +
                 input.investedAmount -
-                input.amount,
+                input.amount
+              ).toString(),
             })
             .where(eq(users.id, ctx.userId));
         }
       } else {
-        if (input.amount > currentUser.investmentsBalance) {
+        if (input.amount > parseFloat(currentUser.investmentsBalance)) {
           throw new TRPCError({
             code: "UNPROCESSABLE_CONTENT",
             message: "Amount is greater than balance",
@@ -76,7 +77,9 @@ export const investmentRouter = createTRPCRouter({
         await db
           .update(users)
           .set({
-            investmentsBalance: currentUser.investmentsBalance - input.amount,
+            investmentsBalance: (
+              parseFloat(currentUser.investmentsBalance) - input.amount
+            ).toString(),
             totalInvested: currentUser.totalInvested + input.amount,
           })
           .where(eq(users.id, ctx.userId));
@@ -84,7 +87,7 @@ export const investmentRouter = createTRPCRouter({
 
       await db.insert(investments).values({
         userId: ctx.userId,
-        amount: input.amount,
+        amount: input.amount.toString(),
         entryName: input.description,
         entryType: input.entryType,
         tradeBooks: input.tradeBooking,
@@ -122,33 +125,35 @@ export const investmentRouter = createTRPCRouter({
 
       if (input.tradeBooking) {
         updatedBalance = getUpdatedBalance(
-          currentUser.investmentsBalance,
-          investmentEntry.amount,
+          parseFloat(currentUser.investmentsBalance),
+          parseFloat(investmentEntry.amount),
           input.amount,
           input.entryType,
           investmentEntry.entryType
         );
       } else {
         updatedBalance =
-          currentUser.investmentsBalance +
-          investmentEntry.amount -
+          parseFloat(currentUser.investmentsBalance) +
+          parseFloat(investmentEntry.amount) -
           input.amount;
         updatedTotalInvestedBalance =
-          currentUser.totalInvested - investmentEntry.amount + input.amount;
+          parseFloat(currentUser.totalInvested) -
+          parseFloat(investmentEntry.amount) +
+          input.amount;
       }
 
       const promises = [
         db
           .update(users)
           .set({
-            investmentsBalance: updatedBalance,
-            totalInvested: updatedTotalInvestedBalance,
+            investmentsBalance: updatedBalance.toString(),
+            totalInvested: updatedTotalInvestedBalance?.toString(),
           })
           .where(eq(users.id, ctx.userId)),
         db
           .update(investments)
           .set({
-            amount: input.amount,
+            amount: input.amount.toString(),
             entryName: input.description,
             entryType: input.entryType,
             createdAt: input.entryDate,
@@ -187,14 +192,17 @@ export const investmentRouter = createTRPCRouter({
 
       if (input.entryType === "in") {
         updatedBalance =
-          currentUser.investmentsBalance - existingInvestmentEntry[0].amount;
+          parseFloat(currentUser.investmentsBalance) -
+          parseFloat(existingInvestmentEntry[0].amount);
       } else {
         updatedBalance =
-          currentUser.investmentsBalance + existingInvestmentEntry[0].amount;
+          parseFloat(currentUser.investmentsBalance) +
+          parseFloat(existingInvestmentEntry[0].amount);
 
         if (!input.tradeBooking) {
           updatedTotalInvestedBalance =
-            currentUser.totalInvested - existingInvestmentEntry[0].amount;
+            parseFloat(currentUser.totalInvested) -
+            parseFloat(existingInvestmentEntry[0].amount);
         }
       }
 
@@ -202,8 +210,8 @@ export const investmentRouter = createTRPCRouter({
         db
           .update(users)
           .set({
-            investmentsBalance: updatedBalance,
-            totalInvested: updatedTotalInvestedBalance,
+            investmentsBalance: updatedBalance.toString(),
+            totalInvested: updatedTotalInvestedBalance?.toString(),
           })
           .where(eq(users.id, ctx.userId)),
         db.delete(investments).where(eq(investments.id, input.investId)),

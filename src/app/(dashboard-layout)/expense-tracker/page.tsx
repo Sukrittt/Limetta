@@ -37,10 +37,12 @@ const Dashboard = async () => {
   const expenses = [
     ...currentMonthEntries.needs.map((item) => ({
       ...item,
+      amount: parseFloat(item.amount),
       type: "need" as const,
     })),
     ...currentMonthEntries.wants.map((item) => ({
       ...item,
+      amount: parseFloat(item.amount),
       type: "want" as const,
     })),
   ];
@@ -50,29 +52,29 @@ const Dashboard = async () => {
   const currentMonth = currentDate.toLocaleString("en-US", { month: "long" });
 
   const needsTotal = currentMonthEntries.needs.reduce(
-    (acc, item) => acc + item.amount,
+    (acc, item) => acc + parseFloat(item.amount),
     0
   );
   const wantsTotal = currentMonthEntries.wants.reduce(
-    (acc, item) => acc + item.amount,
+    (acc, item) => acc + parseFloat(item.amount),
     0
   );
 
   const currentMonthIncome =
     currentMonthEntries.books.length > 0
-      ? currentMonthEntries.books[0].monthIncome
+      ? parseFloat(currentMonthEntries.books[0].monthIncome)
       : 0;
   const currentMonthNeedPercetange =
     currentMonthEntries.books.length > 0
-      ? currentMonthEntries.books[0].needsPercentage
+      ? parseFloat(currentMonthEntries.books[0].needsPercentage)
       : 0;
   const currentMonthWantPercetange =
     currentMonthEntries.books.length > 0
-      ? currentMonthEntries.books[0].wantsPercentage
+      ? parseFloat(currentMonthEntries.books[0].wantsPercentage)
       : 0;
   const currentMonthInvestmentPercetange =
     currentMonthEntries.books.length > 0
-      ? currentMonthEntries.books[0].investmentsPercentage
+      ? parseFloat(currentMonthEntries.books[0].investmentsPercentage)
       : 0;
 
   const needShare = currentMonthIncome * (currentMonthNeedPercetange / 100);
@@ -205,11 +207,9 @@ const Dashboard = async () => {
 
                         <div className="flex items-center">
                           <span>
-                            {`${
-                              currentUser.currency
-                            }${currentMonthEntries.books[0].totalSpendings.toFixed(
-                              2
-                            )}`}
+                            {`${currentUser.currency}${parseFloat(
+                              currentMonthEntries.books[0].totalSpendings
+                            ).toFixed(2)}`}
                           </span>
                         </div>
                       </div>

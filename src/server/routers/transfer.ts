@@ -29,7 +29,7 @@ export const TransferRouter = createTRPCRouter({
           });
         }
 
-        if (input.amount > currentUser.investmentsBalance) {
+        if (input.amount > parseFloat(currentUser.investmentsBalance)) {
           throw new TRPCError({
             code: "BAD_REQUEST",
             message: "Insufficient funds",
@@ -38,7 +38,7 @@ export const TransferRouter = createTRPCRouter({
 
         const promises = [
           db.insert(investments).values({
-            amount: input.amount,
+            amount: input.amount.toString(),
             entryType: "out",
             transferingTo: input.to,
             userId: ctx.userId,
@@ -47,7 +47,9 @@ export const TransferRouter = createTRPCRouter({
           db
             .update(users)
             .set({
-              investmentsBalance: currentUser.investmentsBalance - input.amount,
+              investmentsBalance: (
+                parseFloat(currentUser.investmentsBalance) - input.amount
+              ).toString(),
             })
             .where(eq(users.id, ctx.userId)),
         ];
@@ -61,7 +63,7 @@ export const TransferRouter = createTRPCRouter({
           });
         }
 
-        if (input.amount > currentUser.savingsBalance) {
+        if (input.amount > parseFloat(currentUser.savingsBalance)) {
           throw new TRPCError({
             code: "BAD_REQUEST",
             message: "Insufficient funds",
@@ -70,7 +72,7 @@ export const TransferRouter = createTRPCRouter({
 
         const promises = [
           db.insert(savings).values({
-            amount: input.amount,
+            amount: input.amount.toString(),
             entryType: "out",
             transferingTo: input.to,
             userId: ctx.userId,
@@ -79,7 +81,9 @@ export const TransferRouter = createTRPCRouter({
           db
             .update(users)
             .set({
-              savingsBalance: currentUser.savingsBalance - input.amount,
+              savingsBalance: (
+                parseFloat(currentUser.savingsBalance) - input.amount
+              ).toString(),
             })
             .where(eq(users.id, ctx.userId)),
         ];
@@ -93,7 +97,7 @@ export const TransferRouter = createTRPCRouter({
           });
         }
 
-        if (input.amount > currentUser.miscellanousBalance) {
+        if (input.amount > parseFloat(currentUser.miscellanousBalance)) {
           throw new TRPCError({
             code: "BAD_REQUEST",
             message: "Insufficient funds",
@@ -102,7 +106,7 @@ export const TransferRouter = createTRPCRouter({
 
         const promises = [
           db.insert(miscellaneous).values({
-            amount: input.amount,
+            amount: input.amount.toString(),
             entryType: "out",
             transferingTo: input.to,
             userId: ctx.userId,
@@ -111,8 +115,9 @@ export const TransferRouter = createTRPCRouter({
           db
             .update(users)
             .set({
-              miscellanousBalance:
-                currentUser.miscellanousBalance - input.amount,
+              miscellanousBalance: (
+                parseFloat(currentUser.miscellanousBalance) - input.amount
+              ).toString(),
             })
             .where(eq(users.id, ctx.userId)),
         ];
@@ -131,7 +136,7 @@ export const TransferRouter = createTRPCRouter({
 
         const promises = [
           db.insert(investments).values({
-            amount: input.amount,
+            amount: input.amount.toString(),
             entryType: "in",
             transferingFrom: input.from,
             userId: ctx.userId,
@@ -140,7 +145,9 @@ export const TransferRouter = createTRPCRouter({
           db
             .update(users)
             .set({
-              investmentsBalance: currentUser.investmentsBalance + input.amount,
+              investmentsBalance: (
+                parseFloat(currentUser.investmentsBalance) + input.amount
+              ).toString(),
             })
             .where(eq(users.id, ctx.userId)),
         ];
@@ -156,7 +163,7 @@ export const TransferRouter = createTRPCRouter({
 
         const promises = [
           db.insert(savings).values({
-            amount: input.amount,
+            amount: input.amount.toString(),
             entryType: "in",
             transferingFrom: input.from,
             userId: ctx.userId,
@@ -165,7 +172,9 @@ export const TransferRouter = createTRPCRouter({
           db
             .update(users)
             .set({
-              savingsBalance: currentUser.savingsBalance + input.amount,
+              savingsBalance: (
+                parseFloat(currentUser.savingsBalance) + input.amount
+              ).toString(),
             })
             .where(eq(users.id, ctx.userId)),
         ];
@@ -181,7 +190,7 @@ export const TransferRouter = createTRPCRouter({
 
         const promises = [
           db.insert(miscellaneous).values({
-            amount: input.amount,
+            amount: input.amount.toString(),
             entryType: "in",
             transferingFrom: input.from,
             userId: ctx.userId,
@@ -190,8 +199,9 @@ export const TransferRouter = createTRPCRouter({
           db
             .update(users)
             .set({
-              miscellanousBalance:
-                currentUser.miscellanousBalance + input.amount,
+              miscellanousBalance: (
+                parseFloat(currentUser.miscellanousBalance) + input.amount
+              ).toString(),
             })
             .where(eq(users.id, ctx.userId)),
         ];

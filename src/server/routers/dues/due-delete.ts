@@ -55,18 +55,22 @@ export const DueDeleteRouter = createTRPCRouter({
         if (existingDueEntryData.dueType === "payable") {
           if (existingDueEntryData.transferAccountType === "miscellaneous") {
             updatedMiscBalance =
-              currentUser.miscellanousBalance + existingDueEntryData.amount;
+              parseFloat(currentUser.miscellanousBalance) +
+              parseFloat(existingDueEntryData.amount);
           } else if (existingDueEntryData.transferAccountType === "savings") {
             updatedSavingsBalance =
-              currentUser.savingsBalance + existingDueEntryData.amount;
+              parseFloat(currentUser.savingsBalance) +
+              parseFloat(existingDueEntryData.amount);
           }
         } else {
           if (existingDueEntryData.transferAccountType === "miscellaneous") {
             updatedMiscBalance =
-              currentUser.miscellanousBalance - existingDueEntryData.amount;
+              parseFloat(currentUser.miscellanousBalance) -
+              parseFloat(existingDueEntryData.amount);
           } else if (existingDueEntryData.transferAccountType === "savings") {
             updatedSavingsBalance =
-              currentUser.savingsBalance - existingDueEntryData.amount;
+              parseFloat(currentUser.savingsBalance) -
+              parseFloat(existingDueEntryData.amount);
           }
         }
 
@@ -83,7 +87,7 @@ export const DueDeleteRouter = createTRPCRouter({
               db
                 .update(users)
                 .set({
-                  miscellanousBalance: updatedMiscBalance,
+                  miscellanousBalance: updatedMiscBalance?.toString(),
                 })
                 .where(eq(users.id, ctx.userId)),
               db
@@ -106,7 +110,7 @@ export const DueDeleteRouter = createTRPCRouter({
               db
                 .update(users)
                 .set({
-                  savingsBalance: updatedSavingsBalance,
+                  savingsBalance: updatedSavingsBalance?.toString(),
                 })
                 .where(eq(users.id, ctx.userId)),
 
@@ -161,8 +165,8 @@ export const DueDeleteRouter = createTRPCRouter({
               .where(
                 and(
                   eq(books.userId, ctx.userId),
-                  sql`MONTH(books.createdAt) = MONTH(${paymentDate})`,
-                  sql`YEAR(books.createdAt) = YEAR(${paymentDate})`
+                  sql`EXTRACT(MONTH FROM books."createdAt") = EXTRACT(MONTH FROM ${paymentDate})`,
+                  sql`EXTRACT(YEAR FROM books."createdAt") = EXTRACT(YEAR FROM ${paymentDate})`
                 )
               );
 
@@ -176,9 +180,10 @@ export const DueDeleteRouter = createTRPCRouter({
             await db
               .update(books)
               .set({
-                totalSpendings:
-                  currentMonthBooks[0].totalSpendings -
-                  existingDueEntryData.amount,
+                totalSpendings: (
+                  parseFloat(currentMonthBooks[0].totalSpendings) -
+                  parseFloat(existingDueEntryData.amount)
+                ).toString(),
               })
               .where(eq(books.id, currentMonthBooks[0].id));
           }
@@ -188,15 +193,20 @@ export const DueDeleteRouter = createTRPCRouter({
           await db
             .update(users)
             .set({
-              duePayable: currentUser.duePayable - existingDueEntryData.amount,
+              duePayable: (
+                parseFloat(currentUser.duePayable) -
+                parseFloat(existingDueEntryData.amount)
+              ).toString(),
             })
             .where(eq(users.id, ctx.userId));
         } else {
           await db
             .update(users)
             .set({
-              dueReceivable:
-                currentUser.dueReceivable - existingDueEntryData.amount,
+              dueReceivable: (
+                parseFloat(currentUser.dueReceivable) -
+                parseFloat(existingDueEntryData.amount)
+              ).toString(),
             })
             .where(eq(users.id, ctx.userId));
         }

@@ -51,20 +51,20 @@ const Savings = async () => {
             showTooltip
             currency={currentUser.currency as CurrencyType}
             initialSelected="savings"
-            savingsBalance={currentUser.savingsBalance}
-            investmentsBalance={currentUser.investmentsBalance}
-            miscellaneousBalance={currentUser.miscellanousBalance}
+            savingsBalance={parseFloat(currentUser.savingsBalance)}
+            investmentsBalance={parseFloat(currentUser.investmentsBalance)}
+            miscellaneousBalance={parseFloat(currentUser.miscellanousBalance)}
           />
         </div>
         <div className="flex flex-col items-center gap-y-1 sm:gap-y-2 pt-6 md:pt-0">
           <span
             className={cn("text-2xl md:text-4xl", {
-              "text-danger-text": currentUser.savingsBalance < 0,
+              "text-danger-text": parseFloat(currentUser.savingsBalance) < 0,
             })}
           >
-            <span>{currentUser.savingsBalance < 0 ? "-" : ""}</span>
+            <span>{parseFloat(currentUser.savingsBalance) < 0 ? "-" : ""}</span>
             <span>{currentUser.currency}</span>
-            {Math.abs(currentUser.savingsBalance).toLocaleString()}
+            {Math.abs(parseFloat(currentUser.savingsBalance)).toLocaleString()}
           </span>
           <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
             Savings Balance

@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "b6b2405f-90e1-49de-9c3f-e0210d44882b",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "60b25c18-a045-4110-9ace-e848e6f7216b",
+  "prevId": "b6b2405f-90e1-49de-9c3f-e0210d44882b",
   "tables": {
     "account": {
       "name": "account",
@@ -119,7 +119,7 @@
         },
         "createdAt": {
           "name": "createdAt",
-          "type": "timestamp",
+          "type": "date",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
@@ -191,7 +191,7 @@
         },
         "dueDate": {
           "name": "dueDate",
-          "type": "timestamp",
+          "type": "date",
           "primaryKey": false,
           "notNull": true
         },
@@ -209,7 +209,7 @@
         },
         "createdAt": {
           "name": "createdAt",
-          "type": "timestamp",
+          "type": "date",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
@@ -275,7 +275,7 @@
         },
         "createdAt": {
           "name": "createdAt",
-          "type": "timestamp",
+          "type": "date",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
@@ -340,7 +340,7 @@
         },
         "createdAt": {
           "name": "createdAt",
-          "type": "timestamp",
+          "type": "date",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
@@ -393,7 +393,7 @@
         },
         "createdAt": {
           "name": "createdAt",
-          "type": "timestamp",
+          "type": "date",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
@@ -428,7 +428,7 @@
         },
         "createdAt": {
           "name": "createdAt",
-          "type": "timestamp",
+          "type": "date",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
@@ -493,7 +493,7 @@
         },
         "createdAt": {
           "name": "createdAt",
-          "type": "timestamp",
+          "type": "date",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
@@ -522,7 +522,7 @@
         },
         "expires": {
           "name": "expires",
-          "type": "timestamp",
+          "type": "date",
           "primaryKey": false,
           "notNull": true
         }
@@ -556,7 +556,7 @@
         },
         "emailVerified": {
           "name": "emailVerified",
-          "type": "timestamp",
+          "type": "date",
           "primaryKey": false,
           "notNull": false,
           "default": "now()"
@@ -667,7 +667,7 @@
         },
         "expires": {
           "name": "expires",
-          "type": "timestamp",
+          "type": "date",
           "primaryKey": false,
           "notNull": true
         }
@@ -727,7 +727,7 @@
         },
         "createdAt": {
           "name": "createdAt",
-          "type": "timestamp",
+          "type": "date",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"

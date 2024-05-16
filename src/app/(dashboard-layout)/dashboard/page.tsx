@@ -37,36 +37,38 @@ const Dashboard = async () => {
     ...currentMonthEntries.needs.map((item) => ({
       ...item,
       type: "need" as const,
-      totalSpendings: currentMonthEntries.books[0].totalSpendings,
+      amount: parseFloat(item.amount),
+      totalSpendings: parseFloat(currentMonthEntries.books[0].totalSpendings),
     })),
     ...currentMonthEntries.wants.map((item) => ({
       ...item,
       type: "want" as const,
-      totalSpendings: currentMonthEntries.books[0].totalSpendings,
+      amount: parseFloat(item.amount),
+      totalSpendings: parseFloat(currentMonthEntries.books[0].totalSpendings),
     })),
   ];
   expenses.sort((a: any, b: any) => b.createdAt - a.createdAt);
 
   const needsTotal = currentMonthEntries.needs.reduce(
-    (acc, item) => acc + item.amount,
+    (acc, item) => acc + parseFloat(item.amount),
     0
   );
   const wantsTotal = currentMonthEntries.wants.reduce(
-    (acc, item) => acc + item.amount,
+    (acc, item) => acc + parseFloat(item.amount),
     0
   );
 
   const currentMonthIncome =
     currentMonthEntries.books.length > 0
-      ? currentMonthEntries.books[0].monthIncome
+      ? parseFloat(currentMonthEntries.books[0].monthIncome)
       : 0;
   const currentMonthNeedPercetange =
     currentMonthEntries.books.length > 0
-      ? currentMonthEntries.books[0].needsPercentage
+      ? parseFloat(currentMonthEntries.books[0].needsPercentage)
       : 0;
   const currentMonthWantPercetange =
     currentMonthEntries.books.length > 0
-      ? currentMonthEntries.books[0].wantsPercentage
+      ? parseFloat(currentMonthEntries.books[0].wantsPercentage)
       : 0;
 
   const needShare = currentMonthIncome * (currentMonthNeedPercetange / 100);
@@ -82,21 +84,21 @@ const Dashboard = async () => {
       title: "Savings Account",
       shortTitle: "Savings",
       href: "/savings",
-      balance: currentUser.savingsBalance,
+      balance: parseFloat(currentUser.savingsBalance),
       type: "savings" as const,
     },
     {
       title: "Investments Account",
       shortTitle: "Investments",
       href: "/investments",
-      balance: currentUser.investmentsBalance,
+      balance: parseFloat(currentUser.investmentsBalance),
       type: "investments" as const,
     },
     {
       title: "Miscellaneous Account",
       shortTitle: "Miscellaneous",
       href: "/miscellaneous",
-      balance: currentUser.miscellanousBalance,
+      balance: parseFloat(currentUser.miscellanousBalance),
       type: "miscellaneous" as const,
     },
   ];
@@ -149,9 +151,13 @@ const Dashboard = async () => {
                     <Transfer
                       currency={currentUser.currency as CurrencyType}
                       initialSelected={account.type}
-                      savingsBalance={currentUser.savingsBalance}
-                      investmentsBalance={currentUser.investmentsBalance}
-                      miscellaneousBalance={currentUser.miscellanousBalance}
+                      savingsBalance={parseFloat(currentUser.savingsBalance)}
+                      investmentsBalance={parseFloat(
+                        currentUser.investmentsBalance
+                      )}
+                      miscellaneousBalance={parseFloat(
+                        currentUser.miscellanousBalance
+                      )}
                       showTooltip
                       showIcon
                     />

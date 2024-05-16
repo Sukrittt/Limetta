@@ -101,7 +101,7 @@ export const InvestmentEditEntryForm = ({
     const parsedAmount = parseFloat(amount.replace(/,/g, ""));
 
     const updatedInvestBalance =
-      entryDetails.initialBalance || 0 + entryDetails.amount;
+      entryDetails.initialBalance || 0 + parseFloat(entryDetails.amount);
 
     if (!tradeBooking && parsedAmount > updatedInvestBalance) {
       return toast({

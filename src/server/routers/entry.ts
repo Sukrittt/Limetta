@@ -24,8 +24,8 @@ export const entryRouter = createTRPCRouter({
         .where(
           and(
             eq(books.userId, ctx.userId),
-            sql`MONTH(books.createdAt) = MONTH(NOW())`,
-            sql`YEAR(books.createdAt) = YEAR(NOW())`
+            sql`EXTRACT(MONTH FROM books."createdAt") = EXTRACT(MONTH FROM NOW())`,
+            sql`EXTRACT(YEAR FROM books."createdAt") = EXTRACT(YEAR FROM NOW())`
           )
         );
 
@@ -36,30 +36,33 @@ export const entryRouter = createTRPCRouter({
         const caller = userRouter.createCaller(ctx);
         const currentUser = await caller.getCurrentUser();
 
-        const newlyCreatedBook = await db.insert(books).values({
-          userId: ctx.userId,
-          monthIncome: currentUser.monthlyIncome ?? 0,
-          needsPercentage: currentUser.needsPercentage,
-          wantsPercentage: currentUser.wantsPercentage,
-          investmentsPercentage: currentUser.investmentsPercentage,
-        });
+        const newlyCreatedBook = await db
+          .insert(books)
+          .values({
+            userId: ctx.userId,
+            monthIncome: currentUser.monthlyIncome ?? "0",
+            needsPercentage: currentUser.needsPercentage,
+            wantsPercentage: currentUser.wantsPercentage,
+            investmentsPercentage: currentUser.investmentsPercentage,
+          })
+          .returning();
 
-        bookId = parseInt(newlyCreatedBook.insertId);
+        bookId = newlyCreatedBook[0].id;
       } else {
         bookId = currentMonthBooks[0].id;
-        totalSpendings = currentMonthBooks[0].totalSpendings;
+        totalSpendings = parseFloat(currentMonthBooks[0].totalSpendings);
       }
 
       await db
         .update(books)
         .set({
-          totalSpendings: totalSpendings + input.amount,
+          totalSpendings: (totalSpendings + input.amount).toString(),
         })
         .where(eq(books.id, bookId));
 
       if (input.expenseType === "need") {
         await db.insert(needs).values({
-          amount: input.amount,
+          amount: input.amount.toString(),
           description: input.description,
           bookId,
           userId: ctx.userId,
@@ -67,7 +70,7 @@ export const entryRouter = createTRPCRouter({
         });
       } else if (input.expenseType === "want") {
         await db.insert(wants).values({
-          amount: input.amount,
+          amount: input.amount.toString(),
           description: input.description,
           bookId,
           userId: ctx.userId,
@@ -89,8 +92,8 @@ export const entryRouter = createTRPCRouter({
         .where(
           and(
             eq(books.userId, ctx.userId),
-            sql`MONTH(books.createdAt) = MONTH(NOW())`,
-            sql`YEAR(books.createdAt) = YEAR(NOW())`
+            sql`EXTRACT(MONTH FROM books."createdAt") = EXTRACT(MONTH FROM NOW())`,
+            sql`EXTRACT(YEAR FROM books."createdAt") = EXTRACT(YEAR FROM NOW())`
           )
         );
 
@@ -132,9 +135,10 @@ export const entryRouter = createTRPCRouter({
           db
             .update(books)
             .set({
-              totalSpendings:
-                currentMonthBooks[0].totalSpendings -
-                existingNeedEntry[0].amount,
+              totalSpendings: (
+                parseFloat(currentMonthBooks[0].totalSpendings) -
+                parseFloat(existingNeedEntry[0].amount)
+              ).toString(),
             })
             .where(eq(books.id, existingNeedEntry[0].bookId)),
           db.delete(needs).where(eq(needs.id, input.expenseId)),
@@ -172,9 +176,10 @@ export const entryRouter = createTRPCRouter({
           db
             .update(books)
             .set({
-              totalSpendings:
-                currentMonthBooks[0].totalSpendings -
-                existingWantEntry[0].amount,
+              totalSpendings: (
+                parseFloat(currentMonthBooks[0].totalSpendings) -
+                parseFloat(existingWantEntry[0].amount)
+              ).toString(),
             })
             .where(eq(books.id, existingWantEntry[0].bookId)),
           db.delete(wants).where(eq(wants.id, input.expenseId)),
@@ -202,8 +207,8 @@ export const entryRouter = createTRPCRouter({
         .where(
           and(
             eq(books.userId, ctx.userId),
-            sql`MONTH(books.createdAt) = MONTH(NOW())`,
-            sql`YEAR(books.createdAt) = YEAR(NOW())`
+            sql`EXTRACT(MONTH FROM books."createdAt") = EXTRACT(MONTH FROM NOW())`,
+            sql`EXTRACT(YEAR FROM books."createdAt") = EXTRACT(YEAR FROM NOW())`
           )
         );
 
@@ -242,20 +247,20 @@ export const entryRouter = createTRPCRouter({
         }
 
         const updatedSpendings =
-          currentMonthBooks[0].totalSpendings -
-          existingNeedEntry[0].amount +
+          parseFloat(currentMonthBooks[0].totalSpendings) -
+          parseFloat(existingNeedEntry[0].amount) +
           input.amount;
 
         await db
           .update(books)
-          .set({ totalSpendings: updatedSpendings })
+          .set({ totalSpendings: updatedSpendings.toString() })
           .where(eq(books.id, existingNeedEntry[0].bookId));
 
         if (input.expenseType !== input.initialExpenseType) {
           const promises = [
             db.delete(needs).where(eq(needs.id, input.expenseId)),
             db.insert(wants).values({
-              amount: input.amount,
+              amount: input.amount.toString(),
               description: input.description,
               bookId: input.bookId,
               userId: ctx.userId,
@@ -268,7 +273,7 @@ export const entryRouter = createTRPCRouter({
           await db
             .update(needs)
             .set({
-              amount: input.amount,
+              amount: input.amount.toString(),
               description: input.description,
               createdAt: input.entryDate,
             })
@@ -302,13 +307,13 @@ export const entryRouter = createTRPCRouter({
         }
 
         const updatedSpendings =
-          currentMonthBooks[0].totalSpendings -
-          existingWantEntry[0].amount +
+          parseFloat(currentMonthBooks[0].totalSpendings) -
+          parseFloat(existingWantEntry[0].amount) +
           input.amount;
 
         await db
           .update(books)
-          .set({ totalSpendings: updatedSpendings })
+          .set({ totalSpendings: updatedSpendings.toString() })
           .where(eq(books.id, existingWantEntry[0].bookId));
 
         if (input.expenseType !== input.initialExpenseType) {
@@ -316,7 +321,7 @@ export const entryRouter = createTRPCRouter({
             db.delete(wants).where(eq(wants.id, input.expenseId)),
 
             db.insert(needs).values({
-              amount: input.amount,
+              amount: input.amount.toString(),
               description: input.description,
               bookId: input.bookId,
               userId: ctx.userId,
@@ -329,7 +334,7 @@ export const entryRouter = createTRPCRouter({
           await db
             .update(wants)
             .set({
-              amount: input.amount,
+              amount: input.amount.toString(),
               description: input.description,
               createdAt: input.entryDate,
             })

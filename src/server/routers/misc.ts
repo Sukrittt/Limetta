@@ -37,21 +37,25 @@ export const miscRouter = createTRPCRouter({
         await db
           .update(users)
           .set({
-            miscellanousBalance: currentUser.miscellanousBalance + input.amount,
+            miscellanousBalance: (
+              parseFloat(currentUser.miscellanousBalance) + input.amount
+            ).toString(),
           })
           .where(eq(users.id, ctx.userId));
       } else {
         await db
           .update(users)
           .set({
-            miscellanousBalance: currentUser.miscellanousBalance - input.amount,
+            miscellanousBalance: (
+              parseFloat(currentUser.miscellanousBalance) - input.amount
+            ).toString(),
           })
           .where(eq(users.id, ctx.userId));
       }
 
       await db.insert(miscellaneous).values({
         userId: ctx.userId,
-        amount: input.amount,
+        amount: input.amount.toString(),
         entryName: input.description,
         entryType: input.entryType,
         createdAt: input.entryDate,
@@ -85,8 +89,8 @@ export const miscRouter = createTRPCRouter({
       const miscEntry = existingMiscEntry[0]; // there should only be one entry with that id
 
       const updatedBalance = getUpdatedBalance(
-        currentUser.miscellanousBalance,
-        miscEntry.amount,
+        parseFloat(currentUser.miscellanousBalance),
+        parseFloat(miscEntry.amount),
         input.amount,
         input.entryType,
         miscEntry.entryType
@@ -96,13 +100,13 @@ export const miscRouter = createTRPCRouter({
         db
           .update(users)
           .set({
-            miscellanousBalance: updatedBalance,
+            miscellanousBalance: updatedBalance.toString(),
           })
           .where(eq(users.id, ctx.userId)),
         db
           .update(miscellaneous)
           .set({
-            amount: input.amount,
+            amount: input.amount.toString(),
             entryName: input.description,
             entryType: input.entryType,
             createdAt: input.entryDate,
@@ -135,21 +139,23 @@ export const miscRouter = createTRPCRouter({
         });
       }
 
-      let updatedBalance;
+      let updatedBalance: number;
 
       if (input.entryType === "in") {
         updatedBalance =
-          currentUser.miscellanousBalance - existingMiscEntry[0].amount;
+          parseFloat(currentUser.miscellanousBalance) -
+          parseFloat(existingMiscEntry[0].amount);
       } else {
         updatedBalance =
-          currentUser.miscellanousBalance + existingMiscEntry[0].amount;
+          parseFloat(currentUser.miscellanousBalance) +
+          parseFloat(existingMiscEntry[0].amount);
       }
 
       const promises = [
         db
           .update(users)
           .set({
-            miscellanousBalance: updatedBalance,
+            miscellanousBalance: updatedBalance.toString(),
           })
           .where(eq(users.id, ctx.userId)),
         db.delete(miscellaneous).where(eq(miscellaneous.id, input.miscId)),

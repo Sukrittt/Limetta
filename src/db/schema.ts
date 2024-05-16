@@ -1,18 +1,19 @@
 import {
-  int,
-  timestamp,
-  mysqlTable,
+  date,
   primaryKey,
   varchar,
   serial,
   text,
-  float,
+  integer,
   boolean,
-} from "drizzle-orm/mysql-core";
+  pgTable,
+  numeric,
+} from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
+
 import type { AdapterAccount } from "@auth/core/adapters";
 
-export const accounts = mysqlTable(
+export const accounts = pgTable(
   "account",
   {
     userId: varchar("userId", { length: 255 }).notNull(),
@@ -23,7 +24,7 @@ export const accounts = mysqlTable(
     providerAccountId: varchar("providerAccountId", { length: 255 }).notNull(),
     refresh_token: varchar("refresh_token", { length: 255 }),
     access_token: varchar("access_token", { length: 255 }),
-    expires_at: int("expires_at"),
+    expires_at: integer("expires_at"),
     token_type: varchar("token_type", { length: 255 }),
     scope: varchar("scope", { length: 255 }),
     id_token: text("id_token"),
@@ -34,46 +35,53 @@ export const accounts = mysqlTable(
   })
 );
 
-export const sessions = mysqlTable("session", {
+export const sessions = pgTable("session", {
   sessionToken: varchar("sessionToken", { length: 255 }).notNull().primaryKey(),
   userId: varchar("userId", { length: 255 }).notNull(),
-  expires: timestamp("expires", { mode: "date" }).notNull(),
+  expires: date("expires", { mode: "date" }).notNull(),
 });
 
-export const verificationTokens = mysqlTable(
+export const verificationTokens = pgTable(
   "verificationToken",
   {
     identifier: varchar("identifier", { length: 255 }).notNull(),
     token: varchar("token", { length: 255 }).notNull(),
-    expires: timestamp("expires", { mode: "date" }).notNull(),
+    expires: date("expires", { mode: "date" }).notNull(),
   },
   (vt) => ({
     compoundKey: primaryKey(vt.identifier, vt.token),
   })
 );
 
-export const users = mysqlTable("user", {
+export const users = pgTable("user", {
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
   name: varchar("name", { length: 255 }),
   email: varchar("email", { length: 255 }).notNull(),
-  emailVerified: timestamp("emailVerified", {
+  emailVerified: date("emailVerified", {
     mode: "date",
-    fsp: 3,
   }).defaultNow(),
   image: varchar("image", { length: 255 }),
 
-  monthlyIncome: float("monthlyIncome"),
-  needsPercentage: float("needsPercentage").notNull().default(50),
-  wantsPercentage: float("wantsPercentage").notNull().default(30),
-  investmentsPercentage: float("investmentsPercentage").notNull().default(20),
+  monthlyIncome: numeric("monthlyIncome"),
+  needsPercentage: numeric("needsPercentage")
+    .notNull()
 
-  savingsBalance: float("savingsBalance").notNull().default(0),
-  totalInvested: float("totalInvested").notNull().default(0),
-  investmentsBalance: float("investmentsBalance").notNull().default(0),
-  miscellanousBalance: float("miscellanousBalance").notNull().default(0),
+    .default("50"),
+  wantsPercentage: numeric("wantsPercentage")
+    .notNull()
 
-  duePayable: float("duePayable").notNull().default(0),
-  dueReceivable: float("dueReceiveble").notNull().default(0),
+    .default("30"),
+  investmentsPercentage: numeric("investmentsPercentage")
+    .notNull()
+    .default("20"),
+
+  savingsBalance: numeric("savingsBalance").notNull().default("0"),
+  totalInvested: numeric("totalInvested").notNull().default("0"),
+  investmentsBalance: numeric("investmentsBalance").notNull().default("0"),
+  miscellanousBalance: numeric("miscellanousBalance").notNull().default("0"),
+
+  duePayable: numeric("duePayable").notNull().default("0"),
+  dueReceivable: numeric("dueReceiveble").notNull().default("0"),
 
   currency: varchar("currency", { length: 1 }).notNull().default("₹"),
 });
@@ -95,15 +103,15 @@ export const sessionRelations = relations(users, ({ one }) => ({
 export type User = typeof users.$inferSelect;
 
 // Books
-export const books = mysqlTable("books", {
+export const books = pgTable("books", {
   id: serial("id").primaryKey(),
   userId: varchar("userId", { length: 255 }).notNull(),
-  monthIncome: float("monthIncome").notNull(),
-  totalSpendings: float("totalSpendings").notNull().default(0),
-  createdAt: timestamp("createdAt").notNull().defaultNow(),
-  needsPercentage: float("needsPercentage").notNull(),
-  wantsPercentage: float("wantsPercentage").notNull(),
-  investmentsPercentage: float("investmentsPercentage").notNull(),
+  monthIncome: numeric("monthIncome").notNull(),
+  totalSpendings: numeric("totalSpendings").notNull().default("0"),
+  createdAt: date("createdAt", { mode: "date" }).notNull().defaultNow(),
+  needsPercentage: numeric("needsPercentage").notNull(),
+  wantsPercentage: numeric("wantsPercentage").notNull(),
+  investmentsPercentage: numeric("investmentsPercentage").notNull(),
 });
 
 export type Books = typeof books.$inferSelect;
@@ -120,17 +128,17 @@ export const UserBooksRelations = relations(users, ({ many }) => ({
 }));
 
 // Needs
-export const needs = mysqlTable("needs", {
+export const needs = pgTable("needs", {
   id: serial("id").primaryKey(),
-  amount: float("amount").notNull(),
+  amount: numeric("amount").notNull(),
   description: varchar("description", { length: 100 }).notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
-  bookId: int("bookId").notNull(),
+  bookId: integer("bookId").notNull(),
   dueType: varchar("dueType", {
     length: 100,
     enum: ["payable"],
   }),
-  createdAt: timestamp("createdAt").notNull().defaultNow(),
+  createdAt: date("createdAt", { mode: "date" }).notNull().defaultNow(),
 });
 
 export type Needs = typeof needs.$inferSelect;
@@ -154,17 +162,17 @@ export const bookNeedsRelations = relations(books, ({ many }) => ({
 }));
 
 // Wants
-export const wants = mysqlTable("wants", {
+export const wants = pgTable("wants", {
   id: serial("id").primaryKey(),
-  amount: float("amount").notNull(),
+  amount: numeric("amount").notNull(),
   description: varchar("description", { length: 100 }).notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
-  bookId: int("bookId").notNull(),
+  bookId: integer("bookId").notNull(),
   dueType: varchar("dueType", {
     length: 100,
     enum: ["payable"],
   }),
-  createdAt: timestamp("createdAt").notNull().defaultNow(),
+  createdAt: date("createdAt", { mode: "date" }).notNull().defaultNow(),
 });
 
 export type Wants = typeof wants.$inferSelect;
@@ -188,14 +196,14 @@ export const bookWantsRelations = relations(books, ({ many }) => ({
 }));
 
 // Savings Account
-export const savings = mysqlTable("savings", {
+export const savings = pgTable("savings", {
   id: serial("id").primaryKey(),
   entryName: varchar("entryName", { length: 100 }).notNull(),
   entryType: varchar("entryType", {
     length: 100,
     enum: ["in", "out"],
   }).notNull(),
-  amount: float("amount").notNull(),
+  amount: numeric("amount").notNull(),
   dueType: varchar("dueType", {
     length: 100,
     enum: ["payable", "receivable"],
@@ -209,7 +217,7 @@ export const savings = mysqlTable("savings", {
     enum: ["investments", "miscellaneous"],
   }),
   userId: varchar("userId", { length: 255 }).notNull(),
-  createdAt: timestamp("createdAt").notNull().defaultNow(),
+  createdAt: date("createdAt", { mode: "date" }).notNull().defaultNow(),
 });
 
 export type Savings = typeof savings.$inferSelect;
@@ -226,7 +234,7 @@ export const UserSavingsRelations = relations(users, ({ many }) => ({
 }));
 
 // Investments Account
-export const investments = mysqlTable("investments", {
+export const investments = pgTable("investments", {
   id: serial("id").primaryKey(),
   entryName: varchar("entryName", { length: 100 }).notNull(),
   tradeBooks: boolean("tradeBooks").notNull().default(false), // true if the entry is a trade booking (profit/loss entry)
@@ -234,7 +242,7 @@ export const investments = mysqlTable("investments", {
     length: 100,
     enum: ["in", "out"],
   }).notNull(),
-  amount: float("amount").notNull(),
+  amount: numeric("amount").notNull(),
   transferingTo: varchar("transferingTo", {
     length: 100,
     enum: ["savings", "miscellaneous"],
@@ -244,7 +252,7 @@ export const investments = mysqlTable("investments", {
     enum: ["savings", "miscellaneous"],
   }),
   userId: varchar("userId", { length: 255 }).notNull(),
-  createdAt: timestamp("createdAt").notNull().defaultNow(),
+  createdAt: date("createdAt", { mode: "date" }).notNull().defaultNow(),
 });
 
 export type Investments = typeof investments.$inferSelect;
@@ -261,14 +269,14 @@ export const UserInvestmentsRelations = relations(users, ({ many }) => ({
 }));
 
 // Miscellaneous Account
-export const miscellaneous = mysqlTable("miscellaneous", {
+export const miscellaneous = pgTable("miscellaneous", {
   id: serial("id").primaryKey(),
   entryName: varchar("entryName", { length: 100 }).notNull(),
   entryType: varchar("entryType", {
     length: 100,
     enum: ["in", "out"],
   }).notNull(),
-  amount: float("amount").notNull(),
+  amount: numeric("amount").notNull(),
   transferingTo: varchar("transferingTo", {
     length: 100,
     enum: ["investments", "savings"],
@@ -282,7 +290,7 @@ export const miscellaneous = mysqlTable("miscellaneous", {
     enum: ["payable", "receivable"],
   }),
   userId: varchar("userId", { length: 255 }).notNull(),
-  createdAt: timestamp("createdAt").notNull().defaultNow(),
+  createdAt: date("createdAt", { mode: "date" }).notNull().defaultNow(),
 });
 
 export type Miscellaneous = typeof miscellaneous.$inferSelect;
@@ -299,7 +307,7 @@ export const UserMiscellaneousRelations = relations(users, ({ many }) => ({
 }));
 
 // Dues
-export const dues = mysqlTable("dues", {
+export const dues = pgTable("dues", {
   id: serial("id").primaryKey(),
   entryName: varchar("entryName", { length: 100 }).notNull(),
   dueStatus: varchar("entryType", {
@@ -312,17 +320,17 @@ export const dues = mysqlTable("dues", {
     length: 100,
     enum: ["payable", "receivable"],
   }).notNull(),
-  amount: float("amount").notNull(),
+  amount: numeric("amount").notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
-  dueDate: timestamp("dueDate").notNull(),
+  dueDate: date("dueDate", { mode: "date" }).notNull(),
 
   transferAccountType: varchar("transferAccountType", {
     length: 100,
     enum: ["want", "need", "savings", "miscellaneous"],
   }),
-  transferAccountId: int("transferAccountId"), // will contain id of the account depending on the 'transferAccountType'
+  transferAccountId: integer("transferAccountId"), // will contain id of the account depending on the 'transferAccountType'
 
-  createdAt: timestamp("createdAt").notNull().defaultNow(),
+  createdAt: date("createdAt", { mode: "date" }).notNull().defaultNow(),
 });
 
 export type Dues = typeof dues.$inferSelect;
@@ -339,11 +347,11 @@ export const UserDueRelations = relations(users, ({ many }) => ({
 }));
 
 // Report an Issue
-export const reports = mysqlTable("reports", {
+export const reports = pgTable("reports", {
   id: serial("id").primaryKey(),
   description: varchar("description", { length: 1000 }).notNull(),
   userId: varchar("userId", { length: 255 }).notNull(),
-  createdAt: timestamp("createdAt").notNull().defaultNow(),
+  createdAt: date("createdAt", { mode: "date" }).notNull().defaultNow(),
 });
 
 export type Reports = typeof dues.$inferSelect;

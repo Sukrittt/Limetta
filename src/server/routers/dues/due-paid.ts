@@ -54,21 +54,26 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
         if (existingDueEntry.dueStatus === "pending") {
           //status to 'paid'
           if (input.accountTransferType === "miscellaneous") {
-            const { insertId } = await db.insert(miscellaneous).values({
-              userId: ctx.userId,
-              amount: existingDueEntry.amount,
-              entryName: existingDueEntry.entryName,
-              dueType: "payable",
-              entryType: "out",
-            });
+            const newMisc = await db
+              .insert(miscellaneous)
+              .values({
+                userId: ctx.userId,
+                amount: existingDueEntry.amount,
+                entryName: existingDueEntry.entryName,
+                dueType: "payable",
+                entryType: "out",
+              })
+              .returning();
 
-            transferAccountId = parseInt(insertId);
+            transferAccountId = newMisc[0].id;
 
             await db
               .update(users)
               .set({
-                miscellanousBalance:
-                  currentUser.miscellanousBalance - existingDueEntry.amount,
+                miscellanousBalance: (
+                  parseFloat(currentUser.miscellanousBalance) -
+                  parseFloat(existingDueEntry.amount)
+                ).toString(),
               })
               .where(eq(users.id, ctx.userId));
           } else if (input.accountTransferType === "savings") {
@@ -79,21 +84,26 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
               });
             }
 
-            const { insertId } = await db.insert(savings).values({
-              userId: ctx.userId,
-              amount: existingDueEntry.amount,
-              entryName: existingDueEntry.entryName,
-              dueType: "payable",
-              entryType: "out",
-            });
+            const newSavings = await db
+              .insert(savings)
+              .values({
+                userId: ctx.userId,
+                amount: existingDueEntry.amount,
+                entryName: existingDueEntry.entryName,
+                dueType: "payable",
+                entryType: "out",
+              })
+              .returning();
 
-            transferAccountId = parseInt(insertId);
+            transferAccountId = newSavings[0].id;
 
             await db
               .update(users)
               .set({
-                savingsBalance:
-                  currentUser.savingsBalance - existingDueEntry.amount,
+                savingsBalance: (
+                  parseFloat(currentUser.savingsBalance) -
+                  parseFloat(existingDueEntry.amount)
+                ).toString(),
               })
               .where(eq(users.id, ctx.userId));
           } else {
@@ -104,8 +114,8 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
               .where(
                 and(
                   eq(books.userId, ctx.userId),
-                  sql`MONTH(books.createdAt) = MONTH(NOW())`,
-                  sql`YEAR(books.createdAt) = YEAR(NOW())`
+                  sql`EXTRACT(MONTH FROM books."createdAt") = EXTRACT(MONTH FROM NOW())`,
+                  sql`EXTRACT(YEAR FROM books."createdAt") = EXTRACT(YEAR FROM NOW())`
                 )
               );
 
@@ -113,53 +123,67 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
             let totalSpendings = 0;
 
             if (currentMonthBooks.length === 0) {
-              const newlyCreatedBook = await db.insert(books).values({
-                userId: ctx.userId,
-                monthIncome: currentUser.monthlyIncome ?? 0,
-                needsPercentage: currentUser.needsPercentage,
-                wantsPercentage: currentUser.wantsPercentage,
-                investmentsPercentage: currentUser.investmentsPercentage,
-              });
+              const newlyCreatedBook = await db
+                .insert(books)
+                .values({
+                  userId: ctx.userId,
+                  monthIncome: currentUser.monthlyIncome ?? "0",
+                  needsPercentage: currentUser.needsPercentage,
+                  wantsPercentage: currentUser.wantsPercentage,
+                  investmentsPercentage: currentUser.investmentsPercentage,
+                })
+                .returning();
 
-              bookId = parseInt(newlyCreatedBook.insertId);
+              bookId = newlyCreatedBook[0].id;
             } else {
               bookId = currentMonthBooks[0].id;
-              totalSpendings = currentMonthBooks[0].totalSpendings;
+              totalSpendings = parseFloat(currentMonthBooks[0].totalSpendings);
             }
 
             await db
               .update(books)
               .set({
-                totalSpendings: totalSpendings + existingDueEntry.amount,
+                totalSpendings: (
+                  totalSpendings + parseFloat(existingDueEntry.amount)
+                ).toString(),
               })
               .where(eq(books.id, bookId));
 
             if (input.accountTransferType === "need") {
-              const { insertId } = await db.insert(needs).values({
-                amount: existingDueEntry.amount,
-                description: existingDueEntry.entryName,
-                dueType: "payable",
-                bookId,
-                userId: ctx.userId,
-              });
+              const newNeeds = await db
+                .insert(needs)
+                .values({
+                  amount: existingDueEntry.amount,
+                  description: existingDueEntry.entryName,
+                  dueType: "payable",
+                  bookId,
+                  userId: ctx.userId,
+                })
+                .returning();
 
-              transferAccountId = parseInt(insertId);
+              transferAccountId = newNeeds[0].id;
             } else if (input.accountTransferType === "want") {
-              const { insertId } = await db.insert(wants).values({
-                amount: existingDueEntry.amount,
-                description: existingDueEntry.entryName,
-                dueType: "payable",
-                bookId,
-                userId: ctx.userId,
-              });
+              const newWants = await db
+                .insert(wants)
+                .values({
+                  amount: existingDueEntry.amount,
+                  description: existingDueEntry.entryName,
+                  dueType: "payable",
+                  bookId,
+                  userId: ctx.userId,
+                })
+                .returning();
 
-              transferAccountId = parseInt(insertId);
+              transferAccountId = newWants[0].id;
             }
           }
           await db
             .update(users)
             .set({
-              duePayable: currentUser.duePayable - existingDueEntry.amount,
+              duePayable: (
+                parseFloat(currentUser.duePayable) -
+                parseFloat(existingDueEntry.amount)
+              ).toString(),
             })
             .where(eq(users.id, ctx.userId));
         } else {
@@ -182,8 +206,10 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
                 db
                   .update(users)
                   .set({
-                    miscellanousBalance:
-                      currentUser.miscellanousBalance + existingDueEntry.amount,
+                    miscellanousBalance: (
+                      parseFloat(currentUser.miscellanousBalance) +
+                      parseFloat(existingDueEntry.amount)
+                    ).toString(),
                   })
                   .where(eq(users.id, ctx.userId)),
                 db
@@ -206,8 +232,10 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
                 db
                   .update(users)
                   .set({
-                    savingsBalance:
-                      currentUser.savingsBalance + existingDueEntry.amount,
+                    savingsBalance: (
+                      parseFloat(currentUser.savingsBalance) +
+                      parseFloat(existingDueEntry.amount)
+                    ).toString(),
                   })
                   .where(eq(users.id, ctx.userId)),
                 db
@@ -224,8 +252,8 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
               .where(
                 and(
                   eq(books.userId, ctx.userId),
-                  sql`MONTH(books.createdAt) = MONTH(NOW())`,
-                  sql`YEAR(books.createdAt) = YEAR(NOW())`
+                  sql`EXTRACT(MONTH FROM books."createdAt") = EXTRACT(MONTH FROM NOW())`,
+                  sql`EXTRACT(YEAR FROM books."createdAt") = EXTRACT(YEAR FROM NOW())`
                 )
               );
 
@@ -270,9 +298,10 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
               await db
                 .update(books)
                 .set({
-                  totalSpendings:
-                    currentMonthBooks[0].totalSpendings -
-                    existingDueEntry.amount,
+                  totalSpendings: (
+                    parseFloat(currentMonthBooks[0].totalSpendings) -
+                    parseFloat(existingDueEntry.amount)
+                  ).toString(),
                 })
                 .where(eq(books.id, currentMonthBooks[0].id));
             }
@@ -281,7 +310,10 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
           await db
             .update(users)
             .set({
-              duePayable: currentUser.duePayable + existingDueEntry.amount,
+              duePayable: (
+                parseFloat(currentUser.duePayable) +
+                parseFloat(existingDueEntry.amount)
+              ).toString(),
             })
             .where(eq(users.id, ctx.userId));
         }
@@ -300,39 +332,49 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
         if (existingDueEntry.dueStatus === "pending") {
           // status to 'paid'
           if (input.accountTransferType === "miscellaneous") {
-            const { insertId } = await db.insert(miscellaneous).values({
-              userId: ctx.userId,
-              amount: existingDueEntry.amount,
-              entryName: existingDueEntry.entryName,
-              dueType: "receivable",
-              entryType: "in",
-            });
+            const newMisc = await db
+              .insert(miscellaneous)
+              .values({
+                userId: ctx.userId,
+                amount: existingDueEntry.amount,
+                entryName: existingDueEntry.entryName,
+                dueType: "receivable",
+                entryType: "in",
+              })
+              .returning();
 
-            transferAccountId = parseInt(insertId);
+            transferAccountId = newMisc[0].id;
 
             await db
               .update(users)
               .set({
-                miscellanousBalance:
-                  currentUser.miscellanousBalance + existingDueEntry.amount,
+                miscellanousBalance: (
+                  parseFloat(currentUser.miscellanousBalance) +
+                  parseFloat(existingDueEntry.amount)
+                ).toString(),
               })
               .where(eq(users.id, ctx.userId));
           } else if (input.accountTransferType === "savings") {
-            const { insertId } = await db.insert(savings).values({
-              userId: ctx.userId,
-              amount: existingDueEntry.amount,
-              entryName: existingDueEntry.entryName,
-              dueType: "receivable",
-              entryType: "in",
-            });
+            const newSavings = await db
+              .insert(savings)
+              .values({
+                userId: ctx.userId,
+                amount: existingDueEntry.amount,
+                entryName: existingDueEntry.entryName,
+                dueType: "receivable",
+                entryType: "in",
+              })
+              .returning();
 
-            transferAccountId = parseInt(insertId);
+            transferAccountId = newSavings[0].id;
 
             await db
               .update(users)
               .set({
-                savingsBalance:
-                  currentUser.savingsBalance + existingDueEntry.amount,
+                savingsBalance: (
+                  parseFloat(currentUser.savingsBalance) +
+                  parseFloat(existingDueEntry.amount)
+                ).toString(),
               })
               .where(eq(users.id, ctx.userId));
           }
@@ -340,8 +382,10 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
           await db
             .update(users)
             .set({
-              dueReceivable:
-                currentUser.dueReceivable - existingDueEntry.amount,
+              dueReceivable: (
+                parseFloat(currentUser.dueReceivable) -
+                parseFloat(existingDueEntry.amount)
+              ).toString(),
             })
             .where(eq(users.id, ctx.userId));
         } else {
@@ -364,8 +408,10 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
                 db
                   .update(users)
                   .set({
-                    miscellanousBalance:
-                      currentUser.miscellanousBalance - existingDueEntry.amount,
+                    miscellanousBalance: (
+                      parseFloat(currentUser.miscellanousBalance) -
+                      parseFloat(existingDueEntry.amount)
+                    ).toString(),
                   })
                   .where(eq(users.id, ctx.userId)),
                 db
@@ -388,8 +434,10 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
                 db
                   .update(users)
                   .set({
-                    savingsBalance:
-                      currentUser.savingsBalance - existingDueEntry.amount,
+                    savingsBalance: (
+                      parseFloat(currentUser.savingsBalance) -
+                      parseFloat(existingDueEntry.amount)
+                    ).toString(),
                   })
                   .where(eq(users.id, ctx.userId)),
                 db
@@ -404,8 +452,10 @@ export const DueMarkAsPaidRouter = createTRPCRouter({
           await db
             .update(users)
             .set({
-              dueReceivable:
-                currentUser.dueReceivable + existingDueEntry.amount,
+              dueReceivable: (
+                parseFloat(currentUser.dueReceivable) +
+                parseFloat(existingDueEntry.amount)
+              ).toString(),
             })
             .where(eq(users.id, ctx.userId));
         }

@@ -25,7 +25,7 @@ export async function GET(req: Request) {
       });
 
     const offsetValue =
-      (parseInt(page) - 1) * INFINITE_SCROLLING_PAGINATION_RESULTS;
+      (parseFloat(page) - 1) * INFINITE_SCROLLING_PAGINATION_RESULTS;
 
     const investmentTransactions = await db
       .select()

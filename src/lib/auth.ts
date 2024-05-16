@@ -1,7 +1,8 @@
 import { eq } from "drizzle-orm";
+import { Adapter } from "next-auth/adapters";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
 import { db } from "@/db";
 import { users } from "@/db/schema";
@@ -38,7 +39,7 @@ function getGoogleCredentials() {
 }
 
 export const authOptions: NextAuthOptions = {
-  adapter: DrizzleAdapter(db),
+  adapter: DrizzleAdapter(db) as Adapter,
   session: {
     strategy: "jwt",
   },

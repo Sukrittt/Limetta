@@ -41,8 +41,8 @@ const Overview = async () => {
       ? []
       : userBooks.map((obj) => {
           const totalExpenses =
-            obj.needs.reduce((acc, need) => acc + need.amount, 0) +
-            obj.wants.reduce((acc, want) => acc + want.amount, 0);
+            obj.needs.reduce((acc, need) => acc + parseFloat(need.amount), 0) +
+            obj.wants.reduce((acc, want) => acc + parseFloat(want.amount), 0);
 
           const month = new Date(obj.books[0].createdAt).toLocaleString(
             "en-US",
@@ -71,12 +71,12 @@ const Overview = async () => {
           totalEntries += totalWantEntries + totalNeedEntries;
 
           const eachMonthTotalWants = obj.wants.reduce(
-            (acc, want) => acc + want.amount,
+            (acc, want) => acc + parseFloat(want.amount),
             0
           );
 
           const eachMonthTotalNeeds = obj.needs.reduce(
-            (acc, need) => acc + need.amount,
+            (acc, need) => acc + parseFloat(need.amount),
             0
           );
 

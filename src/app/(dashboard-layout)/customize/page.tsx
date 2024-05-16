@@ -24,19 +24,19 @@ const Customize = async () => {
   if (!currentUser.monthlyIncome) redirect("/onboarding");
 
   const initialSelectedRatio =
-    currentUser.needsPercentage !== 50 ||
-    currentUser.wantsPercentage !== 30 ||
-    currentUser.investmentsPercentage !== 20
+    parseFloat(currentUser.needsPercentage) !== 50 ||
+    parseFloat(currentUser.wantsPercentage) !== 30 ||
+    parseFloat(currentUser.investmentsPercentage) !== 20
       ? "custom"
       : "default";
 
   return (
     <IncomeCard
       title="Tailor Your Monthly Budget and Expense Ratio"
-      income={currentUser.monthlyIncome}
-      initialNeedRatio={currentUser.needsPercentage}
-      initialWantRatio={currentUser.wantsPercentage}
-      initialInvestmentRatio={currentUser.investmentsPercentage}
+      income={parseFloat(currentUser.monthlyIncome)}
+      initialNeedRatio={parseFloat(currentUser.needsPercentage)}
+      initialWantRatio={parseFloat(currentUser.wantsPercentage)}
+      initialInvestmentRatio={parseFloat(currentUser.investmentsPercentage)}
       initialSelectedRatio={initialSelectedRatio}
       initialCurrency={currentUser.currency as CurrencyType}
       href="/dashboard"

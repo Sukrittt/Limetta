@@ -18,7 +18,7 @@ export type Calculations = {
 
 export type EntryType = {
   entryId: number;
-  amount: number;
+  amount: string;
   description: string;
   entryType: "in" | "out";
   initialBalance?: number;

@@ -10,8 +10,8 @@ export async function GET() {
       .from(books)
       .where(
         and(
-          sql`MONTH(books.createdAt) = MONTH(NOW() - INTERVAL 1 MONTH)`,
-          sql`YEAR(books.createdAt) = YEAR(NOW() - INTERVAL 1 MONTH)`
+          sql`EXTRACT(MONTH FROM books."createdAt") = EXTRACT(MONTH FROM NOW() - INTERVAL 1 MONTH)`,
+          sql`EXTRACT(YEAR FROM books."createdAt") = EXTRACT(YEAR FROM NOW() - INTERVAL 1 MONTH)`
         )
       );
 
@@ -20,10 +20,13 @@ export async function GET() {
     }
 
     previousMonthBooks.forEach(async (book) => {
-      const totalSavings = book.monthIncome - book.totalSpendings;
+      const totalSavings =
+        parseFloat(book.monthIncome) - parseFloat(book.totalSpendings);
+
       const savingMonth = book.createdAt.toLocaleString("en-US", {
         month: "long",
       });
+
       const savingYear = book.createdAt.getFullYear();
 
       const existingSavingEntry = await db
@@ -52,11 +55,13 @@ export async function GET() {
         db
           .update(users)
           .set({
-            savingsBalance: user[0].savingsBalance + Math.max(totalSavings, 0),
+            savingsBalance: (
+              parseFloat(user[0].savingsBalance) + Math.max(totalSavings, 0)
+            ).toString(),
           })
           .where(eq(users.id, book.userId)),
         db.insert(savings).values({
-          amount: Math.max(totalSavings, 0),
+          amount: Math.max(totalSavings, 0).toString(),
           userId: book.userId,
           entryName: `Monthly savings for ${savingMonth} ${savingYear}`,
           entryType: "in",

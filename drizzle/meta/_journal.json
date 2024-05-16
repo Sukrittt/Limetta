@@ -1,12 +1,19 @@
 {
-  "version": "5",
-  "dialect": "mysql",
+  "version": "6",
+  "dialect": "postgresql",
   "entries": [
     {
       "idx": 0,
       "version": "5",
-      "when": 1696673202371,
-      "tag": "0000_open_tomas",
+      "when": 1715780586571,
+      "tag": "0000_safe_marvel_apes",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1715789026718,
+      "tag": "0001_slimy_guardsmen",
       "breakpoints": true
     }
   ]

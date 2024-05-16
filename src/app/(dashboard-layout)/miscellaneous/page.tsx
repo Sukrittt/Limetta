@@ -54,20 +54,25 @@ const Miscellaneous = async () => {
             showTooltip
             currency={currentUser.currency as CurrencyType}
             initialSelected="miscellaneous"
-            savingsBalance={currentUser.savingsBalance}
-            investmentsBalance={currentUser.investmentsBalance}
-            miscellaneousBalance={currentUser.miscellanousBalance}
+            savingsBalance={parseFloat(currentUser.savingsBalance)}
+            investmentsBalance={parseFloat(currentUser.investmentsBalance)}
+            miscellaneousBalance={parseFloat(currentUser.miscellanousBalance)}
           />
         </div>
         <div className="flex flex-col items-center gap-y-1 sm:gap-y-2 pt-6 md:pt-0">
           <span
             className={cn("text-2xl md:text-4xl", {
-              "text-danger-text": currentUser.miscellanousBalance < 0,
+              "text-danger-text":
+                parseFloat(currentUser.miscellanousBalance) < 0,
             })}
           >
-            <span>{currentUser.miscellanousBalance < 0 ? "-" : ""}</span>
+            <span>
+              {parseFloat(currentUser.miscellanousBalance) < 0 ? "-" : ""}
+            </span>
             <span>{currentUser.currency}</span>
-            {Math.abs(currentUser.miscellanousBalance).toLocaleString()}
+            {Math.abs(
+              parseFloat(currentUser.miscellanousBalance)
+            ).toLocaleString()}
           </span>
           <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
             Miscellaneous Balance

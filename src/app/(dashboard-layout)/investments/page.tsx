@@ -55,21 +55,26 @@ const Investments = async () => {
             showTooltip
             currency={currentUser.currency as CurrencyType}
             initialSelected="investments"
-            savingsBalance={currentUser.savingsBalance}
-            investmentsBalance={currentUser.investmentsBalance}
-            miscellaneousBalance={currentUser.miscellanousBalance}
+            savingsBalance={parseFloat(currentUser.savingsBalance)}
+            investmentsBalance={parseFloat(currentUser.investmentsBalance)}
+            miscellaneousBalance={parseFloat(currentUser.miscellanousBalance)}
           />
         </div>
         <div className="flex justify-between sm:justify-around gap-4 pt-6 md:pt-0">
           <div className="flex flex-col items-center gap-y-1 sm:gap-y-2">
             <span
               className={cn("text-2xl md:text-4xl", {
-                "text-danger-text": currentUser.investmentsBalance < 0,
+                "text-danger-text":
+                  parseFloat(currentUser.investmentsBalance) < 0,
               })}
             >
-              <span>{currentUser.investmentsBalance < 0 ? "-" : ""}</span>
+              <span>
+                {parseFloat(currentUser.investmentsBalance) < 0 ? "-" : ""}
+              </span>
               <span>{currentUser.currency}</span>
-              {Math.abs(currentUser.investmentsBalance).toLocaleString()}
+              {Math.abs(
+                parseFloat(currentUser.investmentsBalance)
+              ).toLocaleString()}
             </span>
             <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
               Investments Balance
@@ -78,7 +83,7 @@ const Investments = async () => {
           <div className="flex flex-col items-center gap-y-1 sm:gap-y-2">
             <span className="text-2xl md:text-4xl">
               <span>{currentUser.currency}</span>
-              {Math.abs(currentUser.totalInvested).toLocaleString()}
+              {Math.abs(parseFloat(currentUser.totalInvested)).toLocaleString()}
             </span>
             <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
               Total Invested
@@ -88,7 +93,7 @@ const Investments = async () => {
 
         <div className="flex justify-center gap-x-12 items-center">
           <InvestAddEntry
-            initialBalance={currentUser.investmentsBalance}
+            initialBalance={parseFloat(currentUser.investmentsBalance)}
             currency={currentUser.currency as CurrencyType}
           />
         </div>
@@ -98,7 +103,7 @@ const Investments = async () => {
         <InvestmentCard
           initialInvestmentEntries={investmentEntries}
           currency={currentUser.currency as CurrencyType}
-          initialBalance={currentUser.investmentsBalance}
+          initialBalance={parseFloat(currentUser.investmentsBalance)}
         />
       </CardContent>
     </Card>

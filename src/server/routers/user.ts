@@ -34,25 +34,25 @@ export const userRouter = createTRPCRouter({
         db
           .update(books)
           .set({
-            monthIncome: input.monthlyIncome,
-            needsPercentage: input.needsPercentage,
-            wantsPercentage: input.wantsPercentage,
-            investmentsPercentage: input.investmentsPercentage,
+            monthIncome: input.monthlyIncome.toString(),
+            needsPercentage: input.needsPercentage.toString(),
+            wantsPercentage: input.wantsPercentage.toString(),
+            investmentsPercentage: input.investmentsPercentage.toString(),
           })
           .where(
             and(
               eq(books.userId, ctx.userId),
-              sql`MONTH(books.createdAt) = MONTH(NOW())`,
-              sql`YEAR(books.createdAt) = YEAR(NOW())`
+              sql`EXTRACT(MONTH FROM books."createdAt") = EXTRACT(MONTH FROM NOW())`,
+              sql`EXTRACT(YEAR FROM books."createdAt") = EXTRACT(YEAR FROM NOW())`
             )
           ),
         db
           .update(users)
           .set({
-            monthlyIncome: input.monthlyIncome,
-            needsPercentage: input.needsPercentage,
-            wantsPercentage: input.wantsPercentage,
-            investmentsPercentage: input.investmentsPercentage,
+            monthlyIncome: input.monthlyIncome.toString(),
+            needsPercentage: input.needsPercentage.toString(),
+            wantsPercentage: input.wantsPercentage.toString(),
+            investmentsPercentage: input.investmentsPercentage.toString(),
             currency: input.currency,
           })
           .where(eq(users.id, ctx.userId)),

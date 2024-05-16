@@ -62,7 +62,7 @@ export const DuePaid = ({
   }`;
 
   const handleSubmit = () => {
-    const insufficientBalance = entryDetails.amount > savingBalance;
+    const insufficientBalance = parseFloat(entryDetails.amount) > savingBalance;
 
     if (
       accountTypeSelected === "savings" &&

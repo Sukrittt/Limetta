@@ -57,12 +57,12 @@ const Dues = async () => {
           <div className="flex flex-col items-center gap-y-1 sm:gap-y-2">
             <span
               className={cn("text-2xl md:text-4xl", {
-                "text-danger-text": currentUser.duePayable < 0,
+                "text-danger-text": parseFloat(currentUser.duePayable) < 0,
               })}
             >
-              <span>{currentUser.duePayable < 0 ? "-" : ""}</span>
+              <span>{parseFloat(currentUser.duePayable) < 0 ? "-" : ""}</span>
               <span>{currentUser.currency}</span>
-              {Math.abs(currentUser.duePayable).toLocaleString()}
+              {Math.abs(parseFloat(currentUser.duePayable)).toLocaleString()}
             </span>
             <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
               Due Payable
@@ -71,12 +71,14 @@ const Dues = async () => {
           <div className="flex flex-col items-center gap-y-1 sm:gap-y-2">
             <span
               className={cn("text-2xl md:text-4xl", {
-                "text-danger-text": currentUser.dueReceivable < 0,
+                "text-danger-text": parseFloat(currentUser.dueReceivable) < 0,
               })}
             >
-              <span>{currentUser.dueReceivable < 0 ? "-" : ""}</span>
+              <span>
+                {parseFloat(currentUser.dueReceivable) < 0 ? "-" : ""}
+              </span>
               <span>{currentUser.currency}</span>
-              {Math.abs(currentUser.dueReceivable).toLocaleString()}
+              {Math.abs(parseFloat(currentUser.dueReceivable)).toLocaleString()}
             </span>
             <p className="text-xs sm:text-sm text-muted-foreground tracking-tight">
               Due Receivable
@@ -99,7 +101,7 @@ const Dues = async () => {
       <CardContent className="pt-8">
         <DueCard
           initialDues={dueEntries}
-          savingBalance={currentUser.savingsBalance}
+          savingBalance={parseFloat(currentUser.savingsBalance)}
           currency={currentUser.currency as CurrencyType}
         />
       </CardContent>

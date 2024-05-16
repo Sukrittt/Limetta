@@ -4,8 +4,8 @@ import { createTRPCRouter } from "@/server/trpc";
 
 import { db } from "@/db";
 import { dues, users } from "@/db/schema";
-import { userRouter } from "@/server/routers/user";
 import { privateProcedure } from "@/server/trpc";
+import { userRouter } from "@/server/routers/user";
 
 export const DueAddRouter = createTRPCRouter({
   addDueEntry: privateProcedure
@@ -39,7 +39,7 @@ export const DueAddRouter = createTRPCRouter({
 
       await db.insert(dues).values({
         userId: ctx.userId,
-        amount: input.amount,
+        amount: input.amount.toString(),
         entryName: input.description,
         dueDate: input.dueDate,
         dueType: input.dueType,

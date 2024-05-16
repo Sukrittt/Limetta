@@ -57,15 +57,15 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
   expenses.sort((a: any, b: any) => b.createdAt - a.createdAt);
 
   const needsTotal = expenses.reduce(
-    (acc, item) => (item.type === "need" ? acc + item.amount : acc),
+    (acc, item) => (item.type === "need" ? acc + parseInt(item.amount) : acc),
     0
   );
   const wantsTotal = expenses.reduce(
-    (acc, item) => (item.type === "want" ? acc + item.amount : acc),
+    (acc, item) => (item.type === "want" ? acc + parseInt(item.amount) : acc),
     0
   );
   const totalSaved =
-    expenseData.books[0].monthIncome - (needsTotal + wantsTotal);
+    parseInt(expenseData.books[0].monthIncome) - (needsTotal + wantsTotal);
 
   const { mutate: downloadEntries, isLoading } = useMutation({
     mutationFn: async () => {
@@ -80,7 +80,7 @@ export const MonthlyExpenseSheet: FC<MonthlyExpenseSheetProps> = ({
           needsTotal,
           wantsTotal,
           totalSaved,
-          monthIncome: expenseData.books[0].monthIncome,
+          monthIncome: parseInt(expenseData.books[0].monthIncome),
         },
       };
 

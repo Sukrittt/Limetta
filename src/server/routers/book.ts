@@ -1,8 +1,8 @@
 import { and, eq, gte, sql } from "drizzle-orm";
 
 import { db } from "@/db";
-import { Books, Needs, Wants, books, needs, wants } from "@/db/schema";
 import { createTRPCRouter, privateProcedure } from "@/server/trpc";
+import { Books, Needs, Wants, books, needs, wants } from "@/db/schema";
 
 function filterUniqueObjects(arr: any) {
   const uniqueMap = new Map();
@@ -73,8 +73,8 @@ export const bookRouter = createTRPCRouter({
       .where(
         and(
           eq(books.userId, ctx.userId),
-          sql`MONTH(books.createdAt) = MONTH(NOW())`,
-          sql`YEAR(books.createdAt) = YEAR(NOW())`
+          sql`EXTRACT(MONTH FROM books."createdAt") = EXTRACT(MONTH FROM NOW())`,
+          sql`EXTRACT(YEAR FROM books."createdAt") = EXTRACT(YEAR FROM NOW())`
         )
       )
       .leftJoin(needs, eq(books.id, needs.bookId))

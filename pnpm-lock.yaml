@@ -119,6 +119,9 @@ importers:
       next-themes:
         specifier: ^0.2.1
         version: 0.2.1(next@13.4.19(@babel/core@7.23.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      pg:
+        specifier: ^8.11.5
+        version: 8.11.5
       postcss:
         specifier: 8.4.29
         version: 8.4.29
@@ -10413,19 +10416,15 @@ snapshots:
   pg-cloudflare@1.1.1:
     optional: true
 
-  pg-connection-string@2.6.4:
-    optional: true
+  pg-connection-string@2.6.4: {}
 
-  pg-int8@1.0.1:
-    optional: true
+  pg-int8@1.0.1: {}
 
   pg-pool@3.6.2(pg@8.11.5):
     dependencies:
       pg: 8.11.5
-    optional: true
 
-  pg-protocol@1.6.1:
-    optional: true
+  pg-protocol@1.6.1: {}
 
   pg-types@2.2.0:
     dependencies:
@@ -10434,7 +10433,6 @@ snapshots:
       postgres-bytea: 1.0.0
       postgres-date: 1.0.7
       postgres-interval: 1.2.0
-    optional: true
 
   pg@8.11.5:
     dependencies:
@@ -10445,12 +10443,10 @@ snapshots:
       pgpass: 1.0.5
     optionalDependencies:
       pg-cloudflare: 1.1.1
-    optional: true
 
   pgpass@1.0.5:
     dependencies:
       split2: 4.2.0
-    optional: true
 
   picocolors@1.0.0: {}
 
@@ -10517,19 +10513,15 @@ snapshots:
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
-  postgres-array@2.0.0:
-    optional: true
+  postgres-array@2.0.0: {}
 
-  postgres-bytea@1.0.0:
-    optional: true
+  postgres-bytea@1.0.0: {}
 
-  postgres-date@1.0.7:
-    optional: true
+  postgres-date@1.0.7: {}
 
   postgres-interval@1.2.0:
     dependencies:
       xtend: 4.0.2
-    optional: true
 
   postgres@3.4.4: {}
 
@@ -10906,8 +10898,7 @@ snapshots:
 
   sourcemap-codec@1.4.8: {}
 
-  split2@4.2.0:
-    optional: true
+  split2@4.2.0: {}
 
   streamsearch@1.1.0: {}
 
@@ -11497,8 +11488,7 @@ snapshots:
 
   xmlchars@2.2.0: {}
 
-  xtend@4.0.2:
-    optional: true
+  xtend@4.0.2: {}
 
   yallist@3.1.1: {}
 

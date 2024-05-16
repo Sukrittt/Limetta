@@ -1,10 +1,8 @@
 {
-  "version": "5",
-  "dialect": "pg",
-  "id": "b6b2405f-90e1-49de-9c3f-e0210d44882b",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "account": {
+    "public.account": {
       "name": "account",
       "schema": "",
       "columns": {
@@ -88,7 +86,7 @@
       },
       "uniqueConstraints": {}
     },
-    "books": {
+    "public.books": {
       "name": "books",
       "schema": "",
       "columns": {
@@ -148,7 +146,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "dues": {
+    "public.dues": {
       "name": "dues",
       "schema": "",
       "columns": {
@@ -220,7 +218,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "investments": {
+    "public.investments": {
       "name": "investments",
       "schema": "",
       "columns": {
@@ -286,7 +284,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "miscellaneous": {
+    "public.miscellaneous": {
       "name": "miscellaneous",
       "schema": "",
       "columns": {
@@ -351,7 +349,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "needs": {
+    "public.needs": {
       "name": "needs",
       "schema": "",
       "columns": {
@@ -404,7 +402,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "reports": {
+    "public.reports": {
       "name": "reports",
       "schema": "",
       "columns": {
@@ -439,7 +437,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "savings": {
+    "public.savings": {
       "name": "savings",
       "schema": "",
       "columns": {
@@ -504,7 +502,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "session": {
+    "public.session": {
       "name": "session",
       "schema": "",
       "columns": {
@@ -532,7 +530,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "user": {
+    "public.user": {
       "name": "user",
       "schema": "",
       "columns": {
@@ -649,7 +647,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "verificationToken": {
+    "public.verificationToken": {
       "name": "verificationToken",
       "schema": "",
       "columns": {
@@ -685,7 +683,7 @@
       },
       "uniqueConstraints": {}
     },
-    "wants": {
+    "public.wants": {
       "name": "wants",
       "schema": "",
       "columns": {
@@ -745,5 +743,7 @@
     "schemas": {},
     "tables": {},
     "columns": {}
-  }
+  },
+  "id": "b6b2405f-90e1-49de-9c3f-e0210d44882b",
+  "prevId": "00000000-0000-0000-0000-000000000000"
 }

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "drizzle-kit generate:pg",
+    "postinstall": "drizzle-kit generate",
     "db:push": "drizzle-kit push:pg",
     "db:introspect": "drizzle-kit introspect:pg",
     "db:studio": "drizzle-kit studio --host 127.0.0.1"

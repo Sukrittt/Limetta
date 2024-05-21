@@ -167,16 +167,16 @@ const Dashboard = async () => {
                       <div className="flex flex-col">
                         <span>
                           Needs:{" "}
-                          {`${currentUser.currency}${needShare.toFixed(1)}`}
+                          {`${currentUser.currency}${parseInt(needShare)}`}
                         </span>
                         <span>
                           Wants:{" "}
-                          {`${currentUser.currency}${wantShare.toFixed(1)}`}
+                          {`${currentUser.currency}${parseInt(wantShare)}`}
                         </span>
                         <span>
                           Investments:{" "}
-                          {`${currentUser.currency}${investmentShare.toFixed(
-                            1
+                          {`${currentUser.currency}${parseInt(
+                            investmentShare
                           )}`}
                         </span>
                       </div>
@@ -185,9 +185,9 @@ const Dashboard = async () => {
 
                         <div className="flex items-center">
                           <span>
-                            {`${
-                              currentUser.currency
-                            }${currentMonthIncome.toFixed(1)}`}
+                            {`${currentUser.currency}${parseInt(
+                              currentMonthIncome
+                            )}`}
                           </span>
                         </div>
                       </div>

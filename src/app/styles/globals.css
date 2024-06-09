@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
 
 @layer base {
   * {
@@ -15,4 +14,10 @@
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+@media screen and (max-width: 640px) {
+  [data-slot="tabList"] {
+    flex-wrap: wrap !important;
+  }
 }

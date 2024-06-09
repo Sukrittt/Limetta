@@ -48,10 +48,11 @@ export const investmentRouter = createTRPCRouter({
           await db
             .update(users)
             .set({
-              investmentsBalance:
-                currentUser.investmentsBalance +
+              investmentsBalance: (
+                parseFloat(currentUser.investmentsBalance) +
                 input.investedAmount +
-                input.amount,
+                input.amount
+              ).toString(),
             })
             .where(eq(users.id, ctx.userId));
         } else {

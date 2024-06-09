@@ -181,7 +181,6 @@ export const InvestAddEntryForm = ({
 
           <div className="flex flex-col gap-y-2">
             <Tabs
-              className="flex gap-0"
               aria-label="Options"
               disabledKeys={["or"]}
               selectedKey={tabSelected}
@@ -221,7 +220,7 @@ export const InvestAddEntryForm = ({
                   </NextUIBody>
                 </NextUICard>
               </Tab>
-              <Tab key="or" title="OR" className="p-0" />
+              <Tab key="or" title="OR" className="p-0 hidden sm:block" />
               <Tab
                 key="custom"
                 title="Share price and quantity"

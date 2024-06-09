@@ -160,7 +160,6 @@ export const team = [
   },
 ];
 
-//TODO: Limetta insta handle, email, twitter
 export const contact = [
   {
     id: 1,

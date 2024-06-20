@@ -24,7 +24,7 @@ export const bookRouter = createTRPCRouter({
       .where(
         and(
           eq(books.userId, ctx.userId),
-          gte(books.createdAt, sql`DATE_SUB(NOW(), INTERVAL 12 MONTH)`)
+          sql`books."createdAt" >= NOW() - INTERVAL '12 months'`
         )
       )
       .leftJoin(needs, eq(books.id, needs.bookId))

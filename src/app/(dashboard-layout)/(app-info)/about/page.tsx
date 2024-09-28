@@ -100,7 +100,7 @@ const About = () => {
             </ul>
           </div>
 
-          <div>
+          {/* <div>
             <h1 className="text-xl font-semibold tracking-tight">Team</h1>
             <Divider className="mt-2 mb-4" />
             <ul className="space-y-2 mx-5 mt-2">
@@ -117,7 +117,7 @@ const About = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
 
           <div className="w-full flex justify-end items-center">
             <Link
